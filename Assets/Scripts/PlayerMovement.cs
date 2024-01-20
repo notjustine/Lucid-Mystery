@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public float directionSize = 0.3f;
@@ -12,6 +12,7 @@ public class CharMovement : MonoBehaviour
     public KeyCode moveBackward = KeyCode.DownArrow;
     public KeyCode moveLeft = KeyCode.LeftArrow;
     public KeyCode moveRight = KeyCode.RightArrow;
+    public KeyCode attack = KeyCode.Mouse0;
 
     // Update is called once per frame
     void Update()
@@ -40,5 +41,14 @@ public class CharMovement : MonoBehaviour
             direction = Quaternion.Euler(0f, cam.eulerAngles.y, 0f) * direction;
             controller.Move(direction * directionSize);
         }
+        if (Input.GetKey(attack))
+        {
+            Attack();
+        }
+    }
+
+    void Attack()
+    {
+        return;
     }
 }
