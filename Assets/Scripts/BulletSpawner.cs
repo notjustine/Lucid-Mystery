@@ -1,62 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
 {
     private GameObject _player;
     private GameObject _boss;
-    private GameObject _bullet;
+
+    public GameObject bulletPrefab; // Assign this in the Inspector
 
     private Transform _playerTransform;
     private Transform _bossTransform;
-    private Transform _bulletTransform;
-    private Rigidbody _bulletBody;
-    private Vector3 _bulletDirection;
-    private bool _hasShot;
 
-    // should have a public class that generate a "fired" event
-
-    // // Start is called before the first frame update
     void Start()
     {
-        // get position of player
         _player = GameObject.FindWithTag("Player");
         _boss = GameObject.FindWithTag("Boss");
 
-        _playerTransform = _player.GetComponent<Transform>();
-        // get position of boss
-        _bossTransform = _boss.GetComponent<Transform>();
-
+        _playerTransform = _player.transform;
+        _bossTransform = _boss.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        // capture space input
-        _hasShot = Input.GetButton("Jump");   // maps to spacebar by default
-
+        if (Input.GetButtonDown("Jump")) // Use GetButtonDown for a single event
+        {
+            ShootBullet();
+        }
     }
 
-    void FixedUpdate()
+    private void ShootBullet()
     {
+        Vector3 direction = (_bossTransform.position - _playerTransform.position).normalized;
+        Quaternion bulletRotation = Quaternion.LookRotation(direction);
 
-        if (_hasShot)
-        {
-            // apply player position to the bullet
-            // _bulletDirection = _player.transform.position - _bossTransform.position;
-            _bulletDirection = Vector3.MoveTowards(_playerTransform.position, _bossTransform.position, 5f);
+        GameObject bullet = Instantiate(bulletPrefab, _playerTransform.position, bulletRotation);
 
-            Quaternion bulletRotation = Quaternion.LookRotation(_bulletDirection);
-            _bullet = GameObject.Instantiate(Resources.Load("Bullet"),
-         _playerTransform.position, bulletRotation) as GameObject;
-
-            // apply a velocity to bullet in direction of boss
-            _bulletBody = _bullet.GetComponent<Rigidbody>();
-            _bulletBody.AddForce(_bulletDirection * 5, ForceMode.VelocityChange);
-            _hasShot = false;
-        }
-
+        Rigidbody bulletBody = bullet.GetComponent<Rigidbody>();
+        bulletBody.AddForce(-(direction * 5), ForceMode.VelocityChange);
     }
 }
