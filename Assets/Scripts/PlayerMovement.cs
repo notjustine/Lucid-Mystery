@@ -26,19 +26,19 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(moveForward))
             {
-                direction += Vector3.forward;
+                direction += cam.forward;
             }
             if (Input.GetKey(moveBackward))
             {
-                direction += Vector3.back;
+                direction -= cam.forward;
             }
             if (Input.GetKey(moveLeft))
             {
-                direction += Vector3.left;
+                direction -= cam.right;
             }
             if (Input.GetKey(moveRight))
             {
-                direction += Vector3.right;
+                direction += cam.right;
             }
 
             if (direction != Vector3.zero)
