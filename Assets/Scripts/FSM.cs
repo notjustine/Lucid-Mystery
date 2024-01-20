@@ -19,10 +19,8 @@ public class Parameter
     public Transform[] chasePoints;
     public Transform target;
     public LayerMask targetLayer;
-    public Transform attackPoint;
-    public float attackArea;
-    public float attackDamage;
     public Animator animator;
+    public float rotationSpeed = 5f; // Add rotation speed
 }
 
 public class FSM : MonoBehaviour
@@ -49,6 +47,15 @@ public class FSM : MonoBehaviour
     void Update()
     {
         currentState.OnUpdate();
+
+        if (parameter.target != null)
+        {
+            // Rotate towards the player
+            Vector3 direction = parameter.target.position - transform.position;
+            direction.y = 0; // Keep the rotation in the horizontal plane
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * parameter.rotationSpeed);
+        }
     }
 
     public void TransitionState(StateType type)

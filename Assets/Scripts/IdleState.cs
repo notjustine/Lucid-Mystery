@@ -108,10 +108,6 @@ public class ChaseState : IState
         {
             manager.TransitionState(StateType.Search);
         }
-        if(Physics2D.OverlapCircle(parameter.attackPoint.position, parameter.attackArea, parameter.targetLayer))
-        {
-            manager.TransitionState(StateType.Attack);
-        }
     }
     public void OnExit()
     {
