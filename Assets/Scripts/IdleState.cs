@@ -108,10 +108,6 @@ public class ChaseState : IState
         {
             manager.TransitionState(StateType.Search);
         }
-        if(Physics2D.OverlapCircle(parameter.attackPoint.position, parameter.attackArea, parameter.targetLayer))
-        {
-            manager.TransitionState(StateType.Attack);
-        }
     }
     public void OnExit()
     {
@@ -186,7 +182,7 @@ public class AttackState : IState
     private FSM manager;
     private Parameter parameter;
     private AnimatorStateInfo info;
-    [SerializeField] private HealthController healthController = GameObject.Find("Mainchar").GetComponent<HealthController>();
+    [SerializeField] private HealthController healthController = GameObject.Find("DylanPlayer").GetComponent<HealthController>();
 
     public AttackState(FSM manager)
     {
