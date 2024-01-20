@@ -182,7 +182,7 @@ public class AttackState : IState
     private FSM manager;
     private Parameter parameter;
     private AnimatorStateInfo info;
-    [SerializeField] private HealthController healthController = GameObject.Find("Mainchar").GetComponent<HealthController>();
+    [SerializeField] private HealthController healthController = GameObject.Find("DylanPlayer").GetComponent<HealthController>();
 
     public AttackState(FSM manager)
     {
