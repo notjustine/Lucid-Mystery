@@ -48,6 +48,8 @@ ExportedObj/
 *.VC.db
 *.vscode/
 *.idea/
+.DS_Store
+.vsconfig
 
 # Unity3D generated meta files
 *.pidb.meta
