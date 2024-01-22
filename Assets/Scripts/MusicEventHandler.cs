@@ -4,66 +4,69 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     public EventReference fmodEvent;
-    
     private EventInstance eventInstance;
     private EVENT_CALLBACK beatCallback;
-    
-    // private AudioManager audioManager;
+
+    private static bool beatCheck = false;
     void Start()
     {
-        eventInstance = RuntimeManager.CreateInstance(fmodEvent);
-        // eventInstance = audioManager.CreateEventInstance(fmodEvent);
-        eventInstance.setCallback(OnMarkerReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT | EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance = AudioManager.instance.CreateEventInstance(fmodEvent);
+        // GCHandle handle1 = GCHandle.Alloc(this);
+        // eventInstance.setUserData((IntPtr) handle1);
+        eventInstance.setCallback(OnBeatReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
         eventInstance.start();        
     }
     
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
-    private static RESULT OnMarkerReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
+    private static RESULT OnBeatReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
     {
         EventInstance callBackInstance = new EventInstance(instance);
-        RESULT result = callBackInstance.getUserData(out IntPtr timelineInfoPtr);
-        if (result != RESULT.OK)
-            Debug.LogError("Timeline Callback error: " + result);
+        // MusicEventHandler musicEventHandler;
+        // RESULT result = callBackInstance.getUserData(out IntPtr musicEventHandlerPtr);
+        // if (result != RESULT.OK)
+        //     Debug.LogError("Timeline Callback error: " + result);
+        // GCHandle test = (GCHandle)musicEventHandlerPtr;
+        // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
 
         
         var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
         var beat = parameter.beat;
-        Debug.Log("Beat " + beat);
         if (beat % 3 == 0)
         {
-            Debug.Log("INPUT CHECK");
-            CheckInputBasedOnMarker();
+            beatCheck = true;
+            // Debug.Log("INPUT CHECK");
         }
-        
+        else
+        {
+            beatCheck = false;
+        }
         return RESULT.OK;
     }
     
-    
-    // This works but I think there is a better way to do this
-    private static void CheckInputBasedOnMarker()
-    {
-        bool test = Input.GetButton("Fire1");
-        Debug.Log(test);
-    }
     private void OnDestroy()
     {
         eventInstance.release();
     }
     
-    
-    
     // Update is called once per frame
     void Update()
     {
-        // clicked = Input.GetButton("Fire1");
-        // if (clicked)
-        //     Debug.Log(clicked);
+        if (beatCheck)
+        {
+            InputIndicator.Instance.color = Color.green;
+            InputIndicator.Instance.IncrementHitCounter();
+        }
+        else
+        {
+            InputIndicator.Instance.color = Color.red;
+        }
     }
     
 
