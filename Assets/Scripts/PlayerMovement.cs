@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    public float directionSize = 10f;
+    public float directionSize = 20f;
     public Transform cam;
 
     public KeyCode moveForward = KeyCode.UpArrow;
@@ -28,24 +28,25 @@ public class PlayerMovement : MonoBehaviour
             {
                 direction += cam.forward;
             }
-            if (Input.GetKey(moveBackward))
+            else if (Input.GetKey(moveBackward))
             {
                 direction -= cam.forward;
             }
-            if (Input.GetKey(moveLeft))
+            else if (Input.GetKey(moveLeft))
             {
                 direction -= cam.right;
             }
-            if (Input.GetKey(moveRight))
+            else if (Input.GetKey(moveRight))
             {
                 direction += cam.right;
             }
 
             if (direction != Vector3.zero)
             {
-                direction = Quaternion.Euler(0f, cam.eulerAngles.y, 0f) * direction;
-                controller.Move(direction * directionSize);
-                lastMoveTime = Time.time; // Update the last movement time
+                direction.Normalize(); // Normalize the direction vector
+                direction.y = 0f;
+                controller.Move(direction * directionSize); // Multiply by Time.deltaTime
+                lastMoveTime = Time.time; // Update the last movement time 
             }
         }
         if (Input.GetKey(attack))
