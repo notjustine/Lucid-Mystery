@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public float directionSize = 20f;
     public Transform cam;
+    public static PlayerMovement Instance { get; private set; }
 
     public KeyCode moveForward = KeyCode.UpArrow;
     public KeyCode moveBackward = KeyCode.DownArrow;
@@ -14,8 +15,18 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode moveRight = KeyCode.RightArrow;
     public KeyCode attack = KeyCode.Mouse0;
 
-    private float movementCooldown = 0.3f;
+    private float movementCooldown = 0.2f;
     private float lastMoveTime;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("Found more than one Input Indicator");
+        }
+
+        Instance = this;
+    }
 
     // Update is called once per frame
     void Update()
