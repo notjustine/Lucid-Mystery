@@ -60,12 +60,12 @@ public class MusicEventHandler : MonoBehaviour
     {
         if (beatCheck)
         {
-            InputIndicator.Instance.color = Color.green;
-            InputIndicator.Instance.IncrementHitCounter();
+            PlayerMovement.Instance.color = Color.green;
+            PlayerMovement.Instance.UpdateInputHelper();
         }
         else
         {
-            InputIndicator.Instance.color = Color.red;
+            PlayerMovement.Instance.color = Color.red;
         }
     }
     

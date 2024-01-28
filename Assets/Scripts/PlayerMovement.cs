@@ -15,7 +15,10 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode moveRight = KeyCode.RightArrow;
     public KeyCode attack = KeyCode.Mouse0;
 
-    private float movementCooldown = 0.2f;
+    public Color color;
+    public Material material;
+
+    private float movementCooldown = 0.5f;
     private float lastMoveTime;
 
     private void Awake()
@@ -28,9 +31,9 @@ public class PlayerMovement : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateInputHelper()
     {
+        
         if (Time.time - lastMoveTime >= movementCooldown)
         {
             Vector3 direction = Vector3.zero;
@@ -60,6 +63,13 @@ public class PlayerMovement : MonoBehaviour
                 lastMoveTime = Time.time; // Update the last movement time 
             }
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        material.color = color;
+        // UpdateInputHelper();
         if (Input.GetKey(attack))
         {
             Attack();
