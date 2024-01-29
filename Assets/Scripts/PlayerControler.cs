@@ -16,12 +16,9 @@ public class PlayerControl : MonoBehaviour
     private SliceSection currentSection = SliceSection.Middle;
 
     // Movement Updates
-    private bool up;
-    private bool down;
-    private bool left;
-    private bool right;
     private float lastMoveTime;
-    private float movementCooldown = 0.5f;
+    private float movementCooldown = 1f;
+    public bool inputted { get; set; }
     
     Vector3 GetSliceCenterPoint(float radius, float angle, float sliceAngle)
     {
@@ -36,6 +33,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         // Initialize the slice centers array
+        // lastMoveTime = Time.time;
         sliceCenters = new Vector3[numberOfSlices];
         float sliceAngle = 360f / numberOfSlices;
         for (int i = 0; i < numberOfSlices; i++)
@@ -49,38 +47,31 @@ public class PlayerControl : MonoBehaviour
 
     public void AllowMove()
     {
-
-        if (Time.time - lastMoveTime >= movementCooldown)
-        {
-            Vector3 direction = Vector3.zero;
-            if (right)
+        // if (Time.time - lastMoveTime >= movementCooldown)
+        // {
+            
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 MoveToNextSlice();
             }
-
-            if (left)
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 MoveToPreviousSlice();
             }
-
-            if (up)
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 MoveOneLayerUp();
             }
-            else if (down)
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 MoveOneLayerDown();
             }
-            lastMoveTime = Time.time; // Update the last movement time
-        }
+        // }
     }
     void Update()
     {
         // Check for player input
-        right = Input.GetKeyDown(KeyCode.RightArrow);
-        left = Input.GetKeyDown(KeyCode.LeftArrow);
-        up = Input.GetKeyDown(KeyCode.UpArrow);
-        down = Input.GetKeyDown(KeyCode.DownArrow);
+
     }
 
     void MoveToNextSlice()
@@ -137,7 +128,7 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 sliceCenter = sliceCenters[currentSliceIndex];
         float distanceMultiplier = 1.0f;
-
+        
         switch (currentSection)
         {
             case SliceSection.Top:
@@ -158,5 +149,6 @@ public class PlayerControl : MonoBehaviour
         newPosition.y = heightAboveSlices;
 
         transform.position = newPosition;
+        inputted = true;
     }
 }

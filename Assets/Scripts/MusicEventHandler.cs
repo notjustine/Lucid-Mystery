@@ -67,13 +67,15 @@ public class MusicEventHandler : MonoBehaviour
             // PlayerMovement.Instance.UpdateInputHelper();
             // player;
             InputIndicator.Instance.color = Color.green;
-            player.AllowMove();
+            if (!player.inputted)
+                player.AllowMove();
         }
         else
         {
             InputIndicator.Instance.color = Color.red;
+            player.inputted = false;
             // PlayerMovement.Instance.color = Color.red;
-            
+
         }
     }
     
