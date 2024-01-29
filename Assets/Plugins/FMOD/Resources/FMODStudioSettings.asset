@@ -630,8 +630,12 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - FMOD/Desktop/Master
+  - Desktop/Master
+  Banks:
+  - Desktop/Testing
+  - FMOD/Desktop/Testing
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
