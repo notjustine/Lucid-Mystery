@@ -13,8 +13,8 @@ public class InputIndicator : MonoBehaviour
     // public Transform transform { get; private set; }
     public Material material;
     public Color color;
-    public Text hitText;
-    private int counter = 0;
+    // public Text hitText;
+    // private int counter = 0;
     private void Awake()
     {
         if (Instance != null)
@@ -37,16 +37,5 @@ public class InputIndicator : MonoBehaviour
         // if (!clicked)
         clicked = Input.GetButtonDown("Jump");
         material.color = color;
-    }
-    
-    public void IncrementHitCounter()
-    {
-        if (clicked)
-        {
-            counter++;
-            hitText.text = "Hits: " + counter;
-        }
-
-        clicked = false;
     }
 }

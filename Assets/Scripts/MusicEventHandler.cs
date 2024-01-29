@@ -14,9 +14,12 @@ public class MusicEventHandler : MonoBehaviour
     private EventInstance eventInstance;
     private EVENT_CALLBACK beatCallback;
 
+    private PlayerControl player;
+
     private static bool beatCheck = false;
     void Start()
     {
+        player = FindObjectOfType<PlayerControl>();
         eventInstance = AudioManager.instance.CreateEventInstance(fmodEvent);
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
@@ -60,12 +63,17 @@ public class MusicEventHandler : MonoBehaviour
     {
         if (beatCheck)
         {
-            PlayerMovement.Instance.color = Color.green;
-            PlayerMovement.Instance.UpdateInputHelper();
+            // PlayerMovement.Instance.color = Color.green;
+            // PlayerMovement.Instance.UpdateInputHelper();
+            // player;
+            InputIndicator.Instance.color = Color.green;
+            player.AllowMove();
         }
         else
         {
-            PlayerMovement.Instance.color = Color.red;
+            InputIndicator.Instance.color = Color.red;
+            // PlayerMovement.Instance.color = Color.red;
+            
         }
     }
     

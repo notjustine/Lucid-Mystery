@@ -14,6 +14,15 @@ public class PlayerControl : MonoBehaviour
     public float bottomRatio = 0.75f;
     private enum SliceSection { Top, Middle, Bottom }
     private SliceSection currentSection = SliceSection.Middle;
+
+    // Movement Updates
+    private bool up;
+    private bool down;
+    private bool left;
+    private bool right;
+    private float lastMoveTime;
+    private float movementCooldown = 0.5f;
+    
     Vector3 GetSliceCenterPoint(float radius, float angle, float sliceAngle)
     {
         // Calculate the bisector angle for the slice
@@ -38,25 +47,40 @@ public class PlayerControl : MonoBehaviour
         transform.position = sliceCenters[0];
     }
 
+    public void AllowMove()
+    {
+
+        if (Time.time - lastMoveTime >= movementCooldown)
+        {
+            Vector3 direction = Vector3.zero;
+            if (right)
+            {
+                MoveToNextSlice();
+            }
+
+            if (left)
+            {
+                MoveToPreviousSlice();
+            }
+
+            if (up)
+            {
+                MoveOneLayerUp();
+            }
+            else if (down)
+            {
+                MoveOneLayerDown();
+            }
+            lastMoveTime = Time.time; // Update the last movement time
+        }
+    }
     void Update()
     {
         // Check for player input
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MoveToNextSlice();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            MoveToPreviousSlice();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            MoveOneLayerUp();
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            MoveOneLayerDown();
-        }
+        right = Input.GetKeyDown(KeyCode.RightArrow);
+        left = Input.GetKeyDown(KeyCode.LeftArrow);
+        up = Input.GetKeyDown(KeyCode.UpArrow);
+        down = Input.GetKeyDown(KeyCode.DownArrow);
     }
 
     void MoveToNextSlice()
