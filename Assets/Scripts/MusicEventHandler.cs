@@ -14,7 +14,7 @@ public class MusicEventHandler : MonoBehaviour
 
     private PlayerControl player;
 
-    private static bool beatCheck = false;
+    public static bool beatCheck { get; private set; } = false;
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
@@ -69,8 +69,6 @@ public class MusicEventHandler : MonoBehaviour
         if (beatCheck)
         {
             InputIndicator.Instance.color = Color.green;
-            if (!player.inputted)
-                player.AllowMove();
         }
         else
         {

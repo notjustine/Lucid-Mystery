@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -22,9 +23,7 @@ public class PlayerControl : MonoBehaviour
     //private SliceSection currentSection = SliceSection.Middle;
     private SliceSection currentSection = SliceSection.Bot;
     // Movement Updates
-    private float lastMoveTime;
-    private float movementCooldown = 1f;
-    public bool inputted { get; set; }
+    public bool inputted { get;  set; }
     
     Vector3 GetSliceCenterPoint(float radius, float angle, float sliceAngle)
     {
@@ -39,7 +38,6 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         // Initialize the slice centers array
-        // lastMoveTime = Time.time;
         sliceCenters = new Vector3[numberOfSlices];
         float sliceAngle = 360f / numberOfSlices;
         for (int i = 0; i < numberOfSlices; i++)
@@ -51,28 +49,34 @@ public class PlayerControl : MonoBehaviour
         transform.position = sliceCenters[0];
     }
 
-    public void AllowMove()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // if (Time.time - lastMoveTime >= movementCooldown)
-        // {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
+        if (!MusicEventHandler.beatCheck)
+            return;
+
+        if (context.phase != InputActionPhase.Started || inputted)
+            return;
+        
+        Vector2 move = context.ReadValue<Vector2>();
+        bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
+
+        if (xDominantAxis)
+        {
+            if (move.x > 0)
                 MoveToNextSlice();
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
+            else if (move.x < 0)
                 MoveToPreviousSlice();
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
+        }
+        else
+        {
+            if (move.y > 0)
                 MoveOneLayerUp();
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
+            else if (move.y < 0)
                 MoveOneLayerDown();
-            }
-        // }
+        }
+        
     }
+    
     void Update()
     {
         // Check for player input
