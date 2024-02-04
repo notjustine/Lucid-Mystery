@@ -22,6 +22,9 @@ public class PlayerControl : MonoBehaviour
     private enum SliceSection { Top, MidTop, MidBot, Bot}
     //private SliceSection currentSection = SliceSection.Middle;
     private SliceSection currentSection = SliceSection.Bot;
+    private Animator animator;
+    private Transform player;
+    public Transform cameraTransform;   
     // Movement Updates
     public bool inputted { get;  set; }
     
@@ -37,6 +40,8 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        player = GetComponent<Transform>();
         // Initialize the slice centers array
         sliceCenters = new Vector3[numberOfSlices];
         float sliceAngle = 360f / numberOfSlices;
@@ -54,12 +59,16 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
-        if (context.phase != InputActionPhase.Started || inputted)
+        if (context.phase == InputActionPhase.Started) {
+            if (inputted)
+                return;
+            animator.SetTrigger("Jump");
             return;
+        }
         
         Vector2 move = context.ReadValue<Vector2>();
         bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
-
+        // animator.SetTrigger("Jump");
         if (xDominantAxis)
         {
             if (move.x > 0)
@@ -76,11 +85,24 @@ public class PlayerControl : MonoBehaviour
         }
         
     }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!MusicEventHandler.beatCheck)
+            return;
+        
+        if (context.phase != InputActionPhase.Started || inputted)
+            return;
+
+        inputted = true;
+        animator.SetTrigger("Attack");
+    }
+    
     
     void Update()
     {
         // Check for player input
-
+        player.rotation = cameraTransform.rotation;
     }
 
     void MoveToNextSlice()
@@ -203,7 +225,9 @@ public class PlayerControl : MonoBehaviour
         // Keep the y-coordinate (height) constant
         newPosition.y = heightAboveSlices;
 
+        
         transform.position = newPosition;
+        
         inputted = true;
     }
 }
