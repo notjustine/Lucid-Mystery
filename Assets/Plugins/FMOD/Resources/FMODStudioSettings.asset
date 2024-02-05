@@ -631,11 +631,11 @@ MonoBehaviour:
   RealChannelSettings: []
   Plugins: []
   MasterBanks:
-  - FMOD/Desktop/Master
+  - Master
   - Desktop/Master
   Banks:
   - Desktop/Testing
-  - FMOD/Desktop/Testing
+  - Testing
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
