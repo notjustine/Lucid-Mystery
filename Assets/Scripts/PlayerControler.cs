@@ -42,7 +42,9 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
+        
+        // animator = GetComponent<Animator>();
         player = GetComponent<Transform>();
         // Initialize the slice centers array
         sliceCenters = new Vector3[numberOfSlices];
@@ -64,7 +66,7 @@ public class PlayerControl : MonoBehaviour
         if (context.phase == InputActionPhase.Started) {
             if (inputted)
                 return;
-            animator.SetTrigger("Jump");
+            // animator.SetTrigger("Jump");
             return;
         }
         
@@ -98,7 +100,7 @@ public class PlayerControl : MonoBehaviour
         
         // Debug.Log("ATTACK");
         inputted = true;
-        // animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
         AudioManager.instance.PlayOneShot(attackSound, player.position);
     }
     

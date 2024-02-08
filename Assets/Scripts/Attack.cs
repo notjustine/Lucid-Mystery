@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,5 +15,15 @@ public class Attack : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Debug.Log("Collision");
+        if (collision.gameObject.tag == "Boss")
+        {
+            Debug.Log("Enemy Hit");
+            // Destroy(collision.gameObject);
+        }
     }
 }
