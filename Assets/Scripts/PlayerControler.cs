@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +25,8 @@ public class PlayerControl : MonoBehaviour
     private SliceSection currentSection = SliceSection.Bot;
     private Animator animator;
     private Transform player;
-    public Transform cameraTransform;   
+    public Transform cameraTransform; 
+    public EventReference attackSound;
     // Movement Updates
     public bool inputted { get;  set; }
     
@@ -93,9 +95,11 @@ public class PlayerControl : MonoBehaviour
         
         if (context.phase != InputActionPhase.Started || inputted)
             return;
-
+        
+        // Debug.Log("ATTACK");
         inputted = true;
-        animator.SetTrigger("Attack");
+        // animator.SetTrigger("Attack");
+        AudioManager.instance.PlayOneShot(attackSound, player.position);
     }
     
     
