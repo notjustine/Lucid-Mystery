@@ -632,9 +632,8 @@ MonoBehaviour:
   Plugins: []
   MasterBanks:
   - Master
-  - Desktop/Master
   Banks:
-  - Desktop/Testing
+  - Sfx
   - Testing
   BanksToLoad: []
   LiveUpdatePort: 9264
