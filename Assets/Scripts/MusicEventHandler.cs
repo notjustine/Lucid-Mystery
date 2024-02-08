@@ -4,8 +4,6 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
-using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
 {
@@ -21,6 +19,8 @@ public class MusicEventHandler : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControl>();
         eventInstance = AudioManager.instance.CreateEventInstance(fmodEvent);
+        
+        // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
         eventInstance.setCallback(OnBeatReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
@@ -30,7 +30,8 @@ public class MusicEventHandler : MonoBehaviour
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
     private static RESULT OnBeatReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
     {
-        EventInstance callBackInstance = new EventInstance(instance);
+        // ** This is reference code in case we need to pass data to the callback
+        // EventInstance callBackInstance = new EventInstance(instance);
         // MusicEventHandler musicEventHandler;
         // RESULT result = callBackInstance.getUserData(out IntPtr musicEventHandlerPtr);
         // if (result != RESULT.OK)
@@ -41,14 +42,18 @@ public class MusicEventHandler : MonoBehaviour
         
         var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
         var beat = parameter.beat;
-        if (beat % 3 == 0)
+        switch (beat)
         {
-            beatCheck = true;
-            // Debug.Log("INPUT CHECK");
-        }
-        else
-        {
-            beatCheck = false;
+            case 1:
+                beatCheck = true;
+                break;
+            case 3:
+                beatCheck = true;
+                break;
+
+            default:
+                beatCheck = false;
+                break;
         }
         return RESULT.OK;
     }
@@ -63,9 +68,6 @@ public class MusicEventHandler : MonoBehaviour
     {
         if (beatCheck)
         {
-            // PlayerMovement.Instance.color = Color.green;
-            // PlayerMovement.Instance.UpdateInputHelper();
-            // player;
             InputIndicator.Instance.color = Color.green;
             if (!player.inputted)
                 player.AllowMove();
@@ -74,8 +76,6 @@ public class MusicEventHandler : MonoBehaviour
         {
             InputIndicator.Instance.color = Color.red;
             player.inputted = false;
-            // PlayerMovement.Instance.color = Color.red;
-
         }
     }
     

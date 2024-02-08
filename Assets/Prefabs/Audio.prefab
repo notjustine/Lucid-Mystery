@@ -79,11 +79,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fmodEvent:
     Guid:
-      Data1: 1047048522
-      Data2: 1173221072
-      Data3: -221671766
-      Data4: -1495255341
-    Path: event:/Music
+      Data1: 1601789897
+      Data2: 1319568600
+      Data3: -1635706712
+      Data4: 814325173
+    Path: event:/TestingClickTrackEveryBeat
 --- !u!1 &7841402060049271408
 GameObject:
   m_ObjectHideFlags: 0
