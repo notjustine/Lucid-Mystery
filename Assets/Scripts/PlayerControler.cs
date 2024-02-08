@@ -11,18 +11,14 @@ public class PlayerControl : MonoBehaviour
     private Vector3[] sliceCenters;
     private int currentSliceIndex = 0;
     public float heightAboveSlices = 1.0f; // Adjust this value as needed
-    //public float topRatio = 0.25f;
-    //public float middleRatio = 0.50f;
-    //public float bottomRatio = 0.75f;
 
     public float topRatio = 0.40f;
     public float midTopRatio = 0.60f;
     public float midBotRatio = 0.80f;
     public float botRatio = 1f;
-    //private enum SliceSection { Top, Middle, Bottom }
     private enum SliceSection { Top, MidTop, MidBot, Bot}
-    //private SliceSection currentSection = SliceSection.Middle;
     private SliceSection currentSection = SliceSection.Bot;
+    
     private Animator animator;
     private Transform player;
     public Transform cameraTransform; 
@@ -101,7 +97,6 @@ public class PlayerControl : MonoBehaviour
         // Debug.Log("ATTACK");
         inputted = true;
         animator.SetTrigger("Attack");
-        AudioManager.instance.PlayOneShot(attackSound, player.position);
     }
     
     

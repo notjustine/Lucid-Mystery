@@ -19,9 +19,10 @@ public class Attack : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Debug.Log("Collision");
-        if (collision.gameObject.tag == "Boss")
+        if (collision.gameObject.CompareTag("Boss"))
         {
+            // Debug.Log("Collision");
+            AudioManager.instance.PlayOneShot(SoundRef.Instance.attackSound, gameObject.transform.position);
             Debug.Log("Enemy Hit");
             // Destroy(collision.gameObject);
         }
