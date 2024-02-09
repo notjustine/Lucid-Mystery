@@ -8,17 +8,18 @@ using FMODUnity;
 public class MusicEventHandler : MonoBehaviour
 {
     // Start is called before the first frame update
-    public EventReference fmodEvent;
+    private EventReference backgroundTrack;
     private EventInstance eventInstance;
     private EVENT_CALLBACK beatCallback;
 
     private PlayerControl player;
 
-    private static bool beatCheck = false;
+    public static bool beatCheck { get; private set; } = false;
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
-        eventInstance = AudioManager.instance.CreateEventInstance(fmodEvent);
+        backgroundTrack = SoundRef.Instance.backgroundTrack;
+        eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
@@ -69,8 +70,6 @@ public class MusicEventHandler : MonoBehaviour
         if (beatCheck)
         {
             InputIndicator.Instance.color = Color.green;
-            if (!player.inputted)
-                player.AllowMove();
         }
         else
         {

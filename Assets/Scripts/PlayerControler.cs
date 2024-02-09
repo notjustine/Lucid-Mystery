@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -9,22 +11,20 @@ public class PlayerControl : MonoBehaviour
     private Vector3[] sliceCenters;
     private int currentSliceIndex = 0;
     public float heightAboveSlices = 1.0f; // Adjust this value as needed
-    //public float topRatio = 0.25f;
-    //public float middleRatio = 0.50f;
-    //public float bottomRatio = 0.75f;
 
     public float topRatio = 0.40f;
     public float midTopRatio = 0.60f;
     public float midBotRatio = 0.80f;
     public float botRatio = 1f;
-    //private enum SliceSection { Top, Middle, Bottom }
     private enum SliceSection { Top, MidTop, MidBot, Bot}
-    //private SliceSection currentSection = SliceSection.Middle;
     private SliceSection currentSection = SliceSection.Bot;
+    
+    private Animator animator;
+    private Transform player;
+    public Transform cameraTransform; 
+    public EventReference attackSound;
     // Movement Updates
-    private float lastMoveTime;
-    private float movementCooldown = 1f;
-    public bool inputted { get; set; }
+    public bool inputted { get;  set; }
     
     Vector3 GetSliceCenterPoint(float radius, float angle, float sliceAngle)
     {
@@ -38,8 +38,11 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
+        animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
+        
+        // animator = GetComponent<Animator>();
+        player = GetComponent<Transform>();
         // Initialize the slice centers array
-        // lastMoveTime = Time.time;
         sliceCenters = new Vector3[numberOfSlices];
         float sliceAngle = 360f / numberOfSlices;
         for (int i = 0; i < numberOfSlices; i++)
@@ -51,32 +54,56 @@ public class PlayerControl : MonoBehaviour
         transform.position = sliceCenters[0];
     }
 
-    public void AllowMove()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // if (Time.time - lastMoveTime >= movementCooldown)
-        // {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
+        if (!MusicEventHandler.beatCheck)
+            return;
+
+        if (context.phase == InputActionPhase.Started) {
+            if (inputted)
+                return;
+            // animator.SetTrigger("Jump");
+            return;
+        }
+        
+        Vector2 move = context.ReadValue<Vector2>();
+        bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
+        // animator.SetTrigger("Jump");
+        if (xDominantAxis)
+        {
+            if (move.x > 0)
                 MoveToNextSlice();
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
+            else if (move.x < 0)
                 MoveToPreviousSlice();
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
+        }
+        else
+        {
+            if (move.y > 0)
                 MoveOneLayerUp();
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
+            else if (move.y < 0)
                 MoveOneLayerDown();
-            }
-        // }
+        }
+        
     }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!MusicEventHandler.beatCheck)
+            return;
+        
+        if (context.phase != InputActionPhase.Started || inputted)
+            return;
+        
+        // Debug.Log("ATTACK");
+        inputted = true;
+        animator.SetTrigger("Attack");
+    }
+    
+    
     void Update()
     {
         // Check for player input
-
+        player.rotation = cameraTransform.rotation;
     }
 
     void MoveToNextSlice()
@@ -199,7 +226,9 @@ public class PlayerControl : MonoBehaviour
         // Keep the y-coordinate (height) constant
         newPosition.y = heightAboveSlices;
 
+        
         transform.position = newPosition;
+        
         inputted = true;
     }
 }
