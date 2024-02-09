@@ -22,7 +22,7 @@ public class Attack : MonoBehaviour
         if (collision.gameObject.CompareTag("Boss"))
         {
             // Debug.Log("Collision");
-            AudioManager.instance.PlayOneShot(SoundRef.Instance.attackSound, gameObject.transform.position);
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
             Debug.Log("Enemy Hit");
             // Destroy(collision.gameObject);
         }
