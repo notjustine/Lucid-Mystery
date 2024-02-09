@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Double check that nobody is using this and then delete (we decided against player's projectiles.)
+*/
 public class ShootBullet : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -10,16 +13,16 @@ public class ShootBullet : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // Replace with your input
-        {
-            Shoot();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space)) // Replace with your input
+        // {
+        //     Shoot();
+        // }
     }
 
-    void Shoot()
-    {
-        Vector3 spawnPos = bulletSpawnPoint.position + bulletSpawnPoint.forward * spawnDistance;
-        Instantiate(bulletPrefab, spawnPos, bulletSpawnPoint.rotation);
-    }
+    // void Shoot()
+    // {
+    //     Vector3 spawnPos = bulletSpawnPoint.position + bulletSpawnPoint.forward * spawnDistance;
+    //     Instantiate(bulletPrefab, spawnPos, bulletSpawnPoint.rotation);
+    // }
 }
 
