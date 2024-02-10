@@ -2,55 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/** 
-Dylan:  this handles the flight of our sniper bullets from the boss
 
+/** 
+Dylan:  this handles the flight direction of our sniper bullets from the boss, collision
+detection, and deletion after time of bullets that missed.
 */
 public class BulletController : MonoBehaviour
 {
-
     const float sniperBulletSpeed = 80f;
     const float rotationSpeed = 100f;
     const float maxLifetime = 1f;
-
     float bulletLifetime;
     private Vector3 rot;
     GameObject sniper;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         sniper = GameObject.Find("Sniper");
         bulletLifetime = 0f;
-        // Vector3 direction = transform.forward;
+        // Below: calculates a vector that is one "frame" closer to sniper.transform.forward direction 
         rot = Vector3.RotateTowards(transform.forward, sniper.transform.forward, rotationSpeed, 0.0f); // last one is the error margin of rotation
-
+        // Below: applies the calculated vector to the rotation of the bullet.
         transform.rotation = Quaternion.LookRotation(rot);
 
         Rigidbody bulletBody = GetComponent<Rigidbody>();
         bulletBody.AddForce(transform.forward * sniperBulletSpeed, ForceMode.VelocityChange);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        // Destroy bullet after maxLifetime has passed.
         bulletLifetime += Time.deltaTime;
-
         if (bulletLifetime > maxLifetime)
         {
             Destroy(gameObject);
         }
     }
 
+
     /**
     If bullet collides with player, bullet should be destroyed.
     */
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object is not the player
         if (collision.gameObject.tag == "Player" | collision.gameObject.tag == "Arena")
         {
             Debug.Log("collided with player or arena");
-            Destroy(gameObject); // Destroy bullet on collision
+            Destroy(gameObject);
         }
         else
         {
