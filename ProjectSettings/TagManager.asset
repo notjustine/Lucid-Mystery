@@ -8,6 +8,7 @@ TagManager:
   - Enviorment
   - PlayerWeapon
   - Weapon
+  - Arena
   layers:
   - Default
   - TransparentFX
