@@ -398,21 +398,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb101f55a31c0f946b2fbaef2f81a0b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfSlices: 8
+  numberOfSlices: 24
   radius: 50
   heightAboveSlices: 1
   topRatio: 0.25
   midTopRatio: 0.6
   midBotRatio: 0.8
   botRatio: 1
-  cameraTransform: {fileID: 0}
-  attackSound:
-    Guid:
-      Data1: -1784216907
-      Data2: 1323602121
-      Data3: -1496686174
-      Data4: -893265271
-    Path: event:/player_attack
 --- !u!114 &8701879417718973952
 MonoBehaviour:
   m_ObjectHideFlags: 0

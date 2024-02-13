@@ -77,13 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a04b32f662574e78992e318584ce831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fmodEvent:
-    Guid:
-      Data1: 1601789897
-      Data2: 1319568600
-      Data3: -1635706712
-      Data4: 814325173
-    Path: event:/TestingClickTrackEveryBeat
 --- !u!1 &7841402060049271408
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7391203072439187030}
   - component: {fileID: 5017854167314443849}
+  - component: {fileID: 7709417704436731747}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -128,3 +122,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7d1963056714003a9397a6d3a03da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7709417704436731747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841402060049271408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ab1015665bc4b7e9340797c9571ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound:
+    Guid:
+      Data1: -1784216907
+      Data2: 1323602121
+      Data3: -1496686174
+      Data4: -893265271
+    Path: event:/player_attack
+  backgroundTrack:
+    Guid:
+      Data1: 1601789897
+      Data2: 1319568600
+      Data3: -1635706712
+      Data4: 814325173
+    Path: event:/TestingClickTrackEveryBeat

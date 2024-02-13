@@ -21,8 +21,7 @@ public class PlayerControl : MonoBehaviour
     
     private Animator animator;
     private Transform player;
-    public Transform cameraTransform; 
-    public EventReference attackSound;
+    private Transform cameraTransform; 
     // Movement Updates
     public bool inputted { get;  set; }
     
@@ -39,7 +38,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
-        
+        cameraTransform = Camera.main.transform;
         // animator = GetComponent<Animator>();
         player = GetComponent<Transform>();
         // Initialize the slice centers array
