@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/** 
+This script can be attached to a blank object in the scene.
+*/
 public class InitSniperShooting : MonoBehaviour
 {
     private ShootSniperBullet sniper;
@@ -9,19 +13,17 @@ public class InitSniperShooting : MonoBehaviour
     private Vector3 playerShootPosition;
     private Vector3 prevRotation;
     private const float turretRotationSpeed = 4f;
-    private bool shouldShoot;
-    private bool shotRequested;
+    private bool aiming;
     private bool readyToShoot;
 
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        sniper = FindObjectOfType<ShootSniperBullet>();
-        playerShootPosition = player.transform.position;
-        shotRequested = false;
+        sniper = FindObjectOfType<ShootSniperBullet>();  // sniper has the Shoot() public method.
+
+        aiming = false;
         readyToShoot = false;
-        shouldShoot = false;
     }
 
 
@@ -29,18 +31,13 @@ public class InitSniperShooting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            shouldShoot = true;
-            playerShootPosition = player.transform.position;  // the location that the player was when they whiffed, not current.
+            aiming = true;
+            playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
+            StartCoroutine(ShootAfterRotation());
         }
-        if (shouldShoot)
+        if (aiming)
         {
-            AimAtPlayer();
-            if (!shotRequested)
-            {
-                // We don't want to trigger the coroutine on every frame, only once per Spacebar tap.
-                StartCoroutine(ShootAfterRotation());
-                shotRequested = true;
-            };
+            AimAtPlayer();                                     // Frame by frame rotates towards where the player was.
         }
     }
 
@@ -55,10 +52,11 @@ public class InitSniperShooting : MonoBehaviour
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, playerDirection, turretRotationStep, 0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
 
-        if (Quaternion.Equals(newDirection, prevRotation))
+        // Once we are aiming at the correct location, the Fire() method should run.
+        if (newDirection == prevRotation)
         {
-            Debug.Log("reached target");
-            readyToShoot = true;
+            aiming = false;
+            readyToShoot = true;  // this allows our coroutine to start executing.
         }
 
         prevRotation = newDirection;
@@ -74,9 +72,6 @@ public class InitSniperShooting : MonoBehaviour
     {
         yield return new WaitUntil(() => readyToShoot);
         sniper.Shoot();
-        shouldShoot = false;
         readyToShoot = false;
-        shotRequested = false;
-
     }
 }
