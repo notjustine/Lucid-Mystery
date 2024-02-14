@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    public float directionSize = 20f;
+    public float directionSize = 120f;
     public Transform cam;
     public static PlayerMovement Instance { get; private set; }
 
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public Color color;
     public Material material;
 
-    private float movementCooldown = 0.5f;
+    private float movementCooldown = 0.3f;
     private float lastMoveTime;
 
     private void Awake()
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         material.color = color;
-        // UpdateInputHelper();
+        UpdateInputHelper();
         if (Input.GetKey(attack))
         {
             Attack();
