@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Boss
   - Enviorment
+  - PlayerWeapon
+  - Weapon
+  - Arena
   layers:
   - Default
   - TransparentFX
