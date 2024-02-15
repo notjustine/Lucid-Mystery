@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,22 +6,33 @@ public class PlayerControl : MonoBehaviour
     public int numberOfSlices = 8;
     public float radius = 50f;
     private Vector3[] sliceCenters;
-    private int currentSliceIndex = 0;
+    private int currentSliceIndex;
     public float heightAboveSlices = 1.0f; // Adjust this value as needed
 
     public float topRatio = 0.40f;
     public float midTopRatio = 0.60f;
     public float midBotRatio = 0.80f;
     public float botRatio = 1f;
-    private enum SliceSection { Top, MidTop, MidBot, Bot}
+
+    private enum SliceSection
+    {
+        Top,
+        MidTop,
+        MidBot,
+        Bot
+    }
+
     private SliceSection currentSection = SliceSection.Bot;
-    
+
     private Animator animator;
     private Transform player;
-    private Transform cameraTransform; 
+    private Transform cameraTransform;
+
+    private static readonly int Attack1 = Animator.StringToHash("Attack");
+
     // Movement Updates
-    public bool inputted { get;  set; }
-    
+    public bool inputted { get; set; }
+
     Vector3 GetSliceCenterPoint(float radius, float angle, float sliceAngle)
     {
         // Calculate the bisector angle for the slice
@@ -38,8 +46,8 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
-        cameraTransform = Camera.main.transform;
-        // animator = GetComponent<Animator>();
+        if (Camera.main != null)
+            cameraTransform = Camera.main.transform;
         player = GetComponent<Transform>();
         // Initialize the slice centers array
         sliceCenters = new Vector3[numberOfSlices];
@@ -58,16 +66,16 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
-        if (context.phase == InputActionPhase.Started) {
-            if (inputted)
-                return;
-            // animator.SetTrigger("Jump");
+        if (context.phase != InputActionPhase.Started || inputted)
+        {
+            // if (inputted)
+            //     return;
             return;
         }
-        
-        Vector2 move = context.ReadValue<Vector2>();
+
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
+        Vector2 move = context.ReadValue<Vector2> ();
         bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
-        // animator.SetTrigger("Jump");
         if (xDominantAxis)
         {
             if (move.x > 0)
@@ -82,23 +90,24 @@ public class PlayerControl : MonoBehaviour
             else if (move.y < 0)
                 MoveOneLayerDown();
         }
-        
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (!MusicEventHandler.beatCheck)
             return;
-        
+
         if (context.phase != InputActionPhase.Started || inputted)
             return;
         
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
+
         // Debug.Log("ATTACK");
         inputted = true;
-        animator.SetTrigger("Attack");
+        animator.SetTrigger(Attack1);
     }
-    
-    
+
+
     void Update()
     {
         // Check for player input
@@ -121,22 +130,12 @@ public class PlayerControl : MonoBehaviour
         {
             currentSliceIndex--;
         }
+
         MoveToCurrentSlice();
     }
+
     void MoveOneLayerUp()
     {
-        /*switch (currentSection)
-        {
-            case SliceSection.Bottom:
-                currentSection = SliceSection.Middle;
-                break;
-            case SliceSection.Middle:
-                currentSection = SliceSection.Top;
-                break;
-            case SliceSection.Top:
-                break;
-        }*/
-
         switch (currentSection)
         {
             case SliceSection.Bot:
@@ -151,23 +150,12 @@ public class PlayerControl : MonoBehaviour
             case SliceSection.Top:
                 break;
         }
+
         MoveToCurrentSlice();
     }
 
     void MoveOneLayerDown()
     {
-        /*switch (currentSection)
-        {
-            case SliceSection.Bottom:
-                break;
-            case SliceSection.Middle:
-                currentSection = SliceSection.Bottom;
-                break;
-            case SliceSection.Top:
-                currentSection = SliceSection.Middle;
-                break;
-        }*/
-
         switch (currentSection)
         {
             case SliceSection.Bot:
@@ -182,6 +170,7 @@ public class PlayerControl : MonoBehaviour
                 currentSection = SliceSection.MidTop;
                 break;
         }
+
         MoveToCurrentSlice();
     }
 
@@ -189,19 +178,6 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 sliceCenter = sliceCenters[currentSliceIndex];
         float distanceMultiplier = 1.0f;
-
-        /*switch (currentSection)
-        {
-            case SliceSection.Top:
-                distanceMultiplier = topRatio;
-                break;
-            case SliceSection.Middle:
-                distanceMultiplier = middleRatio;
-                break;
-            case SliceSection.Bottom:
-                distanceMultiplier = bottomRatio;
-                break;
-        }*/
 
         switch (currentSection)
         {
@@ -224,10 +200,8 @@ public class PlayerControl : MonoBehaviour
 
         // Keep the y-coordinate (height) constant
         newPosition.y = heightAboveSlices;
-
-        
         transform.position = newPosition;
-        
+
         inputted = true;
     }
 }
