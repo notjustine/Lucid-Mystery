@@ -894,6 +894,7 @@ MonoBehaviour:
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
 --- !u!1001 &1110560111
+
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1059,6 +1060,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+
 --- !u!114 &2141803788 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8931287885153552819, guid: c812aafe7103941cebb67230373a7465, type: 3}
