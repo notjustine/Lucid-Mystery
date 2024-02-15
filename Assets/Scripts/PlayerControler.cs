@@ -125,18 +125,6 @@ public class PlayerControl : MonoBehaviour
     }
     void MoveOneLayerUp()
     {
-        /*switch (currentSection)
-        {
-            case SliceSection.Bottom:
-                currentSection = SliceSection.Middle;
-                break;
-            case SliceSection.Middle:
-                currentSection = SliceSection.Top;
-                break;
-            case SliceSection.Top:
-                break;
-        }*/
-
         switch (currentSection)
         {
             case SliceSection.Bot:
@@ -156,18 +144,6 @@ public class PlayerControl : MonoBehaviour
 
     void MoveOneLayerDown()
     {
-        /*switch (currentSection)
-        {
-            case SliceSection.Bottom:
-                break;
-            case SliceSection.Middle:
-                currentSection = SliceSection.Bottom;
-                break;
-            case SliceSection.Top:
-                currentSection = SliceSection.Middle;
-                break;
-        }*/
-
         switch (currentSection)
         {
             case SliceSection.Bot:
@@ -189,19 +165,6 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 sliceCenter = sliceCenters[currentSliceIndex];
         float distanceMultiplier = 1.0f;
-
-        /*switch (currentSection)
-        {
-            case SliceSection.Top:
-                distanceMultiplier = topRatio;
-                break;
-            case SliceSection.Middle:
-                distanceMultiplier = middleRatio;
-                break;
-            case SliceSection.Bottom:
-                distanceMultiplier = bottomRatio;
-                break;
-        }*/
 
         switch (currentSection)
         {

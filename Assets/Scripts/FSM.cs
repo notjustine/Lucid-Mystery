@@ -3,84 +3,91 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateType
-{
-    Idle, Patrol, Chase, React, Attack, Search
-}
-
-[Serializable]
-public class Parameter
-{
-    public float patrolSpeed;
-    public float searchSpeed;
-    public float chaseSpeed;
-    public float idleTime;
-    public Transform[] patrolPoints;
-    public Transform[] chasePoints;
-    public Transform target;
-    public LayerMask targetLayer;
-    public Animator animator;
-    public float rotationSpeed = 5f; // Add rotation speed
-}
-
 public class FSM : MonoBehaviour
 {
-    public Parameter parameter;
+    public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
+    public enum BossAttackType { None, Slam, SteamPush, Punishing }
 
-    private IState currentState;
-    private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+    BossState currentState = BossState.Idle;
+    BossAttackType nextAttack = BossAttackType.None;
 
-    void Start()
-    {
-        states.Add(StateType.Idle, new IdleState(this));
-        states.Add(StateType.Patrol, new PatrolState(this));
-        states.Add(StateType.Chase, new ChaseState(this));
-        states.Add(StateType.React, new ReactState(this));
-        states.Add(StateType.Attack, new AttackState(this));
-        states.Add(StateType.Search, new SearchState(this));
-
-        TransitionState(StateType.Patrol);
-
-        parameter.animator = GetComponent<Animator>();
-    }
 
     void Update()
     {
-        currentState.OnUpdate();
-
-        if (parameter.target != null)
+        switch (currentState)
         {
-            // Rotate towards the player
-            Vector3 direction = parameter.target.position - transform.position;
-            direction.y = 0; // Keep the rotation in the horizontal plane
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * parameter.rotationSpeed);
+            case BossState.Idle:
+                DecideNextAttack();
+                break;
+            case BossState.PreparingAttack:
+                // for cues
+                currentState = BossState.Attacking;
+                break;
+            case BossState.Attacking:
+                PerformAttack(nextAttack);
+                currentState = BossState.Cooldown;
+                break;
+            case BossState.Cooldown:
+                // Implement cooldown logic
+                currentState = BossState.Idle;
+                break;
         }
     }
 
-    public void TransitionState(StateType type)
+    // Placeholder methods for tracking player position and beat
+    bool IsPlayerInSpecificSlice() { /* Implement logic here */ return true; }
+    bool IsPlayerCloseToBoss() { /* Implement logic here */ return true; }
+    bool DidPlayerMissBeat() { /* Implement logic here, possibly with an event listener */ return false; }
+
+
+    void DecideNextAttack()
     {
-        if (currentState != null)
+        if (DidPlayerMissBeat())
         {
-            currentState.OnExit();
+            nextAttack = BossAttackType.Punishing;
         }
-        currentState = states[type];
-        currentState.OnEnter();
+        else if (IsPlayerCloseToBoss())
+        {
+            nextAttack = BossAttackType.SteamPush;
+        }
+        else if (IsPlayerInSpecificSlice())
+        {
+            nextAttack = BossAttackType.Slam;
+        }
+        else
+        {
+            nextAttack = BossAttackType.None;
+        }
+
+        if (nextAttack != BossAttackType.None)
+        {
+            currentState = BossState.PreparingAttack;
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    void PerformAttack(BossAttackType attackType)
     {
-        if (other.CompareTag("Player"))
+        switch (attackType)
         {
-            parameter.target = other.transform;
+            case BossAttackType.Slam:
+                // Implement Slam attack logic
+                break;
+            case BossAttackType.SteamPush:
+                // Implement Steam Push attack logic
+                break;
+            case BossAttackType.Punishing:
+                // Implement Punishing attack logic
+                break;
         }
+        // Reset nextAttack after performing it
+        nextAttack = BossAttackType.None;
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator CooldownRoutine(float cooldownTime)
     {
-        if (other.CompareTag("Player"))
-        {
-            parameter.target = null;
-        }
+        yield return new WaitForSeconds(cooldownTime);
+        currentState = BossState.Idle;
     }
+
 }
