@@ -45,6 +45,7 @@ public class InitSniperShooting : MonoBehaviour
     {
         if (beatChecker.GetVulnerable())
         {
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.missBeatSniperShot, player);
             beatChecker.SetVulnerable(false);
             aiming = true;
             playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
