@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-
+    public float damage = 20f;
 
     void Start()
     {
@@ -57,9 +57,22 @@ public class BulletController : MonoBehaviour
     */
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" | collision.gameObject.tag == "Arena")
+        if (collision.gameObject.tag == "Arena")
         {
-            Debug.Log("collided with player or arena");
+            Debug.Log("collided with arena");
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Player"){
+            PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
+            if (playerStatus != null) // Check if the PlayerStatus component is found
+            {
+                playerStatus.TakeDamage(damage);
+                Debug.Log("collided with player");
+            }
+            else
+            {
+                Debug.Log("PlayerStatus component not found on the collided object.");
+            }
             Destroy(gameObject);
         }
         else
