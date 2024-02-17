@@ -723,7 +723,7 @@ Transform:
   m_GameObject: {fileID: 589907323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.06, y: 0.92, z: -15.28}
+  m_LocalPosition: {x: -6.1, y: 0.92, z: -12.78}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -990,20 +990,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab1015665bc4b7e9340797c9571ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSound:
+  <attackSound>k__BackingField:
     Guid:
-      Data1: -1784216907
-      Data2: 1323602121
-      Data3: -1496686174
-      Data4: -893265271
+      Data1: -1405183755
+      Data2: 1252999127
+      Data3: -696354895
+      Data4: 1903463602
     Path: event:/player_attack
-  backgroundTrack:
+  <backgroundTrack>k__BackingField:
     Guid:
-      Data1: 1601789897
-      Data2: 1319568600
-      Data3: -1635706712
-      Data4: 814325173
+      Data1: 1751738824
+      Data2: 1102560753
+      Data3: 1713689250
+      Data4: 371444265
     Path: event:/TestingClickTrackEveryBeat
+  <attackSwing>k__BackingField:
+    Guid:
+      Data1: 1099561859
+      Data2: 1338802348
+      Data3: -462988118
+      Data4: -340126280
+    Path: event:/player_attackSwing
+  <movementSound>k__BackingField:
+    Guid:
+      Data1: -519370681
+      Data2: 1235246147
+      Data3: 1219330488
+      Data4: 581936176
+    Path: event:/player_movement
+  <missBeatSniperShot>k__BackingField:
+    Guid:
+      Data1: 616452673
+      Data2: 1218904472
+      Data3: -1959202431
+      Data4: 483704219
+    Path: event:/sniper_attack
 --- !u!1 &1191091901
 GameObject:
   m_ObjectHideFlags: 0
