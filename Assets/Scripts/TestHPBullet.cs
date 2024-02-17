@@ -6,8 +6,8 @@ public class TestHPBullet : MonoBehaviour
 
     private void Start()
     {
-        Vector3 direction = (Vector3.zero - transform.position).normalized;
-        GetComponent<Rigidbody>().velocity = direction * speed; //speed
+        //Vector3 direction = (Vector3.zero - transform.position).normalized;
+        //GetComponent<Rigidbody>().velocity = direction * speed; //speed
         Destroy(gameObject, 10f);
     }
 
