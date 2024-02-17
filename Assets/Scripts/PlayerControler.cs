@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] private BeatCheckController beatChecker;
     public int numberOfSlices = 8;
     public float radius = 50f;
     private Vector3[] sliceCenters;
@@ -46,6 +47,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
+        beatChecker = FindObjectOfType<BeatCheckController>();
         if (Camera.main != null)
             cameraTransform = Camera.main.transform;
         player = GetComponent<Transform>();
@@ -74,7 +76,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
-        Vector2 move = context.ReadValue<Vector2> ();
+        Vector2 move = context.ReadValue<Vector2>();
         bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
         if (xDominantAxis)
         {
@@ -90,6 +92,7 @@ public class PlayerControl : MonoBehaviour
             else if (move.y < 0)
                 MoveOneLayerDown();
         }
+        beatChecker.SetVulnerable(true);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -99,12 +102,13 @@ public class PlayerControl : MonoBehaviour
 
         if (context.phase != InputActionPhase.Started || inputted)
             return;
-        
+
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
 
         // Debug.Log("ATTACK");
         inputted = true;
         animator.SetTrigger(Attack1);
+        beatChecker.SetVulnerable(true);
     }
 
 
