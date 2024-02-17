@@ -8,6 +8,7 @@ This script can be attached to a blank object in the scene.
 */
 public class InitSniperShooting : MonoBehaviour
 {
+    [SerializeField] private BeatCheckController beatChecker;
     private ShootSniperBullet sniper;
     private GameObject player;
     private Vector3 playerShootPosition;
@@ -21,23 +22,33 @@ public class InitSniperShooting : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         sniper = FindObjectOfType<ShootSniperBullet>();  // sniper has the Shoot() public method.
-
+        beatChecker = FindObjectOfType<BeatCheckController>();
         aiming = false;
         readyToShoot = false;
+
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            aiming = true;
-            playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
-            StartCoroutine(ShootAfterRotation());
-        }
         if (aiming)
         {
             AimAtPlayer();                                     // Frame by frame rotates towards where the player was.
+        }
+    }
+
+
+    /**
+    Trigger to start running these functions, only runs when the player makes an input mistake.
+    */
+    public void OffBeatHandler()
+    {
+        if (beatChecker.GetVulnerable())
+        {
+            beatChecker.SetVulnerable(false);
+            aiming = true;
+            playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
+            StartCoroutine(ShootAfterRotation());
         }
     }
 
