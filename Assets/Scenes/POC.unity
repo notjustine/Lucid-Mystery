@@ -1427,11 +1427,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1751738824
+      Data2: 1102560753
+      Data3: 1713689250
+      Data4: 371444265
+    Path: event:/TestingClickTrackEveryBeat
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -1692,6 +1692,26 @@ PrefabInstance:
     - target: {fileID: 2986082032567648894, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: fmodEvent.Guid.Data4
       value: 814325173
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Path
+      value: event:/player_attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Guid.Data1
+      value: -1405183755
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Guid.Data2
+      value: 1252999127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Guid.Data3
+      value: -696354895
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Guid.Data4
+      value: 1903463602
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
