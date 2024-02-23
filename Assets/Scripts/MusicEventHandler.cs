@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class MusicEventHandler : MonoBehaviour
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
-        eventInstance.setCallback(OnBeatReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        eventInstance.setCallback(OnBeatReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT | EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         eventInstance.start();        
     }
     
@@ -40,21 +41,38 @@ public class MusicEventHandler : MonoBehaviour
         // GCHandle test = (GCHandle)musicEventHandlerPtr;
         // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
 
-        
-        var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
-        var beat = parameter.beat;
-        switch (beat)
+        switch (type)
         {
-            case 1:
-                beatCheck = true;
+            case EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
+                return RESULT.OK;
+            case EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
                 break;
-            case 3:
-                beatCheck = true;
-                break;
-
-            default:
-                beatCheck = false;
-                break;
+        }
+        
+        // var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
+        // var beat = parameter.beat;
+        // switch (beat)
+        // {
+        //     case 1:
+        //         beatCheck = true;
+        //         break;
+        //     case 3:
+        //         beatCheck = true;
+        //         break;
+        //
+        //     default:
+        //         beatCheck = false;
+        //         break;
+        // }
+        var parameter = (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
+        Debug.Log("PARAMETERS: " + parameter.name);
+        if (parameter.name == "allowinput")
+        {
+            beatCheck = true;
+        }
+        else
+        {
+            beatCheck = false;
         }
         return RESULT.OK;
     }
