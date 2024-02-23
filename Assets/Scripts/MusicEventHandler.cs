@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
 {
@@ -15,19 +16,20 @@ public class MusicEventHandler : MonoBehaviour
     private PlayerControl player;
 
     public static bool beatCheck { get; private set; } = false;
+
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
-        
+
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
-        eventInstance.setCallback(OnBeatReached,  EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
-        eventInstance.start();        
+        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance.start();
     }
-    
+
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
     private static RESULT OnBeatReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
     {
@@ -40,45 +42,31 @@ public class MusicEventHandler : MonoBehaviour
         // GCHandle test = (GCHandle)musicEventHandlerPtr;
         // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
 
-        
-        var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
-        var beat = parameter.beat;
-        switch (beat)
+        var parameter =
+            (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
+        if (parameter.name == "allowinput")
         {
-            case 1:
-                beatCheck = true;
-                break;
-            case 3:
-                beatCheck = true;
-                break;
-
-            default:
-                beatCheck = false;
-                break;
+            beatCheck = true;
+            InputIndicator.Instance.color = Color.green;
         }
+        else if (parameter.name == "stopinput")
+        {
+            beatCheck = false;
+            InputIndicator.Instance.color = Color.red;
+        }
+
         return RESULT.OK;
     }
-    
+
     private void OnDestroy()
     {
         eventInstance.release();
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        if (beatCheck)
-        {
-            InputIndicator.Instance.color = Color.green;
-        }
-        else
-        {
-            InputIndicator.Instance.color = Color.red;
+        if (!beatCheck)
             player.inputted = false;
-        }
     }
-    
-
-
-
 }
