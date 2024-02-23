@@ -4,10 +4,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     private PlayerControl playerControl;
-    private GameObject pauseMenu;
-    private GameObject optionsMenu;
-    private bool isOptions = false;
-    
+
     public void onPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
@@ -22,18 +19,15 @@ public class PauseMenu : MonoBehaviour
     public void ShowPauseMenu()
     {
         playerControl.SwitchPlayerMap("UI");
-        pauseMenu.SetActive(true);
-        optionsMenu.SetActive(false);
+        gameObject.SetActive(true);
         Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
     }
 
     public void HidePauseMenu()
     {
-        optionsMenu.SetActive(false);
-        isOptions = false;
         playerControl.SwitchPlayerMap("Player");
-        pauseMenu.SetActive(false);
+        gameObject.SetActive(false);
         Time.timeScale = 1;
         AudioManager.instance.ResumeAllEvents();
     }
@@ -45,28 +39,12 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowOptions()
     {
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-    }
-    
-    public void goBack()
-    {
-        if (isOptions)
-        {
-            isOptions = false;
-            optionsMenu.SetActive(false);
-            pauseMenu.SetActive(true);
-        }
-        else
-        {
-            HidePauseMenu();
-        }
+        Debug.Log("Show Options");
     }
 
     void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
-        pauseMenu = gameObject.transform.GetChild(0).gameObject;
-        optionsMenu = gameObject.transform.GetChild(1).gameObject;
+        gameObject.SetActive(false);
     }
 }
