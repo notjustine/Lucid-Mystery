@@ -1436,53 +1436,17 @@ MonoBehaviour:
   blendDistance: 2.5
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 83475e35bf208364ca977d39a16da467, type: 2}
---- !u!1 &1441949065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7841402060049271408, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-  m_PrefabInstance: {fileID: 2054541032}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1441949067 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
   m_PrefabInstance: {fileID: 2054541032}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441949065}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7ab1015665bc4b7e9340797c9571ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1441949069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441949065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
 --- !u!1001 &1752913606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1726,10 +1690,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7841402060049271408, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1441949069}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
 --- !u!114 &2141803788 stripped
 MonoBehaviour:

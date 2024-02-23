@@ -68,14 +68,13 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
-        if (context.phase != InputActionPhase.Started || inputted)
-        {
-            // if (inputted)
-            //     return;
-            return;
-        }
+        if (context.phase == InputActionPhase.Started && !inputted)
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
 
-        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
+        if (context.phase != InputActionPhase.Started || inputted)
+            return;
+
+
         Vector2 move = context.ReadValue<Vector2>();
         bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
         if (xDominantAxis)
@@ -92,6 +91,7 @@ public class PlayerControl : MonoBehaviour
             else if (move.y < 0)
                 MoveOneLayerDown();
         }
+
         beatChecker.SetVulnerable(true);
     }
 
@@ -100,12 +100,12 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
+        if (context.phase == InputActionPhase.Started && !inputted)
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
+
         if (context.phase != InputActionPhase.Started || inputted)
             return;
-
-        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
-
-        // Debug.Log("ATTACK");
+        
         inputted = true;
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
