@@ -37,7 +37,22 @@ public class AudioManager : MonoBehaviour
        eventInstances.Add(eventInstance);
        return eventInstance;
    }
+   
+   public void PauseAllEvents()
+   {
+       foreach (EventInstance eventInstance in eventInstances)
+       {
+           eventInstance.setPaused(true);
+       }
+   }
 
+   public void ResumeAllEvents()
+   {
+       foreach (EventInstance eventInstance in eventInstances)
+       {
+           eventInstance.setPaused(false);
+       }
+   }
    private void OnDestroy()
    {
        // Audio Cleanup

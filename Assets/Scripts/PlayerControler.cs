@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     private Transform player;
     private Transform cameraTransform;
-
+    private PlayerInput input;
     private static readonly int Attack1 = Animator.StringToHash("Attack");
 
     // Movement Updates
@@ -48,6 +48,9 @@ public class PlayerControl : MonoBehaviour
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
         beatChecker = FindObjectOfType<BeatCheckController>();
+        pauseMenu = FindObjectOfType<PauseMenu>(true);
+        input = GetComponent<PlayerInput>();
+        // pauseMenu.gameObject.SetActive(false);
         if (Camera.main != null)
             cameraTransform = Camera.main.transform;
         player = GetComponent<Transform>();
@@ -207,5 +210,10 @@ public class PlayerControl : MonoBehaviour
         transform.position = newPosition;
 
         inputted = true;
+    }
+    
+    public void SwitchPlayerMap(string map)
+    {
+        input.SwitchCurrentActionMap(map);
     }
 }
