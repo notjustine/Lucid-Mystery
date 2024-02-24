@@ -25,7 +25,6 @@ public class InitSniperShooting : MonoBehaviour
         beatChecker = FindObjectOfType<BeatCheckController>();
         aiming = false;
         readyToShoot = false;
-
     }
 
 

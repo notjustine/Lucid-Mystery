@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-Dylan: working on shooting sniper bullets from a tower. 
-Phase 2 (current):  When spacerbar is clicked, instantiate a bullet
-Phase 3 (next): the bullet should be fired when a missed beat is detected
-
- */
+ Attached to an empty object that is a child of the given gun/turret that's firing it.
+*/
 public class ShootSniperBullet : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
