@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     private PlayerControl playerControl;
-
+    [SerializeField] private GameObject obj;
     public void onPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     public void ShowPauseMenu()
     {
         playerControl.SwitchPlayerMap("UI");
-        gameObject.SetActive(true);
+        obj.SetActive(true);
         Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
     }
@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     public void HidePauseMenu()
     {
         playerControl.SwitchPlayerMap("Player");
-        gameObject.SetActive(false);
+        obj.SetActive(false);
         Time.timeScale = 1;
         AudioManager.instance.ResumeAllEvents();
     }
@@ -45,6 +45,5 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
-        gameObject.SetActive(false);
     }
 }
