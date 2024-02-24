@@ -62,4 +62,12 @@ public class AudioManager : MonoBehaviour
            eventInstance.release();
        }
    }
+   
+   public void AdjustVolume(float volume)
+   {
+       foreach (EventInstance eventInstance in eventInstances)
+       {
+           eventInstance.setVolume(volume);
+       }
+   }
 }
