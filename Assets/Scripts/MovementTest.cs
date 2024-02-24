@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour
+public class MovementTest : MonoBehaviour
 {
     [SerializeField] private BeatCheckController beatChecker;
     public int numberOfSlices = 8;
@@ -105,7 +105,7 @@ public class PlayerControl : MonoBehaviour
 
         if (context.phase != InputActionPhase.Started || inputted)
             return;
-        
+
         inputted = true;
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);

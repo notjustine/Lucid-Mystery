@@ -5,10 +5,10 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public Transform playerTransform;
-    public Transform bossTransform; // Assign the boss's transform here in the inspector
-    public float distanceBehindPlayer = 10f; // Distance behind the player
+    public Transform bossTransform; 
+    public float distanceBehindPlayer = 10f;
     public float heightAbove = 5f;
-    public float smoothSpeed = 5f; // Adjust this for smoother camera movement
+    public float smoothSpeed = 5f; 
 
     private Vector3 cameraDirection;
     private Vector3 desiredPosition;
@@ -18,11 +18,10 @@ public class CameraControl : MonoBehaviour
         // Calculate the direction from the boss to the player
         cameraDirection = (playerTransform.position - bossTransform.position).normalized;
 
-        // Calculate the desired position: a point on the line defined by the boss and player positions
+        // Calculate a point on the line defined by the boss and player positions
         desiredPosition = playerTransform.position + cameraDirection * distanceBehindPlayer;
-        desiredPosition.y += heightAbove; // Add height offset
+        desiredPosition.y += heightAbove;
 
-        // Smoothly interpolate to the desired position
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
         // Set the camera's position

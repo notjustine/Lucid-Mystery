@@ -850,10 +850,10 @@ MonoBehaviour:
   RealChannelSettings: []
   Plugins: []
   MasterBanks:
-  - Master
+  - Desktop/FMOD/Desktop/Master
   Banks:
-  - Sfx
-  - Testing
+  - Desktop/FMOD/Desktop/Sfx
+  - Desktop/FMOD/Desktop/Testing
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
