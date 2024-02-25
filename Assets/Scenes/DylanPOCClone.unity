@@ -508,8 +508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ringRadii:
-  - 26
-  - 33
+  - 20
+  - 30
   - 40
   - 50
   tilesPerRing: 24
