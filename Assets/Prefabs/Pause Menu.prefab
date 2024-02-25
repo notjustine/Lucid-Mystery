@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 881451044209528468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -417.9399, y: -181.54391, z: 48.51255}
+  m_LocalPosition: {x: -417.3, y: -148.2, z: 48.51255}
   m_LocalScale: {x: 0.56305385, y: 0.56305385, z: 0.56305385}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -428,7 +428,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9528302, g: 0.5887772, b: 0.8661443, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.15294118, g: 0.49019608, b: 0.9254902, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1058,7 +1058,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9528302, g: 0.5887772, b: 0.8661443, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.15263437, g: 0.49110907, b: 0.9245283, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1481,7 +1481,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 28.499119, y: -63.851505, z: -107.53045}
-  m_LocalScale: {x: 2.324455, y: 2.324455, z: 2.324455}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6187337006041809338}
@@ -2720,15 +2720,15 @@ RectTransform:
   m_GameObject: {fileID: 7557791198628648449}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -72.438614}
-  m_LocalScale: {x: 1.7760292, y: 1.7760292, z: 1.7760292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5843223635639378846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -71.352486, y: -11.365846}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -86.7, y: 80.6}
+  m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3126192583513708900
 CanvasRenderer:
@@ -3100,7 +3100,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9528302, g: 0.5887772, b: 0.8661443, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.15294118, g: 0.49019608, b: 0.9254902, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3179,15 +3179,15 @@ RectTransform:
   m_GameObject: {fileID: 8481779648988794156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -86.1597}
-  m_LocalScale: {x: 1.7760292, y: 1.7760292, z: 1.7760292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6187337006041809338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 742.27344, y: 322.42728}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 726, y: 357.4}
+  m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2886477899631794267
 CanvasRenderer:
