@@ -4,14 +4,17 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     private PlayerControl playerControl;
-
-    public void onPause(InputAction.CallbackContext context)
+    private GameObject pauseMenu;
+    private GameObject optionsMenu;
+    private bool isOptions = false;
+    
+    public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
             ShowPauseMenu();
     }
 
-    public void onResume(InputAction.CallbackContext context)
+    public void OnResume(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
             HidePauseMenu();
@@ -19,15 +22,18 @@ public class PauseMenu : MonoBehaviour
     public void ShowPauseMenu()
     {
         playerControl.SwitchPlayerMap("UI");
-        gameObject.SetActive(true);
+        pauseMenu.SetActive(true);
+        optionsMenu.SetActive(false);
         Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
     }
 
     public void HidePauseMenu()
     {
+        optionsMenu.SetActive(false);
+        isOptions = false;
         playerControl.SwitchPlayerMap("Player");
-        gameObject.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
         AudioManager.instance.ResumeAllEvents();
     }
@@ -39,12 +45,29 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowOptions()
     {
-        Debug.Log("Show Options");
+        pauseMenu.SetActive(false);
+        isOptions = true;
+        optionsMenu.SetActive(true);
+    }
+    
+    public void GoBack()
+    {
+        if (isOptions)
+        {
+            isOptions = false;
+            optionsMenu.SetActive(false);
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            HidePauseMenu();
+        }
     }
 
     void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
-        gameObject.SetActive(false);
+        pauseMenu = gameObject.transform.GetChild(0).gameObject;
+        optionsMenu = gameObject.transform.GetChild(1).gameObject;
     }
 }

@@ -48,9 +48,7 @@ public class PlayerControl : MonoBehaviour
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
         beatChecker = FindObjectOfType<BeatCheckController>();
-        pauseMenu = FindObjectOfType<PauseMenu>(true);
         input = GetComponent<PlayerInput>();
-        // pauseMenu.gameObject.SetActive(false);
         if (Camera.main != null)
             cameraTransform = Camera.main.transform;
         player = GetComponent<Transform>();
@@ -72,11 +70,7 @@ public class PlayerControl : MonoBehaviour
             return;
 
         if (context.phase != InputActionPhase.Started || inputted)
-        {
-            // if (inputted)
-            //     return;
             return;
-        }
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
         Vector2 move = context.ReadValue<Vector2>();
