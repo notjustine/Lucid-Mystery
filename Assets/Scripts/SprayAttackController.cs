@@ -17,24 +17,29 @@ public class SprayAttackController : MonoBehaviour
         // Will eventually rotate this thing.  Currently the pivot is way off.  Do shooting part for now.
         timeSinceFired = 0f;
         turrets = FindObjectsOfType<ShootSprayBullet>();
-        for (int i = 0; i < turrets.Length; i++)
-        {
-
-            Debug.Log("turret, ");
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
         timeSinceFired += Time.deltaTime;
-        if (timeSinceFired > 2)
+        if (timeSinceFired > 6)
         {
             foreach (ShootSprayBullet turret in turrets)
             {
-                turret.Shoot();
+                StartCoroutine(TripleShootAndRotate(turret));
                 timeSinceFired = 0;
             }
         }
+    }
+
+    IEnumerator TripleShootAndRotate(ShootSprayBullet turret)
+    {
+        // After rotation is fixed, use a coroutine that waits for the 15 degree rotation to complete before firing again.
+        turret.Shoot();
+        yield return new WaitForSeconds(1);
+        turret.Shoot();
+        yield return new WaitForSeconds(1);
+        turret.Shoot();
     }
 }
