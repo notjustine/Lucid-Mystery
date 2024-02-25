@@ -852,6 +852,7 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Music
   - Sfx
   - Testing
   BanksToLoad: []
