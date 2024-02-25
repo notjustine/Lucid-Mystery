@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     private Transform player;
     private Transform cameraTransform;
-
+    private PlayerInput input;
     private static readonly int Attack1 = Animator.StringToHash("Attack");
 
     // Movement Updates
@@ -48,6 +48,7 @@ public class PlayerControl : MonoBehaviour
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
         beatChecker = FindObjectOfType<BeatCheckController>();
+        input = GetComponent<PlayerInput>();
         if (Camera.main != null)
             cameraTransform = Camera.main.transform;
         player = GetComponent<Transform>();
@@ -68,13 +69,10 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
-        if (context.phase == InputActionPhase.Started && !inputted)
-            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
-
         if (context.phase != InputActionPhase.Started || inputted)
             return;
 
-
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
         Vector2 move = context.ReadValue<Vector2>();
         bool xDominantAxis = (Mathf.Abs(move.x) > Mathf.Abs(move.y));
         if (xDominantAxis)
@@ -91,7 +89,6 @@ public class PlayerControl : MonoBehaviour
             else if (move.y < 0)
                 MoveOneLayerDown();
         }
-
         beatChecker.SetVulnerable(true);
     }
 
@@ -100,12 +97,12 @@ public class PlayerControl : MonoBehaviour
         if (!MusicEventHandler.beatCheck)
             return;
 
-        if (context.phase == InputActionPhase.Started && !inputted)
-            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
-
         if (context.phase != InputActionPhase.Started || inputted)
             return;
-        
+
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
+
+        // Debug.Log("ATTACK");
         inputted = true;
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
@@ -207,5 +204,10 @@ public class PlayerControl : MonoBehaviour
         transform.position = newPosition;
 
         inputted = true;
+    }
+    
+    public void SwitchPlayerMap(string map)
+    {
+        input.SwitchCurrentActionMap(map);
     }
 }
