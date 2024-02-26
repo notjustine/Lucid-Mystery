@@ -9,13 +9,13 @@ detection, and deletion after time of bullets that missed.
 */
 public class SprayBulletController : MonoBehaviour
 {
-    const float sprayBulletSpeed = 60f;
-    const float maxLifetime = 3f;
+    const float sprayBulletSpeed = 50f;
+    const float maxLifetime = 2f;
     float bulletLifetime;
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 20f;
+    public float damage = 10f;
 
     void Start()
     {
