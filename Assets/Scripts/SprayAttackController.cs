@@ -14,7 +14,8 @@ public class SprayAttackController : MonoBehaviour
 
     void Start()
     {
-        turretsRig = GameObject.Find("turrets");
+        // Currently turrets_GEO doesn't rotate perfectly around center of the arena.  Should request a fix from art team.
+        turretsRig = GameObject.Find("turrets_GEO");
         hasNotFired = true;
         timeSinceFired = 0f;
         turrets = FindObjectsOfType<ShootSprayBullet>();
@@ -33,6 +34,17 @@ public class SprayAttackController : MonoBehaviour
             timeSinceFired = 0;
         }
     }
+
+
+    /**
+    Can be called by some AI controller to trigger the Shoot and Rotate attack.
+    Note:  intentionally not in use while we are using timer above.
+    */
+    public void TriggerShootAndRotate()
+    {
+        StartCoroutine(TripleShootAndRotate(turrets));
+    }
+
 
     IEnumerator TripleShootAndRotate(ShootSprayBullet[] turrets)
     {
