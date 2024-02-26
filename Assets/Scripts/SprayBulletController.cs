@@ -10,11 +10,8 @@ detection, and deletion after time of bullets that missed.
 public class SprayBulletController : MonoBehaviour
 {
     const float sprayBulletSpeed = 60f;
-    // const float rotationSpeed = 100f;
     const float maxLifetime = 3f;
     float bulletLifetime;
-    // private Vector3 rot;
-    // GameObject sniper;
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
@@ -22,11 +19,8 @@ public class SprayBulletController : MonoBehaviour
 
     void Start()
     {
-        // sniper = GameObject.Find("Sniper");
         boss = GameObject.Find("Cube");  // We should fix this name.
-
         bulletLifetime = 0f;
-
         Rigidbody bulletBody = GetComponent<Rigidbody>();
         bulletBody.AddForce(transform.forward * sprayBulletSpeed, ForceMode.VelocityChange);
 
