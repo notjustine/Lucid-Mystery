@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed0258995c20c045bd4d29ed31397b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: DylanPOCClone
+  sceneName: AlphaClone
   optionsPanel: {fileID: 2133580401}
   mainMenuPanel: {fileID: 756952510}
 --- !u!1 &937763399
