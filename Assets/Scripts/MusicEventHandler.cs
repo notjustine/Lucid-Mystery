@@ -22,7 +22,6 @@ public class MusicEventHandler : MonoBehaviour
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
-
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
