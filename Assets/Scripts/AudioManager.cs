@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     public static AudioManager instance { get; private set; }
     private List<EventInstance> eventInstances;
+
     private Bus masterBus;
     private Bus musicBus;
     private Bus sfxBus;
@@ -26,6 +27,11 @@ public class AudioManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
+
+        AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.MASTER.ToString(), 1),
+            VolumeSlider.VolumeType.MASTER);
+        AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.MUSIC.ToString(), 1), VolumeSlider.VolumeType.MUSIC);
+        AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.SFX.ToString(), 1), VolumeSlider.VolumeType.SFX);
     }
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
@@ -73,21 +79,21 @@ public class AudioManager : MonoBehaviour
 
     public void AdjustVolume(float volume, VolumeSlider.VolumeType bus)
     {
-        switch (bus)
+        if (bus.Equals(VolumeSlider.VolumeType.MASTER))
         {
-            case VolumeSlider.VolumeType.MASTER:
-                masterBus.setVolume(volume);
-                break;
-            case VolumeSlider.VolumeType.MUSIC:
-                musicBus.setVolume(volume);
-                break;
-            case VolumeSlider.VolumeType.SFX:
-                sfxBus.setVolume(volume);
-                break;
-            default:
-                Debug.Log("Bus not found");
-                break;
+            masterBus.setVolume(volume);
+        }
+        else if (bus.Equals(VolumeSlider.VolumeType.MUSIC))
+        {
+            musicBus.setVolume(volume);
+        }
+        else if (bus.Equals(VolumeSlider.VolumeType.SFX))
+        {
+            sfxBus.setVolume(volume);
+        }
+        else
+        {
+            Debug.Log("Bus not found");
         }
     }
-
 }
