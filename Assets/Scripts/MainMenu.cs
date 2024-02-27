@@ -33,4 +33,9 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
 }

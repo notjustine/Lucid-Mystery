@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b164adbe0ff024baff2088f0736ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeType: 1
+  volumeName: Music
 --- !u!1 &1243801009892013847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b164adbe0ff024baff2088f0736ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeType: 0
+  volumeName: Master
 --- !u!1 &2256589921083460849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,7 +3151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b164adbe0ff024baff2088f0736ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeType: 2
+  volumeName: SFX
 --- !u!1 &8481779648988794156
 GameObject:
   m_ObjectHideFlags: 0
