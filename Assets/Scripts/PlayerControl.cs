@@ -91,13 +91,12 @@ public class PlayerControl : MonoBehaviour
 
     void MoveToCurrentTile()
     {
-        Debug.Log("currentTileIndex is : " + currentTileIndex);
-        Debug.Log("currentRingIndex is : " + currentRingIndex);
+        Debug.Log("TileIndex is : " + currentTileIndex);
+        Debug.Log("RingIndex is : " + currentRingIndex);
 
         Vector3 newPosition = arenaInitializer.tilePositions[currentRingIndex][currentTileIndex];
         newPosition.y = 1.6f;
         transform.position = newPosition;
-        Debug.Log($"New character position: {transform.position}");
         inputted = true;
 
     }

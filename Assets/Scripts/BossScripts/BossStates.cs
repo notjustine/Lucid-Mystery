@@ -18,6 +18,8 @@ public class BossStates : MonoBehaviour
 
     void Update()
     {
+        Debug.Log($"Current State: {currentState}, Next Attack: {nextAttack}");
+
         switch (currentState)
         {
             case BossState.Idle:
@@ -28,14 +30,16 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Attacking;
                 break;
             case BossState.Attacking:
+                Debug.Log("Attempting to Perform Attack");
                 PerformAttack(nextAttack);
                 currentState = BossState.Cooldown;
                 break;
             case BossState.Cooldown:
-                currentState = BossState.Idle;
+                StartCoroutine(CooldownRoutine(3f));
                 break;
         }
     }
+
 
     bool IsPlayerInSpecificRing(out int ringIndex)
     {
@@ -54,7 +58,6 @@ public class BossStates : MonoBehaviour
 
     void DecideNextAttack()
     {
-        Debug.Log("Boss Idling");
         int ringIndex;
         if (IsPlayerInSpecificRing(out ringIndex))
         {
@@ -90,7 +93,7 @@ public class BossStates : MonoBehaviour
                 break;
         }
         nextAttack = BossAttackType.None;
-        StartCoroutine(CooldownRoutine(2f)); // Assuming a 2-second cooldown
+        StartCoroutine(CooldownRoutine(3f));
     }
 
     void PerformSteamAttack()
@@ -106,7 +109,7 @@ public class BossStates : MonoBehaviour
     {
         if (slamAttack != null)
         {
-            Debug.Log("Performing Steam Attack");
+            Debug.Log("Performing Slam Attack");
             slamAttack.TriggerAttack(targetTileIndex); 
         }
     }
@@ -114,7 +117,6 @@ public class BossStates : MonoBehaviour
     IEnumerator CooldownRoutine(float cooldownTime)
     {
         yield return new WaitForSeconds(cooldownTime);
-        Debug.Log("Boss Attack Finished");
         currentState = BossState.Idle;
     }
 }
