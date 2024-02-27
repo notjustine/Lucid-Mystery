@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +9,7 @@ public class PlayerControl : MonoBehaviour
     private int currentTileIndex = 0;
     private Animator animator;
     private Transform cameraTransform;
+    private PlayerInput input;
 
     private static readonly int Attack1 = Animator.StringToHash("Attack");
 
@@ -100,5 +100,10 @@ public class PlayerControl : MonoBehaviour
         Debug.Log($"New character position: {transform.position}");
         inputted = true;
 
+    }
+
+    public void SwitchPlayerMap(string map)
+    {
+        input.SwitchCurrentActionMap(map);
     }
 }
