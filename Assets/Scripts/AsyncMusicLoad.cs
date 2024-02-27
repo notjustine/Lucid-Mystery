@@ -7,21 +7,21 @@ public class AsyncMusicLoad : MonoBehaviour
 {
 // List of Banks to load
     [FMODUnity.BankRef]
-    public List<string> Banks = new List<string>();
+    public static List<string> Banks = new List<string>();
 
     // The name of the scene to load and switch to
     public string Scene = null;
 
     public void Start()
     {
-        StartCoroutine(LoadGameAsync());
+        StartCoroutine(LoadGameAsync(Scene));
     }
 
 
-    IEnumerator LoadGameAsync()
+    public static IEnumerator LoadGameAsync(string scene)
     {
         // Start an asynchronous operation to load the scene
-        AsyncOperation async = SceneManager.LoadSceneAsync(Scene);
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
         // Don't let the scene start until all Studio Banks have finished loading
         async.allowSceneActivation = false;
