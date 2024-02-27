@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossStates : MonoBehaviour
@@ -14,11 +15,17 @@ public class BossStates : MonoBehaviour
     BossState currentState = BossState.Idle;
     BossAttackType nextAttack = BossAttackType.None;
     private int targetTileIndex = 0; // Example target tile index for the Slam Attack
+    private float time = 0f;
+    private const float coolDownTime = 5f;
 
-
+    void Start()
+    {
+        steamAttack = FindObjectOfType<SteamAttack>();
+        slamAttack = FindObjectOfType<SlamAttack>();
+    }
     void Update()
     {
-        Debug.Log($"Current State: {currentState}, Next Attack: {nextAttack}");
+        // Debug.Log($"Current State: {currentState}, Next Attack: {nextAttack}");
 
         switch (currentState)
         {
@@ -35,8 +42,10 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Cooldown;
                 break;
             case BossState.Cooldown:
-                StartCoroutine(CooldownRoutine(3f));
+                // StartCoroutine(CooldownRoutine(3f));
+                Cooldown();
                 break;
+            
         }
     }
 
@@ -47,7 +56,10 @@ public class BossStates : MonoBehaviour
         float playerDistanceFromCenter = Vector3.Distance(playerTransform.position, arenaInitializer.transform.position);
         for (int i = 0; i < arenaInitializer.ringRadii.Length; i++)
         {
-            if (playerDistanceFromCenter <= arenaInitializer.ringRadii[i])
+            float startingRadius = i == 0 ? 0 : arenaInitializer.ringRadii[i];
+            float endingRadius = i == arenaInitializer.ringRadii.Length - 1? float.PositiveInfinity : arenaInitializer.ringRadii[i + 1];
+           
+            if (startingRadius <= playerDistanceFromCenter && playerDistanceFromCenter <= endingRadius)
             {
                 ringIndex = i;
                 break;
@@ -56,6 +68,17 @@ public class BossStates : MonoBehaviour
         return ringIndex != -1;
     }
 
+    void Cooldown()
+    {
+        if (time < coolDownTime)
+        {
+            time += Time.deltaTime;
+            return;
+        }
+
+        time = 0f;
+        currentState = BossState.Idle;
+    }
     void DecideNextAttack()
     {
         int ringIndex;
@@ -93,7 +116,7 @@ public class BossStates : MonoBehaviour
                 break;
         }
         nextAttack = BossAttackType.None;
-        StartCoroutine(CooldownRoutine(3f));
+
     }
 
     void PerformSteamAttack()
@@ -110,9 +133,10 @@ public class BossStates : MonoBehaviour
         if (slamAttack != null)
         {
             Debug.Log("Performing Slam Attack");
-            slamAttack.TriggerAttack(targetTileIndex); 
+            slamAttack.TriggerAttack(targetTileIndex);
         }
     }
+    
 
     IEnumerator CooldownRoutine(float cooldownTime)
     {

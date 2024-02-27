@@ -10,7 +10,13 @@ public class SlamAttack : MonoBehaviour
     public GameObject attackIndicatorPrefab;
     public float warningDuration = 1.0f;
     public float attackDuration = 1f;
-
+    private PlayerStatus playerStatus;
+    
+    private void Start()
+    {
+        // Initially set to idle material
+        playerStatus = FindObjectOfType<PlayerStatus>();
+    }
     public void TriggerAttack(int tileIndex)
     {
         StartCoroutine(AttackSequence(tileIndex));
@@ -43,8 +49,7 @@ public class SlamAttack : MonoBehaviour
                 {
                     if (hitCollider.CompareTag("Player")) 
                     {
-                        GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
-                        playerGameObject.GetComponent<PlayerStatus>().TakeDamage(20f);
+                        playerStatus.TakeDamage(20f);
                     }
                 }
             }

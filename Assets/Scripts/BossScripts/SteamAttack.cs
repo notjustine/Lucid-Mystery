@@ -10,12 +10,13 @@ public class SteamAttack : MonoBehaviour
     public TextMeshProUGUI warningText;
     public float warningDuration = 1.0f; // Duration of the warning phase
     private bool playerInAttackArea = false;
-
+    private PlayerStatus playerStatus;
     private void Start()
     {
         // Initially set to idle material
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
+        playerStatus = FindObjectOfType<PlayerStatus>();
     }
     private void Update()
     {
@@ -30,7 +31,7 @@ public class SteamAttack : MonoBehaviour
         StartCoroutine(AttackSequence());
     }
 
-    private System.Collections.IEnumerator AttackSequence()
+    public System.Collections.IEnumerator AttackSequence()
     {
         warningText.gameObject.SetActive(true);
         warningText.text = "Back Up!!";
@@ -45,16 +46,14 @@ public class SteamAttack : MonoBehaviour
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
-        StopCoroutine(FlashWarningText());
+        StopCoroutine(FlashWarningText());;
         if (playerInAttackArea){
-            GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
-            playerGameObject.GetComponent<PlayerStatus>().TakeDamage(20f);
+            playerStatus.TakeDamage(20f);
         }
         attackAreaRenderer.material = idleMaterial;
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collided");
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("collided w/ player");
@@ -66,6 +65,7 @@ public class SteamAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.LogWarning("Left Attack Area.");
             playerInAttackArea = false;
         }
     }
