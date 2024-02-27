@@ -9,9 +9,9 @@ detection, and deletion after time of bullets that missed.
 */
 public class BulletController : MonoBehaviour
 {
-    const float sniperBulletSpeed = 60f;
+    const float sniperBulletSpeed = 50f;
     const float rotationSpeed = 100f;
-    const float maxLifetime = 1f;
+    const float maxLifetime = 2f;
     float bulletLifetime;
     private Vector3 rot;
     GameObject sniper;
