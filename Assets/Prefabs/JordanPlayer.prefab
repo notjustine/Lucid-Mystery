@@ -399,6 +399,55 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+--- !u!143 &702732668825390149
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035613958205036639}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8931287885153552819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035613958205036639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb101f55a31c0f946b2fbaef2f81a0b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatChecker: {fileID: 0}
+  numberOfSlices: 24
+  radius: 50
+  heightAboveSlices: 1
+  topRatio: 0.25
+  midTopRatio: 0.6
+  midBotRatio: 0.8
+  botRatio: 1
+>>>>>>> main
 --- !u!114 &4183818972585173395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +476,11 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
+<<<<<<< HEAD
         m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+=======
+        m_TargetAssemblyTypeName: BeatCheckController, Assembly-CSharp
+>>>>>>> main
         m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
@@ -437,7 +490,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_ActionId: c1932d19-05d5-4a35-9f9e-7e5e75c4c37d
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -449,7 +502,19 @@ MonoBehaviour:
     m_ActionId: 993e9c8b-3076-4cf0-8858-97a822aee3a2
     m_ActionName: UI/Submit[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: OnResume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d672e1e1-f6b7-4b5c-9b44-ccadd158b8bf
     m_ActionName: UI/Cancel[/Keyboard/escape]
   - m_PersistentCalls:
@@ -465,25 +530,13 @@ MonoBehaviour:
     m_ActionId: 1b5a2458-a158-43b7-8d9f-b9c7c53745a5
     m_ActionName: UI/ScrollWheel[/Mouse/scroll]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 56e01ca0-581d-4bff-9d03-e8b30d6a7d3c
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d86f1113-14fb-44b3-86e6-7c8394bd2d78
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1dc3d199-1c1b-47f3-ad28-8518e14c25a6
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b7a15ea5-8c95-4889-9efc-04dd91acbb46
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
+<<<<<<< HEAD
         m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+=======
+        m_TargetAssemblyTypeName: BeatCheckController, Assembly-CSharp
+>>>>>>> main
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -496,6 +549,22 @@ MonoBehaviour:
         m_CallState: 1
     m_ActionId: 533dcd42-d472-49f8-9f79-8a96be20ac2f
     m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f1d8b35-4759-4128-80e0-878b40a1ba97
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
