@@ -80,20 +80,6 @@ public class FSM : MonoBehaviour
 
     void PerformSlamAttack()
     {
-        // Calculate the boss's current tile index in its ring (assuming the boss is in the top ring for simplification)
-        int bossTileIndex = FindClosestTileIndex(transform.position, arenaInitializer.tilePositions[0]);
-
-        // Iterate through all rings to apply the slam effect on the corresponding tile
-        for (int ringIndex = 0; ringIndex < arenaInitializer.tilePositions.Count; ringIndex++)
-        {
-            var ring = arenaInitializer.tilePositions[ringIndex];
-            if (bossTileIndex < ring.Count)
-            {
-                Vector3 targetTilePosition = ring[bossTileIndex];
-                // Assuming a method to check player position and apply effects if they are on the target tile
-                CheckAndApplyPlayerEffect(targetTilePosition, "Slam");
-            }
-        }
     }
 
     private int FindClosestTileIndex(Vector3 position, object p)
@@ -103,11 +89,6 @@ public class FSM : MonoBehaviour
 
     void PerformSteamAttack()
     {
-        Debug.Log("Performing Steam Attack");
-
-        // Target a 3x4 area around the player
-        // For simplicity, let's assume we calculate the player's position and target accordingly
-        // You'll need to adapt this logic based on your actual game's rules and structure
     }
 
 
