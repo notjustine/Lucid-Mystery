@@ -1,93 +1,49 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM : MonoBehaviour
+public abstract class BossState
 {
-    public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
-    public enum BossAttackType { None, Slam, SteamPush, Punishing }
+    protected BossController controller;
 
-    BossState currentState = BossState.Idle;
-    BossAttackType nextAttack = BossAttackType.None;
-
-
-    void Update()
+    public BossState(BossController controller)
     {
-        switch (currentState)
-        {
-            case BossState.Idle:
-                DecideNextAttack();
-                break;
-            case BossState.PreparingAttack:
-                // for cues
-                currentState = BossState.Attacking;
-                break;
-            case BossState.Attacking:
-                PerformAttack(nextAttack);
-                currentState = BossState.Cooldown;
-                break;
-            case BossState.Cooldown:
-                // Implement cooldown logic
-                currentState = BossState.Idle;
-                break;
-        }
+        this.controller = controller;
     }
 
-    // Placeholder methods for tracking player position and beat
-    bool IsPlayerInSpecificSlice() { /* Implement logic here */ return true; }
-    bool IsPlayerCloseToBoss() { /* Implement logic here */ return true; }
-    bool DidPlayerMissBeat() { /* Implement logic here, possibly with an event listener */ return false; }
+    public abstract void Tick();
+    public virtual void OnStateEnter() { }
+    public virtual void OnStateExit() { }
+}
 
+public class SlamAttackState : BossState
+{
+    public SlamAttackState(BossController controller) : base(controller) { }
 
-    void DecideNextAttack()
+    public override void Tick()
     {
-        if (DidPlayerMissBeat())
-        {
-            nextAttack = BossAttackType.Punishing;
-        }
-        else if (IsPlayerCloseToBoss())
-        {
-            nextAttack = BossAttackType.SteamPush;
-        }
-        else if (IsPlayerInSpecificSlice())
-        {
-            nextAttack = BossAttackType.Slam;
-        }
-        else
-        {
-            nextAttack = BossAttackType.None;
-        }
-
-        if (nextAttack != BossAttackType.None)
-        {
-            currentState = BossState.PreparingAttack;
-        }
+        controller.PerformSlamAttack();
+        // Transition logic can be added here or in the controller's Tick based on conditions
     }
 
-
-    void PerformAttack(BossAttackType attackType)
+    public override void OnStateEnter()
     {
-        switch (attackType)
-        {
-            case BossAttackType.Slam:
-                // Implement Slam attack logic
-                break;
-            case BossAttackType.SteamPush:
-                // Implement Steam Push attack logic
-                break;
-            case BossAttackType.Punishing:
-                // Implement Punishing attack logic
-                break;
-        }
-        // Reset nextAttack after performing it
-        nextAttack = BossAttackType.None;
+        base.OnStateEnter();
+        // Setup for Slam Attack
+    }
+}
+
+public class SteamAttackState : BossState
+{
+    public SteamAttackState(BossController controller) : base(controller) { }
+
+    public override void Tick()
+    {
+        controller.PerformSteamAttack();
+        // Transition logic can be added here or in the controller's Tick based on conditions
     }
 
-    IEnumerator CooldownRoutine(float cooldownTime)
+    public override void OnStateEnter()
     {
-        yield return new WaitForSeconds(cooldownTime);
-        currentState = BossState.Idle;
+        base.OnStateEnter();
+        // Setup for Steam Attack
     }
-
 }
