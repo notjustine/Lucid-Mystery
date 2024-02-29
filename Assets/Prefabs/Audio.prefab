@@ -143,11 +143,11 @@ MonoBehaviour:
     Path: event:/player_attack
   <backgroundTrack>k__BackingField:
     Guid:
-      Data1: 1751738824
-      Data2: 1102560753
-      Data3: 1713689250
-      Data4: 371444265
-    Path: event:/TestingClickTrackEveryBeat
+      Data1: -394299075
+      Data2: 1129154746
+      Data3: -1770866555
+      Data4: -1290361215
+    Path: event:/MainMusic
   <attackSwing>k__BackingField:
     Guid:
       Data1: 1099561859

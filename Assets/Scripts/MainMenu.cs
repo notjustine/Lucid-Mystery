@@ -37,5 +37,6 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
+        PlayerPrefs.SetInt("bossPhase", 0);
     }
 }

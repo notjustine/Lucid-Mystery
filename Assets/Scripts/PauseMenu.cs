@@ -38,8 +38,10 @@ public class PauseMenu : MonoBehaviour
         AudioManager.instance.ResumeAllEvents();
     }
 
-    public void QuitGame()
+    public static void QuitGame()
     {
+        if (PlayerPrefs.HasKey("bossPhase")) 
+            PlayerPrefs.DeleteKey("bossPhase");
         Application.Quit();
     }
 
