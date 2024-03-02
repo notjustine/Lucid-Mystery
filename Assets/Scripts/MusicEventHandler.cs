@@ -10,6 +10,7 @@ public class MusicEventHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     private EventReference backgroundTrack;
+    private EventReference backgroundTrack2;
     private EventInstance eventInstance;
     private EVENT_CALLBACK beatCallback;
 
@@ -21,10 +22,32 @@ public class MusicEventHandler : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
+        backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
+        if (PlayerPrefs.GetInt("bossPhase", 0) == 0)
+        {
+            StartPhaseOneMusic();
+        }
+        else
+        {
+            StartPhaseTwoMusic();
+        }
+    }
+
+    void StartPhaseOneMusic()
+    {
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
+        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance.start();
+    }
+    
+    public void StartPhaseTwoMusic()
+    {
+        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        eventInstance.release();
+        eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
         eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         eventInstance.start();
     }

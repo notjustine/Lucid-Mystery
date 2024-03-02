@@ -45,6 +45,7 @@ public class BossHealth : MonoBehaviour
         {
             case 0:
                 PlayerPrefs.SetInt("bossPhase", 1);
+                AudioManager.instance.TriggerPhaseTwoMusic();
                 currHealth = maxHealth;
                 break;
             case 1:

@@ -141,13 +141,6 @@ MonoBehaviour:
       Data3: -696354895
       Data4: 1903463602
     Path: event:/player_attack
-  <backgroundTrack>k__BackingField:
-    Guid:
-      Data1: -394299075
-      Data2: 1129154746
-      Data3: -1770866555
-      Data4: -1290361215
-    Path: event:/MainMusic
   <attackSwing>k__BackingField:
     Guid:
       Data1: 1099561859
@@ -169,3 +162,17 @@ MonoBehaviour:
       Data3: -1959202431
       Data4: 483704219
     Path: event:/sniper_attack
+  <backgroundTrack>k__BackingField:
+    Guid:
+      Data1: -394299075
+      Data2: 1129154746
+      Data3: -1770866555
+      Data4: -1290361215
+    Path: event:/MainMusic
+  <backgroundTrack2>k__BackingField:
+    Guid:
+      Data1: 300236166
+      Data2: 1235724991
+      Data3: -1794535278
+      Data4: -1853079925
+    Path: event:/MainMusic180BPM
