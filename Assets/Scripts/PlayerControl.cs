@@ -54,7 +54,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         inputted = true;
-        // beatChecker.SetVulnerable(true);
+        beatChecker.SetVulnerable(true);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -64,7 +64,7 @@ public class PlayerControl : MonoBehaviour
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
         animator.SetTrigger(Attack1);
-        // beatChecker.SetVulnerable(true);
+        beatChecker.SetVulnerable(true);
         inputted = true;
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private bool isInviciible = false;
     private float currHealth;
 
     public HealthBar healthBar;
@@ -18,6 +19,8 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (isInviciible)
+            return;
         currHealth -= amount;
         if (currHealth < 0)
         {
