@@ -8,7 +8,7 @@ public class SteamAttack : MonoBehaviour
     public Material attackMaterial;
     public MeshRenderer attackAreaRenderer; // Assign the MeshRenderer of the cylinder object
     public TextMeshProUGUI warningText;
-    public float warningDuration = 1.0f; // Duration of the warning phase
+    public float warningDuration = 3.0f; // Duration of the warning phase
     private bool playerInAttackArea = false;
     private PlayerStatus playerStatus;
     private void Start()
@@ -46,6 +46,8 @@ public class SteamAttack : MonoBehaviour
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
+
+       
         StopCoroutine(FlashWarningText());;
         if (playerInAttackArea){
             playerStatus.TakeDamage(20f);
