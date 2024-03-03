@@ -17,6 +17,7 @@ public class VolumeSlider : MonoBehaviour
         public static VolumeType MASTER = new VolumeType("Master");
         public static VolumeType MUSIC = new VolumeType("Music");
         public static VolumeType SFX = new VolumeType("SFX");
+        public static VolumeType AMBIENCE = new VolumeType("Ambience");
         
         public override string ToString()
         {
@@ -59,6 +60,9 @@ public class VolumeSlider : MonoBehaviour
                 break;
             case "SFX":
                 volumeType = VolumeType.SFX;
+                break;
+            case "Ambience":
+                volumeType = VolumeType.AMBIENCE;
                 break;
             default:
                 Debug.Log("Volume name not found.");

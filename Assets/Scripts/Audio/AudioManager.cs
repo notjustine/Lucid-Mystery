@@ -9,12 +9,13 @@ public class AudioManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public static AudioManager instance { get; private set; }
-    private List<EventInstance> eventInstances;
+    [field: SerializeField] private List<EventInstance> eventInstances;
     private MusicEventHandler musicEventHandler;
 
     private Bus masterBus;
     private Bus musicBus;
     private Bus sfxBus;
+    private Bus ambienceBus;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class AudioManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
 
         AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.MASTER.ToString(), 1),
             VolumeSlider.VolumeType.MASTER);
@@ -92,6 +94,10 @@ public class AudioManager : MonoBehaviour
         else if (bus.Equals(VolumeSlider.VolumeType.SFX))
         {
             sfxBus.setVolume(volume);
+        }
+        else if (bus.Equals(VolumeSlider.VolumeType.AMBIENCE))
+        {
+            ambienceBus.setVolume(volume);
         }
         else
         {
