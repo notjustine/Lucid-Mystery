@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     public static AudioManager instance { get; private set; }
     private List<EventInstance> eventInstances;
+    private MusicEventHandler musicEventHandler;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour
             VolumeSlider.VolumeType.MASTER);
         AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.MUSIC.ToString(), 1), VolumeSlider.VolumeType.MUSIC);
         AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.SFX.ToString(), 1), VolumeSlider.VolumeType.SFX);
+        musicEventHandler = FindObjectOfType<MusicEventHandler>();
     }
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
@@ -95,5 +97,10 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log("Bus not found");
         }
+    }
+    
+    public void TriggerPhaseTwoMusic()
+    {
+        musicEventHandler.StartPhaseTwoMusic();
     }
 }

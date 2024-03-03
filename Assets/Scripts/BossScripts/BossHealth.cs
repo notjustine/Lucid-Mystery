@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
@@ -22,7 +23,6 @@ public class BossHealth : MonoBehaviour
         {
             currHealth = 0;
         }
-        Debug.Log("decreasing boss health.");
         healthBar.SetSlider(currHealth);
     }
 
@@ -31,7 +31,7 @@ public class BossHealth : MonoBehaviour
         // for testing hp bar
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            TakeDamage(10f);
+            TakeDamage(100f);
         }
         if (currHealth <= 0)
         {
@@ -40,7 +40,23 @@ public class BossHealth : MonoBehaviour
     }
     private void Die()
     {
-        Debug.Log("Boss is dead");
+        int phase = PlayerPrefs.GetInt("bossPhase");
+        switch (phase)
+        {
+            case 0:
+                PlayerPrefs.SetInt("bossPhase", 1);
+                AudioManager.instance.TriggerPhaseTwoMusic();
+                currHealth = maxHealth;
+                break;
+            case 1:
+                Ending.BossLoss();
+                SceneManager.LoadScene("EndMenu");
+                break;
+            default:
+                Debug.Log("Boss state is not a valid one. This shouldn't happen");
+                break;
+        }
+        
     }
     public void SetInvulnerability(bool state)
     {
