@@ -17,6 +17,15 @@ public class SoundRef : MonoBehaviour
     [field: Header("Background Music")]
     [field: SerializeField] public EventReference backgroundTrack { get; private set; }
     [field: SerializeField] public EventReference backgroundTrack2 { get; private set; }
+    
+    
+    [field: Header("Ambient Sounds")]
+    [field: SerializeField] public EventReference canShakes { get; private set; }
+    [field: SerializeField] public EventReference gears { get; private set; }
+    [field: SerializeField] public EventReference wind { get; private set; }
+    [field: SerializeField] public EventReference pipeWater { get; private set; }
+    [field: SerializeField] public EventReference randomClinks { get; private set; }
+    [field: SerializeField] public EventReference scratch { get; private set; }
 
     private void Awake()
     {
