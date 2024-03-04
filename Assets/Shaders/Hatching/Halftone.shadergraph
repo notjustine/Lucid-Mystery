@@ -5684,7 +5684,7 @@
     "m_RefNameGeneratedByDisplayName": "Animation Speed",
     "m_DefaultReferenceName": "_Animation_Speed",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
