@@ -371,8 +371,8 @@ VisualEffect:
   m_GameObject: {fileID: 2849423}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -2917,8 +2917,8 @@ VisualEffect:
   m_GameObject: {fileID: 75173777}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -9446,8 +9446,8 @@ VisualEffect:
   m_GameObject: {fileID: 221516413}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -26854,8 +26854,8 @@ VisualEffect:
   m_GameObject: {fileID: 750665440}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -42820,8 +42820,8 @@ VisualEffect:
   m_GameObject: {fileID: 1210391484}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -43694,8 +43694,8 @@ VisualEffect:
   m_GameObject: {fileID: 1230373639}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -48459,8 +48459,8 @@ VisualEffect:
   m_GameObject: {fileID: 1385395430}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -55955,8 +55955,8 @@ VisualEffect:
   m_GameObject: {fileID: 1634989069}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -61098,8 +61098,8 @@ VisualEffect:
   m_GameObject: {fileID: 1777984195}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -66110,8 +66110,8 @@ VisualEffect:
   m_GameObject: {fileID: 1952086925}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -66802,8 +66802,8 @@ VisualEffect:
   m_GameObject: {fileID: 1976445828}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -69178,8 +69178,8 @@ VisualEffect:
   m_GameObject: {fileID: 2023984011}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ef5f50d7abe36cc4aa5878af859c71c0, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
