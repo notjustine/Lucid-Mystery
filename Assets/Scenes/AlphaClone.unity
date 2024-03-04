@@ -330,7 +330,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2849423}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2876,7 +2876,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75173777}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -9405,7 +9405,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221516413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -21139,7 +21139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &568011091
 Transform:
   m_ObjectHideFlags: 0
@@ -22945,8 +22945,8 @@ Transform:
   m_GameObject: {fileID: 630916612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.6, z: -0}
-  m_LocalScale: {x: 110, y: 1, z: 110}
+  m_LocalPosition: {x: 0.1999, y: -0.6, z: 0}
+  m_LocalScale: {x: 85.618835, y: 1, z: 88.4106}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -26813,7 +26813,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750665440}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -31529,7 +31529,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1
+  m_Radius: 1.2
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.0000025071204, y: 0.00000017881393, z: 0.000000007450581}
@@ -36146,7 +36146,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       insertIndex: 2
       addedObject: {fileID: 568011091}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1540626460}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1540626459}
   m_SourcePrefab: {fileID: 100100000, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
 --- !u!4 &1048706818 stripped
 Transform:
@@ -42773,7 +42779,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210391484}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -43647,7 +43653,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230373639}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -48412,7 +48418,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385395430}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -53084,6 +53090,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536684779}
   m_Mesh: {fileID: -577152374000073875, guid: ca7d4f436ab6434468b1c3481b287445, type: 3}
+--- !u!1 &1540626458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
+  m_PrefabInstance: {fileID: 1048706816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1540626459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540626458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a4157c756c9864a8eb08e6b57c2548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arenaInitializer: {fileID: 1634689909}
+  warningMaterial: {fileID: 2100000, guid: 0fe030b914218448c8228c212231cf62, type: 2}
+  attackIndicatorPrefab: {fileID: 5045145934329874862, guid: 9be0015885648f34e81129610cc1a04a, type: 3}
+  warningDuration: 2.5
+  attackDuration: 1
+  warningText: {fileID: 1438361043}
+--- !u!114 &1540626460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540626458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b27986dba04dee4eb770699c42adb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arenaInitializer: {fileID: 1634689909}
+  playerTransform: {fileID: 2141803793}
+  steamAttack: {fileID: 630916613}
+  slamAttack: {fileID: 1540626459}
+  playerControl: {fileID: 2141803788}
 --- !u!1 &1541008488
 GameObject:
   m_ObjectHideFlags: 0
@@ -55868,7 +55914,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634989069}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -61011,7 +61057,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777984195}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -66023,7 +66069,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952086925}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -66715,7 +66761,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976445828}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -69091,7 +69137,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023984011}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -73293,6 +73339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatChecker: {fileID: 0}
   arenaInitializer: {fileID: 0}
+  currentRingIndex: 0
+  currentTileIndex: 0
 --- !u!4 &2141803793
 Transform:
   m_ObjectHideFlags: 0

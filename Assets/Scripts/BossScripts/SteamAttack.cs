@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.VFX;
 
 public class SteamAttack : MonoBehaviour
 {
@@ -18,15 +19,20 @@ public class SteamAttack : MonoBehaviour
         // Initially set to idle material
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
+        VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
         playerStatus = FindObjectOfType<PlayerStatus>();
-        steamAttackVFX.SetActive(false);
+        foreach (VisualEffect effect in effects)
+        {
+            effect.Stop();
+        }
     }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            TriggerAttack();
-        }
+        // if (Input.GetKeyDown(KeyCode.U))
+        // {
+        //    TriggerAttack();
+        // }
     }
     // Call this method to start the attack sequence
     public void TriggerAttack()
@@ -36,33 +42,36 @@ public class SteamAttack : MonoBehaviour
 
     public System.Collections.IEnumerator AttackSequence()
     {
+        VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
         warningText.gameObject.SetActive(true);
         warningText.text = "Back Up!!";
         StartCoroutine(FlashWarningText());
         // Switch to warning material
         attackAreaRenderer.material = warningMaterial;
-
-
         // Wait for the warning duration
-        steamAttackVFX.SetActive(true);
         yield return new WaitForSeconds(warningDuration);
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
-
-       
+        foreach (VisualEffect effect in effects)
+        {
+            effect.Play();
+        };
+        yield return new WaitForSeconds(0.5f);
         StopCoroutine(FlashWarningText());;
         if (playerInAttackArea){
             playerStatus.TakeDamage(20f);
         }
-        steamAttackVFX.SetActive(false);
+        foreach (VisualEffect effect in effects)
+        {
+            effect.Stop();
+        }
         attackAreaRenderer.material = idleMaterial;
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("collided w/ player");
             playerInAttackArea = true;
         }
     }
@@ -71,7 +80,6 @@ public class SteamAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.LogWarning("Left Attack Area.");
             playerInAttackArea = false;
         }
     }

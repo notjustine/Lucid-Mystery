@@ -1,22 +1,25 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class SlamAttack : MonoBehaviour
 {
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private Material warningMaterial;
-    [SerializeField] private Material attackMaterial;
-    [SerializeField] private Material idleMaterial;
-    public GameObject attackIndicatorPrefab;
-    public float warningDuration = 1.0f;
-    public float attackDuration = 1f;
+    [SerializeField] private GameObject attackIndicatorPrefab;
+    public float warningDuration = 2.5f; // Duration before the attack hits
+    public float attackDuration = 1f; // Duration of the attack visual effect
+    public TextMeshProUGUI warningText;
+    private PlayerControl playerControl;
     private PlayerStatus playerStatus;
-    
+
     private void Start()
     {
-        // Initially set to idle material
+        warningText.gameObject.SetActive(false);
+        playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
     }
+
     public void TriggerAttack(int tileIndex)
     {
         StartCoroutine(AttackSequence(tileIndex));
@@ -24,46 +27,51 @@ public class SlamAttack : MonoBehaviour
 
     private IEnumerator AttackSequence(int tileIndex)
     {
-        // Display warning at target tiles
-        var indicators = new GameObject[arenaInitializer.tilePositions.Count];
-        for (int i = 0; i < arenaInitializer.tilePositions.Count; i++)
+        warningText.gameObject.SetActive(true);
+        warningText.text = "Avoid tiles with Indicator!!";
+        StartCoroutine(FlashWarningText());
+        foreach (var ring in arenaInitializer.tilePositions)
         {
-            if (tileIndex < arenaInitializer.tilePositions[i].Count)
+            if (tileIndex < ring.Count)
             {
-                Vector3 targetPosition = arenaInitializer.tilePositions[i][tileIndex];
+                Vector3 targetPosition = ring[tileIndex];
+                targetPosition.y = 0f;
                 var indicator = Instantiate(attackIndicatorPrefab, targetPosition, Quaternion.identity);
-                indicator.GetComponent<MeshRenderer>().material = warningMaterial;
-                indicators[i] = indicator;
+                StartCoroutine(HandleIndicatorLifecycle(indicator));
             }
         }
-
         yield return new WaitForSeconds(warningDuration);
+        CheckForPlayerDamage(tileIndex);
+    }
 
-        foreach (var indicator in indicators)
-        {
-            if (indicator != null)
-            {
-                indicator.GetComponent<MeshRenderer>().material = attackMaterial;
-                Collider[] hitColliders = Physics.OverlapSphere(indicator.transform.position, 3f); 
-                foreach (var hitCollider in hitColliders)
-                {
-                    if (hitCollider.CompareTag("Player")) 
-                    {
-                        playerStatus.TakeDamage(20f);
-                    }
-                }
-            }
-        }
 
+    private IEnumerator HandleIndicatorLifecycle(GameObject indicator)
+    {
+        indicator.GetComponent<MeshRenderer>().material = warningMaterial;
+        yield return new WaitForSeconds(warningDuration);
         yield return new WaitForSeconds(attackDuration);
+        Destroy(indicator);
+    }
 
-        // revert to idle state and destroy indicators
-        foreach (var indicator in indicators)
+    private void CheckForPlayerDamage(int tileIndex)
+    {
+        if (playerControl.currentTileIndex == tileIndex)
         {
-            if (indicator != null)
-            {
-                Destroy(indicator);
-            }
+            playerStatus.TakeDamage(20f);
         }
     }
+    private System.Collections.IEnumerator FlashWarningText()
+    {
+        float flashDuration = warningDuration;
+        float startTime = Time.time;
+        while (Time.time - startTime < flashDuration)
+        {
+            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
+            warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
+            yield return null;
+        }
+        warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
+    }
+
 }
+

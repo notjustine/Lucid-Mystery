@@ -5,8 +5,8 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private BeatCheckController beatChecker;
     [SerializeField] private ArenaInitializer arenaInitializer;
-    private int currentRingIndex = 0;
-    private int currentTileIndex = 0;
+    public int currentRingIndex = 0;
+    public int currentTileIndex = 0;
     private Animator animator;
     private Transform cameraTransform;
     private PlayerInput input;
@@ -91,9 +91,8 @@ public class PlayerControl : MonoBehaviour
 
     void MoveToCurrentTile()
     {
-        Debug.Log("TileIndex is : " + currentTileIndex);
-        Debug.Log("RingIndex is : " + currentRingIndex);
-
+        // Debug.Log("TileIndex is : " + currentTileIndex);
+        // Debug.Log("RingIndex is : " + currentRingIndex);
         Vector3 newPosition = arenaInitializer.tilePositions[currentRingIndex][currentTileIndex];
         newPosition.y = 1.6f;
         transform.position = newPosition;

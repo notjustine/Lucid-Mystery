@@ -8,6 +8,7 @@ public class BossStates : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private SteamAttack steamAttack;
     [SerializeField] private SlamAttack slamAttack;
+    [SerializeField] private PlayerControl playerControl;
 
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
     public enum BossAttackType { None, Slam, Steam }
@@ -133,7 +134,7 @@ public class BossStates : MonoBehaviour
         if (slamAttack != null)
         {
             Debug.Log("Performing Slam Attack");
-            slamAttack.TriggerAttack(targetTileIndex);
+            slamAttack.TriggerAttack(playerControl.currentTileIndex);
         }
     }
     
