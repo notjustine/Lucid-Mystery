@@ -8,15 +8,18 @@ public class SteamAttack : MonoBehaviour
     public Material attackMaterial;
     public MeshRenderer attackAreaRenderer; // Assign the MeshRenderer of the cylinder object
     public TextMeshProUGUI warningText;
-    public float warningDuration = 3.0f; // Duration of the warning phase
+    public float warningDuration = 2.5f; // Duration of the warning phase
     private bool playerInAttackArea = false;
     private PlayerStatus playerStatus;
+    public GameObject steamAttackVFX;
+
     private void Start()
     {
         // Initially set to idle material
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
         playerStatus = FindObjectOfType<PlayerStatus>();
+        steamAttackVFX.SetActive(false);
     }
     private void Update()
     {
@@ -39,10 +42,10 @@ public class SteamAttack : MonoBehaviour
         // Switch to warning material
         attackAreaRenderer.material = warningMaterial;
 
-        
-        // Wait for the warning duration
-        yield return new WaitForSeconds(warningDuration);
 
+        // Wait for the warning duration
+        steamAttackVFX.SetActive(true);
+        yield return new WaitForSeconds(warningDuration);
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
@@ -52,6 +55,7 @@ public class SteamAttack : MonoBehaviour
         if (playerInAttackArea){
             playerStatus.TakeDamage(20f);
         }
+        steamAttackVFX.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
     }
     void OnTriggerEnter(Collider other)
@@ -73,7 +77,7 @@ public class SteamAttack : MonoBehaviour
     }
     private System.Collections.IEnumerator FlashWarningText()
     {
-        float flashDuration = warningDuration; // Use the same duration as the warning for simplicity.
+        float flashDuration = warningDuration; // Using the same duration as the warning for simplicity.
         float startTime = Time.time;
         while (Time.time - startTime < flashDuration)
         {

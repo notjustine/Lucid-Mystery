@@ -20870,6 +20870,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554033315}
   m_Mesh: {fileID: -1653708421590727684, guid: ca7d4f436ab6434468b1c3481b287445, type: 3}
+--- !u!4 &557768786 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3398086467355608122, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
+  m_PrefabInstance: {fileID: 1048706816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &560234301
 GameObject:
   m_ObjectHideFlags: 0
@@ -22856,7 +22861,8 @@ MonoBehaviour:
   attackMaterial: {fileID: 2100000, guid: 52114ef243d3d4de281b5483c9f568a8, type: 2}
   attackAreaRenderer: {fileID: 630916615}
   warningText: {fileID: 1438361043}
-  warningDuration: 1
+  warningDuration: 2.5
+  steamAttackVFX: {fileID: 568011090}
 --- !u!136 &630916614
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33314,7 +33320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2141803793}
-  bossTransform: {fileID: 0}
+  bossTransform: {fileID: 557768786}
   distanceBehindPlayer: 20
   heightAbove: 11
   smoothSpeed: 10
