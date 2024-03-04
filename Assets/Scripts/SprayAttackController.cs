@@ -39,6 +39,16 @@ public class SprayAttackController : MonoBehaviour
         }
     }
 
+    /**
+   Can be called by some AI controller to trigger the Shoot and Rotate attack.
+   Note:  intentionally not in use while we are using timer above.
+   */
+    public void TriggerShootAndRotate()
+    {
+        StartCoroutine(TripleShootAndRotate(turrets));
+    }
+
+
     IEnumerator TripleShootAndRotate(ShootSprayBullet[] turrets)
     {
         // First round of shots.
