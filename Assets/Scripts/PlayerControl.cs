@@ -16,6 +16,16 @@ public class PlayerControl : MonoBehaviour
     // Movement Updates
     public bool inputted { get; set; }
 
+    public int getCurrentRingIndex()
+    {
+        return currentRingIndex;
+    }
+
+    public int getCurrentTileIndex()
+    {
+        return currentTileIndex;
+    }
+
     void Start()
     {
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
