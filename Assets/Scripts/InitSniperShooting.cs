@@ -13,7 +13,7 @@ public class InitSniperShooting : MonoBehaviour
     private GameObject player;
     private Vector3 playerShootPosition;
     private Vector3 prevRotation;
-    private const float turretRotationSpeed = 4f;
+    private const float turretRotationSpeed = 5f;
     private bool aiming;
     private bool readyToShoot;
 
