@@ -8411,7 +8411,7 @@ MonoBehaviour:
       Data2: 1244781324
       Data3: 702841276
       Data4: 812714890
-    Path: event:/amb__randomclinks_lp
+    Path: event:/Ambience/amb__randomclinks_lp
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -8420,9 +8420,9 @@ MonoBehaviour:
   Preload: 1
   AllowNonRigidbodyDoppler: 1
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 70
-  OverrideMaxDistance: 200
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &202096280
 GameObject:
   m_ObjectHideFlags: 0
@@ -14701,7 +14701,7 @@ MonoBehaviour:
       Data2: 1149208098
       Data3: 1540692642
       Data4: -424666860
-    Path: event:/amb_gears_lp
+    Path: event:/Ambience/amb_gears_lp
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -14710,9 +14710,9 @@ MonoBehaviour:
   Preload: 1
   AllowNonRigidbodyDoppler: 1
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 70
-  OverrideMaxDistance: 200
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &351499916
 GameObject:
   m_ObjectHideFlags: 0
@@ -41042,7 +41042,7 @@ MonoBehaviour:
       Data2: 1312730777
       Data3: 1474172574
       Data4: -2074001787
-    Path: event:/amb_scratch_lp
+    Path: event:/Ambience/amb_scratch_lp
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -41051,9 +41051,9 @@ MonoBehaviour:
   Preload: 1
   AllowNonRigidbodyDoppler: 1
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 70
-  OverrideMaxDistance: 200
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1136731840
 GameObject:
   m_ObjectHideFlags: 0
@@ -48990,7 +48990,7 @@ MonoBehaviour:
       Data2: 1312730777
       Data3: 1474172574
       Data4: -2074001787
-    Path: event:/amb_scratch_lp
+    Path: event:/Ambience/amb_scratch_lp
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -48999,9 +48999,9 @@ MonoBehaviour:
   Preload: 1
   AllowNonRigidbodyDoppler: 1
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 70
-  OverrideMaxDistance: 200
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1370665865
 GameObject:
   m_ObjectHideFlags: 0
@@ -69034,7 +69034,7 @@ MonoBehaviour:
       Data2: 1127823914
       Data3: 836785313
       Data4: -322897699
-    Path: event:/amb_outsidewind_lp
+    Path: event:/Ambience/amb_outsidewind_lp
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -69043,9 +69043,9 @@ MonoBehaviour:
   Preload: 1
   AllowNonRigidbodyDoppler: 1
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 70
-  OverrideMaxDistance: 200
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1988604568
 GameObject:
   m_ObjectHideFlags: 0
@@ -71792,6 +71792,54 @@ PrefabInstance:
     - target: {fileID: 2986082032567648894, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: fmodEvent.Guid.Data4
       value: 814325173
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <wind>k__BackingField.Path
+      value: event:/Ambience/amb_outsidewind_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <gears>k__BackingField.Path
+      value: event:/Ambience/amb_gears_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <scratch>k__BackingField.Path
+      value: event:/Ambience/amb_scratch_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <canShakes>k__BackingField.Path
+      value: event:/Ambience/amb_backgroundcanshakes_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <pipeWater>k__BackingField.Path
+      value: event:/Ambience/amb_pipeWaterRunning_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSound>k__BackingField.Path
+      value: event:/SFX/player_attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <attackSwing>k__BackingField.Path
+      value: event:/SFX/player_attackSwing
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <randomClinks>k__BackingField.Path
+      value: event:/Ambience/amb__randomclinks_lp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <movementSound>k__BackingField.Path
+      value: event:/SFX/player_movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Path
+      value: event:/Music/MainMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack2>k__BackingField.Path
+      value: event:/Music/MainMusic180BPM
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <missBeatSniperShot>k__BackingField.Path
+      value: event:/SFX/sniper_attack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
