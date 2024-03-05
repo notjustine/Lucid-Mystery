@@ -19,6 +19,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInviciible)
             return;
         currHealth -= amount;
@@ -26,7 +27,6 @@ public class PlayerStatus : MonoBehaviour
         {
             currHealth = 0;
         }
-        Debug.Log("decreasing health.");
         healthBar.SetSlider(currHealth);
     }
 

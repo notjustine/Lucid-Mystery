@@ -56,7 +56,7 @@ public class SprayAttackController : MonoBehaviour
         {
             turret.Shoot();  // assume shoots at first index of 0 
         }
-
+        turrets[0].PlaySound();
         // increment the target index because we already shot at above.
         currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
         // Determine position of child to shoot at.
@@ -71,13 +71,12 @@ public class SprayAttackController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);  // adds some padding between shoot and rotations
-
         // Second round of shots.
         foreach (ShootSprayBullet turret in turrets)
         {
             turret.Shoot();
         }
-
+        turrets[0].PlaySound();
         // increment the target index
         currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
         // Determine position of child to shoot at
@@ -98,5 +97,6 @@ public class SprayAttackController : MonoBehaviour
         {
             turret.Shoot();
         }
+        turrets[0].PlaySound();
     }
 }

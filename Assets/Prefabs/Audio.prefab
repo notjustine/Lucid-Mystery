@@ -140,81 +140,102 @@ MonoBehaviour:
       Data2: 1252999127
       Data3: -696354895
       Data4: 1903463602
-    Path: event:/player_attack
+    Path: event:/SFX/player_attack
   <attackSwing>k__BackingField:
     Guid:
       Data1: 1099561859
       Data2: 1338802348
       Data3: -462988118
       Data4: -340126280
-    Path: event:/player_attackSwing
+    Path: event:/SFX/player_attackSwing
   <movementSound>k__BackingField:
     Guid:
       Data1: -519370681
       Data2: 1235246147
       Data3: 1219330488
       Data4: 581936176
-    Path: event:/player_movement
+    Path: event:/SFX/player_movement
+  <dmgTaken>k__BackingField:
+    Guid:
+      Data1: -934662700
+      Data2: 1199960070
+      Data3: 183612039
+      Data4: 1168306589
+    Path: event:/SFX/player_damageTaken
   <missBeatSniperShot>k__BackingField:
     Guid:
       Data1: 616452673
       Data2: 1218904472
       Data3: -1959202431
       Data4: 483704219
-    Path: event:/sniper_attack
+    Path: event:/SFX/sniper_attack
+  <steamAttack>k__BackingField:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  <turrentShot>k__BackingField:
+    Guid:
+      Data1: 799935278
+      Data2: 1095103305
+      Data3: -865545839
+      Data4: -2065541897
+    Path: event:/SFX/boss_turretattack
   <backgroundTrack>k__BackingField:
     Guid:
       Data1: -394299075
       Data2: 1129154746
       Data3: -1770866555
       Data4: -1290361215
-    Path: event:/MainMusic
+    Path: event:/Music/MainMusic
   <backgroundTrack2>k__BackingField:
     Guid:
       Data1: 300236166
       Data2: 1235724991
       Data3: -1794535278
       Data4: -1853079925
-    Path: event:/MainMusic180BPM
+    Path: event:/Music/MainMusic180BPM
   <canShakes>k__BackingField:
     Guid:
       Data1: 1946735692
       Data2: 1101225631
       Data3: 535932094
       Data4: -443121844
-    Path: event:/amb_backgroundcanshakes_lp
+    Path: event:/Ambience/amb_backgroundcanshakes_lp
   <gears>k__BackingField:
     Guid:
       Data1: 278538741
       Data2: 1149208098
       Data3: 1540692642
       Data4: -424666860
-    Path: event:/amb_gears_lp
+    Path: event:/Ambience/amb_gears_lp
   <wind>k__BackingField:
     Guid:
       Data1: 441742685
       Data2: 1127823914
       Data3: 836785313
       Data4: -322897699
-    Path: event:/amb_outsidewind_lp
+    Path: event:/Ambience/amb_outsidewind_lp
   <pipeWater>k__BackingField:
     Guid:
       Data1: 1793153914
       Data2: 1117629899
       Data3: -1979757421
       Data4: 800187180
-    Path: event:/amb_pipeWaterRunning_lp
+    Path: event:/Ambience/amb_pipeWaterRunning_lp
   <randomClinks>k__BackingField:
     Guid:
       Data1: -229192309
       Data2: 1244781324
       Data3: 702841276
       Data4: 812714890
-    Path: event:/amb__randomclinks_lp
+    Path: event:/Ambience/amb__randomclinks_lp
   <scratch>k__BackingField:
     Guid:
       Data1: 191746681
       Data2: 1312730777
       Data3: 1474172574
       Data4: -2074001787
-    Path: event:/amb_scratch_lp
+    Path: event:/Ambience/amb_scratch_lp
