@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Ending : MonoBehaviour
 {
@@ -9,14 +11,18 @@ public class Ending : MonoBehaviour
     [SerializeField] private string scene = "AlphaClone";
     [SerializeField] private TextMeshProUGUI TitleText;
     [SerializeField] private TextMeshProUGUI TryAgainText;
+    [SerializeField] private VideoPlayer video;
 
     private static bool bossDied = false;
     void Start()
     {
+        video = Camera.main.GetComponent<VideoPlayer>();
+        
         if (bossDied)
         {
-            TitleText.text = "You Win!";
-            TryAgainText.text = "Play Again?";
+            // TitleText.text = "You Win!";
+            // TryAgainText.text = "Play Again?";
+            ShowEndingCutScene();
         }
         else
         {
@@ -25,6 +31,14 @@ public class Ending : MonoBehaviour
         }
     }
 
+    void ShowEndingCutScene()
+    {
+        
+        TitleText.gameObject.SetActive(false);
+        TryAgainText.gameObject.SetActive(false);
+        
+        ;
+    }
     public static void BossLoss()
     {
         bossDied = true;
