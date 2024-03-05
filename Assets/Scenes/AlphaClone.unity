@@ -36362,6 +36362,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8523772855540137367, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_Name
+      value: turrets_GEO
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3603768
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00008536548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -9164737867442930373, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -36970,38 +37002,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7c7b24eb3bd9c4f9781d6690804402b9, type: 2}
-    - target: {fileID: 8523772855540137367, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_Name
-      value: turrets_GEO
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.3603768
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.00008536548
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804625046137572299, guid: 6cb43abfee6cee64e9bf72c8c50143d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -71794,52 +71794,24 @@ PrefabInstance:
       value: 814325173
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <wind>k__BackingField.Path
-      value: event:/Ambience/amb_outsidewind_lp
+      propertyPath: <steamAttackSound>k__BackingField.Path
+      value: event:/SFX/boss_steamattack
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <gears>k__BackingField.Path
-      value: event:/Ambience/amb_gears_lp
+      propertyPath: <steamAttackSound>k__BackingField.Guid.Data1
+      value: -1949751847
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <scratch>k__BackingField.Path
-      value: event:/Ambience/amb_scratch_lp
+      propertyPath: <steamAttackSound>k__BackingField.Guid.Data2
+      value: 1263185176
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <canShakes>k__BackingField.Path
-      value: event:/Ambience/amb_backgroundcanshakes_lp
+      propertyPath: <steamAttackSound>k__BackingField.Guid.Data3
+      value: 12248192
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <pipeWater>k__BackingField.Path
-      value: event:/Ambience/amb_pipeWaterRunning_lp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <attackSound>k__BackingField.Path
-      value: event:/SFX/player_attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <attackSwing>k__BackingField.Path
-      value: event:/SFX/player_attackSwing
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <randomClinks>k__BackingField.Path
-      value: event:/Ambience/amb__randomclinks_lp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <movementSound>k__BackingField.Path
-      value: event:/SFX/player_movement
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <backgroundTrack>k__BackingField.Path
-      value: event:/Music/MainMusic
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <backgroundTrack2>k__BackingField.Path
-      value: event:/Music/MainMusic180BPM
-      objectReference: {fileID: 0}
-    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
-      propertyPath: <missBeatSniperShot>k__BackingField.Path
-      value: event:/SFX/sniper_attack
+      propertyPath: <steamAttackSound>k__BackingField.Guid.Data4
+      value: -811749402
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

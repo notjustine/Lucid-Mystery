@@ -8,11 +8,16 @@ using FMODUnity;
 public class SoundRef : MonoBehaviour
 {
     public static SoundRef Instance;
-    [field: Header("SFX")]
+    [field: Header("Player SFX")]
     [field: SerializeField] public EventReference attackSound { get; private set; }
     [field: SerializeField] public EventReference attackSwing { get; private set; }
     [field: SerializeField] public EventReference movementSound { get; private set; }
+    [field: SerializeField] public EventReference dmgTaken { get; private set; }
+    
+    [field: Header("Boss SFX")]
     [field: SerializeField] public EventReference missBeatSniperShot { get; private set; }
+    [field: SerializeField] public EventReference steamAttack { get; private set; }
+    [field: SerializeField] public EventReference turrentShot { get; private set; }
     
     [field: Header("Background Music")]
     [field: SerializeField] public EventReference backgroundTrack { get; private set; }
