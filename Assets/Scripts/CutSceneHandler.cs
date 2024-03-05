@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,16 @@ public class CutSceneHandler : MonoBehaviour
         videoPlayer = GetComponent<VideoPlayer>();
         videoPlayer.loopPointReached += EndReached;
     }
-    
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EndReached(videoPlayer);
+        }
+    }
+
     void EndReached(VideoPlayer vp)
     {
         vp.Stop();
