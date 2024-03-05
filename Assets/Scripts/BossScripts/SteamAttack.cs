@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using TMPro;
 using UnityEngine.VFX;
@@ -13,6 +15,7 @@ public class SteamAttack : MonoBehaviour
     private bool playerInAttackArea = false;
     private PlayerStatus playerStatus;
     public GameObject steamAttackVFX;
+    public EventInstance steamAttackSound;
 
     private void Start()
     {
@@ -25,6 +28,8 @@ public class SteamAttack : MonoBehaviour
         {
             effect.Stop();
         }
+
+  
     }
 
     private void Update()
@@ -43,6 +48,7 @@ public class SteamAttack : MonoBehaviour
     public System.Collections.IEnumerator AttackSequence()
     {
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+        StudioEventEmitter[] emitter = steamAttackVFX.GetComponentsInChildren<StudioEventEmitter>();
         warningText.gameObject.SetActive(true);
         warningText.text = "Back Up!!";
         StartCoroutine(FlashWarningText());
@@ -53,6 +59,11 @@ public class SteamAttack : MonoBehaviour
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
+        // emitter[1].Play();
+        foreach (StudioEventEmitter em in emitter)
+        {
+            em.Play();
+        }
         foreach (VisualEffect effect in effects)
         {
             effect.Play();
@@ -65,6 +76,11 @@ public class SteamAttack : MonoBehaviour
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();
+        }
+
+        foreach (StudioEventEmitter em in emitter)
+        {
+            em.SetParameter("steamattack_end", 1);
         }
         attackAreaRenderer.material = idleMaterial;
     }

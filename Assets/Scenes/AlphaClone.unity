@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 2849424}
   - component: {fileID: 2849426}
   - component: {fileID: 2849425}
+  - component: {fileID: 2849427}
   m_Layer: 0
   m_Name: Steam (2)
   m_TagString: Untagged
@@ -400,6 +401,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &2849427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2849423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &4119412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3025,6 +3057,7 @@ GameObject:
   - component: {fileID: 75173778}
   - component: {fileID: 75173780}
   - component: {fileID: 75173779}
+  - component: {fileID: 75173781}
   m_Layer: 0
   m_Name: Steam (4)
   m_TagString: Untagged
@@ -3125,6 +3158,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &75173781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75173777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &75682637
 GameObject:
   m_ObjectHideFlags: 0
@@ -9662,6 +9726,7 @@ GameObject:
   - component: {fileID: 221516416}
   - component: {fileID: 221516415}
   - component: {fileID: 221516414}
+  - component: {fileID: 221516417}
   m_Layer: 0
   m_Name: Steam
   m_TagString: Untagged
@@ -9762,6 +9827,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 568011091}
   m_LocalEulerAnglesHint: {x: 0, y: 97.657, z: 0}
+--- !u!114 &221516417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221516413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &224857611
 GameObject:
   m_ObjectHideFlags: 0
@@ -27135,6 +27231,7 @@ GameObject:
   - component: {fileID: 750665441}
   - component: {fileID: 750665443}
   - component: {fileID: 750665442}
+  - component: {fileID: 750665444}
   m_Layer: 0
   m_Name: Steam (7)
   m_TagString: Untagged
@@ -27235,6 +27332,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &750665444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750665440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &750893614
 GameObject:
   m_ObjectHideFlags: 0
@@ -43832,6 +43960,7 @@ GameObject:
   - component: {fileID: 1210391485}
   - component: {fileID: 1210391487}
   - component: {fileID: 1210391486}
+  - component: {fileID: 1210391488}
   m_Layer: 0
   m_Name: Steam (8)
   m_TagString: Untagged
@@ -43932,6 +44061,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1210391488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210391484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1211608432
 GameObject:
   m_ObjectHideFlags: 0
@@ -44706,6 +44866,7 @@ GameObject:
   - component: {fileID: 1230373640}
   - component: {fileID: 1230373642}
   - component: {fileID: 1230373641}
+  - component: {fileID: 1230373643}
   m_Layer: 0
   m_Name: Steam (3)
   m_TagString: Untagged
@@ -44806,6 +44967,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1230373643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230373639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1233199854
 GameObject:
   m_ObjectHideFlags: 0
@@ -49657,6 +49849,7 @@ GameObject:
   - component: {fileID: 1385395431}
   - component: {fileID: 1385395433}
   - component: {fileID: 1385395432}
+  - component: {fileID: 1385395434}
   m_Layer: 0
   m_Name: Steam (6)
   m_TagString: Untagged
@@ -49757,6 +49950,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1385395434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385395430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1391264834
 GameObject:
   m_ObjectHideFlags: 0
@@ -57313,6 +57537,7 @@ GameObject:
   - component: {fileID: 1634989070}
   - component: {fileID: 1634989072}
   - component: {fileID: 1634989071}
+  - component: {fileID: 1634989073}
   m_Layer: 0
   m_Name: Steam (10)
   m_TagString: Untagged
@@ -57413,6 +57638,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1634989073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634989069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1635547566
 GameObject:
   m_ObjectHideFlags: 0
@@ -62456,6 +62712,7 @@ GameObject:
   - component: {fileID: 1777984196}
   - component: {fileID: 1777984198}
   - component: {fileID: 1777984197}
+  - component: {fileID: 1777984199}
   m_Layer: 0
   m_Name: Steam (9)
   m_TagString: Untagged
@@ -62556,6 +62813,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1777984199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777984195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1785230553
 GameObject:
   m_ObjectHideFlags: 0
@@ -67592,6 +67880,7 @@ GameObject:
   - component: {fileID: 1952086926}
   - component: {fileID: 1952086928}
   - component: {fileID: 1952086927}
+  - component: {fileID: 1952086929}
   m_Layer: 0
   m_Name: Steam (5)
   m_TagString: Untagged
@@ -67692,6 +67981,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1952086929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952086925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1953289328
 GameObject:
   m_ObjectHideFlags: 0
@@ -68284,6 +68604,7 @@ GameObject:
   - component: {fileID: 1976445829}
   - component: {fileID: 1976445831}
   - component: {fileID: 1976445830}
+  - component: {fileID: 1976445832}
   m_Layer: 0
   m_Name: Steam (1)
   m_TagString: Untagged
@@ -68384,6 +68705,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1976445832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976445828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &1976640061
 GameObject:
   m_ObjectHideFlags: 0
@@ -70722,6 +71074,7 @@ GameObject:
   - component: {fileID: 2023984012}
   - component: {fileID: 2023984014}
   - component: {fileID: 2023984013}
+  - component: {fileID: 2023984015}
   m_Layer: 0
   m_Name: Steam (11)
   m_TagString: Untagged
@@ -70822,6 +71175,37 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &2023984015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023984011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1949751847
+      Data2: 1263185176
+      Data3: 12248192
+      Data4: -811749402
+    Path: event:/SFX/boss_steamattack
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 45
 --- !u!1 &2024994072
 GameObject:
   m_ObjectHideFlags: 0
