@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    public GameObject overlaySprite;
+    private GameObject overlaySprite;
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log("Selected");
         overlaySprite.SetActive(true);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         overlaySprite.SetActive(false);
-        Debug.Log("Deselected");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        overlaySprite = transform.Find("Overlay").gameObject;
     }
 
     // Update is called once per frame
