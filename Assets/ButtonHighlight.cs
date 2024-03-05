@@ -5,9 +5,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private GameObject overlaySprite;
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        overlaySprite.SetActive(true);
+    }
+    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        overlaySprite.SetActive(false);
+    }
     public void OnSelect(BaseEventData eventData)
     {
         overlaySprite.SetActive(true);
