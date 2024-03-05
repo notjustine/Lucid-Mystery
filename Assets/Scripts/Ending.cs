@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class Ending : MonoBehaviour
 {
     
     [SerializeField] private string scene = "AlphaClone";
-    [SerializeField] private TextMeshProUGUI TitleText;
-    [SerializeField] private TextMeshProUGUI TryAgainText;
+    [SerializeField] private Image header;
     [SerializeField] private VideoPlayer video;
+    [SerializeField] private Sprite[] bossWin;
+    [SerializeField] private Sprite[] playerWin;
+    [SerializeField] private Image restartButton;
+    [SerializeField] private Image background;
+    
 
     private static bool bossDied = false;
     void Start()
@@ -20,28 +25,43 @@ public class Ending : MonoBehaviour
         
         if (bossDied)
         {
-            // TitleText.text = "You Win!";
-            // TryAgainText.text = "Play Again?";
             ShowEndingCutScene();
+            gameObject.SetActive(false);
+            header.sprite = playerWin[0];
+            restartButton.sprite = playerWin[1];
         }
         else
         {
-            TitleText.text = "You Died";
-            TryAgainText.text = "Try Again?";
+            header.sprite = bossWin[0];
+            restartButton.sprite = bossWin[1];
+            background.sprite = bossWin[2];
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            video.Stop();
+            gameObject.SetActive(true);
         }
     }
 
     void ShowEndingCutScene()
     {
-        
-        TitleText.gameObject.SetActive(false);
-        TryAgainText.gameObject.SetActive(false);
-        
-        ;
+        video.loopPointReached += EndReached;
+        video.Play();
+    }
+    
+    void EndReached(VideoPlayer vp)
+    {
+        vp.Stop();
+        gameObject.SetActive(true);
     }
     public static void BossLoss()
     {
         bossDied = true;
+  
     }
 
     public static void PlayerLoss()
