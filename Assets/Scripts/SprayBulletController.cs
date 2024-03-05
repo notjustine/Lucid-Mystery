@@ -9,20 +9,17 @@ detection, and deletion after time of bullets that missed.
 */
 public class SprayBulletController : MonoBehaviour
 {
-    const float sprayBulletSpeed = 60f;
-    // const float rotationSpeed = 100f;
-    const float maxLifetime = 3f;
+    const float sprayBulletSpeed = 50f;
+    const float maxLifetime = 2f;
     float bulletLifetime;
-    // private Vector3 rot;
-    // GameObject sniper;
+
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 20f;
+    public float damage = 10f;
 
     void Start()
     {
-        // sniper = GameObject.Find("Sniper");
         boss = GameObject.Find("Cube");  // We should fix this name.
 
         bulletLifetime = 0f;
@@ -55,7 +52,7 @@ public class SprayBulletController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Arena")
         {
-            Debug.Log("collided with arena");
+            // Debug.Log("collided with arena");
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Player")
@@ -64,17 +61,13 @@ public class SprayBulletController : MonoBehaviour
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
                 playerStatus.TakeDamage(damage);
-                Debug.Log("collided with player");
+                // Debug.Log("collided with player");
             }
             else
             {
-                Debug.Log("PlayerStatus component not found on the collided object.");
+                // Debug.Log("PlayerStatus component not found on the collided object.");
             }
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("Something else?");
         }
     }
 }

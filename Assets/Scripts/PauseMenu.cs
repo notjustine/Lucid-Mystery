@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     private PlayerControl playerControl;
     private GameObject pauseMenu;
     private GameObject optionsMenu;
+    public GameObject warningText;
     private bool isOptions = false;
     
     public void OnPause(InputAction.CallbackContext context)
@@ -21,6 +22,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void ShowPauseMenu()
     {
+        warningText.SetActive(false);
         playerControl.SwitchPlayerMap("UI");
         pauseMenu.SetActive(true);
         optionsMenu.SetActive(false);
@@ -30,6 +32,7 @@ public class PauseMenu : MonoBehaviour
 
     public void HidePauseMenu()
     {
+        warningText.SetActive(true);
         optionsMenu.SetActive(false);
         isOptions = false;
         playerControl.SwitchPlayerMap("Player");
@@ -38,8 +41,10 @@ public class PauseMenu : MonoBehaviour
         AudioManager.instance.ResumeAllEvents();
     }
 
-    public void QuitGame()
+    public static void QuitGame()
     {
+        if (PlayerPrefs.HasKey("bossPhase")) 
+            PlayerPrefs.DeleteKey("bossPhase");
         Application.Quit();
     }
 

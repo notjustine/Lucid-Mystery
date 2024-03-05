@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Player_
+  m_Shader: {fileID: -6465566751694194690, guid: ef3afcf964a41b246becf8464757aab0, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _USE_SCREEN_SPACE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Base_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Pattern:
+        m_Texture: {fileID: 2800000, guid: badd404077d3a0e4aaa953ff36ee689d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_14ed394a15324cf48d3dafcb1da9a0b9_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: badd404077d3a0e4aaa953ff36ee689d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_53a11771561f411cabe50e0e4d6b43af_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 1b3ba6535d6e36e4c8bc9adf2695169f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f04798b031b4410d8c97bf2f805b461d_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CircleDensity: 25
+    - _Cross_Hatch_Rotation: 0
+    - _Cross_Hatch_Strength: 0.5
+    - _Cross_Rotation: 0
+    - _FalloffThreshold: 2.5
+    - _Line_1_Rotation: 0.5
+    - _Line_2_Rotation: 1.87
+    - _Line_2_Strength: 0.5
+    - _Line_Rotation: 0
+    - _Lit_Threshold: 2
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Rotation: -0.5
+    - _Rotation2: 90
+    - _ShadingMultiplier: 0.4
+    - _Softness: 0.5
+    - _Time_Scale: 1.34
+    - _USE_SCREEN_SPACE: 1
+    m_Colors:
+    - _BaseColor: {r: 0.4392157, g: 0.41568628, b: 0.3254902, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &7502900176033572005
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7

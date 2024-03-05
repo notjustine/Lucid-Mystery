@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,13 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private string sceneName;
     [SerializeField] private GameObject optionsPanel;
-    [SerializeField] private GameObject mainMenuPanel;  
-    
+    [SerializeField] private GameObject mainMenuPanel;
+
+
     public void StartGame()
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
+        // SceneManager.LoadScene(sceneName);
     }
 
     public void ShowOptions()
@@ -29,5 +32,18 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("fps"))
+        {
+            Application.targetFrameRate = PlayerPrefs.GetInt("fps");
+        }
+        else
+        {
+            Application.targetFrameRate = 60;
+        }
+        PlayerPrefs.SetInt("bossPhase", 0);
     }
 }

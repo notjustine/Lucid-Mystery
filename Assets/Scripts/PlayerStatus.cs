@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private bool isInviciible = false;
     private float currHealth;
 
     public HealthBar healthBar;
@@ -17,12 +19,14 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
+        if (isInviciible)
+            return;
         currHealth -= amount;
         if (currHealth < 0)
         {
             currHealth = 0;
         }
-        Debug.Log("decreasing health.");
         healthBar.SetSlider(currHealth);
     }
 
@@ -54,6 +58,7 @@ public class PlayerStatus : MonoBehaviour
     }
     private void Die()
     {
-        Debug.Log("dead now");
+        Ending.PlayerLoss();
+        SceneManager.LoadScene("EndMenu");
     }
 }

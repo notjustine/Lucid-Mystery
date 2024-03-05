@@ -9,9 +9,9 @@ detection, and deletion after time of bullets that missed.
 */
 public class BulletController : MonoBehaviour
 {
-    const float sniperBulletSpeed = 60f;
+    const float sniperBulletSpeed = 80f;
     const float rotationSpeed = 100f;
-    const float maxLifetime = 1f;
+    const float maxLifetime = 2f;
     float bulletLifetime;
     private Vector3 rot;
     GameObject sniper;
@@ -62,7 +62,8 @@ public class BulletController : MonoBehaviour
             Debug.Log("collided with arena");
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Player"){
+        else if (collision.gameObject.tag == "Player")
+        {
             PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {

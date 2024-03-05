@@ -21,9 +21,11 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boss"))
         {
-            // Debug.Log("Collision");
+            BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
+            bossHealth.TakeDamage(50f);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
             Debug.Log("Enemy Hit");
+
             // Destroy(collision.gameObject);
         }
     }

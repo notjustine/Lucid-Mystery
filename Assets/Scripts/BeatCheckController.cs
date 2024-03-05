@@ -44,13 +44,13 @@ public class BeatCheckController : MonoBehaviour
 
     public void SetVulnerable(bool status)
     {
-        Debug.Log($"set vulnerable to: {status}");
+        // Debug.Log($"set vulnerable to: {status}");
         playerVulnerable = status;
     }
 
     public bool GetVulnerable()
     {
-        Debug.Log($"get vulnerable: {playerVulnerable}");
+        // Debug.Log($"get vulnerable: {playerVulnerable}");
         return playerVulnerable;
     }
 }
