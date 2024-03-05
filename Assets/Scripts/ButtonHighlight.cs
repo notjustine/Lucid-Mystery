@@ -11,21 +11,26 @@ public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, 
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        overlaySprite.SetActive(true);
+        if (overlaySprite != null)
+            overlaySprite.SetActive(true);
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        overlaySprite.SetActive(false);
+        if (overlaySprite != null)
+            overlaySprite.SetActive(false);
     }
+    
     public void OnSelect(BaseEventData eventData)
     {
-        overlaySprite.SetActive(true);
+        if (overlaySprite != null)
+            overlaySprite.SetActive(true);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        overlaySprite.SetActive(false);
+        if (overlaySprite != null)
+            overlaySprite.SetActive(false);
     }
 
     // Start is called before the first frame update
