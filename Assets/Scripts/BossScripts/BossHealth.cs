@@ -23,11 +23,12 @@ public class BossHealth : MonoBehaviour
         {
             currHealth = 0;
         }
-        healthBar.SetSlider(currHealth);
+        // healthBar.SetSlider(currHealth);
     }
 
     private void Update()
     {
+        healthBar.SetSlider(currHealth);
         // for testing hp bar
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -47,6 +48,7 @@ public class BossHealth : MonoBehaviour
                 PlayerPrefs.SetInt("bossPhase", 1);
                 AudioManager.instance.TriggerPhaseTwoMusic();
                 currHealth = maxHealth;
+                // healthBar.SetSlider(currHealth);
                 break;
             case 1:
                 Ending.BossLoss();
@@ -57,6 +59,11 @@ public class BossHealth : MonoBehaviour
                 break;
         }
         
+    }
+
+    public void resetHealth()
+    {
+        currHealth = maxHealth;
     }
     public void SetInvulnerability(bool state)
     {

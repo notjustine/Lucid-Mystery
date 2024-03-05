@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,6 +9,12 @@ public class PauseMenu : MonoBehaviour
     private GameObject optionsMenu;
     public GameObject warningText;
     private bool isOptions = false;
+    
+    // Restart options
+    private PlayerStatus playerStatus;
+    private BossHealth bossHealth;
+    private MusicEventHandler musicEventHandler;
+    
     
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -28,6 +35,24 @@ public class PauseMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
+    }
+
+    public void RestartPhase()
+    {
+        int bossPhase = PlayerPrefs.GetInt("bossPhase", 0);
+        if (bossPhase == 1)
+        {
+            // musicEventHandler.StartPhaseTwoMusic();
+            SceneManager.LoadScene("AlphaClone");
+        }
+        else
+        {
+            bossHealth.resetHealth();
+            playerStatus.resetHealth();
+            musicEventHandler.StartPhaseOneMusic();
+            playerControl.StartHelper();
+            HidePauseMenu();
+        }
     }
 
     public void HidePauseMenu()
@@ -74,5 +99,8 @@ public class PauseMenu : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         pauseMenu = gameObject.transform.GetChild(0).gameObject;
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
+        playerStatus = FindObjectOfType<PlayerStatus>();
+        bossHealth = FindObjectOfType<BossHealth>();
+        musicEventHandler = FindObjectOfType<MusicEventHandler>();
     }
 }
