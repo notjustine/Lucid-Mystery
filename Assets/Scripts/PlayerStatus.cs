@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.dmgTaken, gameObject);
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInviciible)
             return;
         currHealth -= amount;
