@@ -14,12 +14,6 @@ public class CutSceneHandler : MonoBehaviour
         videoPlayer = GetComponent<VideoPlayer>();
         videoPlayer.loopPointReached += EndReached;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     void EndReached(VideoPlayer vp)
     {
