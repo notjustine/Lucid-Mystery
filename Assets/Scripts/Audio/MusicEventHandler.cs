@@ -24,59 +24,17 @@ public class MusicEventHandler : MonoBehaviour
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
-        sleepingTrack = SoundRef.Instance.sleepingTrack;
-        StartPhaseOneMusic();
-        // switch (PlayerPrefs.GetInt("bossPhase", -1))
-        // {
-        //     case 0:
-        //         StartSleepingMusic();
-        //         break;
-        //     case 1:
-        //         StartPhaseOneMusic();
-        //         break;
-        //     case 2:
-        //         StartPhaseTwoMusic();
-        //         break;
-        //     default:
-        //         break;
-        // }
-
-    }
-    
-    void StartSleepingMusic()
-    {
-        eventInstance = AudioManager.instance.CreateEventInstance(sleepingTrack);
-        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        eventInstance.start();
-    }
-
-    public void StartPhaseOneMusic()
-    {
-        if (eventInstance.isValid())
-        {
-            AudioManager.instance.StopEvent(eventInstance.GetHashCode());
-        }
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
-        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance.setCallback(OnMarkerReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         eventInstance.start();
-    }
-    
-    public void StartPhaseTwoMusic()
-    {
-        // if (eventInstance.isValid())
-        // {
-        //     AudioManager.instance.StopEvent(eventInstance.GetHashCode());
-        // }
-        // eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
-        // eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        // eventInstance.start();
+        SetMainMusicPhaseParameter(PlayerPrefs.GetInt("bossPhase", 0));
     }
 
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
-    private static RESULT OnBeatReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
+    private static RESULT OnMarkerReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
     {
         // ** This is reference code in case we need to pass data to the callback
         // EventInstance callBackInstance = new EventInstance(instance);
@@ -86,7 +44,7 @@ public class MusicEventHandler : MonoBehaviour
         //     Debug.LogError("Timeline Callback error: " + result);
         // GCHandle test = (GCHandle)musicEventHandlerPtr;
         // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
-
+        Debug.Log("Marker reached");
         var parameter =
             (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
         if (parameter.name == "allowinput")
@@ -101,6 +59,11 @@ public class MusicEventHandler : MonoBehaviour
         }
 
         return RESULT.OK;
+    }
+    
+    public void SetMainMusicPhaseParameter(int phase)
+    {
+        eventInstance.setParameterByName("current_phase", phase);
     }
 
     private void OnDestroy()

@@ -113,13 +113,14 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Bus not found");
         }
     }
-    
+
+
     public void TriggerPhaseOneMusic()
     {
-        musicEventHandler.StartPhaseOneMusic();
+       musicEventHandler.SetMainMusicPhaseParameter(1);
     }
     public void TriggerPhaseTwoMusic()
     {
-        musicEventHandler.StartPhaseTwoMusic();
+        musicEventHandler.SetMainMusicPhaseParameter(2);
     }
 }

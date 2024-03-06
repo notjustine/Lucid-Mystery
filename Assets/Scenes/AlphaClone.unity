@@ -55100,7 +55100,7 @@ MonoBehaviour:
   slamAttack: {fileID: 1540626459}
   sprayAttack: {fileID: 0}
   playerControl: {fileID: 2141803788}
-  isSleeping: 1
+  isSleeping: 0
 --- !u!114 &1540626461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72588,8 +72588,28 @@ PrefabInstance:
       value: 814325173
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Path
+      value: event:/Music/NewMainMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Path
       value: event:/SFX/boss_steamattack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data1
+      value: -291935087
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data2
+      value: 1119328202
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data3
+      value: -1873178703
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data4
+      value: 1566351970
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Guid.Data1
