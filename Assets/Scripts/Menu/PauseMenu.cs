@@ -10,10 +10,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject warningText;
     private bool isOptions = false;
     
-    // Restart options
-    private PlayerStatus playerStatus;
-    private BossHealth bossHealth;
-    private MusicEventHandler musicEventHandler;
     
     
     public void OnPause(InputAction.CallbackContext context)
@@ -94,8 +90,5 @@ public class PauseMenu : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         pauseMenu = gameObject.transform.GetChild(0).gameObject;
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
-        playerStatus = FindObjectOfType<PlayerStatus>();
-        bossHealth = FindObjectOfType<BossHealth>();
-        musicEventHandler = FindObjectOfType<MusicEventHandler>();
     }
 }

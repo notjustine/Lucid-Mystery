@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public void ShowOptions()
     {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
         optionsPanel.SetActive(true);
     }

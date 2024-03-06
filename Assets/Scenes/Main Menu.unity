@@ -811,6 +811,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6567037304404581874, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <menuMove>k__BackingField.Path
       value: event:/SFX/menu_movement
