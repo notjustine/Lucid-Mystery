@@ -30,13 +30,13 @@ public class SprayAttackController : MonoBehaviour
     void Update()
     {
         // Trigger the firing of turrets on a timer for now.
-        timeSinceFired += Time.deltaTime;
-        if (hasNotFired || timeSinceFired > 6)
-        {
-            StartCoroutine(TripleShootAndRotate(turrets));
-            hasNotFired = false;
-            timeSinceFired = 0;
-        }
+        // timeSinceFired += Time.deltaTime;
+        // if (hasNotFired || timeSinceFired > 6)
+        // {
+        //     StartCoroutine(TripleShootAndRotate(turrets));
+        //     hasNotFired = false;
+        //     timeSinceFired = 0;
+        // }
     }
 
     /**

@@ -18005,50 +18005,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450042284}
   m_CullTransparentMesh: 1
---- !u!1 &450140376
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 450140378}
-  - component: {fileID: 450140377}
-  m_Layer: 0
-  m_Name: REPLACE_ME_SpiralController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &450140377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450140376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06eaab2fc50d94000a7f29c57a49c0bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &450140378
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450140376}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.773712, y: 8.023483, z: -9.005238}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451152511
 GameObject:
   m_ObjectHideFlags: 0
@@ -32118,10 +32074,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1.1
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.0000025071204, y: 0.00000017881393, z: 0.000000007450581}
+  m_Center: {x: -0.05, y: 0.00000017881393, z: -0.05}
 --- !u!114 &891874671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33246,6 +33202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ec439401e29f0e345a7c61c816781d77, type: 2}
   inputMesh: {fileID: 943529878}
+  active: 0
 --- !u!135 &943529877
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37273,6 +37230,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1540626459}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1540626461}
   m_SourcePrefab: {fileID: 100100000, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
 --- !u!4 &1048706818 stripped
 Transform:
@@ -55118,7 +55078,7 @@ MonoBehaviour:
   arenaInitializer: {fileID: 1634689909}
   warningMaterial: {fileID: 2100000, guid: 0fe030b914218448c8228c212231cf62, type: 2}
   attackIndicatorPrefab: {fileID: 5045145934329874862, guid: 9be0015885648f34e81129610cc1a04a, type: 3}
-  circularWarningPrefab: {fileID: 0}
+  circularWarningPrefab: {fileID: 552757818727224337, guid: ef9d588ec095e4129bf5923fec7dc4f2, type: 3}
   warningDuration: 2.5
   attackDuration: 1
   warningText: {fileID: 1438361043}
@@ -55138,7 +55098,21 @@ MonoBehaviour:
   playerTransform: {fileID: 2141803793}
   steamAttack: {fileID: 630916613}
   slamAttack: {fileID: 1540626459}
+  sprayAttack: {fileID: 0}
   playerControl: {fileID: 2141803788}
+  isSleeping: 1
+--- !u!114 &1540626461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540626458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06eaab2fc50d94000a7f29c57a49c0bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1541008488
 GameObject:
   m_ObjectHideFlags: 0
@@ -62323,7 +62297,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 373bc6c3c25629d458e7c1aea178a187, type: 2}
     - target: {fileID: 7443970779131759617, guid: 4f2dae0e02040407ba4746c617cb112d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7443970779131759617, guid: 4f2dae0e02040407ba4746c617cb112d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -115794,5 +115768,4 @@ SceneRoots:
   - {fileID: 1175373577625905629}
   - {fileID: 1048706816}
   - {fileID: 11769397}
-  - {fileID: 450140378}
   - {fileID: 1910710995}

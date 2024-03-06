@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 1000f;
+    [SerializeField] private float maxHealth = 2000f;
     private float currHealth;
     public bool isInvulnerable = false;
     [SerializeField] private int phase = 0;
@@ -39,27 +39,23 @@ public class BossHealth : MonoBehaviour
         if (currHealth <= 0)
         {
             Die();
+        } 
+        else if (currHealth <= maxHealth / 2)
+        {
+            PhaseTwo();
         }
+    }
+    
+    private void PhaseTwo()
+    {
+        PlayerPrefs.SetInt("bossPhase", 2);
+        AudioManager.instance.TriggerPhaseTwoMusic();
     }
     private void Die()
     {
-        switch (phase)
-        {
-            case 0:
-                PlayerPrefs.SetInt("bossPhase", 1);
-                AudioManager.instance.TriggerPhaseTwoMusic();
-                currHealth = maxHealth;
-                break;
-            case 1:
-                Ending.BossLoss();
-                SceneManager.LoadScene("EndMenu");
-                break;
-            default:
-                Debug.Log("Boss state is not a valid one. This shouldn't happen");
-                break;
-        }
-        
-    }
+        Ending.BossLoss();
+        SceneManager.LoadScene("EndMenu");
+    }   
 
     public void resetHealth()
     {

@@ -9,13 +9,10 @@ public class InputIndicator : MonoBehaviour
 {
     
     public static InputIndicator Instance { get; private set; }
-    private bool clicked = false;
-    // public Transform transform { get; private set; }
     public Material material;
     //public Color color;
     public MeshRenderer inputMesh;
-    // public Text hitText;
-    // private int counter = 0;
+    public bool active = false;
     private void Awake()
     {
         if (Instance != null)
@@ -25,19 +22,10 @@ public class InputIndicator : MonoBehaviour
 
         Instance = this;
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        // transform = GetComponent<Transform>();
-        //material.color = color;
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        // if (!clicked)
-        clicked = Input.GetButtonDown("Jump");
-        //material.color = color;
+        inputMesh.enabled = active;
+
     }
 }
