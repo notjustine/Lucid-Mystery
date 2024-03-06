@@ -55,7 +55,7 @@ public class BossHealth : MonoBehaviour
     {
         Ending.BossLoss();
         SceneManager.LoadScene("EndMenu");
-    }
+    }   
 
     public void resetHealth()
     {
