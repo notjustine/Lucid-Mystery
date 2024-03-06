@@ -7,6 +7,7 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currHealth;
     public bool isInvulnerable = false;
+    [SerializeField] private int phase = 0;
 
     public HealthBar healthBar;
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class BossHealth : MonoBehaviour
     {
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
+        phase = PlayerPrefs.GetInt("bossPhase");
     }
 
     public void TakeDamage(float amount)
@@ -41,14 +43,12 @@ public class BossHealth : MonoBehaviour
     }
     private void Die()
     {
-        int phase = PlayerPrefs.GetInt("bossPhase");
         switch (phase)
         {
             case 0:
                 PlayerPrefs.SetInt("bossPhase", 1);
                 AudioManager.instance.TriggerPhaseTwoMusic();
                 currHealth = maxHealth;
-                // healthBar.SetSlider(currHealth);
                 break;
             case 1:
                 Ending.BossLoss();

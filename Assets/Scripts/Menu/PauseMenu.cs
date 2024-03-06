@@ -39,20 +39,8 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartPhase()
     {
-        int bossPhase = PlayerPrefs.GetInt("bossPhase", 0);
-        if (bossPhase == 1)
-        {
-            // musicEventHandler.StartPhaseTwoMusic();
-            SceneManager.LoadScene("AlphaClone");
-        }
-        else
-        {
-            bossHealth.resetHealth();
-            playerStatus.resetHealth();
-            musicEventHandler.StartPhaseOneMusic();
-            playerControl.StartHelper();
-            HidePauseMenu();
-        }
+        SceneManager.LoadScene("AlphaClone");
+        HidePauseMenu();
     }
 
     public void HidePauseMenu()
