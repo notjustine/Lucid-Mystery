@@ -23480,7 +23480,7 @@ Transform:
   m_GameObject: {fileID: 630916612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1999, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0.1999, y: -1.15, z: 0}
   m_LocalScale: {x: 85.618835, y: 1, z: 88.4106}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26861,6 +26861,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2141803793}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ec6cb5650965bf54ba4e9dfb57e412f1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ec6cb5650965bf54ba4e9dfb57e412f1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ec6cb5650965bf54ba4e9dfb57e412f1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec6cb5650965bf54ba4e9dfb57e412f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.054584503
@@ -33233,7 +33245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ec439401e29f0e345a7c61c816781d77, type: 2}
-  color: {r: 0, g: 1, b: 0.061501026, a: 0}
   inputMesh: {fileID: 943529878}
 --- !u!135 &943529877
 SphereCollider:
@@ -39540,7 +39551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 615, y: -23.099976}
+  m_AnchoredPosition: {x: 638, y: -47}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103202764
@@ -64952,7 +64963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 101, y: -42}
+  m_AnchoredPosition: {x: 125, y: -553}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1841940809
