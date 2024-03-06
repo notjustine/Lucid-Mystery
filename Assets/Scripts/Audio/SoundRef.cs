@@ -19,6 +19,10 @@ public class SoundRef : MonoBehaviour
     [field: SerializeField] public EventReference steamAttack { get; private set; }
     [field: SerializeField] public EventReference turrentShot { get; private set; }
     
+    [field: Header("Menu SFX")]
+    [field: SerializeField] public EventReference menuSelect { get; private set; }
+    [field: SerializeField] public EventReference menuMove { get; private set; }
+    
     [field: Header("Background Music")]
     [field: SerializeField] public EventReference backgroundTrack { get; private set; }
     [field: SerializeField] public EventReference backgroundTrack2 { get; private set; }

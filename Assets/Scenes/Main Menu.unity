@@ -356,7 +356,7 @@ MonoBehaviour:
       Data2: 1153183434
       Data3: -44814419
       Data4: 1621834681
-    Path: event:/BossIntroMusic
+    Path: event:/Music/BossIntroMusic
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -810,6 +810,46 @@ PrefabInstance:
     - target: {fileID: 2986082032567648894, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuMove>k__BackingField.Path
+      value: event:/SFX/menu_movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuSelect>k__BackingField.Path
+      value: event:/SFX/menu_selection
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuMove>k__BackingField.Guid.Data1
+      value: 1838848599
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuMove>k__BackingField.Guid.Data2
+      value: 1102524839
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuMove>k__BackingField.Guid.Data3
+      value: 958589592
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuMove>k__BackingField.Guid.Data4
+      value: 1389469752
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuSelect>k__BackingField.Guid.Data1
+      value: -504134674
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuSelect>k__BackingField.Guid.Data2
+      value: 1216655237
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuSelect>k__BackingField.Guid.Data3
+      value: 961304205
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <menuSelect>k__BackingField.Guid.Data4
+      value: -31181732
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

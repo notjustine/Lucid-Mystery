@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
         // SceneManager.LoadScene(sceneName);
     }
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour
     
     public void GoBack()
     {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         optionsPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
     }

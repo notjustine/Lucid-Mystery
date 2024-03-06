@@ -19,13 +19,19 @@ public class PauseMenu : MonoBehaviour
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
+        {
+            AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
             ShowPauseMenu();
+        }
     }
 
     public void OnResume(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
+        {
+            AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
             HidePauseMenu();
+        }
     }
     public void ShowPauseMenu()
     {
@@ -72,6 +78,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (isOptions)
         {
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.menuSelect, Camera.main.gameObject);
             isOptions = false;
             optionsMenu.SetActive(false);
             pauseMenu.SetActive(true);
