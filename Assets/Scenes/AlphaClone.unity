@@ -33233,7 +33233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ec439401e29f0e345a7c61c816781d77, type: 2}
-  color: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 1, b: 0.061501026, a: 0}
+  inputMesh: {fileID: 943529878}
 --- !u!135 &943529877
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -40377,6 +40378,22 @@ PrefabInstance:
     - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664753621277672539, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664753621277672539, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: color.b
+      value: 0.061501026
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664753621277672539, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664753621277672539, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8624067361001945885, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: m_TagString
@@ -55090,6 +55107,7 @@ MonoBehaviour:
   arenaInitializer: {fileID: 1634689909}
   warningMaterial: {fileID: 2100000, guid: 0fe030b914218448c8228c212231cf62, type: 2}
   attackIndicatorPrefab: {fileID: 5045145934329874862, guid: 9be0015885648f34e81129610cc1a04a, type: 3}
+  circularWarningPrefab: {fileID: 0}
   warningDuration: 2.5
   attackDuration: 1
   warningText: {fileID: 1438361043}

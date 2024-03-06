@@ -12,7 +12,8 @@ public class InputIndicator : MonoBehaviour
     private bool clicked = false;
     // public Transform transform { get; private set; }
     public Material material;
-    public Color color;
+    //public Color color;
+    public MeshRenderer inputMesh;
     // public Text hitText;
     // private int counter = 0;
     private void Awake()
@@ -29,6 +30,7 @@ public class InputIndicator : MonoBehaviour
     void Start()
     {
         // transform = GetComponent<Transform>();
+        //material.color = color;
     }
 
     // Update is called once per frame
@@ -36,6 +38,6 @@ public class InputIndicator : MonoBehaviour
     {
         // if (!clicked)
         clicked = Input.GetButtonDown("Jump");
-        material.color = color;
+        //material.color = color;
     }
 }

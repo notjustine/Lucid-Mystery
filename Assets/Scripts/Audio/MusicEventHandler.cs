@@ -72,12 +72,14 @@ public class MusicEventHandler : MonoBehaviour
         if (parameter.name == "allowinput")
         {
             beatCheck = true;
-            InputIndicator.Instance.color = Color.green;
+            //InputIndicator.Instance.color = Color.green;
+            InputIndicator.Instance.inputMesh.enabled = true;
         }
         else if (parameter.name == "stopinput")
         {
             beatCheck = false;
-            InputIndicator.Instance.color = Color.red;
+            //InputIndicator.Instance.color = Color.red;
+            InputIndicator.Instance.inputMesh.enabled = false;
         }
 
         return RESULT.OK;
