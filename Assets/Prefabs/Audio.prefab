@@ -197,6 +197,13 @@ MonoBehaviour:
       Data3: -1794535278
       Data4: -1853079925
     Path: event:/Music/MainMusic180BPM
+  <sleepingTrack>k__BackingField:
+    Guid:
+      Data1: -696392757
+      Data2: 1153183434
+      Data3: -44814419
+      Data4: 1621834681
+    Path: event:/Music/BossIntroMusic
   <canShakes>k__BackingField:
     Guid:
       Data1: 1946735692

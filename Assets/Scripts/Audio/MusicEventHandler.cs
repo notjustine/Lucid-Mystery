@@ -9,6 +9,7 @@ using Debug = UnityEngine.Debug;
 public class MusicEventHandler : MonoBehaviour
 {
     // Start is called before the first frame update
+    private EventReference sleepingTrack;
     private EventReference backgroundTrack;
     private EventReference backgroundTrack2;
     private EventInstance eventInstance;
@@ -23,14 +24,30 @@ public class MusicEventHandler : MonoBehaviour
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
-        if (PlayerPrefs.GetInt("bossPhase", 0) == 0)
+        sleepingTrack = SoundRef.Instance.sleepingTrack;
+        
+        switch (PlayerPrefs.GetInt("bossPhase", -1))
         {
-            StartPhaseOneMusic();
+            case 0:
+                StartSleepingMusic();
+                break;
+            case 1:
+                StartPhaseOneMusic();
+                break;
+            case 2:
+                StartPhaseTwoMusic();
+                break;
+            default:
+                break;
         }
-        else
-        {
-            StartPhaseTwoMusic();
-        }
+
+    }
+    
+    void StartSleepingMusic()
+    {
+        eventInstance = AudioManager.instance.CreateEventInstance(sleepingTrack);
+        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance.start();
     }
 
     public void StartPhaseOneMusic()
@@ -49,7 +66,10 @@ public class MusicEventHandler : MonoBehaviour
     
     public void StartPhaseTwoMusic()
     {
-        AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        if (eventInstance.isValid())
+        {
+            AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        }
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
         eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         eventInstance.start();
