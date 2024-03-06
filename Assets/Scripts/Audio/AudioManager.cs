@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
@@ -71,6 +72,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void StopEvent(int hash)
+    {
+        EventInstance e = eventInstances.Find((eventInstance => eventInstance.GetHashCode() == hash));
+        eventInstances.Remove(e);
+        e.stop(STOP_MODE.ALLOWFADEOUT);
+        e.release();
+    }
+
     private void OnDestroy()
     {
         // Audio Cleanup
@@ -105,6 +114,10 @@ public class AudioManager : MonoBehaviour
         }
     }
     
+    public void TriggerPhaseOneMusic()
+    {
+        musicEventHandler.StartPhaseOneMusic();
+    }
     public void TriggerPhaseTwoMusic()
     {
         musicEventHandler.StartPhaseTwoMusic();

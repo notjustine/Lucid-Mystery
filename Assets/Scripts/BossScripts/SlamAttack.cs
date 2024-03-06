@@ -7,6 +7,7 @@ public class SlamAttack : MonoBehaviour
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private Material warningMaterial;
     [SerializeField] private GameObject attackIndicatorPrefab;
+    [SerializeField] private GameObject circularWarningPrefab;
     public float warningDuration = 2.5f; // Duration before the attack hits
     public float attackDuration = 1f; // Duration of the attack visual effect
     public TextMeshProUGUI warningText;
@@ -36,19 +37,44 @@ public class SlamAttack : MonoBehaviour
             {
                 Vector3 targetPosition = ring[tileIndex];
                 targetPosition.y = 0f;
+                var indicator = Instantiate(circularWarningPrefab, targetPosition, Quaternion.identity);
+                StartCoroutine(HandleIndicatorFlash(indicator));
+            }
+        }
+        yield return new WaitForSeconds(warningDuration);
+        foreach (var ring in arenaInitializer.tilePositions)
+        {
+            if (tileIndex < ring.Count)
+            {
+                Vector3 targetPosition = ring[tileIndex];
+                targetPosition.y = 0f;
                 var indicator = Instantiate(attackIndicatorPrefab, targetPosition, Quaternion.identity);
                 StartCoroutine(HandleIndicatorLifecycle(indicator));
             }
         }
-        yield return new WaitForSeconds(warningDuration);
         CheckForPlayerDamage(tileIndex);
     }
 
+    private IEnumerator HandleIndicatorFlash(GameObject indicator)
+    {
+        MeshRenderer meshRenderer = indicator.GetComponent<MeshRenderer>();
+        Color originalColor = meshRenderer.material.color;
+        float endTime = Time.time + warningDuration;
+
+        // Flash the indicator
+        while (Time.time < endTime)
+        {
+            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2)); // Flashing effect
+            meshRenderer.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        Destroy(indicator);
+    }
 
     private IEnumerator HandleIndicatorLifecycle(GameObject indicator)
     {
         indicator.GetComponent<MeshRenderer>().material = warningMaterial;
-        yield return new WaitForSeconds(warningDuration);
         yield return new WaitForSeconds(attackDuration);
         Destroy(indicator);
     }
@@ -57,7 +83,7 @@ public class SlamAttack : MonoBehaviour
     {
         if (playerControl.currentTileIndex == tileIndex)
         {
-            playerStatus.TakeDamage(20f);
+            playerStatus.TakeDamage(5f);
         }
     }
     private System.Collections.IEnumerator FlashWarningText()

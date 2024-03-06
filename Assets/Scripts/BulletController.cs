@@ -9,7 +9,7 @@ detection, and deletion after time of bullets that missed.
 */
 public class BulletController : MonoBehaviour
 {
-    const float sniperBulletSpeed = 80f;
+    [SerializeField] float sniperBulletSpeed = 70f;
     const float rotationSpeed = 100f;
     const float maxLifetime = 2f;
     float bulletLifetime;
@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 20f;
+    public float damage = 5f;
 
     void Start()
     {

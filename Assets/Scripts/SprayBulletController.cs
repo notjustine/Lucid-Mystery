@@ -16,7 +16,7 @@ public class SprayBulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 10f;
+    public float damage = 5f;
 
     void Start()
     {
@@ -55,7 +55,7 @@ public class SprayBulletController : MonoBehaviour
             // Debug.Log("collided with arena");
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Weapon")
         {
             PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
             if (playerStatus != null) // Check if the PlayerStatus component is found

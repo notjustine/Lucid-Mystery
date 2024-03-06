@@ -9,6 +9,7 @@ using Debug = UnityEngine.Debug;
 public class MusicEventHandler : MonoBehaviour
 {
     // Start is called before the first frame update
+    private EventReference sleepingTrack;
     private EventReference backgroundTrack;
     private EventReference backgroundTrack2;
     private EventInstance eventInstance;
@@ -23,18 +24,38 @@ public class MusicEventHandler : MonoBehaviour
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
-        if (PlayerPrefs.GetInt("bossPhase", 0) == 0)
-        {
-            StartPhaseOneMusic();
-        }
-        else
-        {
-            StartPhaseTwoMusic();
-        }
+        sleepingTrack = SoundRef.Instance.sleepingTrack;
+        StartPhaseOneMusic();
+        // switch (PlayerPrefs.GetInt("bossPhase", -1))
+        // {
+        //     case 0:
+        //         StartSleepingMusic();
+        //         break;
+        //     case 1:
+        //         StartPhaseOneMusic();
+        //         break;
+        //     case 2:
+        //         StartPhaseTwoMusic();
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+    }
+    
+    void StartSleepingMusic()
+    {
+        eventInstance = AudioManager.instance.CreateEventInstance(sleepingTrack);
+        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        eventInstance.start();
     }
 
-    void StartPhaseOneMusic()
+    public void StartPhaseOneMusic()
     {
+        if (eventInstance.isValid())
+        {
+            AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        }
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
@@ -45,11 +66,13 @@ public class MusicEventHandler : MonoBehaviour
     
     public void StartPhaseTwoMusic()
     {
-        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        eventInstance.release();
-        eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
-        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        eventInstance.start();
+        // if (eventInstance.isValid())
+        // {
+        //     AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        // }
+        // eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
+        // eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        // eventInstance.start();
     }
 
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
@@ -69,12 +92,12 @@ public class MusicEventHandler : MonoBehaviour
         if (parameter.name == "allowinput")
         {
             beatCheck = true;
-            InputIndicator.Instance.color = Color.green;
+            InputIndicator.Instance.active = true;
         }
         else if (parameter.name == "stopinput")
         {
             beatCheck = false;
-            InputIndicator.Instance.color = Color.red;
+            InputIndicator.Instance.active =false;
         }
 
         return RESULT.OK;

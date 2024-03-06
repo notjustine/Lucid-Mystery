@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public Transform playerTransform;
-    public Transform bossTransform; 
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform bossTransform; 
     public float distanceBehindPlayer = 10f;
     public float heightAbove = 5f;
     public float smoothSpeed = 5f; 
 
     private Vector3 cameraDirection;
     private Vector3 desiredPosition;
+
+    void Start()
+    {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        bossTransform = GameObject.FindGameObjectWithTag("Boss").transform;
+    }
 
     void LateUpdate()
     {
