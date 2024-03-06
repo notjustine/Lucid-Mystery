@@ -114,6 +114,10 @@ public class AudioManager : MonoBehaviour
         }
     }
     
+    public void TriggerPhaseOneMusic()
+    {
+        musicEventHandler.StartPhaseOneMusic();
+    }
     public void TriggerPhaseTwoMusic()
     {
         musicEventHandler.StartPhaseTwoMusic();
