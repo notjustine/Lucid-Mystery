@@ -32124,6 +32124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   isInvulnerable: 0
+  phase: 0
   healthBar: {fileID: 1103202764}
 --- !u!1 &892097053
 GameObject:
@@ -37520,6 +37521,10 @@ PrefabInstance:
     - target: {fileID: 2997307355233161108, guid: 2cc50c44722da4b05abfb79807e48c12, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453363676123298165, guid: 2cc50c44722da4b05abfb79807e48c12, type: 3}
+      propertyPath: m_margin.z
+      value: 22.452766
       objectReference: {fileID: 0}
     - target: {fileID: 3708260516800777023, guid: 2cc50c44722da4b05abfb79807e48c12, type: 3}
       propertyPath: m_AnchorMax.y
