@@ -16,7 +16,7 @@ public class SprayBulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 10f;
+    public float damage = 5f;
 
     void Start()
     {

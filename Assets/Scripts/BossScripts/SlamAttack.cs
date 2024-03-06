@@ -57,7 +57,7 @@ public class SlamAttack : MonoBehaviour
     {
         if (playerControl.currentTileIndex == tileIndex)
         {
-            playerStatus.TakeDamage(20f);
+            playerStatus.TakeDamage(5f);
         }
     }
     private System.Collections.IEnumerator FlashWarningText()

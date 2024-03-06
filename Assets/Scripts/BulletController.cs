@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 20f;
+    public float damage = 5f;
 
     void Start()
     {

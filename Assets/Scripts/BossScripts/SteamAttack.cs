@@ -71,7 +71,7 @@ public class SteamAttack : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         StopCoroutine(FlashWarningText());;
         if (playerInAttackArea){
-            playerStatus.TakeDamage(20f);
+            playerStatus.TakeDamage(10f);
         }
         foreach (VisualEffect effect in effects)
         {
