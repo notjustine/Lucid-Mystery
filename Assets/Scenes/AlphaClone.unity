@@ -31978,7 +31978,7 @@ Transform:
   m_GameObject: {fileID: 891874665}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.9, y: -16.1, z: 0.09}
+  m_LocalPosition: {x: 0, y: -16.1, z: 0}
   m_LocalScale: {x: 55.899166, y: 22.7629, z: 58.24589}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32074,7 +32074,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1.1
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.0000025071204, y: 0.00000017881393, z: 0.000000007450581}
@@ -33202,6 +33202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ec439401e29f0e345a7c61c816781d77, type: 2}
   inputMesh: {fileID: 943529878}
+  active: 0
 --- !u!135 &943529877
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36564,7 +36565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -36572,7 +36573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.0513
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2df87f5dad12ea145b4967be2fbeb7ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -62296,7 +62297,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 373bc6c3c25629d458e7c1aea178a187, type: 2}
     - target: {fileID: 7443970779131759617, guid: 4f2dae0e02040407ba4746c617cb112d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7443970779131759617, guid: 4f2dae0e02040407ba4746c617cb112d, type: 3}
       propertyPath: m_LocalPosition.y

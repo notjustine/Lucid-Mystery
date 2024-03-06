@@ -25,21 +25,21 @@ public class MusicEventHandler : MonoBehaviour
         backgroundTrack = SoundRef.Instance.backgroundTrack;
         backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
         sleepingTrack = SoundRef.Instance.sleepingTrack;
-        
-        switch (PlayerPrefs.GetInt("bossPhase", -1))
-        {
-            case 0:
-                StartSleepingMusic();
-                break;
-            case 1:
-                StartPhaseOneMusic();
-                break;
-            case 2:
-                StartPhaseTwoMusic();
-                break;
-            default:
-                break;
-        }
+        StartPhaseOneMusic();
+        // switch (PlayerPrefs.GetInt("bossPhase", -1))
+        // {
+        //     case 0:
+        //         StartSleepingMusic();
+        //         break;
+        //     case 1:
+        //         StartPhaseOneMusic();
+        //         break;
+        //     case 2:
+        //         StartPhaseTwoMusic();
+        //         break;
+        //     default:
+        //         break;
+        // }
 
     }
     
@@ -66,13 +66,13 @@ public class MusicEventHandler : MonoBehaviour
     
     public void StartPhaseTwoMusic()
     {
-        if (eventInstance.isValid())
-        {
-            AudioManager.instance.StopEvent(eventInstance.GetHashCode());
-        }
-        eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
-        eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        eventInstance.start();
+        // if (eventInstance.isValid())
+        // {
+        //     AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        // }
+        // eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
+        // eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        // eventInstance.start();
     }
 
     [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
@@ -92,14 +92,12 @@ public class MusicEventHandler : MonoBehaviour
         if (parameter.name == "allowinput")
         {
             beatCheck = true;
-            //InputIndicator.Instance.color = Color.green;
-            InputIndicator.Instance.inputMesh.enabled = true;
+            InputIndicator.Instance.active = true;
         }
         else if (parameter.name == "stopinput")
         {
             beatCheck = false;
-            //InputIndicator.Instance.color = Color.red;
-            InputIndicator.Instance.inputMesh.enabled = false;
+            InputIndicator.Instance.active =false;
         }
 
         return RESULT.OK;
