@@ -39,22 +39,28 @@ public class PlayerStatus : MonoBehaviour
         }
         healthBar.SetSlider(currHealth);
     }
+    
+    public void resetHealth()
+    {
+        currHealth = maxHealth;
+        healthBar.SetSlider(currHealth);
+    }
 
     private void Update()
     {
         // for testing hp bar
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(20f);
-        } else if (Input.GetKeyDown(KeyCode.H))
-        {
-            Heal(10f);
-        }
-        
-        if (currHealth <= 0)
-        {
-            Die();
-        }
+        // if (Input.GetKeyDown(KeyCode.K))
+        // {
+        //     TakeDamage(20f);
+        // } else if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     Heal(10f);
+        // }
+        //
+        // if (currHealth <= 0)
+        // {
+        //     Die();
+        // }
     }
     private void Die()
     {

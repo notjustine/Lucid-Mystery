@@ -23,6 +23,11 @@ public class PlayerControl : MonoBehaviour
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         cameraTransform = Camera.main.transform;
         input = GetComponent<PlayerInput>();
+        StartHelper();
+    }
+
+    public void StartHelper()
+    {
         currentRingIndex = arenaInitializer.tilePositions.Count - 1; // Start at the outermost ring
         currentTileIndex = 1; // Start at the first tile of that ring
         MoveToCurrentTile();

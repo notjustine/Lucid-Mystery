@@ -33,8 +33,12 @@ public class MusicEventHandler : MonoBehaviour
         }
     }
 
-    void StartPhaseOneMusic()
+    public void StartPhaseOneMusic()
     {
+        if (eventInstance.isValid())
+        {
+            AudioManager.instance.StopEvent(eventInstance.GetHashCode());
+        }
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
@@ -45,8 +49,7 @@ public class MusicEventHandler : MonoBehaviour
     
     public void StartPhaseTwoMusic()
     {
-        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        eventInstance.release();
+        AudioManager.instance.StopEvent(eventInstance.GetHashCode());
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack2);
         eventInstance.setCallback(OnBeatReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         eventInstance.start();

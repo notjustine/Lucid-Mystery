@@ -7,6 +7,7 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 1000f;
     private float currHealth;
     public bool isInvulnerable = false;
+    [SerializeField] private int phase = 0;
 
     public HealthBar healthBar;
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class BossHealth : MonoBehaviour
     {
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
+        phase = PlayerPrefs.GetInt("bossPhase");
     }
 
     public void TakeDamage(float amount)
@@ -23,11 +25,12 @@ public class BossHealth : MonoBehaviour
         {
             currHealth = 0;
         }
-        healthBar.SetSlider(currHealth);
+        // healthBar.SetSlider(currHealth);
     }
 
     private void Update()
     {
+        healthBar.SetSlider(currHealth);
         // for testing hp bar
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -40,7 +43,6 @@ public class BossHealth : MonoBehaviour
     }
     private void Die()
     {
-        int phase = PlayerPrefs.GetInt("bossPhase");
         switch (phase)
         {
             case 0:
@@ -57,6 +59,11 @@ public class BossHealth : MonoBehaviour
                 break;
         }
         
+    }
+
+    public void resetHealth()
+    {
+        currHealth = maxHealth;
     }
     public void SetInvulnerability(bool state)
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
@@ -69,6 +70,14 @@ public class AudioManager : MonoBehaviour
         {
             eventInstance.setPaused(false);
         }
+    }
+
+    public void StopEvent(int hash)
+    {
+        EventInstance e = eventInstances.Find((eventInstance => eventInstance.GetHashCode() == hash));
+        eventInstances.Remove(e);
+        e.stop(STOP_MODE.ALLOWFADEOUT);
+        e.release();
     }
 
     private void OnDestroy()
