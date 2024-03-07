@@ -86,6 +86,14 @@ public class PlayerControl : MonoBehaviour
         MoveToCurrentTile();
     }
 
+    public void MoveToBackTile()
+    {
+        currentRingIndex += 3;
+        currentTileIndex = Mathf.Clamp(currentTileIndex, 0, arenaInitializer.tilePositions[currentRingIndex].Count - 1);
+       
+        MoveToCurrentTile();
+    }
+
     void MoveToAdjacentRing(int direction)
     {
         currentRingIndex += direction;

@@ -16,7 +16,7 @@ public class SteamAttack : MonoBehaviour
     private bool playerInAttackArea = false;
     private PlayerStatus playerStatus;
     public GameObject steamAttackVFX;
-    public EventInstance steamAttackSound;
+    private PlayerControl playerControl;
 
     private void Start()
     {
@@ -24,6 +24,7 @@ public class SteamAttack : MonoBehaviour
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+        playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
         foreach (VisualEffect effect in effects)
         {
@@ -68,12 +69,14 @@ public class SteamAttack : MonoBehaviour
         foreach (VisualEffect effect in effects)
         {
             effect.Play();
-        };
+        }
+        if (playerInAttackArea){
+            playerControl.MoveToBackTile();
+            playerStatus.TakeDamage(steamDamage);
+
+        }
         yield return new WaitForSeconds(0.5f);
         StopCoroutine(FlashWarningText());;
-        if (playerInAttackArea){
-            playerStatus.TakeDamage(steamDamage);
-        }
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();
