@@ -32743,6 +32743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
+  currHealth: 0
   isInvulnerable: 0
   phase: 0
   healthBar: {fileID: 1103202764}
@@ -41205,7 +41206,23 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: m_Height
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: m_Center.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: m_Center.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
@@ -56044,7 +56061,7 @@ MonoBehaviour:
   playerTransform: {fileID: 2141803793}
   steamAttack: {fileID: 630916613}
   slamAttack: {fileID: 1540626459}
-  sprayAttack: {fileID: 0}
+  sprayAttack: {fileID: 1540626461}
   playerControl: {fileID: 2141803788}
   isSleeping: 0
 --- !u!114 &1540626461
@@ -56056,7 +56073,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1540626458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06eaab2fc50d94000a7f29c57a49c0bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f153868764363146b1d0cb8b52975fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1541008488
@@ -76970,9 +76987,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.1, y: 1, z: 0}
 --- !u!23 &2141803804
 MeshRenderer:
   m_ObjectHideFlags: 0

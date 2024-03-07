@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8403968017914439768}
   - component: {fileID: 1904412971201538844}
   - component: {fileID: 2652449270119389352}
-  - component: {fileID: 2861628234961705792}
+  - component: {fileID: 93101302015356290}
   m_Layer: 0
   m_Name: screw_wrapper
   m_TagString: Untagged
@@ -85,7 +85,7 @@ CapsuleCollider:
   m_Height: 2.337843
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0.0031468868}
---- !u!114 &2861628234961705792
+--- !u!114 &93101302015356290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6100058907732405438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033548b709c6a4c09ba789cd6110f749, type: 3}
+  m_Script: {fileID: 11500000, guid: d94851f7d53cbc54db1fe369ceb7360f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5

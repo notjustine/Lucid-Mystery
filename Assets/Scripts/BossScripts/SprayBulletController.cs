@@ -57,15 +57,15 @@ public class SprayBulletController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Weapon")
         {
-            PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
+            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>(); ;
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
                 playerStatus.TakeDamage(damage);
-                // Debug.Log("collided with player");
+                Debug.Log("collided with player");
             }
             else
             {
-                // Debug.Log("PlayerStatus component not found on the collided object.");
+                Debug.Log("PlayerStatus component not found on the collided object.");
             }
             Destroy(gameObject);
         }
