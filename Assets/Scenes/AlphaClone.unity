@@ -56063,6 +56063,7 @@ MonoBehaviour:
   slamAttack: {fileID: 1540626459}
   sprayAttack: {fileID: 1540626461}
   playerControl: {fileID: 2141803788}
+  bossHealth: {fileID: 891874671}
   isSleeping: 0
 --- !u!114 &1540626461
 MonoBehaviour:
