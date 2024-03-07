@@ -13,24 +13,28 @@ public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, 
     {
         if (overlaySprite != null)
             overlaySprite.SetActive(true);
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuMove, new Vector3());
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
         if (overlaySprite != null)
             overlaySprite.SetActive(false);
+        // AudioManager.instance.PlayOneShot(SoundRef.Instance.menuMove, new Vector3());
     }
     
     public void OnSelect(BaseEventData eventData)
     {
         if (overlaySprite != null)
             overlaySprite.SetActive(true);
+        // AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         if (overlaySprite != null)
             overlaySprite.SetActive(false);
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuMove, new Vector3());
     }
 
     // Start is called before the first frame update
@@ -39,9 +43,4 @@ public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, 
         overlaySprite = transform.Find("Overlay").gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

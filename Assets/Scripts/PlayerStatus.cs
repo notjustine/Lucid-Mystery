@@ -22,14 +22,14 @@ public class PlayerStatus : MonoBehaviour
         AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInviciible)
             return;
-        currHealth -= amount;
-        if (currHealth < 0)
+        if (currHealth <= 0)
         {
             currHealth = 0;
+            Die();
         }
+        currHealth -= amount;
         healthBar.SetSlider(currHealth);
     }
-
     public void Heal(float amount)
     {
         currHealth += amount;
@@ -40,12 +40,6 @@ public class PlayerStatus : MonoBehaviour
         healthBar.SetSlider(currHealth);
     }
     
-    public void resetHealth()
-    {
-        currHealth = maxHealth;
-        healthBar.SetSlider(currHealth);
-    }
-
     private void Update()
     {
         // for testing hp bar
@@ -64,7 +58,8 @@ public class PlayerStatus : MonoBehaviour
     }
     private void Die()
     {
-        Ending.PlayerLoss();
+        // Ending.PlayerLoss();
+        DeathMenu.PlayerLoss();
         SceneManager.LoadScene("EndMenu");
     }
 }

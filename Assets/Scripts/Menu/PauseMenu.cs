@@ -10,22 +10,24 @@ public class PauseMenu : MonoBehaviour
     public GameObject warningText;
     private bool isOptions = false;
     
-    // Restart options
-    private PlayerStatus playerStatus;
-    private BossHealth bossHealth;
-    private MusicEventHandler musicEventHandler;
     
     
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
+        {
+            AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
             ShowPauseMenu();
+        }
     }
 
     public void OnResume(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
+        {
+            AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
             HidePauseMenu();
+        }
     }
     public void ShowPauseMenu()
     {
@@ -72,6 +74,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (isOptions)
         {
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.menuSelect, Camera.main.gameObject);
             isOptions = false;
             optionsMenu.SetActive(false);
             pauseMenu.SetActive(true);
@@ -87,8 +90,5 @@ public class PauseMenu : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         pauseMenu = gameObject.transform.GetChild(0).gameObject;
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
-        playerStatus = FindObjectOfType<PlayerStatus>();
-        bossHealth = FindObjectOfType<BossHealth>();
-        musicEventHandler = FindObjectOfType<MusicEventHandler>();
     }
 }
