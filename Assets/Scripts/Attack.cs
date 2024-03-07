@@ -6,6 +6,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private BossStates bossStates;
+    public float playerDamage = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Attack : MonoBehaviour
                 PlayerPrefs.SetInt("bossPhase", 1);
             }
             bossStates.isSleeping = false;
-            bossHealth.TakeDamage(50);
+            bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
             Debug.Log("Enemy Hit");
 

@@ -41265,6 +41265,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6430585632554529898, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: playerDamage
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7664753621277672539, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: color.a
       value: 0
@@ -70660,6 +70664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557d75bdb720327498ca87623b3265d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDamage: 25
 --- !u!54 &1982575067
 Rigidbody:
   m_ObjectHideFlags: 0
