@@ -32091,6 +32091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
+  currHealth: 0
   isInvulnerable: 0
   phase: 0
   healthBar: {fileID: 1103202764}
@@ -55098,8 +55099,9 @@ MonoBehaviour:
   playerTransform: {fileID: 2141803793}
   steamAttack: {fileID: 630916613}
   slamAttack: {fileID: 1540626459}
-  sprayAttack: {fileID: 0}
+  sprayAttack: {fileID: 1540626461}
   playerControl: {fileID: 2141803788}
+  bossHealth: {fileID: 891874671}
   isSleeping: 1
 --- !u!114 &1540626461
 MonoBehaviour:
@@ -55110,7 +55112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1540626458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06eaab2fc50d94000a7f29c57a49c0bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f153868764363146b1d0cb8b52975fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1541008488

@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 2000f;
-    private float currHealth;
+    [SerializeField] public float maxHealth = 2000f;
+    public float currHealth;
     public bool isInvulnerable = false;
     [SerializeField] private int phase = 0;
 

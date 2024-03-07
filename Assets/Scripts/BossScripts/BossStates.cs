@@ -10,6 +10,7 @@ public class BossStates : MonoBehaviour
     [SerializeField] private SlamAttack slamAttack;
     [SerializeField] private SprayAttackController sprayAttack;
     [SerializeField] private PlayerControl playerControl;
+    [SerializeField] private BossHealth bossHealth;
     public bool isSleeping;
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
     public enum BossAttackType { None, Slam, Steam, Spray }
@@ -17,7 +18,6 @@ public class BossStates : MonoBehaviour
     BossState currentState = BossState.Idle;
     BossAttackType nextAttack = BossAttackType.None;
     BossAttackType lastAttack = BossAttackType.None;
-    private int targetTileIndex = 0; // Example target tile index for the Slam Attack
     private float time = 0f;
     private const float coolDownTime = 5f;
 
@@ -26,6 +26,7 @@ public class BossStates : MonoBehaviour
         steamAttack = FindObjectOfType<SteamAttack>();
         slamAttack = FindObjectOfType<SlamAttack>();
         sprayAttack = FindObjectOfType<SprayAttackController>();
+        bossHealth = FindObjectOfType<BossHealth>();
         switch (PlayerPrefs.GetInt("bossPhase", 0))
         {
             case 0:
@@ -105,6 +106,7 @@ public class BossStates : MonoBehaviour
     }
     void DecideNextAttack()
     {
+        float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
         int ringIndex;
         if (IsPlayerInSpecificRing(out ringIndex))
         {
@@ -112,18 +114,18 @@ public class BossStates : MonoBehaviour
                 nextAttack = BossAttackType.Steam;
         }
 
-        if (nextAttack == BossAttackType.None)
+        else if (nextAttack == BossAttackType.None && healthPercentage <= 75f && healthPercentage > 65f)
         {
-            if (lastAttack == BossAttackType.Slam)
             {
                 nextAttack = BossAttackType.Spray;
             }
-            else
-            {
-                nextAttack = BossAttackType.Slam;
-            }
         }
 
+        else if (nextAttack == BossAttackType.None && healthPercentage <= 65f)
+        {
+            nextAttack = (Random.Range(0, 2) == 0) ? BossAttackType.Slam : BossAttackType.Spray;
+        }
+        
         if (nextAttack != BossAttackType.None)
         {
             currentState = BossState.PreparingAttack;
