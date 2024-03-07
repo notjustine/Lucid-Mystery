@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Env_Grey
+  m_Name: Boss_Turrets
   m_Shader: {fileID: -6465566751694194690, guid: ef3afcf964a41b246becf8464757aab0, type: 3}
   m_Parent: {fileID: 2100000, guid: 72df269534a9a491580ef11748ba2695, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -26,7 +26,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats: []
-    m_Colors: []
+    m_Colors:
+    - _BaseColor: {r: 0.4676003, g: 0.37904584, b: 0.5245282, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7502900176033572005
 MonoBehaviour:

@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Env_BluePurple2
+  m_Name: Boss_Bars
   m_Shader: {fileID: -6465566751694194690, guid: ef3afcf964a41b246becf8464757aab0, type: 3}
-  m_Parent: {fileID: 2100000, guid: 40512296e188a4f87badf1bb70129d2b, type: 2}
+  m_Parent: {fileID: 2100000, guid: 72df269534a9a491580ef11748ba2695, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _USE_SCREEN_SPACE
@@ -25,11 +25,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _CircleDensity: 30
-    - _ShadingMultiplier: 0.5
+    m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.17735851, g: 0.15092205, b: 0.15092205, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7502900176033572005
 MonoBehaviour:
