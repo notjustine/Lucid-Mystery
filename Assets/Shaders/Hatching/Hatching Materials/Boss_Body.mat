@@ -62,12 +62,12 @@ Material:
     - _CircleDensity: 25
     - _Cross_Hatch_Rotation: 0
     - _Cross_Hatch_Strength: 0.5
-    - _FalloffThreshold: 2.5
+    - _FalloffThreshold: 2.12
     - _Line_1_Rotation: 0.5
     - _Line_2_Rotation: 1.87
     - _Line_2_Strength: 1.44
     - _Line_Rotation: 0
-    - _Lit_Threshold: 2
+    - _Lit_Threshold: 2.43
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotation: -0.5

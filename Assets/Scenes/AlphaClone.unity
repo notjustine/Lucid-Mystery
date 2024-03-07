@@ -23536,7 +23536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa04c4825e014436a2c731751afbd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleMaterial: {fileID: 2100000, guid: c729abd857e2d47cb901b54311f9f73b, type: 2}
+  idleMaterial: {fileID: 2100000, guid: 72df269534a9a491580ef11748ba2695, type: 2}
   warningMaterial: {fileID: 2100000, guid: 0fe030b914218448c8228c212231cf62, type: 2}
   attackMaterial: {fileID: 2100000, guid: 52114ef243d3d4de281b5483c9f568a8, type: 2}
   attackAreaRenderer: {fileID: 630916615}
@@ -56063,6 +56063,7 @@ MonoBehaviour:
   slamAttack: {fileID: 1540626459}
   sprayAttack: {fileID: 1540626461}
   playerControl: {fileID: 2141803788}
+  bossHealth: {fileID: 891874671}
   isSleeping: 0
 --- !u!114 &1540626461
 MonoBehaviour:
