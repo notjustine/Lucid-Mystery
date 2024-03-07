@@ -158,6 +158,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cf5d4c42f92ad234ca479874105aa9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9126bf63749582e4490223b25e60d8e2, type: 2}
     - target: {fileID: 919132149155446097, guid: cf5d4c42f92ad234ca479874105aa9b9, type: 3}
       propertyPath: m_Name
       value: screw
