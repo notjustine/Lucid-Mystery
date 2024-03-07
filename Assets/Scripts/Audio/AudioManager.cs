@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set; }
     [field: SerializeField] private List<EventInstance> eventInstances;
     private MusicEventHandler musicEventHandler;
+    private AmbienceHandler ambienceHandler;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -36,7 +37,10 @@ public class AudioManager : MonoBehaviour
             VolumeSlider.VolumeType.MASTER);
         AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.MUSIC.ToString(), 1), VolumeSlider.VolumeType.MUSIC);
         AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.SFX.ToString(), 1), VolumeSlider.VolumeType.SFX);
+        AdjustVolume(PlayerPrefs.GetFloat(VolumeSlider.VolumeType.SFX.ToString(), 1), VolumeSlider.VolumeType.AMBIENCE);
+        
         musicEventHandler = FindObjectOfType<MusicEventHandler>();
+        ambienceHandler = FindObjectOfType<AmbienceHandler>();
     }
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
@@ -62,6 +66,7 @@ public class AudioManager : MonoBehaviour
         {
             eventInstance.setPaused(true);
         }
+        ambienceHandler.PauseAmbience();
     }
 
     public void ResumeAllEvents()
@@ -70,6 +75,7 @@ public class AudioManager : MonoBehaviour
         {
             eventInstance.setPaused(false);
         }
+        ambienceHandler.UnPauseAmbience();
     }
 
     public void StopEvent(int hash)
@@ -113,13 +119,13 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Bus not found");
         }
     }
-    
+
     public void TriggerPhaseOneMusic()
     {
-        musicEventHandler.StartPhaseOneMusic();
+       musicEventHandler.SetMainMusicPhaseParameter(1);
     }
     public void TriggerPhaseTwoMusic()
     {
-        musicEventHandler.StartPhaseTwoMusic();
+        musicEventHandler.SetMainMusicPhaseParameter(2);
     }
 }
