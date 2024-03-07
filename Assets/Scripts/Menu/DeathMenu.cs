@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class Ending : MonoBehaviour
+public class DeathMenu : MonoBehaviour
 {
-    
+
     [SerializeField] private string scene = "AlphaClone";
     [SerializeField] private Image header;
     [SerializeField] private VideoPlayer video;

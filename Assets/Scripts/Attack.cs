@@ -23,7 +23,7 @@ public class Attack : MonoBehaviour
                 PlayerPrefs.SetInt("bossPhase", 1);
             }
             bossStates.isSleeping = false;
-            bossHealth.TakeDamage(200f);
+            bossHealth.TakeDamage(50);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
             Debug.Log("Enemy Hit");
 

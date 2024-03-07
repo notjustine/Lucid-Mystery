@@ -11,7 +11,6 @@ public class MusicEventHandler : MonoBehaviour
     // Start is called before the first frame update
     private EventReference sleepingTrack;
     private EventReference backgroundTrack;
-    private EventReference backgroundTrack2;
     private EventInstance eventInstance;
     private EVENT_CALLBACK beatCallback;
 
@@ -23,7 +22,6 @@ public class MusicEventHandler : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControl>();
         backgroundTrack = SoundRef.Instance.backgroundTrack;
-        backgroundTrack2 = SoundRef.Instance.backgroundTrack2;
         eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
@@ -44,7 +42,6 @@ public class MusicEventHandler : MonoBehaviour
         //     Debug.LogError("Timeline Callback error: " + result);
         // GCHandle test = (GCHandle)musicEventHandlerPtr;
         // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
-        Debug.Log("Marker reached");
         var parameter =
             (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
         if (parameter.name == "allowinput")
