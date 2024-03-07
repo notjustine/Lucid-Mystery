@@ -23617,6 +23617,7 @@ MonoBehaviour:
   attackAreaRenderer: {fileID: 630916615}
   warningText: {fileID: 1438361043}
   warningDuration: 2.5
+  steamDamage: 25
   steamAttackVFX: {fileID: 568011090}
 --- !u!136 &630916614
 CapsuleCollider:
