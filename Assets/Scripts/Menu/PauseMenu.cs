@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     private GameObject optionsMenu;
     public GameObject warningText;
     private bool isOptions = false;
-    
+    private bool warningTextActive = false;
     
     
     public void OnPause(InputAction.CallbackContext context)
@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void ShowPauseMenu()
     {
+        warningTextActive = warningText.activeSelf;
         warningText.SetActive(false);
         playerControl.SwitchPlayerMap("UI");
         pauseMenu.SetActive(true);
@@ -47,7 +48,8 @@ public class PauseMenu : MonoBehaviour
 
     public void HidePauseMenu()
     {
-        warningText.SetActive(true);
+        if (warningTextActive)
+            warningText.SetActive(true);
         optionsMenu.SetActive(false);
         isOptions = false;
         playerControl.SwitchPlayerMap("Player");
