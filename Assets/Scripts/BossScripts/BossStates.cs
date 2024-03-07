@@ -10,6 +10,7 @@ public class BossStates : MonoBehaviour
     [SerializeField] private SlamAttack slamAttack;
     [SerializeField] private SprayAttackController sprayAttack;
     [SerializeField] private PlayerControl playerControl;
+    [SerializeField] private BossHealth bossHealth;
     public bool isSleeping;
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
     public enum BossAttackType { None, Slam, Steam, Spray }
@@ -25,6 +26,7 @@ public class BossStates : MonoBehaviour
         steamAttack = FindObjectOfType<SteamAttack>();
         slamAttack = FindObjectOfType<SlamAttack>();
         sprayAttack = FindObjectOfType<SprayAttackController>();
+        bossHealth = FindObjectOfType<BossHealth>();
         switch (PlayerPrefs.GetInt("bossPhase", 0))
         {
             case 0:
@@ -105,13 +107,19 @@ public class BossStates : MonoBehaviour
     void DecideNextAttack()
     {
         int ringIndex;
+        float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
         if (IsPlayerInSpecificRing(out ringIndex))
         {
             if (ringIndex == 0)
                 nextAttack = BossAttackType.Steam;
         }
 
-        if (nextAttack == BossAttackType.None)
+        if (nextAttack == BossAttackType.None & (healthPercentage <= 75f && healthPercentage > 65f))
+        {
+            nextAttack = BossAttackType.Spray;
+        }
+
+        if (nextAttack == BossAttackType.None & (healthPercentage <= 65f))
         {
             if (lastAttack == BossAttackType.Slam)
             {

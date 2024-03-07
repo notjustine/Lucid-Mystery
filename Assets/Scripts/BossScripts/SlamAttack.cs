@@ -42,6 +42,7 @@ public class SlamAttack : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(warningDuration);
+        warningText.gameObject.SetActive(false);
         foreach (var ring in arenaInitializer.tilePositions)
         {
             if (tileIndex < ring.Count)

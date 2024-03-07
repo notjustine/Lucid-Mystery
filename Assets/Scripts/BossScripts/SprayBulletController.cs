@@ -61,11 +61,11 @@ public class SprayBulletController : MonoBehaviour
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
                 playerStatus.TakeDamage(damage);
-                Debug.Log("collided with player");
+                // Debug.Log("collided with player");
             }
             else
             {
-                Debug.Log("PlayerStatus component not found on the collided object.");
+                // Debug.Log("PlayerStatus component not found on the collided object.");
             }
             Destroy(gameObject);
         }
