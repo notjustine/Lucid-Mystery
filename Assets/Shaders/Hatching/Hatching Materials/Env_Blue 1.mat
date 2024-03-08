@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Env_Blue
+  m_Name: Env_Blue 1
   m_Shader: {fileID: -6465566751694194690, guid: ef3afcf964a41b246becf8464757aab0, type: 3}
   m_Parent: {fileID: 2100000, guid: 40512296e188a4f87badf1bb70129d2b, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -26,14 +26,14 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _CircleDensity: 35.7
-    - _FalloffThreshold: 4.92
-    - _Line_2_Strength: 0.5
+    - _CircleDensity: 50
+    - _FalloffThreshold: 3.87
+    - _Line_2_Strength: 2
     - _Lit_Threshold: 4.14
     - _ShadingMultiplier: 0
     - _Softness: 1
     m_Colors:
-    - _BaseColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+    - _BaseColor: {r: 0.8091836, g: 0.7821734, b: 0.8773585, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7502900176033572005
 MonoBehaviour:

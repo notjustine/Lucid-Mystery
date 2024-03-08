@@ -64,21 +64,21 @@ Material:
     - _Cross_Hatch_Strength: 0.5
     - _Cross_Rotation: 0
     - _FalloffThreshold: 2.5
-    - _Line_1_Rotation: 0.5
+    - _Line_1_Rotation: 1.6
     - _Line_2_Rotation: 1.87
     - _Line_2_Strength: 0.5
     - _Line_Rotation: 0
-    - _Lit_Threshold: 2
+    - _Lit_Threshold: 2.09
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotation: -0.5
     - _Rotation2: 90
-    - _ShadingMultiplier: 0.4
+    - _ShadingMultiplier: 0.128
     - _Softness: 0.5
     - _Time_Scale: 1.34
     - _USE_SCREEN_SPACE: 1
     m_Colors:
-    - _BaseColor: {r: 0.14716971, g: 0.14716971, b: 0.14716971, a: 1}
+    - _BaseColor: {r: 0.8415806, g: 0.87244064, b: 0.9056604, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7502900176033572005
 MonoBehaviour:
