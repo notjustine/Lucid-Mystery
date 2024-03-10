@@ -60,7 +60,8 @@ public class BossHealth : MonoBehaviour
     private void Die()
     {
         DeathMenu.BossLoss();
-        SceneManager.LoadScene("EndMenu");
+        AudioManager.instance.PauseAllEvents();
+        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
 
     public void resetHealth()
