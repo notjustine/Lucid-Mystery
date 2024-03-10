@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class DeathMenu : MonoBehaviour
 {
 
-    [SerializeField] private string scene = "AlphaClone";
+    [SerializeField] private string scene = "PatentEnvironment";
     [SerializeField] private Image header;
     [SerializeField] private VideoPlayer video;
     [SerializeField] private Sprite[] bossWin;
     [SerializeField] private Sprite[] playerWin;
     [SerializeField] private Image restartButton;
     [SerializeField] private Image background;
-    
+    private GameObject bossHUD;
+    private GameObject endingCanvas;
 
     private static bool bossDied = false;
     void Start()
     {
-        video = Camera.main.GetComponent<VideoPlayer>();
-        
+        bossHUD = GameObject.Find("Canvas");
+        bossHUD.SetActive(false);
         if (bossDied)
         {
             ShowEndingCutScene();
@@ -34,19 +37,22 @@ public class DeathMenu : MonoBehaviour
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];
         }
+        
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Keyboard.current[Key.Space].wasPressedThisFrame
+           )
         {
-            video.Stop();
-            gameObject.SetActive(true);
+            EndReached(video);
         }
     }
 
+
     void ShowEndingCutScene()
     {
+        // endingCanvas.SetActive(false);
         video.loopPointReached += EndReached;
         video.Play();
     }
@@ -80,6 +86,11 @@ public class DeathMenu : MonoBehaviour
         }
         
         StartCoroutine(AsyncMusicLoad.LoadGameAsync(scene));
+    }
+    
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
     
     public void QuitGame()

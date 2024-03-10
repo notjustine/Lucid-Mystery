@@ -77,14 +77,7 @@ public class AudioManager : MonoBehaviour
         }
         ambienceHandler.UnPauseAmbience();
     }
-
-    public void StopEvent(int hash)
-    {
-        EventInstance e = eventInstances.Find((eventInstance => eventInstance.GetHashCode() == hash));
-        eventInstances.Remove(e);
-        e.stop(STOP_MODE.ALLOWFADEOUT);
-        e.release();
-    }
+    
 
     private void OnDestroy()
     {
