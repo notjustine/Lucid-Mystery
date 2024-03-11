@@ -4,12 +4,11 @@ using UnityEngine;
 
 
 /** 
-Dylan:  this handles the flight direction of our sniper bullets from the boss, collision
-detection, and deletion after time of bullets that missed.
+    This handles the flight direction of our sniper bullets from the boss, collision
+    detection, and deletion after time of bullets that missed.
 */
-public class BulletController : MonoBehaviour
+public class SniperBulletController : MonoBehaviour
 {
-    [SerializeField] float sniperBulletSpeed = 70f;
     const float rotationSpeed = 100f;
     const float maxLifetime = 2f;
     float bulletLifetime;
@@ -18,10 +17,21 @@ public class BulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 5f;
+    private DifficultyManager difficultyManager;
+    private float sniperDamage;
+    private float sniperBulletSpeed;
 
+
+    // NOTE:  Since we spawn bullets after a trigger, we can just set the difficulty at that time.  No need to "update" it,
+    //  since the next bullet spawned with get the updated values. 
     void Start()
     {
+        // Set stats' values based on difficulty setting
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        sniperDamage = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_DAMAGE);
+        sniperBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_BULLET_SPEED);
+
+        // Orient the bullet direction
         sniper = GameObject.Find("Sniper");
         boss = GameObject.Find("Cube");  // We should fix this name.
 
@@ -59,7 +69,6 @@ public class BulletController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Arena")
         {
-            Debug.Log("collided with arena");
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Player")
@@ -67,18 +76,17 @@ public class BulletController : MonoBehaviour
             PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
-                playerStatus.TakeDamage(damage);
-                Debug.Log("collided with player");
+                playerStatus.TakeDamage(sniperDamage);
             }
             else
             {
-                Debug.Log("PlayerStatus component not found on the collided object.");
+                // Debug.Log("PlayerStatus component not found on the collided object.");
             }
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Something else?");
+            // Debug.Log("Something else?");
         }
     }
 }
