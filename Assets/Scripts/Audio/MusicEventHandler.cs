@@ -16,18 +16,18 @@ public class MusicEventHandler : MonoBehaviour
 
     private PlayerControl player;
 
-    public static bool beatCheck { get; private set; } = false;
+    public static bool beatCheck { get; set; } = false;
 
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
-        backgroundTrack = SoundRef.Instance.backgroundTrack;
-        eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
+        // backgroundTrack = SoundRef.Instance.backgroundTrack;
+        // eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
         // ** This is how to convert the data to pass to callback 
         // GCHandle handle1 = GCHandle.Alloc(this);
         // eventInstance.setUserData((IntPtr) handle1);
-        eventInstance.setCallback(OnMarkerReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        eventInstance.start();
+        // eventInstance.setCallback(OnMarkerReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        // eventInstance.start();
         SetMainMusicPhaseParameter(PlayerPrefs.GetInt("bossPhase", 0));
     }
 
@@ -71,7 +71,7 @@ public class MusicEventHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!beatCheck)
+        if (!beatCheck) 
             player.inputted = false;
     }
 }

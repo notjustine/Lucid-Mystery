@@ -52,26 +52,26 @@ public class BossStates : MonoBehaviour
         if (isSleeping)
             return;
         
-        switch (currentState)
-        {
-            case BossState.Idle:
-                DecideNextAttack();
-                break;
-            case BossState.PreparingAttack:
-                // call animation here
-                currentState = BossState.Attacking;
-                break;
-            case BossState.Attacking:
-                Debug.Log("Attempting to Perform Attack");
-                PerformAttack(nextAttack);
-                currentState = BossState.Cooldown;
-                break;
-            case BossState.Cooldown:
-                // StartCoroutine(CooldownRoutine(3f));
-                Cooldown();
-                break;
-            
-        }
+        // switch (currentState)
+        // {
+        //     case BossState.Idle:
+        //         DecideNextAttack();
+        //         break;
+        //     case BossState.PreparingAttack:
+        //         // call animation here
+        //         currentState = BossState.Attacking;
+        //         break;
+        //     case BossState.Attacking:
+        //         Debug.Log("Attempting to Perform Attack");
+        //         PerformAttack(nextAttack);
+        //         currentState = BossState.Cooldown;
+        //         break;
+        //     case BossState.Cooldown:
+        //         // StartCoroutine(CooldownRoutine(3f));
+        //         Cooldown();
+        //         break;
+        //     
+        // }
     }
 
     bool IsPlayerInSpecificRing(out int ringIndex)

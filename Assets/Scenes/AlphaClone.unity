@@ -33105,7 +33105,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 1110560111}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943529874}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -40215,6 +40215,10 @@ PrefabInstance:
     - target: {fileID: 4183818972585173395, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187738045511713660, guid: c812aafe7103941cebb67230373a7465, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5910427011735416425, guid: c812aafe7103941cebb67230373a7465, type: 3}
       propertyPath: m_Enabled
@@ -72248,6 +72252,10 @@ PrefabInstance:
       value: Audio
       objectReference: {fileID: 0}
     - target: {fileID: 2986082032567648894, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986082032567648894, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: fmodEvent.Path
       value: event:/TestingClickTrackEveryBeat
       objectReference: {fileID: 0}
@@ -72269,7 +72277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Path
-      value: event:/Music/NewMainMusic
+      value: event:/Music/NewMainMusic 3
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Path
@@ -72277,19 +72285,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data1
-      value: -291935087
+      value: 2017465984
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data2
-      value: 1119328202
+      value: 1309943502
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data3
-      value: -1873178703
+      value: 192326796
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data4
-      value: 1566351970
+      value: -699000251
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Guid.Data1
@@ -72310,8 +72318,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5322027250769159452, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2054541034}
   m_SourcePrefab: {fileID: 100100000, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+--- !u!1 &2054541033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5322027250769159452, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+  m_PrefabInstance: {fileID: 2054541032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2054541034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054541033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b898e7bfe97846cabe6d9309d203c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upBeatDivisor: 2
+  music:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &2058627888
 GameObject:
   m_ObjectHideFlags: 0
