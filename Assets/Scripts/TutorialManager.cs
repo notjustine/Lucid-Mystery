@@ -69,7 +69,9 @@ public class TutorialManager : MonoBehaviour
 
     System.Collections.IEnumerator ShowAttackMessage()
     {
-        tutorialText.text = "Great. You're ready to face the boss. ";
+        tutorialText.text = "Great! ";
+        yield return new WaitForSeconds(2f);
+        tutorialText.text = "You're ready to face the boss. ";
         yield return new WaitForSeconds(2f);
         tutorialText.text = "";
         playerHasAttacked = false;
