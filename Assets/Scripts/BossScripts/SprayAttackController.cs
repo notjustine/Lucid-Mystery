@@ -9,11 +9,9 @@ public class SprayAttackController : MonoBehaviour
 {
     GameObject turretsRig;
     GameObject targetsParent;
-    float timeSinceFired;
     const float turretRotationSpeed = 20f;
     ShootSprayBullet[] turrets;
     int currTargetIndex;
-    bool hasNotFired;
     const int NUM_SLICES = 24;
 
     void Start()
@@ -21,8 +19,6 @@ public class SprayAttackController : MonoBehaviour
         turretsRig = GameObject.Find("turretsRotate");
         targetsParent = GameObject.Find("SpiralTargets");
         currTargetIndex = 0;
-        hasNotFired = true;
-        timeSinceFired = 0f;
         turrets = FindObjectsOfType<ShootSprayBullet>();
     }
 
