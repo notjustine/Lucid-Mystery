@@ -62,7 +62,7 @@ Material:
     - _ANIMATE: 0
     - _ANIMATED: 1
     - _Animation_Speed: 1.666
-    - _CircleDensity: 35.7
+    - _CircleDensity: 40
     - _Cross_Hatch_Rotation: 0
     - _Cross_Hatch_Strength: 0.5
     - _FalloffThreshold: 4.92
