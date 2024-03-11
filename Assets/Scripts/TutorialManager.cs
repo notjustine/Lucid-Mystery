@@ -26,7 +26,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // Initialize tutorial
-        tutorialText.text = "Use directional buttons to move.";
+        tutorialText.text = "Use directional buttons on the beat to move.";
         centralMachine.SetActive(false);
         Phase1HP.SetActive(false);
         Phase2HP.SetActive(false);
