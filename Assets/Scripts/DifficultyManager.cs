@@ -27,80 +27,106 @@ public class DifficultyManager : MonoBehaviour
         HARD
     }
 
-    // This should be a comprehensive list of all stats we want to manage with our difficulty.
+    // This enum should be a comprehensive list of all stats we want to manage with our difficulty.
     public enum StatName
     {
-        STEAM_DAMAGE,
         PLAYER_DAMAGE,
+        SNIPER_DAMAGE,
+        STEAM_DAMAGE,
+        SNIPER_BULLET_SPEED,
         SPRAY_BULLET_SPEED
     }
     
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
     SteamAttack steam;
+    Attack playerAttack;
+    SniperBulletController sniperController;
+    // SprayBulletController sprayBulletController;
     // End of list 
 
-
     [SerializeField] Difficulty currDifficulty;
-    // difficultyMap maps a tuple representing a combination of StatName and Difficulty (ie: Difficulty.HARD) to a float for that particular difficulty setting.
+    // difficultyMap maps a tuple representing a combination of StatName and Difficulty (ie: (StatName.PLAYER_DAMAGE, Difficulty.HARD) to a float for that particular difficulty setting.
     private Dictionary<(StatName, Difficulty), float> difficultyMap;
     private bool hasChanged;  // TEMPORARY, while we allow adjustment on the fly with keyboard input.
 
 
     void Start()
     {   
-        difficultyMap = new Dictionary<(StatName, Difficulty), float>();  
-        setUpDifficultyMap();
         currDifficulty = Difficulty.MEDIUM;
+        difficultyMap = new Dictionary<(StatName, Difficulty), float>();  
+        SetUpDifficultyMap();
         hasChanged = false;
 
-        // list of object the manager might have to notify:
+        // list of objects that the manager will have to notify about changes:
         steam = FindObjectOfType<SteamAttack>();
+        playerAttack = FindObjectOfType<Attack>();
+        sniperController = FindObjectOfType<SniperBulletController>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {   
         // TEMPORARY UNTIL WE ADD SOME UI CHANGES WHERE THEY CAN SELECT A DIFFICULTY
         if (Input.GetKeyDown(KeyCode.E)) {
             Debug.Log("setting easy");
-            setDifficulty(Difficulty.EASY);
+            SetDifficulty(Difficulty.EASY);
         } else if (Input.GetKeyDown(KeyCode.M)) {
-            setDifficulty(Difficulty.MEDIUM);
+            SetDifficulty(Difficulty.MEDIUM);
+            Debug.Log("setting medium");
         } else if (Input.GetKeyDown(KeyCode.H)) {
-            setDifficulty(Difficulty.HARD);
+            SetDifficulty(Difficulty.HARD);
+            Debug.Log("setting hard");
         }
         
-
         if (hasChanged)
         {
-            setValuesForDifficulty();
+            SetValuesForDifficulty();
             hasChanged = false;
         }
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    // Setter that can be called via some main menu with buttons.
+    public void SetDifficulty(Difficulty difficulty) {
         currDifficulty = difficulty;
         hasChanged = true;
     }
 
-    // This is the function that needs to be updated whenever a new stat has been added that should be modifiable by our difficulty.
-    private void setUpDifficultyMap() {
+
+    /** 
+        Initializes the map.  This is where we can play around with the actual difficulty values.
+    */
+    private void SetUpDifficultyMap() {
+        // Damages of things
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 70f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 50f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 35f;
+
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.EASY)] = 3f;
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 5f;
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.HARD)] = 7f;
+
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.EASY)] = 5f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
 
-
-
-
+        // Speeds of things
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 50f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 140f;
     }
 
-    public float getValue(StatName stat)
+
+    public float GetValue(StatName stat)
     {
         return difficultyMap[(stat, currDifficulty)];
     }
 
-    private void setValuesForDifficulty()
+
+    private void SetValuesForDifficulty()
     {
-        steam.setSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
+        playerAttack.SetPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
+        steam.SetSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
+        sniperController.SetSniperDamage(difficultyMap[(StatName.SNIPER_DAMAGE, currDifficulty)]);
+        sniperController.SetSniperBulletSpeed(difficultyMap[(StatName.SNIPER_BULLET_SPEED, currDifficulty)]);
     }
 }
