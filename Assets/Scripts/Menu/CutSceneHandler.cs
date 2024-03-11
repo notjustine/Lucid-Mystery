@@ -8,33 +8,42 @@ using UnityEngine.Video;
 public class CutSceneHandler : MonoBehaviour
 {
 
-    private VideoPlayer videoPlayer;
-
+    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private bool isIntro = true;
+    private DeathMenu deathMenu;
     private AsyncOperation a;
     // Start is called before the first frame update
     void Start()
     {
-        videoPlayer = GetComponent<VideoPlayer>();
-        // videoPlayer.loopPointReached += EndReached;
-        a = SceneManager.LoadSceneAsync("PatentEnvironment");
-        a.allowSceneActivation = false;
+
+        if (isIntro)
+        {
+            a = SceneManager.LoadSceneAsync("PatentEnvironment");
+            a.allowSceneActivation = false;
+        }
+        else
+        {
+            deathMenu = FindObjectOfType<DeathMenu>(true);
+        }
+        
     }
 
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isIntro)
         {
             a.allowSceneActivation = true;
-            // EndReached(videoPlayer);
+        } else if (Input.GetKeyDown(KeyCode.Space) && !isIntro)
+        {
+            videoPlayer.Stop();
+            deathMenu.gameObject.SetActive(true);
         }
     }
-    
-    // I think we don't need this anymore
-    void EndReached(VideoPlayer vp)
+
+    public void Play()
     {
-        vp.Stop();
-        // a.allowSceneActivation = true;
-        SceneManager.LoadScene("PatentEnvironment");
+        videoPlayer.Play();
     }
+    
 }

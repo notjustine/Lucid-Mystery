@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartPhase()
     {
-        SceneManager.LoadScene("AlphaClone");
+        SceneManager.LoadScene("PatentEnvironment");
         HidePauseMenu();
     }
 

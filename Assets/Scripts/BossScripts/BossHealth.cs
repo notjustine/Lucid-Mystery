@@ -64,10 +64,8 @@ public class BossHealth : MonoBehaviour
     {
         DeathMenu.BossLoss();
         AudioManager.instance.PauseAllEvents();
-        Time.timeScale = 0;
+        playerControl.gameObject.SetActive(false);
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
-        
-        playerControl.SwitchPlayerMap("End UI");
     }
     
 
