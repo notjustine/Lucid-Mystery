@@ -27,18 +27,6 @@ public class SprayAttackController : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        // Trigger the firing of turrets on a timer for now.
-        // timeSinceFired += Time.deltaTime;
-        // if (hasNotFired || timeSinceFired > 6)
-        // {
-        //     StartCoroutine(TripleShootAndRotate(turrets));
-        //     hasNotFired = false;
-        //     timeSinceFired = 0;
-        // }
-    }
-
     /**
    Can be called by some AI controller to trigger the Shoot and Rotate attack.
    Note:  intentionally not in use while we are using timer above.
