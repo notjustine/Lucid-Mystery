@@ -34,7 +34,6 @@ public class DeathMenu : MonoBehaviour
         bossHUD.SetActive(false);
         if (bossDied)
         {
-            Debug.Log("HELLO WORLD");
             cutSceneHandler.Play();
             gameObject.SetActive(false);
             header.sprite = playerWin[0];
