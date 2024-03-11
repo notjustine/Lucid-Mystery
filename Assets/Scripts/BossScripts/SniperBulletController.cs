@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 /** 
-Dylan:  this handles the flight direction of our sniper bullets from the boss, collision
-detection, and deletion after time of bullets that missed.
+    This handles the flight direction of our sniper bullets from the boss, collision
+    detection, and deletion after time of bullets that missed.
 */
 public class SniperBulletController : MonoBehaviour
 {
@@ -18,12 +18,15 @@ public class SniperBulletController : MonoBehaviour
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
     private DifficultyManager difficultyManager;
-    [SerializeField] float sniperDamage;
-    [SerializeField] float sniperBulletSpeed;
+    private float sniperDamage;
+    private float sniperBulletSpeed;
 
+
+    // NOTE:  Since we spawn bullets after a trigger, we can just set the difficulty at that time.  No need to "update" it,
+    //  since the next bullet spawned with get the updated values. 
     void Start()
     {
-        // Set initial values based on difficulty setting
+        // Set stats' values based on difficulty setting
         difficultyManager = FindObjectOfType<DifficultyManager>();
         sniperDamage = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_DAMAGE);
         sniperBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_BULLET_SPEED);
@@ -56,19 +59,6 @@ public class SniperBulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-
-    // Below are setters for the DifficultyManager to push updates of the relevant values when diff changes.
-    public void SetSniperBulletSpeed(float speed) 
-    {
-        sniperBulletSpeed = speed;
-    }
-
-
-    public void SetSniperDamage(float damage) 
-    {
-        sniperDamage = damage;
     }
 
 
