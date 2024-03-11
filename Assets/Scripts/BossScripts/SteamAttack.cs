@@ -23,7 +23,7 @@ public class SteamAttack : MonoBehaviour
     {
         // Initially set to idle material
         difficultyManager = FindObjectOfType<DifficultyManager>();
-        steamDamage = difficultyManager.getValue(DifficultyManager.StatName.STEAM_DAMAGE);  // get default on startup
+        steamDamage = difficultyManager.GetValue(DifficultyManager.StatName.STEAM_DAMAGE);  // get default on startup
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
@@ -47,7 +47,7 @@ public class SteamAttack : MonoBehaviour
 
 
     // A setter, currently used by DifficultyManager when it notices the player changed the difficulty.
-    public void setSteamDamage(float damage) 
+    public void SetSteamDamage(float damage) 
     {
         steamDamage = damage;
     }
