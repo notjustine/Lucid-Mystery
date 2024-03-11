@@ -6,7 +6,7 @@ using UnityEngine;
 /** 
     WHEN EDITING THIS CLASS you should:
     1. add a new entry in the StatName enum
-    2. add a new entry to the 'Communication list', if the relevant class isn't already listed
+    2. add a new entry to the 'Communication list', if the relevant class isn't already listed and the thing remains in the scene permanently
     3. update setUpDifficultyMap to reflect the thing you added in step 1.
     4. update setValuesForDifficulty to reflect the thing you added in step 1/2.
 
@@ -57,7 +57,7 @@ public class DifficultyManager : MonoBehaviour
         SetUpDifficultyMap();
         hasChanged = false;
 
-        // list of objects that the manager will have to notify about changes:
+        // list of objects that the manager will have to notify about changes (if they are in the scene permanently, not spawners like spikes/bullets):
         steam = FindObjectOfType<SteamAttack>();
         playerAttack = FindObjectOfType<Attack>();
     }
@@ -132,7 +132,7 @@ public class DifficultyManager : MonoBehaviour
     /** 
         Accesses the difficultyMap to get the current stat value for a given stat and difficulty combo.  
 
-        NOTE:  CAN be used on the fly, as with the SlamAttack, Sniper stats.
+        NOTE:  CAN be used on the fly, as with the SlamAttack, Sniper, Spray stats.
     */
     public float GetValue(StatName stat)
     {
@@ -141,7 +141,7 @@ public class DifficultyManager : MonoBehaviour
 
 
     /**
-        We can update the values for controller that remain in the scene for
+        We can update the values for controllers that remain in the scene for the full duration (the player, the boss, steam attack)
 
         NOTE:  Not included are:  sniper bullet stats, slam attacks, because these spawn on the fly with updated values.
     */
