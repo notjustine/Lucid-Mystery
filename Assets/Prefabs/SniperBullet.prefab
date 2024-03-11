@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: -5327115594707607241}
   - component: {fileID: -7235425485603341910}
   m_Layer: 0
-  m_Name: DylanBullet
+  m_Name: SniperBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
