@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class BossHealth : MonoBehaviour
 
     public HealthBar healthBar;     // phase 1
     public HealthBar healthBar2;    // phase 2
+    private PlayerControl playerControl;
 
     // Start is called before the first frame update
     public void Start()
@@ -19,8 +21,9 @@ public class BossHealth : MonoBehaviour
         healthBar.SetSliderMax(maxHealth / 2);
         healthBar2.SetSliderMax(maxHealth / 2);
         phase = PlayerPrefs.GetInt("bossPhase");
+        playerControl = FindObjectOfType<PlayerControl>();
+        
     }
-
     public void TakeDamage(float amount)
     {
         currHealth -= amount;
@@ -60,8 +63,11 @@ public class BossHealth : MonoBehaviour
     private void Die()
     {
         DeathMenu.BossLoss();
-        SceneManager.LoadScene("EndMenu");
+        AudioManager.instance.PauseAllEvents();
+        playerControl.gameObject.SetActive(false);
+        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
+    
 
     public void resetHealth()
     {

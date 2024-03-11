@@ -1,29 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class DeathMenu : MonoBehaviour
 {
 
-    [SerializeField] private string scene = "AlphaClone";
+    [SerializeField] private string scene = "PatentEnvironment";
     [SerializeField] private Image header;
-    [SerializeField] private VideoPlayer video;
     [SerializeField] private Sprite[] bossWin;
     [SerializeField] private Sprite[] playerWin;
     [SerializeField] private Image restartButton;
     [SerializeField] private Image background;
-    
+    private CutSceneHandler cutSceneHandler;
+    private GameObject bossHUD;
+    private Transform endCamera;
+    private Transform mainCamera;
 
     private static bool bossDied = false;
     void Start()
     {
-        video = Camera.main.GetComponent<VideoPlayer>();
-        
+        Time.timeScale = 0;
+        cutSceneHandler = FindObjectOfType<CutSceneHandler>();
+        bossHUD = GameObject.Find("Canvas");
+        mainCamera = Camera.main.transform;
+        Debug.LogWarning(mainCamera.position);
+        endCamera = GameObject.Find("Camera").transform;
+        endCamera.position = mainCamera.position;
+        bossHUD.SetActive(false);
         if (bossDied)
         {
-            ShowEndingCutScene();
+            cutSceneHandler.Play();
             gameObject.SetActive(false);
             header.sprite = playerWin[0];
             restartButton.sprite = playerWin[1];
@@ -34,27 +45,7 @@ public class DeathMenu : MonoBehaviour
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];
         }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            video.Stop();
-            gameObject.SetActive(true);
-        }
-    }
-
-    void ShowEndingCutScene()
-    {
-        video.loopPointReached += EndReached;
-        video.Play();
-    }
-    
-    void EndReached(VideoPlayer vp)
-    {
-        vp.Stop();
-        gameObject.SetActive(true);
+        
     }
     public static void BossLoss()
     {
@@ -79,11 +70,22 @@ public class DeathMenu : MonoBehaviour
             PlayerPrefs.SetInt("bossPhase", 0);
         }
         
-        StartCoroutine(AsyncMusicLoad.LoadGameAsync(scene));
+        SceneManager.LoadScene(scene);
+    }
+    
+    
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
     
     public void QuitGame()
     {
         PauseMenu.QuitGame();
+    }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1;
     }
 }
