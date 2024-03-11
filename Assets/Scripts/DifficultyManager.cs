@@ -33,6 +33,7 @@ public class DifficultyManager : MonoBehaviour
         PLAYER_DAMAGE,
         SNIPER_DAMAGE,
         STEAM_DAMAGE,
+        SLAM_DAMAGE,
         SNIPER_BULLET_SPEED,
         SPRAY_BULLET_SPEED
     }
@@ -40,8 +41,6 @@ public class DifficultyManager : MonoBehaviour
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
     SteamAttack steam;
     Attack playerAttack;
-    SniperBulletController sniperController;
-    // SprayBulletController sprayBulletController;
     // End of list 
 
     [SerializeField] Difficulty currDifficulty;
@@ -60,7 +59,6 @@ public class DifficultyManager : MonoBehaviour
         // list of objects that the manager will have to notify about changes:
         steam = FindObjectOfType<SteamAttack>();
         playerAttack = FindObjectOfType<Attack>();
-        sniperController = FindObjectOfType<SniperBulletController>();
     }
 
 
@@ -85,7 +83,9 @@ public class DifficultyManager : MonoBehaviour
         }
     }
 
-    // Setter that can be called via some main menu with buttons.
+    /** 
+        Setter that can be called via some main menu with buttons. 
+    */
     public void SetDifficulty(Difficulty difficulty) {
         currDifficulty = difficulty;
         hasChanged = true;
@@ -109,6 +109,10 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
 
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.EASY)] = 3f;
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 5f;
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 7f;
+
         // Speeds of things
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 50f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
@@ -116,17 +120,25 @@ public class DifficultyManager : MonoBehaviour
     }
 
 
+    /** 
+        Accesses the difficultyMap to get the current stat value for a given stat and difficulty combo.  
+
+        NOTE:  CAN be used on the fly, as with the SlamAttack, Sniper stats.
+    */
     public float GetValue(StatName stat)
     {
         return difficultyMap[(stat, currDifficulty)];
     }
 
 
+    /**
+        We can update the values for controller that remain in the scene for
+
+        NOTE:  Not included are:  sniper bullet stats, slam attacks, because these spawn on the fly with updated values.
+    */
     private void SetValuesForDifficulty()
     {
         playerAttack.SetPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
         steam.SetSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
-        sniperController.SetSniperDamage(difficultyMap[(StatName.SNIPER_DAMAGE, currDifficulty)]);
-        sniperController.SetSniperBulletSpeed(difficultyMap[(StatName.SNIPER_BULLET_SPEED, currDifficulty)]);
     }
 }
