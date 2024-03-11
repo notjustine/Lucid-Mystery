@@ -21,7 +21,7 @@ public class InitSniperShooting : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        sniper = FindObjectOfType<ShootSniperBullet>();  // sniper has the Shoot() public method.
+        sniper = FindObjectOfType<ShootSniperBullet>();
         beatChecker = FindObjectOfType<BeatCheckController>();
         aiming = false;
         readyToShoot = false;
@@ -32,7 +32,7 @@ public class InitSniperShooting : MonoBehaviour
     {
         if (aiming)
         {
-            AimAtPlayer();                                     // Frame by frame rotates towards where the player was.
+            AimAtPlayer();
         }
     }
 
