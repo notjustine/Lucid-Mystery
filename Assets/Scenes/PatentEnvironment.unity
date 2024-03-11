@@ -56142,7 +56142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b27986dba04dee4eb770699c42adb96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arenaInitializer: {fileID: 0}
+  arenaInitializer: {fileID: 2029057637173280255}
   playerTransform: {fileID: 2141803793}
   steamAttack: {fileID: 630916613}
   slamAttack: {fileID: 1540626459}
