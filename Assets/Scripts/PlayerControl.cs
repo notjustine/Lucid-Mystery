@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     private Transform cameraTransform;
     private PlayerInput input;
+    public event Action OnAttackEvent;
 
     private static readonly int Attack1 = Animator.StringToHash("Attack");
 
@@ -71,6 +73,7 @@ public class PlayerControl : MonoBehaviour
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
         inputted = true;
+        OnAttackEvent?.Invoke();
     }
 
     void Update()
@@ -117,4 +120,5 @@ public class PlayerControl : MonoBehaviour
     {
         input.SwitchCurrentActionMap(map);
     }
+
 }

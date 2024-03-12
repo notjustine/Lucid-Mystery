@@ -21,6 +21,7 @@ public class BossStates : MonoBehaviour
 
     void Start()
     {
+        arenaInitializer = FindObjectOfType<ArenaInitializer>();
         steamAttack = FindObjectOfType<SteamAttack>();
         slamAttack = FindObjectOfType<SlamAttack>();
         sprayAttack = FindObjectOfType<SprayAttackController>();
