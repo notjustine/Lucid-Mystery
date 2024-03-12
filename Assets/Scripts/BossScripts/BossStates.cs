@@ -106,29 +106,39 @@ public class BossStates : MonoBehaviour
     {
         int ringIndex;
         float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
-        if (IsPlayerInSpecificRing(out ringIndex))
-        {
-            if (ringIndex == 0)
-                nextAttack = BossAttackType.Steam;
-        }
-
-        if (nextAttack == BossAttackType.None & (healthPercentage <= 75f && healthPercentage > 65f))
+        
+        if (healthPercentage < 100f && healthPercentage > 80)
         {
             nextAttack = BossAttackType.Spray;
         }
 
-        if (nextAttack == BossAttackType.None & (healthPercentage <= 65f))
+        if (healthPercentage <= 80f && healthPercentage > 65)
         {
-            if (lastAttack == BossAttackType.Slam)
+            if (IsPlayerInSpecificRing(out ringIndex) && lastAttack != BossAttackType.Steam)
             {
-                nextAttack = BossAttackType.Spray;
+                nextAttack = BossAttackType.Steam;
             }
             else
             {
-                nextAttack = BossAttackType.Slam;
+                nextAttack = BossAttackType.Spray;
             }
         }
 
+        if (healthPercentage <= 65f)
+        {
+            if (lastAttack == BossAttackType.Steam)
+            {
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+            }
+            else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+            {
+                nextAttack = BossAttackType.Steam;
+            }
+            else
+            {
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+            }
+        }
         if (nextAttack != BossAttackType.None)
         {
             currentState = BossState.PreparingAttack;
