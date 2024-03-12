@@ -78,7 +78,7 @@ Material:
     - _Time_Scale: 1.34
     - _USE_SCREEN_SPACE: 1
     m_Colors:
-    - _BaseColor: {r: 0.846813, g: 0.7329566, b: 0.8584906, a: 1}
+    - _BaseColor: {r: 0.6051933, g: 0.5094838, b: 0.6150943, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7502900176033572005
 MonoBehaviour:
