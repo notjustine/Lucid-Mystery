@@ -124,12 +124,12 @@ public class AudioManager : MonoBehaviour
 
     public void TriggerPhaseOneMusic()
     {
-       musicEventHandler.SetMainMusicPhaseParameter(1);
-       music.setParamter(1);
+       // musicEventHandler.SetMainMusicPhaseParameter(1);
+       music.SetParamter(1);
     }
     public void TriggerPhaseTwoMusic()
     {
-        musicEventHandler.SetMainMusicPhaseParameter(2);
-        music.setParamter(2);
+        // musicEventHandler.SetMainMusicPhaseParameter(2);
+        music.SetParamter(2);
     }
 }

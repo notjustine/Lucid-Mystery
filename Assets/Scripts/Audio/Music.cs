@@ -19,8 +19,6 @@ public class Music : MonoBehaviour
     private static double beatInterval = 0f; // This is the time between each beat;
     private static double lastBeatInterval = 0f; // This is the previous time between each beat. It's what the "beatInterval" was before a tempo change.
 
-    private static bool justHitBeat = false;
-
     private double tempoTrackDSPStartTime;
 
     // private static string markerString = "";
@@ -169,28 +167,34 @@ public class Music : MonoBehaviour
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  
             // Debug.Log("HELLO WORLD");
-            if (timelineInfo.beatPosition + input_delay >= currentTime * 1000)
+            if (timelineInfo.beatPosition + input_delay <= currentTime * 1000)
             {
                 
-                InputIndicator.Instance.active = true;
-                MusicEventHandler.beatCheck = true;
-                return;
+                InputIndicator.Instance.active = false;
+                MusicEventHandler.beatCheck = false;
+                // return;
 
             }
+            else
+            {
+                MusicEventHandler.beatCheck = true;
+                InputIndicator.Instance.active = true;
+            }
 
-            MusicEventHandler.beatCheck = false;
-            InputIndicator.Instance.active = false;
         } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
             if (timelineInfo.beatPosition + input_delay <= currentTime * 1000)
             {
+                InputIndicator.Instance.active = true;
+                MusicEventHandler.beatCheck = true;
+                // return;
+            }
+            else
+            {
                 InputIndicator.Instance.active = false;
                 MusicEventHandler.beatCheck = false;
-                return;
             }
             
-            InputIndicator.Instance.active = true;
-            MusicEventHandler.beatCheck = true;
         }
     
         CheckNextBeat();
@@ -286,7 +290,6 @@ public class Music : MonoBehaviour
                         timelineInfo.beatPosition = parameter.position;
                         timelineInfo.currentTempo = parameter.tempo;
 
-                        justHitBeat = true;
                     }
                     break;
                 // case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
@@ -306,7 +309,7 @@ public class Music : MonoBehaviour
         return FMOD.RESULT.OK;
     }
 
-    public void setParamter(int phase)
+    public void SetParamter(int phase)
     {
         musicPlayEvent.setParameterByName("current_phase", phase);
         Debug.Log("Phase trigger");
