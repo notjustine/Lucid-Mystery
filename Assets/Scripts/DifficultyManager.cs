@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 /** 
@@ -19,12 +23,13 @@ using UnityEngine;
 */
 public class DifficultyManager : MonoBehaviour
 {
-
+    
+    [Serializable]
     public enum Difficulty
     {
-        EASY,
-        MEDIUM,
-        HARD
+        EASY = 0,
+        MEDIUM = 1,
+        HARD = 2
     }
 
     // This enum should be a comprehensive list of all stats we want to manage with our difficulty.
@@ -47,12 +52,46 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] Difficulty currDifficulty;
     // difficultyMap maps a tuple representing a combination of StatName and Difficulty (ie: (StatName.PLAYER_DAMAGE, Difficulty.HARD) to a float for that particular difficulty setting.
     private Dictionary<(StatName, Difficulty), float> difficultyMap;
-    private bool hasChanged;  // TEMPORARY, while we allow adjustment on the fly with keyboard input.
+    public bool hasChanged;  // TEMPORARY, while we allow adjustment on the fly with keyboard input.
+    
+    [SerializeField] private Button easyButton;
+    [SerializeField] private Button mediumButton;
+    [SerializeField] private Button hardButton;
+    
+    public static DifficultyManager Instance { get; private set; }
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("Found more than one Difficulty Manager");
+        }
+        Instance = this;
+    }
 
     void Start()
-    {   
-        currDifficulty = Difficulty.MEDIUM;
+    {
+        if (PlayerPrefs.HasKey("difficulty"))
+        {
+            currDifficulty = (Difficulty) PlayerPrefs.GetInt("difficulty");
+        }
+        else
+        {
+            currDifficulty = Difficulty.MEDIUM;
+        }
+        
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            easyButton = GameObject.Find("Easy").GetComponent<Button>();
+            mediumButton = GameObject.Find("Medium").GetComponent<Button>();
+            hardButton = GameObject.Find("Hard").GetComponent<Button>();
+            
+            easyButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.EASY); });
+            mediumButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.MEDIUM); });
+            hardButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.HARD); });
+        }
+        
+        // currDifficulty = Difficulty.MEDIUM;
         difficultyMap = new Dictionary<(StatName, Difficulty), float>();  
         SetUpDifficultyMap();
         hasChanged = false;
@@ -65,22 +104,22 @@ public class DifficultyManager : MonoBehaviour
 
     void Update()
     {   
-        // TEMPORARY UNTIL WE ADD SOME UI CHANGES WHERE THEY CAN SELECT A DIFFICULTY
-        if (Input.GetKeyDown(KeyCode.E)) {
-            Debug.Log("setting easy");
-            SetDifficulty(Difficulty.EASY);
-        } else if (Input.GetKeyDown(KeyCode.M)) {
-            SetDifficulty(Difficulty.MEDIUM);
-            Debug.Log("setting medium");
-        } else if (Input.GetKeyDown(KeyCode.H)) {
-            SetDifficulty(Difficulty.HARD);
-            Debug.Log("setting hard");
-        }
+        // // TEMPORARY UNTIL WE ADD SOME UI CHANGES WHERE THEY CAN SELECT A DIFFICULTY
+        // if (Input.GetKeyDown(KeyCode.E)) {
+        //     Debug.Log("setting easy");
+        //     SetDifficulty(Difficulty.EASY);
+        // } else if (Input.GetKeyDown(KeyCode.M)) {
+        //     SetDifficulty(Difficulty.MEDIUM);
+        //     Debug.Log("setting medium");
+        // } else if (Input.GetKeyDown(KeyCode.H)) {
+        //     SetDifficulty(Difficulty.HARD);
+        //     Debug.Log("setting hard");
+        // }
         
         if (hasChanged)
         {
             SetValuesForDifficulty();
-            hasChanged = false;
+            // hasChanged = false;
         }
     }
 
@@ -89,6 +128,7 @@ public class DifficultyManager : MonoBehaviour
     */
     public void SetDifficulty(Difficulty difficulty) {
         currDifficulty = difficulty;
+        PlayerPrefs.SetInt("difficulty", (int) difficulty);
         hasChanged = true;
     }
 

@@ -22,7 +22,7 @@ public class SprayBulletController : MonoBehaviour
     void Start()
     {
         // Set up difficulty settings
-        difficultyManager = FindObjectOfType<DifficultyManager>();
+        difficultyManager = DifficultyManager.Instance;
         sprayBulletDamage = difficultyManager.GetValue(DifficultyManager.StatName.SPRAY_BULLET_DAMAGE);
         sprayBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SPRAY_BULLET_SPEED);
         
