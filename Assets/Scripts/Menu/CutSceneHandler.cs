@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -28,6 +25,6 @@ public class CutSceneHandler : MonoBehaviour
     void EndReached(VideoPlayer vp)
     {
         vp.Stop();
-        SceneManager.LoadScene("AlphaClone");
+        SceneManager.LoadScene("PatentEnvironment");
     }
 }
