@@ -130,7 +130,7 @@ public class Music : MonoBehaviour
     private void UpdateDSPClock()
     {
         masterChannelGroup.getDSPClock(out dspClock, out parentDSP);
-
+        
         currentSamples = dspClock;
         currentTime = currentSamples / masterSampleRate;
     }
@@ -164,10 +164,11 @@ public class Music : MonoBehaviour
         }
         // Debug.LogWarning(currentTime);
         // Debug.Log(timelineInfo.beatPosition);
+        // Debug.LogError(timelineInfo.currentPosition);
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  
             // Debug.Log("HELLO WORLD");
-            if (timelineInfo.beatPosition + input_delay <= currentTime * 1000)
+            if (timelineInfo.beatPosition + input_delay <= timelineInfo.currentPosition)
             {
                 
                 InputIndicator.Instance.active = false;
@@ -183,7 +184,7 @@ public class Music : MonoBehaviour
 
         } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
-            if (timelineInfo.beatPosition + input_delay <= currentTime * 1000)
+            if (timelineInfo.beatPosition + input_delay <= timelineInfo.currentPosition)
             {
                 InputIndicator.Instance.active = true;
                 MusicEventHandler.beatCheck = true;
@@ -197,7 +198,7 @@ public class Music : MonoBehaviour
             
         }
     
-        CheckNextBeat();
+        // CheckNextBeat();
     }
 
     private float UpBeatPosition()
