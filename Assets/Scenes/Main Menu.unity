@@ -352,11 +352,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -696392757
-      Data2: 1153183434
-      Data3: -44814419
-      Data4: 1621834681
-    Path: event:/Music/BossIntroMusic
+      Data1: 1998204939
+      Data2: 1139781492
+      Data3: 166739640
+      Data4: 1641108020
+    Path: event:/Music/NewMusic
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -986,6 +986,10 @@ PrefabInstance:
       value: 1389469752
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Path
+      value: event:/Music/NewMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <menuSelect>k__BackingField.Guid.Data1
       value: -504134674
       objectReference: {fileID: 0}
@@ -1000,6 +1004,22 @@ PrefabInstance:
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <menuSelect>k__BackingField.Guid.Data4
       value: -31181732
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data1
+      value: 1998204939
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data2
+      value: 1139781492
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data3
+      value: 166739640
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
+      propertyPath: <backgroundTrack>k__BackingField.Guid.Data4
+      value: 1641108020
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

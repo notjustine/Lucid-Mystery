@@ -501,25 +501,11 @@ MonoBehaviour:
     Path: event:/SFX/menu_movement
   <backgroundTrack>k__BackingField:
     Guid:
-      Data1: -291935087
-      Data2: 1119328202
-      Data3: -1873178703
-      Data4: 1566351970
-    Path: event:/Music/NewMainMusic
-  <backgroundTrack2>k__BackingField:
-    Guid:
-      Data1: 300236166
-      Data2: 1235724991
-      Data3: -1794535278
-      Data4: -1853079925
-    Path: event:/Music/MainMusic180BPM
-  <sleepingTrack>k__BackingField:
-    Guid:
-      Data1: -696392757
-      Data2: 1153183434
-      Data3: -44814419
-      Data4: 1621834681
-    Path: event:/Music/BossIntroMusic
+      Data1: 1998204939
+      Data2: 1139781492
+      Data3: 166739640
+      Data4: 1641108020
+    Path: event:/Music/NewMusic
   <canShakes>k__BackingField:
     Guid:
       Data1: 1946735692
