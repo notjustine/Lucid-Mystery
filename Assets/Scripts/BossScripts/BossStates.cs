@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossStates : MonoBehaviour
@@ -19,7 +17,7 @@ public class BossStates : MonoBehaviour
     BossAttackType nextAttack = BossAttackType.None;
     BossAttackType lastAttack = BossAttackType.None;
     private float time = 0f;
-    private const float coolDownTime = 5f;
+    private float coolDownTime = 5f;
 
     void Start()
     {
@@ -68,7 +66,6 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Cooldown;
                 break;
             case BossState.Cooldown:
-                // StartCoroutine(CooldownRoutine(3f));
                 Cooldown();
                 break;
 
@@ -184,4 +181,8 @@ public class BossStates : MonoBehaviour
         }
     }
 
+    public void SetCooldown(float time)
+    {
+        coolDownTime = time;
+    }
 }
