@@ -1,27 +1,33 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 2000f;
-    private float currHealth;
+    [SerializeField] public float maxHealth = 1000f;
+    public float currHealth;
     public bool isInvulnerable = false;
     [SerializeField] private int phase = 0;
 
-    public HealthBar healthBar;
+    public HealthBar healthBar;     // phase 1
+    public HealthBar healthBar2;    // phase 2
+    private PlayerControl playerControl;
 
     // Start is called before the first frame update
     public void Start()
     {
         currHealth = maxHealth;
-        healthBar.SetSliderMax(maxHealth);
+        healthBar.SetSliderMax(maxHealth / 2);
+        healthBar2.SetSliderMax(maxHealth / 2);
         phase = PlayerPrefs.GetInt("bossPhase");
+        playerControl = FindObjectOfType<PlayerControl>();
+        
     }
-
     public void TakeDamage(float amount)
     {
         currHealth -= amount;
+
         if (currHealth <= 0)
         {
             currHealth = 0;
@@ -30,9 +36,13 @@ public class BossHealth : MonoBehaviour
         else if (currHealth <= maxHealth / 2)
         {
             PhaseTwo();
+            healthBar.SetSlider(0f);
+            healthBar2.SetSlider(currHealth);
         }
-
-        healthBar.SetSlider(currHealth);
+        else
+        {
+            healthBar.SetSlider(currHealth - (maxHealth / 2));
+        }
     }
 
     private void Update()
@@ -53,8 +63,11 @@ public class BossHealth : MonoBehaviour
     private void Die()
     {
         DeathMenu.BossLoss();
-        SceneManager.LoadScene("EndMenu");
+        AudioManager.instance.PauseAllEvents();
+        playerControl.gameObject.SetActive(false);
+        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
+    
 
     public void resetHealth()
     {

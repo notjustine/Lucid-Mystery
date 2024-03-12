@@ -12,17 +12,22 @@ public class SteamAttack : MonoBehaviour
     public MeshRenderer attackAreaRenderer; // Assign the MeshRenderer of the cylinder object
     public TextMeshProUGUI warningText;
     public float warningDuration = 2.5f; // Duration of the warning phase
+    [SerializeField] float steamDamage;
+    private DifficultyManager difficultyManager;
     private bool playerInAttackArea = false;
     private PlayerStatus playerStatus;
     public GameObject steamAttackVFX;
-    public EventInstance steamAttackSound;
+    private PlayerControl playerControl;
 
     private void Start()
     {
         // Initially set to idle material
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        steamDamage = difficultyManager.GetValue(DifficultyManager.StatName.STEAM_DAMAGE);  // get default on startup
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+        playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
         foreach (VisualEffect effect in effects)
         {
@@ -39,11 +44,21 @@ public class SteamAttack : MonoBehaviour
         //    TriggerAttack();
         // }
     }
+
+
+    // A setter, currently used by DifficultyManager when it notices the player changed the difficulty.
+    public void SetSteamDamage(float damage) 
+    {
+        steamDamage = damage;
+    }
+
+
     // Call this method to start the attack sequence
     public void TriggerAttack()
     {
         StartCoroutine(AttackSequence());
     }
+
 
     public System.Collections.IEnumerator AttackSequence()
     {
@@ -67,12 +82,14 @@ public class SteamAttack : MonoBehaviour
         foreach (VisualEffect effect in effects)
         {
             effect.Play();
-        };
+        }
+        if (playerInAttackArea){
+            playerControl.MoveToBackTile();
+            playerStatus.TakeDamage(steamDamage);
+
+        }
         yield return new WaitForSeconds(0.5f);
         StopCoroutine(FlashWarningText());;
-        if (playerInAttackArea){
-            playerStatus.TakeDamage(10f);
-        }
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();

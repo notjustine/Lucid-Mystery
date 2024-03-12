@@ -13,7 +13,7 @@ public class FrameSetter : MonoBehaviour
         if (PlayerPrefs.HasKey("fps"))
         {
             Application.targetFrameRate = PlayerPrefs.GetInt("fps");
-            dropdown.value = Array.IndexOf(frameRate, PlayerPrefs.GetInt("fps"));
+            dropdown.value = Array.IndexOf(frameRate, PlayerPrefs.GetInt("fps", 60));
         }
         else
         {
