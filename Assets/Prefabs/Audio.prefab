@@ -487,25 +487,25 @@ MonoBehaviour:
     Path: event:/SFX/boss_turretattack
   <menuSelect>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -504134674
+      Data2: 1216655237
+      Data3: 961304205
+      Data4: -31181732
+    Path: event:/SFX/menu_selection
   <menuMove>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1838848599
+      Data2: 1102524839
+      Data3: 958589592
+      Data4: 1389469752
+    Path: event:/SFX/menu_movement
   <backgroundTrack>k__BackingField:
     Guid:
-      Data1: -394299075
-      Data2: 1129154746
-      Data3: -1770866555
-      Data4: -1290361215
-    Path: event:/Music/MainMusic
+      Data1: -291935087
+      Data2: 1119328202
+      Data3: -1873178703
+      Data4: 1566351970
+    Path: event:/Music/NewMainMusic
   <backgroundTrack2>k__BackingField:
     Guid:
       Data1: 300236166

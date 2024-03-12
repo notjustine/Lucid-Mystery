@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -5,26 +8,42 @@ using UnityEngine.Video;
 public class CutSceneHandler : MonoBehaviour
 {
 
-    private VideoPlayer videoPlayer;
+    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private bool isIntro = true;
+    private DeathMenu deathMenu;
+    private AsyncOperation a;
     // Start is called before the first frame update
     void Start()
     {
-        videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.loopPointReached += EndReached;
+
+        if (isIntro)
+        {
+            a = SceneManager.LoadSceneAsync("PatentEnvironment");
+            a.allowSceneActivation = false;
+        }
+        else
+        {
+            deathMenu = FindObjectOfType<DeathMenu>(true);
+        }
+        
     }
 
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isIntro)
         {
-            EndReached(videoPlayer);
+            a.allowSceneActivation = true;
+        } else if (Input.GetKeyDown(KeyCode.Space) && !isIntro)
+        {
+            videoPlayer.Stop();
+            deathMenu.gameObject.SetActive(true);
         }
     }
 
-    void EndReached(VideoPlayer vp)
+    public void Play()
     {
-        vp.Stop();
-        SceneManager.LoadScene("PatentEnvironment");
+        videoPlayer.Play();
     }
+    
 }
