@@ -9,17 +9,23 @@ detection, and deletion after time of bullets that missed.
 */
 public class SprayBulletController : MonoBehaviour
 {
-    const float sprayBulletSpeed = 50f;
     const float maxLifetime = 2f;
     float bulletLifetime;
 
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    public float damage = 5f;
+    private DifficultyManager difficultyManager;
+    private float sprayBulletDamage;
+    private float sprayBulletSpeed;
 
     void Start()
     {
+        // Set up difficulty settings
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        sprayBulletDamage = difficultyManager.GetValue(DifficultyManager.StatName.SPRAY_BULLET_DAMAGE);
+        sprayBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SPRAY_BULLET_SPEED);
+        
         boss = GameObject.Find("Cube");  // We should fix this name.
 
         bulletLifetime = 0f;
@@ -52,7 +58,6 @@ public class SprayBulletController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Arena")
         {
-            // Debug.Log("collided with arena");
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Weapon")
@@ -60,8 +65,7 @@ public class SprayBulletController : MonoBehaviour
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>(); ;
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
-                playerStatus.TakeDamage(damage);
-                // Debug.Log("collided with player");
+                playerStatus.TakeDamage(sprayBulletDamage);
             }
             else
             {

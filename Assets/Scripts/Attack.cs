@@ -6,13 +6,25 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private BossStates bossStates;
-    public float playerDamage = 50f;
-    // Start is called before the first frame update
+    private DifficultyManager difficultyManager;
+    public float playerDamage;
+    
+
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        playerDamage = difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE);  // get default on startup
     }
     
+    
+    // Allows DifficultyManager to push changes to the player damage.
+    public void SetPlayerDamage(float damage) 
+    {
+        playerDamage = damage;
+    }
+    
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Boss"))
@@ -26,7 +38,7 @@ public class Attack : MonoBehaviour
             bossStates.isSleeping = false;
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
-            Debug.Log("Enemy Hit");
+            // Debug.Log("Enemy Hit");
 
             // Destroy(collision.gameObject);
         }

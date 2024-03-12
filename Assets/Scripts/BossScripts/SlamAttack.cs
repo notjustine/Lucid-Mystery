@@ -13,18 +13,25 @@ public class SlamAttack : MonoBehaviour
     public TextMeshProUGUI warningText;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
+    private DifficultyManager difficultyManager;
+
 
     private void Start()
     {
         warningText.gameObject.SetActive(false);
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
+
+        // Set default stat values based on initial difficulty
+        difficultyManager = FindObjectOfType<DifficultyManager>();
     }
+
 
     public void TriggerAttack(int tileIndex)
     {
         StartCoroutine(AttackSequence(tileIndex));
     }
+
 
     private IEnumerator AttackSequence(int tileIndex)
     {
@@ -56,6 +63,7 @@ public class SlamAttack : MonoBehaviour
         CheckForPlayerDamage(tileIndex);
     }
 
+
     private IEnumerator HandleIndicatorFlash(GameObject indicator)
     {
         MeshRenderer meshRenderer = indicator.GetComponent<MeshRenderer>();
@@ -73,6 +81,7 @@ public class SlamAttack : MonoBehaviour
         Destroy(indicator);
     }
 
+
     private IEnumerator HandleIndicatorLifecycle(GameObject indicator)
     {
         indicator.GetComponent<MeshRenderer>().material = warningMaterial;
@@ -80,13 +89,17 @@ public class SlamAttack : MonoBehaviour
         Destroy(indicator);
     }
 
+
     private void CheckForPlayerDamage(int tileIndex)
     {
         if (playerControl.currentTileIndex == tileIndex)
-        {
-            playerStatus.TakeDamage(5f);
+        {   
+            // Get damage from DifficultyManager on the fly beccause no SlamAttack script lives in our scene permanently.
+            playerStatus.TakeDamage(difficultyManager.GetValue(DifficultyManager.StatName.SLAM_DAMAGE));
         }
     }
+
+
     private System.Collections.IEnumerator FlashWarningText()
     {
         float flashDuration = warningDuration;
@@ -99,6 +112,4 @@ public class SlamAttack : MonoBehaviour
         }
         warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
     }
-
 }
-
