@@ -60,6 +60,6 @@ public class PlayerStatus : MonoBehaviour
     {
         // Ending.PlayerLoss();
         DeathMenu.PlayerLoss();
-        SceneManager.LoadScene("EndMenu");
+        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
 }
