@@ -43,7 +43,7 @@ public class SlamAttack : MonoBehaviour
             if (tileIndex < ring.Count)
             {
                 Vector3 targetPosition = ring[tileIndex];
-                targetPosition.y = 0f;
+                targetPosition.y = 0.5f;
                 var indicator = Instantiate(circularWarningPrefab, targetPosition, Quaternion.identity);
                 StartCoroutine(HandleIndicatorFlash(indicator));
             }
@@ -100,7 +100,7 @@ public class SlamAttack : MonoBehaviour
     }
 
 
-    private System.Collections.IEnumerator FlashWarningText()
+    private IEnumerator FlashWarningText()
     {
         float flashDuration = warningDuration;
         float startTime = Time.time;

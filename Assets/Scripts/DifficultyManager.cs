@@ -38,15 +38,20 @@ public class DifficultyManager : MonoBehaviour
         PLAYER_DAMAGE,
         SNIPER_DAMAGE,
         STEAM_DAMAGE,
+        STEAM_TIMING,
         SLAM_DAMAGE,
+        SLAM_TIMING,
         SPRAY_BULLET_DAMAGE,
         SNIPER_BULLET_SPEED,
-        SPRAY_BULLET_SPEED
+        SPRAY_BULLET_SPEED,
+        COOLDOWN,   
     }
     
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
     SteamAttack steam;
+    SlamAttack slam;
     Attack playerAttack;
+    BossStates bossStates;
     // End of list 
 
     [SerializeField] Difficulty currDifficulty;
@@ -98,7 +103,9 @@ public class DifficultyManager : MonoBehaviour
 
         // list of objects that the manager will have to notify about changes (if they are in the scene permanently, not spawners like spikes/bullets):
         steam = FindObjectOfType<SteamAttack>();
+        slam = FindAnyObjectByType<SlamAttack>();
         playerAttack = FindObjectOfType<Attack>();
+        bossStates = FindAnyObjectByType<BossStates>();
     }
 
 
@@ -166,6 +173,18 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.EASY)] = 40f;
         difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
         difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.HARD)] = 75f;
+
+        difficultyMap[(StatName.STEAM_TIMING, Difficulty.EASY)] = 4f;
+        difficultyMap[(StatName.STEAM_TIMING, Difficulty.MEDIUM)] = 3f;
+        difficultyMap[(StatName.STEAM_TIMING, Difficulty.HARD)] = 2.5f;
+
+        difficultyMap[(StatName.SLAM_TIMING, Difficulty.EASY)] = 4f;
+        difficultyMap[(StatName.SLAM_TIMING, Difficulty.MEDIUM)] = 3f;
+        difficultyMap[(StatName.SLAM_TIMING, Difficulty.HARD)] = 2.5f;
+
+        difficultyMap[(StatName.COOLDOWN, Difficulty.EASY)] = 7f;
+        difficultyMap[(StatName.COOLDOWN, Difficulty.MEDIUM)] = 5f;
+        difficultyMap[(StatName.COOLDOWN, Difficulty.HARD)] = 4f;
     }
 
 
@@ -189,5 +208,6 @@ public class DifficultyManager : MonoBehaviour
     {
         playerAttack.SetPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
         steam.SetSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
+        bossStates.SetCooldown(difficultyMap[(StatName.COOLDOWN, currDifficulty)]);
     }
 }
