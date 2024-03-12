@@ -9,12 +9,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string sceneName;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject mainMenuPanel;
-
+    private DifficultyManager difficulty;
 
     public void StartGame()
     {
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
-        StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
+        mainMenuPanel.SetActive(false);
+        difficulty.gameObject.SetActive(true);
+        // StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
         // SceneManager.LoadScene(sceneName);
     }
 
@@ -37,6 +39,15 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    void Update()
+    {
+        if (difficulty.gameObject.activeSelf && DifficultyManager.Instance.hasChanged)
+        {
+            // StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("fps"))
@@ -48,5 +59,6 @@ public class MainMenu : MonoBehaviour
             Application.targetFrameRate = 60;
         }
         PlayerPrefs.SetInt("bossPhase", 0);
+        difficulty = FindObjectOfType<DifficultyManager>(true);
     }
 }

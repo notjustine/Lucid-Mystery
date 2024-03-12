@@ -27,7 +27,7 @@ public class SniperBulletController : MonoBehaviour
     void Start()
     {
         // Set stats' values based on difficulty setting
-        difficultyManager = FindObjectOfType<DifficultyManager>();
+        difficultyManager = DifficultyManager.Instance;
         sniperDamage = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_DAMAGE);
         sniperBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_BULLET_SPEED);
 

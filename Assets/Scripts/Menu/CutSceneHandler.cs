@@ -15,7 +15,8 @@ public class CutSceneHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        videoPlayer = videoPlayer.GetComponent<VideoPlayer>();
+        videoPlayer.loopPointReached += EndReached;
         if (isIntro)
         {
             a = SceneManager.LoadSceneAsync("Tutorial");
@@ -30,20 +31,26 @@ public class CutSceneHandler : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) && isIntro)
-        {
-            a.allowSceneActivation = true;
-        } else if (Input.GetKeyDown(KeyCode.Space) && !isIntro)
-        {
-            videoPlayer.Stop();
-            deathMenu.gameObject.SetActive(true);
-        }
+        if (Input.GetKeyDown(KeyCode.Space))
+            EndReached(videoPlayer);
     }
 
     public void Play()
     {
         videoPlayer.Play();
+    }
+
+    private void EndReached(VideoPlayer vp)
+    {
+        if (isIntro)
+        {
+            a.allowSceneActivation = true;
+        }
+        else
+        {
+            deathMenu.gameObject.SetActive(true);
+            vp.Stop();
+        }
     }
     
 }

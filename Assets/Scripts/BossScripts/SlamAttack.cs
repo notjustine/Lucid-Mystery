@@ -23,7 +23,7 @@ public class SlamAttack : MonoBehaviour
         playerStatus = FindObjectOfType<PlayerStatus>();
 
         // Set default stat values based on initial difficulty
-        difficultyManager = FindObjectOfType<DifficultyManager>();
+        difficultyManager = DifficultyManager.Instance;
     }
 
 

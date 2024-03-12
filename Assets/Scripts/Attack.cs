@@ -13,7 +13,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
-        difficultyManager = FindObjectOfType<DifficultyManager>();
+        difficultyManager = DifficultyManager.Instance;
         playerDamage = difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE);  // get default on startup
     }
     
