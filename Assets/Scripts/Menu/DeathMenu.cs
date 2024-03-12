@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -20,15 +21,16 @@ public class DeathMenu : MonoBehaviour
     private GameObject bossHUD;
     private Transform endCamera;
     private Transform mainCamera;
+    private StudioEventEmitter deathMusic;
 
     private static bool bossDied = false;
     void Start()
     {
         Time.timeScale = 0;
+        AudioManager.instance.PauseAllEvents();
         cutSceneHandler = FindObjectOfType<CutSceneHandler>();
         bossHUD = GameObject.Find("Canvas");
         mainCamera = Camera.main.transform;
-        Debug.LogWarning(mainCamera.position);
         endCamera = GameObject.Find("Camera").transform;
         endCamera.position = mainCamera.position;
         bossHUD.SetActive(false);
@@ -44,6 +46,8 @@ public class DeathMenu : MonoBehaviour
             header.sprite = bossWin[0];
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];
+            deathMusic = endCamera.GetComponent<StudioEventEmitter>();
+            deathMusic.Play();
         }
         
     }
@@ -87,5 +91,6 @@ public class DeathMenu : MonoBehaviour
     private void OnDestroy()
     {
         Time.timeScale = 1;
+        deathMusic.Stop();
     }
 }

@@ -791,6 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522033427}
   - component: {fileID: 1522033428}
+  - component: {fileID: 1522033429}
   m_Layer: 5
   m_Name: DeathMenu
   m_TagString: Untagged
@@ -843,6 +844,37 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b9012e11e66f3b446ad46f02a11cf1bc, type: 3}
   restartButton: {fileID: 630590587}
   background: {fileID: 379017360}
+--- !u!114 &1522033429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522033426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1276608660
+      Data2: 1103571875
+      Data3: -389214283
+      Data4: 1976726767
+    Path: event:/Music/DeathMusic
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1537060729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1256,7 @@ GameObject:
   - component: {fileID: 2108911837}
   - component: {fileID: 2108911836}
   - component: {fileID: 2108911838}
+  - component: {fileID: 2108911839}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1238,7 +1271,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108911832}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &2108911834
 Camera:
   m_ObjectHideFlags: 0
@@ -1400,6 +1433,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 2108911836}
   isIntro: 0
+--- !u!114 &2108911839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108911832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1276608660
+      Data2: 1103571875
+      Data3: -389214283
+      Data4: 1976726767
+    Path: event:/Music/DeathMusic
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
