@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour
     [field: SerializeField] private List<EventInstance> eventInstances;
     private MusicEventHandler musicEventHandler;
     private AmbienceHandler ambienceHandler;
-    private Music music;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -42,7 +41,6 @@ public class AudioManager : MonoBehaviour
         
         musicEventHandler = FindObjectOfType<MusicEventHandler>();
         ambienceHandler = FindObjectOfType<AmbienceHandler>();
-        music = FindObjectOfType<Music>();
     }
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
@@ -117,12 +115,10 @@ public class AudioManager : MonoBehaviour
 
     public void TriggerPhaseOneMusic()
     {
-       // musicEventHandler.SetMainMusicPhaseParameter(1);
-       music.SetParamter(1);
+       musicEventHandler.SetMainMusicPhaseParameter(1);
     }
     public void TriggerPhaseTwoMusic()
     {
-        // musicEventHandler.SetMainMusicPhaseParameter(2);
-        music.SetParamter(2);
+        musicEventHandler.SetMainMusicPhaseParameter(2);
     }
 }

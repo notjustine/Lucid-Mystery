@@ -8,54 +8,144 @@ using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private EventReference sleepingTrack;
-    private EventReference backgroundTrack;
-    private EventInstance eventInstance;
-    private EVENT_CALLBACK beatCallback;
-
+    
     private PlayerControl player;
 
     public static bool beatCheck { get; set; } = false;
+    private ChannelGroup masterChannelGroup;
 
-    void Start()
+    private ulong dspClock;
+    private static double beatInterval = 0f; // This is the time between each beat;
+
+    private static int markerTime;
+    
+    private const float inputDelay = 175f;
+    private const float startDelay = 0f;
+
+    private PLAYBACK_STATE musicPlayState;
+    private PLAYBACK_STATE lastMusicPlayState;
+
+    [StructLayout(LayoutKind.Sequential)]
+    public class TimelineInfo
     {
-        player = FindObjectOfType<PlayerControl>();
-        // backgroundTrack = SoundRef.Instance.backgroundTrack;
-        // eventInstance = AudioManager.instance.CreateEventInstance(backgroundTrack);
-        // ** This is how to convert the data to pass to callback 
-        // GCHandle handle1 = GCHandle.Alloc(this);
-        // eventInstance.setUserData((IntPtr) handle1);
-        // eventInstance.setCallback(OnMarkerReached, EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-        // eventInstance.start();
-        SetMainMusicPhaseParameter(PlayerPrefs.GetInt("bossPhase", 0));
+        public int currentBeat = 0;
+        public int currentBar = 0;
+        public int beatPosition = 0;
+        public float currentTempo = 0;
+        public float lastTempo = 0;
+        public int currentPosition = 0;
+        public double songLength = 0;
+        public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
     }
 
-    [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
-    private static RESULT OnMarkerReached(EVENT_CALLBACK_TYPE type, IntPtr instance, IntPtr parameterPtr)
+    public TimelineInfo timelineInfo = null;
+
+    private GCHandle timelineHandle;
+
+    private EVENT_CALLBACK beatCallback;
+    private EventDescription descriptionCallback;
+
+    private EventInstance eventInstance;
+
+    private void Start()
     {
-        // ** This is reference code in case we need to pass data to the callback
-        // EventInstance callBackInstance = new EventInstance(instance);
-        // MusicEventHandler musicEventHandler;
-        // RESULT result = callBackInstance.getUserData(out IntPtr musicEventHandlerPtr);
-        // if (result != RESULT.OK)
-        //     Debug.LogError("Timeline Callback error: " + result);
-        // GCHandle test = (GCHandle)musicEventHandlerPtr;
-        // MusicEventHandler musicEventHandler = test.Target as MusicEventHandler;
-        var parameter =
-            (TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_MARKER_PROPERTIES));
-        if (parameter.name == "allowinput")
+        player = FindObjectOfType<PlayerControl>();
+        EventDescription des;
+        eventInstance.getDescription(out des);
+        des.loadSampleData();
+        eventInstance = AudioManager.instance.CreateEventInstance(SoundRef.Instance.backgroundTrack);
+        StartMusic();
+    }
+
+    private void AssignMusicCallbacks()
+    {
+        timelineInfo = new TimelineInfo();
+        beatCallback = new EVENT_CALLBACK(BeatEventCallback);
+
+        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
+        eventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        eventInstance.setCallback(beatCallback, EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+
+        eventInstance.getDescription(out descriptionCallback);
+        descriptionCallback.getLength(out int length);
+
+        timelineInfo.songLength = length;
+
+        RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
+
+        // FMODUnity.RuntimeManager.CoreSystem.getSoftwareFormat(out _, out FMOD.SPEAKERMODE speakerMode, out int numRawSpeakers);
+    }
+
+    private void StartMusic()
+    {
+        eventInstance.start();
+        AssignMusicCallbacks();
+    }
+
+    private void SetTrackStartInfo()
+    {
+        UpdateDSPClock();
+    }
+
+    private void UpdateDSPClock()
+    {
+        masterChannelGroup.getDSPClock(out dspClock, out _);
+        
+        // currentSamples = dspClock;
+    }
+
+    private void Update()
+    {
+        if (!beatCheck) 
+            player.inputted = false;
+        
+        eventInstance.getPlaybackState(out musicPlayState);
+
+        if (lastMusicPlayState != PLAYBACK_STATE.PLAYING && musicPlayState == PLAYBACK_STATE.PLAYING)
+            SetTrackStartInfo();
+
+        lastMusicPlayState = musicPlayState;
+
+        if (musicPlayState != PLAYBACK_STATE.PLAYING)
+            return;
+
+        eventInstance.getTimelinePosition(out timelineInfo.currentPosition);
+
+        UpdateDSPClock();
+
+        CheckTempoMarkers();
+
+        if (beatInterval == 0f)
+            return;
+        
+        if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
+        {  
+            if (timelineInfo.beatPosition + inputDelay <= timelineInfo.currentPosition)
+            {
+                InputIndicator.Instance.active = false;
+                beatCheck = false;
+            }
+            else
+            {
+                beatCheck = true;
+                InputIndicator.Instance.active = true;
+            }
+
+        } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
-            beatCheck = true;
-            InputIndicator.Instance.active = true;
-        }
-        else if (parameter.name == "stopinput")
-        {
-            beatCheck = false;
-            InputIndicator.Instance.active =false;
+            if (timelineInfo.beatPosition + inputDelay + startDelay <= timelineInfo.currentPosition)
+            {
+                InputIndicator.Instance.active = true;
+                beatCheck = true;
+            }
+            else
+            {
+                InputIndicator.Instance.active = false;
+                beatCheck = false;
+            }
+            
         }
 
-        return RESULT.OK;
     }
     
     public void SetMainMusicPhaseParameter(int phase)
@@ -63,15 +153,46 @@ public class MusicEventHandler : MonoBehaviour
         eventInstance.setParameterByName("current_phase", phase);
     }
 
-    private void OnDestroy()
+    
+    private void CheckTempoMarkers()
     {
-        eventInstance.release();
+        if (timelineInfo.currentTempo != timelineInfo.lastTempo)
+            SetTrackTempo();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetTrackTempo()
     {
-        if (!beatCheck) 
-            player.inputted = false;
+        eventInstance.getTimelinePosition(out int currentTimelinePos);
+        float offset = (currentTimelinePos - timelineInfo.beatPosition) / 1000f;
+        timelineInfo.lastTempo = timelineInfo.currentTempo;
+        beatInterval = 60f / timelineInfo.currentTempo;
+    }
+
+    [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
+    static RESULT BeatEventCallback(EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)
+    {
+        EventInstance instance = new EventInstance(instancePtr);
+
+        // Retrieve the user data
+        RESULT result = instance.getUserData(out IntPtr timelineInfoPtr);
+        if (result != RESULT.OK)
+        {
+            Debug.LogError("Timeline Callback error: " + result);
+        }
+        else if (timelineInfoPtr != IntPtr.Zero)
+        {
+            // Get the object to store beat and marker details
+            GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
+            TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
+            
+            // There's more info about the callback in the "parameter" variable.
+            var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
+            timelineInfo.currentBar = parameter.bar;
+            timelineInfo.currentBeat = parameter.beat;
+            timelineInfo.beatPosition = parameter.position;
+            timelineInfo.currentTempo = parameter.tempo;
+
+        }
+        return RESULT.OK;
     }
 }
