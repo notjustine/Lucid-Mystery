@@ -18,7 +18,7 @@ public class CutSceneHandler : MonoBehaviour
 
         if (isIntro)
         {
-            a = SceneManager.LoadSceneAsync("PatentEnvironment");
+            a = SceneManager.LoadSceneAsync("Tutorial");
             a.allowSceneActivation = false;
         }
         else
