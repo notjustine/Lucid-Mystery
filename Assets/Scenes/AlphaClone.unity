@@ -72277,7 +72277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Path
-      value: event:/Music/NewMainMusic 3
+      value: event:/Music/NewMusic
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Path
@@ -72285,19 +72285,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data1
-      value: 2017465984
+      value: 1998204939
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data2
-      value: 1309943502
+      value: 1139781492
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data3
-      value: 192326796
+      value: 166739640
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <backgroundTrack>k__BackingField.Guid.Data4
-      value: -699000251
+      value: 1641108020
       objectReference: {fileID: 0}
     - target: {fileID: 7709417704436731747, guid: 081748bb1217fdb46bb354f3e47d8b96, type: 3}
       propertyPath: <steamAttackSound>k__BackingField.Guid.Data1
