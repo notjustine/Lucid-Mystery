@@ -23,7 +23,7 @@ using UnityEngine.UI;
 */
 public class DifficultyManager : MonoBehaviour
 {
-    
+
     [Serializable]
     public enum Difficulty
     {
@@ -44,12 +44,11 @@ public class DifficultyManager : MonoBehaviour
         SPRAY_BULLET_DAMAGE,
         SNIPER_BULLET_SPEED,
         SPRAY_BULLET_SPEED,
-        COOLDOWN,   
+        COOLDOWN,
     }
-    
+
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
     SteamAttack steam;
-    SlamAttack slam;
     Attack playerAttack;
     BossStates bossStates;
     // End of list 
@@ -57,12 +56,12 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] Difficulty currDifficulty;
     // difficultyMap maps a tuple representing a combination of StatName and Difficulty (ie: (StatName.PLAYER_DAMAGE, Difficulty.HARD) to a float for that particular difficulty setting.
     private Dictionary<(StatName, Difficulty), float> difficultyMap;
-    public bool hasChanged;  // TEMPORARY, while we allow adjustment on the fly with keyboard input.
-    
+    public bool hasChanged;
+
     [SerializeField] private Button easyButton;
     [SerializeField] private Button mediumButton;
     [SerializeField] private Button hardButton;
-    
+
     public static DifficultyManager Instance { get; private set; }
 
     private void Awake()
@@ -78,64 +77,39 @@ public class DifficultyManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("difficulty"))
         {
-            currDifficulty = (Difficulty) PlayerPrefs.GetInt("difficulty");
+            currDifficulty = (Difficulty)PlayerPrefs.GetInt("difficulty");
         }
         else
         {
             currDifficulty = Difficulty.MEDIUM;
         }
-        
+
         if (SceneManager.GetActiveScene().name == "Main Menu")
         {
             easyButton = GameObject.Find("Easy").GetComponent<Button>();
             mediumButton = GameObject.Find("Medium").GetComponent<Button>();
             hardButton = GameObject.Find("Hard").GetComponent<Button>();
-            
+
             easyButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.EASY); });
             mediumButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.MEDIUM); });
             hardButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.HARD); });
         }
-        
-        // currDifficulty = Difficulty.MEDIUM;
-        difficultyMap = new Dictionary<(StatName, Difficulty), float>();  
+
+        difficultyMap = new Dictionary<(StatName, Difficulty), float>();
         SetUpDifficultyMap();
         hasChanged = false;
 
-        // list of objects that the manager will have to notify about changes (if they are in the scene permanently, not spawners like spikes/bullets):
-        steam = FindObjectOfType<SteamAttack>();
-        slam = FindAnyObjectByType<SlamAttack>();
-        playerAttack = FindObjectOfType<Attack>();
-        bossStates = FindAnyObjectByType<BossStates>();
-    }
-
-
-    void Update()
-    {   
-        // // TEMPORARY UNTIL WE ADD SOME UI CHANGES WHERE THEY CAN SELECT A DIFFICULTY
-        // if (Input.GetKeyDown(KeyCode.E)) {
-        //     Debug.Log("setting easy");
-        //     SetDifficulty(Difficulty.EASY);
-        // } else if (Input.GetKeyDown(KeyCode.M)) {
-        //     SetDifficulty(Difficulty.MEDIUM);
-        //     Debug.Log("setting medium");
-        // } else if (Input.GetKeyDown(KeyCode.H)) {
-        //     SetDifficulty(Difficulty.HARD);
-        //     Debug.Log("setting hard");
-        // }
-        
-        if (hasChanged)
+        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
         {
             SetValuesForDifficulty();
-            // hasChanged = false;
         }
     }
 
-    /** 
-        Setter that can be called via some main menu with buttons. 
-    */
-    public void SetDifficulty(Difficulty difficulty) {
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
         currDifficulty = difficulty;
-        PlayerPrefs.SetInt("difficulty", (int) difficulty);
+        PlayerPrefs.SetInt("difficulty", (int)difficulty);
         hasChanged = true;
     }
 
@@ -143,9 +117,10 @@ public class DifficultyManager : MonoBehaviour
     /** 
         Initializes the map.  This is where we can play around with the actual difficulty values.
     */
-    private void SetUpDifficultyMap() {
+    private void SetUpDifficultyMap()
+    {
         // Damages of things
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 70f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 75f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 50f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 35f;
 
@@ -153,7 +128,7 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.HARD)] = 7f;
 
-        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.EASY)] = 5f;
+        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
 
@@ -166,11 +141,11 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 7f;
 
         // Speeds of things
-        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 50f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 40f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 140f;
 
-        difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.EASY)] = 40f;
+        difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.EASY)] = 30f;
         difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
         difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.HARD)] = 75f;
 
@@ -201,11 +176,17 @@ public class DifficultyManager : MonoBehaviour
 
     /**
         We can update the values for controllers that remain in the scene for the full duration (the player, the boss, steam attack)
+        Should be called AFTER the main scene finishes loading to set correct values.
 
         NOTE:  Not included are:  sniper bullet stats, slam attacks, because these spawn on the fly with updated values.
     */
-    private void SetValuesForDifficulty()
+    public void SetValuesForDifficulty()
     {
+        // list of objects that the manager will have to notify about changes (if they are in the scene permanently, not spawners like spikes/bullets):
+        steam = FindObjectOfType<SteamAttack>();
+        playerAttack = FindObjectOfType<Attack>();
+        bossStates = FindAnyObjectByType<BossStates>();
+
         playerAttack.SetPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
         steam.SetSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
         bossStates.SetCooldown(difficultyMap[(StatName.COOLDOWN, currDifficulty)]);
