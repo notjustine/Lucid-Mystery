@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossStates : MonoBehaviour
@@ -19,7 +17,7 @@ public class BossStates : MonoBehaviour
     BossAttackType nextAttack = BossAttackType.None;
     BossAttackType lastAttack = BossAttackType.None;
     private float time = 0f;
-    private const float coolDownTime = 5f;
+    private float coolDownTime = 5f;
 
     void Start()
     {
@@ -69,7 +67,6 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Cooldown;
                 break;
             case BossState.Cooldown:
-                // StartCoroutine(CooldownRoutine(3f));
                 Cooldown();
                 break;
 
@@ -109,29 +106,39 @@ public class BossStates : MonoBehaviour
     {
         int ringIndex;
         float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
-        if (IsPlayerInSpecificRing(out ringIndex))
-        {
-            if (ringIndex == 0)
-                nextAttack = BossAttackType.Steam;
-        }
-
-        if (nextAttack == BossAttackType.None & (healthPercentage <= 75f && healthPercentage > 65f))
+        
+        if (healthPercentage < 100f && healthPercentage > 80)
         {
             nextAttack = BossAttackType.Spray;
         }
 
-        if (nextAttack == BossAttackType.None & (healthPercentage <= 65f))
+        if (healthPercentage <= 80f && healthPercentage > 65)
         {
-            if (lastAttack == BossAttackType.Slam)
+            if (IsPlayerInSpecificRing(out ringIndex) && lastAttack != BossAttackType.Steam)
             {
-                nextAttack = BossAttackType.Spray;
+                nextAttack = BossAttackType.Steam;
             }
             else
             {
-                nextAttack = BossAttackType.Slam;
+                nextAttack = BossAttackType.Spray;
             }
         }
 
+        if (healthPercentage <= 65f)
+        {
+            if (lastAttack == BossAttackType.Steam)
+            {
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+            }
+            else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+            {
+                nextAttack = BossAttackType.Steam;
+            }
+            else
+            {
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+            }
+        }
         if (nextAttack != BossAttackType.None)
         {
             currentState = BossState.PreparingAttack;
@@ -185,4 +192,8 @@ public class BossStates : MonoBehaviour
         }
     }
 
+    public void SetCooldown(float time)
+    {
+        coolDownTime = time;
+    }
 }

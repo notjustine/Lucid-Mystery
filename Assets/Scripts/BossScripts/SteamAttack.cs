@@ -22,7 +22,7 @@ public class SteamAttack : MonoBehaviour
     private void Start()
     {
         // Initially set to idle material
-        difficultyManager = FindObjectOfType<DifficultyManager>();
+        difficultyManager = DifficultyManager.Instance;
         steamDamage = difficultyManager.GetValue(DifficultyManager.StatName.STEAM_DAMAGE);  // get default on startup
         warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;

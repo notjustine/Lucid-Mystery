@@ -91,9 +91,16 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                SceneManager.LoadScene("PatentEnvironment");
+                //SceneManager.LoadScene("PatentEnvironment");
+                Invoke("delayEnd", 0.3f);
+
                 break;
         }
+    }
+
+        void delayEnd()
+    {
+        SceneManager.LoadScene("PatentEnvironment");
     }
 
         void CheckAndSetPlayerAttack()

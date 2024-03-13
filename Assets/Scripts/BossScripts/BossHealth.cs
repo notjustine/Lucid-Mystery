@@ -18,9 +18,16 @@ public class BossHealth : MonoBehaviour
     public void Start()
     {
         currHealth = maxHealth;
-        healthBar.SetSliderMax(maxHealth / 2);
-        healthBar2.SetSliderMax(maxHealth / 2);
-        phase = PlayerPrefs.GetInt("bossPhase");
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            PlayerPrefs.SetInt("bossPhase", 0);
+        }
+        else
+        {
+            healthBar.SetSliderMax(maxHealth / 2);
+            healthBar2.SetSliderMax(maxHealth / 2);
+            phase = PlayerPrefs.GetInt("bossPhase");
+        }
         playerControl = FindObjectOfType<PlayerControl>();
         
     }
