@@ -180,7 +180,7 @@ public class DifficultyManager : MonoBehaviour
 
         NOTE:  Not included are:  sniper bullet stats, slam attacks, because these spawn on the fly with updated values.
     */
-    public void SetValuesForDifficulty()
+    private void SetValuesForDifficulty()
     {
         // list of objects that the manager will have to notify about changes (if they are in the scene permanently, not spawners like spikes/bullets):
         steam = FindObjectOfType<SteamAttack>();
