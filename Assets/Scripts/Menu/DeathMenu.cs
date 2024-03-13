@@ -63,15 +63,9 @@ public class DeathMenu : MonoBehaviour
     }
     public void TryAgain()
     {
-        if (!PlayerPrefs.HasKey("bossPhase"))
-        {
-            Debug.Log("BossPhase not found: This should never happen");
-            return;
-        }
-        
         if (bossDied)
         {
-            PlayerPrefs.SetInt("bossPhase", 0);
+            PhaseController.Instance.phase = 0;
         }
         
         SceneManager.LoadScene(scene);

@@ -60,7 +60,7 @@ public class MusicEventHandler : MonoBehaviour
     private void AssignMusicCallbacks()
     {
         timelineInfo = new TimelineInfo();
-        beatCallback = new EVENT_CALLBACK(BeatEventCallback);
+        beatCallback = BeatEventCallback;
 
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         eventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
@@ -72,14 +72,27 @@ public class MusicEventHandler : MonoBehaviour
         timelineInfo.songLength = length;
 
         RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
-
-        // FMODUnity.RuntimeManager.CoreSystem.getSoftwareFormat(out _, out FMOD.SPEAKERMODE speakerMode, out int numRawSpeakers);
     }
 
     private void StartMusic()
     {
         eventInstance.start();
         AssignMusicCallbacks();
+        switch (PhaseController.Instance.phase)
+        {
+            case 0:
+                SetMainMusicPhaseParameter(0);
+                break;
+            case 1:
+                SetMainMusicPhaseParameter(1);
+                break;
+            case 2:
+                SetMainMusicPhaseParameter(2);
+                break;
+            default:
+                SetMainMusicPhaseParameter(0);
+                break;
+        }
     }
 
     private void SetTrackStartInfo()
@@ -90,8 +103,6 @@ public class MusicEventHandler : MonoBehaviour
     private void UpdateDSPClock()
     {
         masterChannelGroup.getDSPClock(out dspClock, out _);
-        
-        // currentSamples = dspClock;
     }
 
     private void Update()

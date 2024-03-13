@@ -13,10 +13,12 @@ public class BossHealth : MonoBehaviour
     public HealthBar healthBar;     // phase 1
     public HealthBar healthBar2;    // phase 2
     private PlayerControl playerControl;
+    private FadingScreen fade;
 
     // Start is called before the first frame update
     public void Start()
     {
+        fade = FindObjectOfType<FadingScreen>();
         currHealth = maxHealth;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
@@ -24,9 +26,18 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-            healthBar.SetSliderMax(maxHealth / 2);
-            healthBar2.SetSliderMax(maxHealth / 2);
-            phase = PlayerPrefs.GetInt("bossPhase");
+           
+            switch (PhaseController.Instance.phase)
+            {
+                case 2: 
+                    healthBar.SetSlider(0f);
+                    healthBar2.SetSlider(currHealth);
+                    break;
+                default:
+                    healthBar.SetSliderMax(maxHealth / 2);
+                    healthBar2.SetSliderMax(maxHealth / 2);
+                    break;
+            }
         }
         playerControl = FindObjectOfType<PlayerControl>();
         
@@ -63,16 +74,16 @@ public class BossHealth : MonoBehaviour
 
     private void PhaseTwo()
     {
-        PlayerPrefs.SetInt("bossPhase", 2);
-        AudioManager.instance.TriggerPhaseTwoMusic();
+        PhaseController.Instance.phase = 2;
+        AudioManager.instance.PhaseMusicChange(2);
     }
 
     private void Die()
     {
         DeathMenu.BossLoss();
-        AudioManager.instance.PauseAllEvents();
+        AudioManager.instance.PhaseMusicChange(3);
+        StartCoroutine(fade.FadeToBlack());
         playerControl.gameObject.SetActive(false);
-        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
     
 

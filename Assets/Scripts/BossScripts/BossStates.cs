@@ -26,7 +26,7 @@ public class BossStates : MonoBehaviour
         slamAttack = FindObjectOfType<SlamAttack>();
         sprayAttack = FindObjectOfType<SprayAttackController>();
         bossHealth = FindObjectOfType<BossHealth>();
-        switch (PlayerPrefs.GetInt("bossPhase", 0))
+        switch (PhaseController.Instance.phase)
         {
             case 0:
                 isSleeping = true;
