@@ -6,7 +6,7 @@ using UnityEngine;
 /** 
 This script can be attached to a blank object in the scene.
 */
-public class InitSniperShooting : MonoBehaviour, IWarningGenerator
+public class SniperAttack : MonoBehaviour, IWarningGenerator
 {
     [SerializeField] private BeatCheckController beatChecker;
     private ShootSniperBullet sniper;
@@ -46,7 +46,7 @@ public class InitSniperShooting : MonoBehaviour, IWarningGenerator
     /**
     Trigger to start running these functions, only runs when the player makes an input mistake.
     */
-    public void OffBeatHandler()
+    public void TriggerAttack()
     {
         if (beatChecker.GetVulnerable())
         {
