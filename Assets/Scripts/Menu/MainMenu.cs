@@ -10,12 +10,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject mainMenuPanel;
     private DifficultyManager difficulty;
+    private WarningManager warning;
 
     public void StartGame()
     {
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
         difficulty.gameObject.SetActive(true);
+        warning.gameObject.SetActive(true);
         // StartCoroutine(AsyncMusicLoad.LoadGameAsync(sceneName));
         // SceneManager.LoadScene(sceneName);
     }
@@ -26,7 +28,7 @@ public class MainMenu : MonoBehaviour
         mainMenuPanel.SetActive(false);
         optionsPanel.SetActive(true);
     }
-    
+
     public void GoBack()
     {
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
@@ -60,5 +62,6 @@ public class MainMenu : MonoBehaviour
         }
         PlayerPrefs.SetInt("bossPhase", 0);
         difficulty = FindObjectOfType<DifficultyManager>(true);
+        warning = FindObjectOfType<WarningManager>(true);
     }
 }

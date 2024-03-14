@@ -17,11 +17,26 @@ public class WarningManager : MonoBehaviour
 
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> sniperWarnings;
+    private List<string> allWarnings;
+
+
+    public static WarningManager Instance { get; private set; }
+
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("Found more than one Warning Manager");
+        }
+        Instance = this;
+    }
 
 
     void Start()
     {
         sniperWarnings = new List<string>();
+        allWarnings = new List<string>();
         InitLogicToPhysMapping();
     }
 
@@ -54,10 +69,15 @@ public class WarningManager : MonoBehaviour
             }
             else
             {
-                renderer.material = original;
+                allWarnings.Remove(tiles[i]);
+                if (!allWarnings.Contains(tiles[i]))
+                {
+                    renderer.material = original;  // ie: keep this as warning color if there is still another outstanding warning.
+                }
             }
         }
     }
+
 
     /**
         Keep track of different warnings that are active, so they can be undone.
@@ -68,8 +88,11 @@ public class WarningManager : MonoBehaviour
         {
             case AttackType.SNIPER:
                 sniperWarnings.Add(tileName);
+                allWarnings.Add(tileName);
                 break;
-
+            case AttackType.STEAM:
+                allWarnings.Add(tileName);
+                break;
             default:
                 break;
         }
