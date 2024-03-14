@@ -72,12 +72,12 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
         warningText.gameObject.SetActive(true);
         warningText.text = "Back Up!!";
         StartCoroutine(FlashWarningText());
-        warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.AttackType.STEAM);
+        warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         // Switch to warning material
         attackAreaRenderer.material = warningMaterial;
         // Wait for the warning duration
         yield return new WaitForSeconds(warningDuration);
-        warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.AttackType.STEAM);
+        warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
         warningText.gameObject.SetActive(false);
