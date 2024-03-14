@@ -19,7 +19,6 @@ public class WarningManager : MonoBehaviour
     private List<string> sniperWarnings;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         sniperWarnings = new List<string>();
@@ -37,7 +36,6 @@ public class WarningManager : MonoBehaviour
     }
 
 
-
     /**
         Given the names of tiles to update, changes them to warning or toggles them back to original accordingly.
 
@@ -48,7 +46,6 @@ public class WarningManager : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
             GameObject tileToChange = GameObject.Find(tiles[i]);
-            // Debug.Log($"current tile: {tileToChange}");
             MeshRenderer renderer = tileToChange.GetComponent<MeshRenderer>();
             if (isWarning)
             {
@@ -62,6 +59,9 @@ public class WarningManager : MonoBehaviour
         }
     }
 
+    /**
+        Keep track of different warnings that are active, so they can be undone.
+    */
     private void TrackWarning(string tileName, AttackType attack)
     {
         switch (attack)
@@ -78,7 +78,7 @@ public class WarningManager : MonoBehaviour
 
     /**
         Getter for the mapping so that the attack classes can fetch it for indexing into it.
-*/
+    */
     public Dictionary<(int, int), string> GetLogicalToPhysicalTileMapping()
     {
         return logicalToPhysicalTileMapping;
@@ -89,7 +89,7 @@ public class WarningManager : MonoBehaviour
         Initializes a mapping between logical locations used by PlayerControl to physical mapping in our actual scene.
         This will drastically improve performance of determining which tiles to highlight with a warning in various situations, 
         as opposed to on-the-fly calculation by iterating through tiles and calculating which tile the player is overlapping with.
-*/
+    */
     private void InitLogicToPhysMapping()
     {
         logicalToPhysicalTileMapping = new Dictionary<(int, int), string>
