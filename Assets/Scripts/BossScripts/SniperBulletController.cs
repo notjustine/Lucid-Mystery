@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -10,7 +11,7 @@ using UnityEngine;
 public class SniperBulletController : MonoBehaviour
 {
     const float rotationSpeed = 100f;
-    const float maxLifetime = 2f;
+    const float maxLifetime = 1.65f; // TO-DO:  Change this according to difficulty.  Use this value for Easy
     float bulletLifetime;
     private Vector3 rot;
     GameObject sniper;
@@ -18,6 +19,7 @@ public class SniperBulletController : MonoBehaviour
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
     private DifficultyManager difficultyManager;
+    private WarningManager warningManager;
     private float sniperDamage;
     private float sniperBulletSpeed;
 
@@ -30,6 +32,9 @@ public class SniperBulletController : MonoBehaviour
         difficultyManager = DifficultyManager.Instance;
         sniperDamage = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_DAMAGE);
         sniperBulletSpeed = difficultyManager.GetValue(DifficultyManager.StatName.SNIPER_BULLET_SPEED);
+
+        // For highlighting tiles being shot at
+        warningManager = FindObjectOfType<WarningManager>();
 
         // Orient the bullet direction
         sniper = GameObject.Find("Sniper");
@@ -88,5 +93,10 @@ public class SniperBulletController : MonoBehaviour
         {
             // Debug.Log("Something else?");
         }
+    }
+
+    void OnDestroy()
+    {
+        warningManager.PopSniperWarning();
     }
 }
