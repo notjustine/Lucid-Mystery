@@ -6,14 +6,14 @@ public class BeatCheckController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private PlayerControl player;
-    [SerializeField] private InitSniperShooting sniper;
+    [SerializeField] private SniperAttack sniper;
     private bool playerVulnerable;
 
     // Get access to the PlayController instance, and set it. 
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
-        sniper = FindObjectOfType<InitSniperShooting>();
+        sniper = FindObjectOfType<SniperAttack>();
         playerVulnerable = true;
     }
 
@@ -25,7 +25,7 @@ public class BeatCheckController : MonoBehaviour
         }
         else
         {
-            sniper.OffBeatHandler();
+            sniper.TriggerAttack();
         }
     }
 
@@ -37,7 +37,7 @@ public class BeatCheckController : MonoBehaviour
         }
         else
         {
-            sniper.OffBeatHandler();
+            sniper.TriggerAttack();
         }
     }
 
