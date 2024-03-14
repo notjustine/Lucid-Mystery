@@ -6,23 +6,29 @@ using UnityEngine;
 /** 
 This script can be attached to a blank object in the scene.
 */
-public class InitSniperShooting : MonoBehaviour
+public class InitSniperShooting : MonoBehaviour, IWarningGenerator
 {
     [SerializeField] private BeatCheckController beatChecker;
     private ShootSniperBullet sniper;
     private GameObject player;
+    private PlayerControl playerControl;
     private Vector3 playerShootPosition;
     private Vector3 prevRotation;
     private const float turretRotationSpeed = 5f;
     private bool aiming;
     private bool readyToShoot;
 
+    WarningManager warningManager;
+    List<string> warnings; // so that we can undo them based on a bullet resolution
+
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        playerControl = player.GetComponent<PlayerControl>();
         sniper = FindObjectOfType<ShootSniperBullet>();
         beatChecker = FindObjectOfType<BeatCheckController>();
+        warningManager = FindObjectOfType<WarningManager>();
         aiming = false;
         readyToShoot = false;
     }
@@ -48,8 +54,23 @@ public class InitSniperShooting : MonoBehaviour
             beatChecker.SetVulnerable(false);
             aiming = true;
             playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
+            // Show a warning based on current location of player
+            warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.AttackType.SNIPER);
+
             StartCoroutine(ShootAfterRotation());
         }
+    }
+
+
+    /**
+        Determines the name of the physical tile the player is currently on, adds to list and returns.
+    */
+    public List<string> GetWarningTiles()
+    {
+        List<string> tilenames = new List<string>();
+        Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
+        tilenames.Add(mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)]);
+        return tilenames;
     }
 
 
