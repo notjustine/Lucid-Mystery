@@ -116,5 +116,7 @@ public class AudioManager : MonoBehaviour
     public void PhaseMusicChange(int phase)
     {
         musicEventHandler.SetMainMusicPhaseParameter(phase);
+        if (phase == 2)
+            FindObjectOfType<BossStates>().isSleeping = true;
     }
 }

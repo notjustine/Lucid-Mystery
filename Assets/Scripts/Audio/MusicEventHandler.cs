@@ -19,6 +19,9 @@ public class MusicEventHandler : MonoBehaviour
 
     private static int markerTime;
     
+    int positionOccurrences = 0;
+    int lastPosition = 0;
+    
     private const float inputDelay = 175f;
     private const float startDelay = 0f;
 
@@ -46,9 +49,11 @@ public class MusicEventHandler : MonoBehaviour
     private EventDescription descriptionCallback;
 
     private EventInstance eventInstance;
+    private BossStates bossStates;
 
     private void Start()
     {
+        bossStates = FindObjectOfType<BossStates>();
         player = FindObjectOfType<PlayerControl>();
         EventDescription des;
         eventInstance.getDescription(out des);
@@ -128,6 +133,20 @@ public class MusicEventHandler : MonoBehaviour
 
         if (beatInterval == 0f)
             return;
+        // Debug.Log(timelineInfo.currentPosition);
+        if (timelineInfo.currentPosition == lastPosition)
+        {
+            positionOccurrences++;
+        }
+        else if (positionOccurrences > 5)
+        {
+            bossStates.isSleeping = false;
+        }
+        else
+        {
+            positionOccurrences = 0;
+            lastPosition = timelineInfo.currentPosition;
+        }
         
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  
