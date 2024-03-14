@@ -5,12 +5,12 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class SprayAttackController : MonoBehaviour
+public class SpiralAttack : MonoBehaviour
 {
     GameObject turretsRig;
     GameObject targetsParent;
     const float turretRotationSpeed = 20f;
-    ShootSprayBullet[] turrets;
+    ShootSpiralBullet[] turrets;
     int currTargetIndex;
     const int NUM_SLICES = 24;
 
@@ -19,7 +19,7 @@ public class SprayAttackController : MonoBehaviour
         turretsRig = GameObject.Find("turretsRotate");
         targetsParent = GameObject.Find("SpiralTargets");
         currTargetIndex = 0;
-        turrets = FindObjectsOfType<ShootSprayBullet>();
+        turrets = FindObjectsOfType<ShootSpiralBullet>();
     }
 
 
@@ -33,10 +33,10 @@ public class SprayAttackController : MonoBehaviour
     }
 
 
-    IEnumerator TripleShootAndRotate(ShootSprayBullet[] turrets)
+    IEnumerator TripleShootAndRotate(ShootSpiralBullet[] turrets)
     {
         // First round of shots.
-        foreach (ShootSprayBullet turret in turrets)
+        foreach (ShootSpiralBullet turret in turrets)
         {
             turret.Shoot();  // assume shoots at first index of 0 
         }
@@ -56,7 +56,7 @@ public class SprayAttackController : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);  // adds some padding between shoot and rotations
         // Second round of shots.
-        foreach (ShootSprayBullet turret in turrets)
+        foreach (ShootSpiralBullet turret in turrets)
         {
             turret.Shoot();
         }
@@ -77,7 +77,7 @@ public class SprayAttackController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // Third and final round of shots until attack is triggered again.
-        foreach (ShootSprayBullet turret in turrets)
+        foreach (ShootSpiralBullet turret in turrets)
         {
             turret.Shoot();
         }
