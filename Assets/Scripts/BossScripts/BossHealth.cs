@@ -51,10 +51,8 @@ public class BossHealth : MonoBehaviour
         }
         else if (currHealth <= maxHealth / 2)
         {
-            Debug.Log("PHASE" + DifficultyManager.phase);
             if (DifficultyManager.phase <= 1)
             {
-                Debug.LogWarning("JOE");
                 PhaseTwo();
                 healthBar.SetSlider(0f);
             }

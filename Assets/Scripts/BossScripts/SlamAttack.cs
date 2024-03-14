@@ -10,7 +10,6 @@ public class SlamAttack : MonoBehaviour
     [SerializeField] private GameObject circularWarningPrefab;
     public float warningDuration = 2.5f; // Duration before the attack hits
     public float attackDuration = 1f; // Duration of the attack visual effect
-    public TextMeshProUGUI warningText;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
     private DifficultyManager difficultyManager;
@@ -18,7 +17,6 @@ public class SlamAttack : MonoBehaviour
 
     private void Start()
     {
-        warningText.gameObject.SetActive(false);
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
 
@@ -35,9 +33,6 @@ public class SlamAttack : MonoBehaviour
 
     private IEnumerator AttackSequence(int tileIndex)
     {
-        warningText.gameObject.SetActive(true);
-        warningText.text = "Avoid tiles with Indicator!!";
-        StartCoroutine(FlashWarningText());
         foreach (var ring in arenaInitializer.tilePositions)
         {
             if (tileIndex < ring.Count)
@@ -49,7 +44,6 @@ public class SlamAttack : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(warningDuration);
-        warningText.gameObject.SetActive(false);
         foreach (var ring in arenaInitializer.tilePositions)
         {
             if (tileIndex < ring.Count)
@@ -97,19 +91,5 @@ public class SlamAttack : MonoBehaviour
             // Get damage from DifficultyManager on the fly beccause no SlamAttack script lives in our scene permanently.
             playerStatus.TakeDamage(difficultyManager.GetValue(DifficultyManager.StatName.SLAM_DAMAGE));
         }
-    }
-
-
-    private IEnumerator FlashWarningText()
-    {
-        float flashDuration = warningDuration;
-        float startTime = Time.time;
-        while (Time.time - startTime < flashDuration)
-        {
-            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
-            warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
-            yield return null;
-        }
-        warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
     }
 }
