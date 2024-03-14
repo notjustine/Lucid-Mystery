@@ -24,7 +24,7 @@ public class BossStates : MonoBehaviour
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         steamAttack = FindObjectOfType<SteamAttack>();
         slamAttack = FindObjectOfType<SlamAttack>();
-        sprayAttack = FindObjectOfType<SprayAttackController>();
+        sprayAttack = FindObjectOfType<SprayAttackController>();  // TO-DO:  replace SprayAttackController name with SpiralAttack
         bossHealth = FindObjectOfType<BossHealth>();
         switch (PlayerPrefs.GetInt("bossPhase", 0))
         {
@@ -91,6 +91,10 @@ public class BossStates : MonoBehaviour
         return ringIndex != -1;
     }
 
+
+    /**
+        Sets the boss state such that the boss will not attack until the state changes again.
+    */
     void Cooldown()
     {
         if (time < coolDownTime)
@@ -102,11 +106,16 @@ public class BossStates : MonoBehaviour
         time = 0f;
         currentState = BossState.Idle;
     }
+
+
+    /**
+        Uses player location and boss health to determine which attack should be executed next by the boss.
+    */
     void DecideNextAttack()
     {
         int ringIndex;
         float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
-        
+
         if (healthPercentage < 100f && healthPercentage > 80)
         {
             nextAttack = BossAttackType.Spray;

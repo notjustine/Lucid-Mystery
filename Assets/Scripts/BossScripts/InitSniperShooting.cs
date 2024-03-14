@@ -28,7 +28,7 @@ public class InitSniperShooting : MonoBehaviour, IWarningGenerator
         playerControl = player.GetComponent<PlayerControl>();
         sniper = FindObjectOfType<ShootSniperBullet>();
         beatChecker = FindObjectOfType<BeatCheckController>();
-        warningManager = FindObjectOfType<WarningManager>();
+        warningManager = WarningManager.Instance;
         aiming = false;
         readyToShoot = false;
     }
