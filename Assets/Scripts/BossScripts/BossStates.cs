@@ -6,12 +6,12 @@ public class BossStates : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private SteamAttack steamAttack;
     [SerializeField] private SlamAttack slamAttack;
-    [SerializeField] private SprayAttackController sprayAttack;
+    [SerializeField] private SpiralAttack spiralAttack;
     [SerializeField] private PlayerControl playerControl;
     [SerializeField] private BossHealth bossHealth;
     public bool isSleeping;
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
-    public enum BossAttackType { None, Slam, Steam, Spray }
+    public enum BossAttackType { None, Slam, Steam, Spiral }
 
     BossState currentState = BossState.Idle;
     BossAttackType nextAttack = BossAttackType.None;
@@ -24,7 +24,7 @@ public class BossStates : MonoBehaviour
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         steamAttack = FindObjectOfType<SteamAttack>();
         slamAttack = FindObjectOfType<SlamAttack>();
-        sprayAttack = FindObjectOfType<SprayAttackController>();  // TO-DO:  replace SprayAttackController name with SpiralAttack
+        spiralAttack = FindObjectOfType<SpiralAttack>();
         bossHealth = FindObjectOfType<BossHealth>();
         switch (PlayerPrefs.GetInt("bossPhase", 0))
         {
@@ -118,7 +118,7 @@ public class BossStates : MonoBehaviour
 
         if (healthPercentage < 100f && healthPercentage > 80)
         {
-            nextAttack = BossAttackType.Spray;
+            nextAttack = BossAttackType.Spiral;
         }
 
         if (healthPercentage <= 80f && healthPercentage > 65)
@@ -129,7 +129,7 @@ public class BossStates : MonoBehaviour
             }
             else
             {
-                nextAttack = BossAttackType.Spray;
+                nextAttack = BossAttackType.Spiral;
             }
         }
 
@@ -137,7 +137,7 @@ public class BossStates : MonoBehaviour
         {
             if (lastAttack == BossAttackType.Steam)
             {
-                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
             }
             else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
             {
@@ -145,7 +145,7 @@ public class BossStates : MonoBehaviour
             }
             else
             {
-                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spray;
+                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
             }
         }
         if (nextAttack != BossAttackType.None)
@@ -164,8 +164,8 @@ public class BossStates : MonoBehaviour
             case BossAttackType.Steam:
                 PerformSteamAttack();
                 break;
-            case BossAttackType.Spray:
-                PerformSprayAttack();
+            case BossAttackType.Spiral:
+                PerformSpiralAttack();
                 break;
         }
 
@@ -192,12 +192,12 @@ public class BossStates : MonoBehaviour
         }
     }
 
-    void PerformSprayAttack()
+    void PerformSpiralAttack()
     {
-        if (sprayAttack != null)
+        if (spiralAttack != null)
         {
-            // Debug.Log("Performing Spray Attack");
-            sprayAttack.TriggerShootAndRotate();
+            // Debug.Log("Performing Spiral Attack");
+            spiralAttack.TriggerShootAndRotate();
         }
     }
 
