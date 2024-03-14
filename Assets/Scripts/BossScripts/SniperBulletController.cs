@@ -97,6 +97,7 @@ public class SniperBulletController : MonoBehaviour
 
     void OnDestroy()
     {
-        warningManager.PopSniperWarning();
+        List<string> sniperWarnings = warningManager.GetWarningsOfType(WarningManager.WarningType.SNIPER);
+        warningManager.ToggleWarning(sniperWarnings.GetRange(0, 1), false, WarningManager.WarningType.SNIPER);
     }
 }
