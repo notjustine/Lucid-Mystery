@@ -119,4 +119,23 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
             $"R4_{leftRightIndex}",
         };
     }
+
+
+    // Satisfies IWarningGenerator interface
+    public List<string> GetWarningTiles()
+    {
+        Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
+        string tilename = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
+
+        // Pluck out the left-right index of the current tile
+        string leftRightIndex = tilename.Substring(3, 2);
+        Debug.Log($"slam GetWarning {leftRightIndex}");
+
+        return new List<string> {
+            $"R1_{leftRightIndex}",
+            $"R2_{leftRightIndex}",
+            $"R3_{leftRightIndex}",
+            $"R4_{leftRightIndex}",
+        };
+    }
 }
