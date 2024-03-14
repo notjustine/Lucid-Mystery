@@ -9,7 +9,8 @@ public class WarningManager : MonoBehaviour
     {
         SNIPER,
         SLAM,
-        STEAM
+        STEAM,
+        SPIRAL,
     }
 
     [SerializeField] Material original;
