@@ -8,7 +8,6 @@ public class BossHealth : MonoBehaviour
     [SerializeField] public float maxHealth = 1000f;
     public float currHealth;
     public bool isInvulnerable = false;
-    [SerializeField] private int phase = 0;
 
     public HealthBar healthBar;     // phase 1
     public HealthBar healthBar2;    // phase 2
@@ -22,21 +21,19 @@ public class BossHealth : MonoBehaviour
         currHealth = maxHealth;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            PlayerPrefs.SetInt("bossPhase", 0);
+            DifficultyManager.phase = 0;
         }
         else
         {
-           
-            switch (PhaseController.Instance.phase)
+           Debug.LogWarning(DifficultyManager.phase);
+           healthBar.SetSliderMax(maxHealth / 2);
+           healthBar2.SetSliderMax(maxHealth / 2);
+        
+            if (DifficultyManager.phase == 2)
             {
-                case 2: 
-                    healthBar.SetSlider(0f);
-                    healthBar2.SetSlider(currHealth);
-                    break;
-                default:
-                    healthBar.SetSliderMax(maxHealth / 2);
-                    healthBar2.SetSliderMax(maxHealth / 2);
-                    break;
+                currHealth = maxHealth / 2;
+                Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
+                healthBar.SetSlider(0f);
             }
         }
         playerControl = FindObjectOfType<PlayerControl>();
@@ -49,12 +46,18 @@ public class BossHealth : MonoBehaviour
         if (currHealth <= 0)
         {
             currHealth = 0;
+            healthBar2.SetSlider(0f);
             Die();
         }
         else if (currHealth <= maxHealth / 2)
         {
-            PhaseTwo();
-            healthBar.SetSlider(0f);
+            Debug.Log("PHASE" + DifficultyManager.phase);
+            if (DifficultyManager.phase <= 1)
+            {
+                Debug.LogWarning("JOE");
+                PhaseTwo();
+                healthBar.SetSlider(0f);
+            }
             healthBar2.SetSlider(currHealth);
         }
         else
@@ -74,16 +77,16 @@ public class BossHealth : MonoBehaviour
 
     private void PhaseTwo()
     {
-        PhaseController.Instance.phase = 2;
+        DifficultyManager.phase = 2;
         AudioManager.instance.PhaseMusicChange(2);
     }
 
     private void Die()
     {
+        FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
         StartCoroutine(fade.FadeToBlack());
-        playerControl.gameObject.SetActive(false);
     }
     
 

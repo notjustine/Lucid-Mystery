@@ -78,7 +78,7 @@ public class MusicEventHandler : MonoBehaviour
     {
         eventInstance.start();
         AssignMusicCallbacks();
-        switch (PhaseController.Instance.phase)
+        switch (DifficultyManager.phase)
         {
             case 0:
                 SetMainMusicPhaseParameter(0);

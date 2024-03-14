@@ -25,6 +25,7 @@ public class PlayerStatus : MonoBehaviour
         if (currHealth <= 0)
         {
             currHealth = 0;
+            healthBar.SetSlider(0f);
             Die();
         }
         currHealth -= amount;

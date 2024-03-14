@@ -65,7 +65,7 @@ public class DeathMenu : MonoBehaviour
     {
         if (bossDied)
         {
-            PhaseController.Instance.phase = 0;
+            DifficultyManager.phase = 0;
         }
         
         SceneManager.LoadScene(scene);

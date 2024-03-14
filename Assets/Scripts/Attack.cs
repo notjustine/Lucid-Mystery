@@ -34,9 +34,10 @@ public class Attack : MonoBehaviour
             if (bossStates.isSleeping)
             {
                 AudioManager.instance.PhaseMusicChange(1);
-                PhaseController.Instance.phase = 1;
+                DifficultyManager.phase = 1;
+                bossStates.isSleeping = false;
             }
-            bossStates.isSleeping = false;
+            
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }

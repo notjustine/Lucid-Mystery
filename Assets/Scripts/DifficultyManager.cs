@@ -23,7 +23,7 @@ using UnityEngine.UI;
 */
 public class DifficultyManager : MonoBehaviour
 {
-    
+    public static int phase = 0;
     [Serializable]
     public enum Difficulty
     {

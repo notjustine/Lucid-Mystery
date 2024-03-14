@@ -7,12 +7,13 @@ using UnityEngine.UI;
 public class FadingScreen : MonoBehaviour
 {
     private Image black;
-
+    private PlayerControl player;
     private float fadeSpeed = 1f;
     // Start is called before the first frame update
     void Start()
     {
         black = GetComponent<Image>();
+        player = FindObjectOfType<PlayerControl>();
     }
     
     public IEnumerator FadeToBlack()
@@ -24,7 +25,9 @@ public class FadingScreen : MonoBehaviour
         }
         
         AudioManager.instance.PauseAllEvents();
+        player.gameObject.SetActive(false);
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
+        
         yield return null;
     }
 }
