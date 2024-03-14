@@ -183,14 +183,15 @@ public class BossStates : MonoBehaviour
         }
     }
 
+
     void PerformSlamAttack()
     {
         if (slamAttack != null)
         {
-            // Debug.Log("Performing Slam Attack");
             slamAttack.TriggerAttack(playerControl.currentTileIndex);
         }
     }
+
 
     void PerformSpiralAttack()
     {

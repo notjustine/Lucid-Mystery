@@ -55,7 +55,7 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
             aiming = true;
             playerShootPosition = player.transform.position;  // The location that the player WAS when they missed a beat, not current.
             // Show a warning based on current location of player
-            warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.AttackType.SNIPER);
+            warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.SNIPER);
 
             StartCoroutine(ShootAfterRotation());
         }
@@ -67,10 +67,8 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
     */
     public List<string> GetWarningTiles()
     {
-        List<string> tilenames = new List<string>();
         Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
-        tilenames.Add(mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)]);
-        return tilenames;
+        return new List<string> { mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)] }; ;
     }
 
 

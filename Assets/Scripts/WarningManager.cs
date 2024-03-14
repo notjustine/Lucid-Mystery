@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WarningManager : MonoBehaviour
 {
-    public enum AttackType
+    public enum WarningType
     {
         SNIPER,
         SLAM,
@@ -42,40 +42,66 @@ public class WarningManager : MonoBehaviour
     }
 
 
-    /**
-        Remove the oldest warning that we tracked.
-    */
-    public void PopSniperWarning()
+    /** TO-DO: rename this if only sniper uses it */
+    public List<string> GetWarningsOfType(WarningType type)
     {
-        ToggleWarning(sniperWarnings.GetRange(0, 1), false, AttackType.SNIPER);
-        sniperWarnings.RemoveAt(0);
+        switch (type)
+        {
+            case WarningType.SNIPER:
+                return sniperWarnings;
+            default:
+                return new List<string>();
+        }
     }
 
 
     /**
         Given the names of tiles to update, changes them to warning or toggles them back to original accordingly.
 
-        NOTE:  this puts the responsibility on various attacks to know which tiles they should warn about (using an interface)
+        NOTE:  this puts the responsibility on various attacks to know which tiles they should warn about (using IWarningGenerator interface)
     */
-    public void ToggleWarning(List<string> tiles, bool isWarning, AttackType attack)
+    public List<string> ToggleWarning(List<string> tiles, bool warningActive, WarningType type)
     {
         for (int i = 0; i < tiles.Count; i++)
         {
-            GameObject tileToChange = GameObject.Find(tiles[i]);
+            GameObject tileToChange = GameObject.Find(tiles[i]);  // TO-DO: add error handling/null checks maybe
             MeshRenderer renderer = tileToChange.GetComponent<MeshRenderer>();
-            if (isWarning)
+            if (warningActive)
             {
                 renderer.material = warning;
-                TrackWarning(tiles[i], attack);  // So that the material can be reset when bullet is destroyed
+                TrackWarning(tiles[i], type);  // So that the material can be reset when bullet is destroyed
             }
             else
             {
                 allWarnings.Remove(tiles[i]);
-                if (!allWarnings.Contains(tiles[i]))
-                {
-                    renderer.material = original;  // ie: keep this as warning color if there is still another outstanding warning.
-                }
+                HandleRemoveSniper(type, tiles[i]);
+                HandleToggleMaterial(tiles[i], renderer);
             }
+        }
+        return tiles;
+    }
+
+
+    /**
+        If the type of warning is sniper, un-track the sniper warning for that tile.
+    */
+    private void HandleRemoveSniper(WarningType type, string tilename)
+    {
+        if (type == WarningType.SNIPER)
+        {
+            sniperWarnings.Remove(tilename);
+        }
+    }
+
+
+    /**
+        Keep this tile as the warning color if there is still another outstanding warning.
+    */
+    private void HandleToggleMaterial(string tilename, MeshRenderer renderer)
+    {
+        if (!allWarnings.Contains(tilename))
+        {
+            renderer.material = original;
         }
     }
 
@@ -83,18 +109,17 @@ public class WarningManager : MonoBehaviour
     /**
         Keep track of different warnings that are active, so they can be undone.
     */
-    private void TrackWarning(string tileName, AttackType attack)
+    private void TrackWarning(string tileName, WarningType type)
     {
-        switch (attack)
+        switch (type)
         {
-            case AttackType.SNIPER:
+            case WarningType.SNIPER:
                 sniperWarnings.Add(tileName);
                 allWarnings.Add(tileName);
                 break;
-            case AttackType.STEAM:
-                allWarnings.Add(tileName);
-                break;
             default:
+                // Steam + Slam
+                allWarnings.Add(tileName);
                 break;
         }
     }

@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
-public class SlamAttack : MonoBehaviour
+public class SlamAttack : MonoBehaviour, IWarningGenerator
 {
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private Material warningMaterial;
@@ -14,6 +15,7 @@ public class SlamAttack : MonoBehaviour
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
     private DifficultyManager difficultyManager;
+    private WarningManager warningManager;
 
 
     private void Start()
@@ -24,6 +26,8 @@ public class SlamAttack : MonoBehaviour
 
         // Set default stat values based on initial difficulty
         difficultyManager = DifficultyManager.Instance;
+        // For warning about slam attack
+        warningManager = WarningManager.Instance;
     }
 
 
@@ -38,18 +42,23 @@ public class SlamAttack : MonoBehaviour
         warningText.gameObject.SetActive(true);
         warningText.text = "Avoid tiles with Indicator!!";
         StartCoroutine(FlashWarningText());
-        foreach (var ring in arenaInitializer.tilePositions)
-        {
-            if (tileIndex < ring.Count)
-            {
-                Vector3 targetPosition = ring[tileIndex];
-                targetPosition.y = 0.5f;
-                var indicator = Instantiate(circularWarningPrefab, targetPosition, Quaternion.identity);
-                StartCoroutine(HandleIndicatorFlash(indicator));
-            }
-        }
+
+        List<string> warned = warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.SLAM);
+        // foreach (var ring in arenaInitializer.tilePositions)
+        // {
+        //     if (tileIndex < ring.Count)
+        //     {
+        //         Vector3 targetPosition = ring[tileIndex];
+        //         targetPosition.y = 0.5f;
+        //         var indicator = Instantiate(circularWarningPrefab, targetPosition, Quaternion.identity);
+        //         StartCoroutine(HandleIndicatorFlash(indicator));
+        //     }
+        // }
         yield return new WaitForSeconds(warningDuration);
+
         warningText.gameObject.SetActive(false);
+        warningManager.ToggleWarning(warned, false, WarningManager.WarningType.SLAM);  // turn off warnings on those tiles
+        // Instantiate spikes
         foreach (var ring in arenaInitializer.tilePositions)
         {
             if (tileIndex < ring.Count)
@@ -63,23 +72,23 @@ public class SlamAttack : MonoBehaviour
         CheckForPlayerDamage(tileIndex);
     }
 
+    // LEAVING COMMENTED-OUT UNTIL I USE THE FLASHING EFFECT ON WARNINGMANAGER
+    // private IEnumerator HandleIndicatorFlash(GameObject indicator)
+    // {
+    //     MeshRenderer meshRenderer = indicator.GetComponent<MeshRenderer>();
+    //     Color originalColor = meshRenderer.material.color;
+    //     float endTime = Time.time + warningDuration;
 
-    private IEnumerator HandleIndicatorFlash(GameObject indicator)
-    {
-        MeshRenderer meshRenderer = indicator.GetComponent<MeshRenderer>();
-        Color originalColor = meshRenderer.material.color;
-        float endTime = Time.time + warningDuration;
+    //     // Flash the indicator
+    //     while (Time.time < endTime)
+    //     {
+    //         float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2)); // Flashing effect
+    //         meshRenderer.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+    //         yield return null;
+    //     }
 
-        // Flash the indicator
-        while (Time.time < endTime)
-        {
-            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2)); // Flashing effect
-            meshRenderer.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-            yield return null;
-        }
-
-        Destroy(indicator);
-    }
+    //     Destroy(indicator);
+    // }
 
 
     private IEnumerator HandleIndicatorLifecycle(GameObject indicator)
@@ -93,7 +102,7 @@ public class SlamAttack : MonoBehaviour
     private void CheckForPlayerDamage(int tileIndex)
     {
         if (playerControl.currentTileIndex == tileIndex)
-        {   
+        {
             // Get damage from DifficultyManager on the fly beccause no SlamAttack script lives in our scene permanently.
             playerStatus.TakeDamage(difficultyManager.GetValue(DifficultyManager.StatName.SLAM_DAMAGE));
         }
@@ -111,5 +120,24 @@ public class SlamAttack : MonoBehaviour
             yield return null;
         }
         warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
+    }
+
+
+    // Satisfies IWarningGenerator interface
+    public List<string> GetWarningTiles()
+    {
+        Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
+        string tilename = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
+
+        // Pluck out the left-right index of the current tile
+        string leftRightIndex = tilename.Substring(3, 2);
+        Debug.Log($"slam GetWarning {leftRightIndex}");
+
+        return new List<string> {
+            $"R1_{leftRightIndex}",
+            $"R2_{leftRightIndex}",
+            $"R3_{leftRightIndex}",
+            $"R4_{leftRightIndex}",
+        };
     }
 }
