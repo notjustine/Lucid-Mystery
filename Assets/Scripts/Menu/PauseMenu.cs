@@ -59,7 +59,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public static void QuitGame()
-    {
+    {   
         if (PlayerPrefs.HasKey("bossPhase")) 
             PlayerPrefs.DeleteKey("bossPhase");
         Application.Quit();

@@ -8,25 +8,33 @@ public class BossHealth : MonoBehaviour
     [SerializeField] public float maxHealth = 1000f;
     public float currHealth;
     public bool isInvulnerable = false;
-    [SerializeField] private int phase = 0;
 
     public HealthBar healthBar;     // phase 1
     public HealthBar healthBar2;    // phase 2
     private PlayerControl playerControl;
+    private FadingScreen fade;
 
     // Start is called before the first frame update
     public void Start()
     {
+        fade = FindObjectOfType<FadingScreen>();
         currHealth = maxHealth;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            PlayerPrefs.SetInt("bossPhase", 0);
+            DifficultyManager.phase = 0;
         }
         else
         {
-            healthBar.SetSliderMax(maxHealth / 2);
-            healthBar2.SetSliderMax(maxHealth / 2);
-            phase = PlayerPrefs.GetInt("bossPhase");
+           Debug.LogWarning(DifficultyManager.phase);
+           healthBar.SetSliderMax(maxHealth / 2);
+           healthBar2.SetSliderMax(maxHealth / 2);
+        
+            if (DifficultyManager.phase == 2)
+            {
+                currHealth = maxHealth / 2;
+                Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
+                healthBar.SetSlider(0f);
+            }
         }
         playerControl = FindObjectOfType<PlayerControl>();
         
@@ -38,12 +46,16 @@ public class BossHealth : MonoBehaviour
         if (currHealth <= 0)
         {
             currHealth = 0;
+            healthBar2.SetSlider(0f);
             Die();
         }
         else if (currHealth <= maxHealth / 2)
         {
-            PhaseTwo();
-            healthBar.SetSlider(0f);
+            if (DifficultyManager.phase <= 1)
+            {
+                PhaseTwo();
+                healthBar.SetSlider(0f);
+            }
             healthBar2.SetSlider(currHealth);
         }
         else
@@ -63,16 +75,16 @@ public class BossHealth : MonoBehaviour
 
     private void PhaseTwo()
     {
-        PlayerPrefs.SetInt("bossPhase", 2);
-        AudioManager.instance.TriggerPhaseTwoMusic();
+        DifficultyManager.phase = 2;
+        AudioManager.instance.PhaseMusicChange(2);
     }
 
     private void Die()
     {
+        FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
-        AudioManager.instance.PauseAllEvents();
-        playerControl.gameObject.SetActive(false);
-        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
+        AudioManager.instance.PhaseMusicChange(3);
+        StartCoroutine(fade.FadeToBlack());
     }
     
 

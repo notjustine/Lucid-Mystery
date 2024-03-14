@@ -33,15 +33,13 @@ public class Attack : MonoBehaviour
             BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
             if (bossStates.isSleeping)
             {
-                AudioManager.instance.TriggerPhaseOneMusic();
-                PlayerPrefs.SetInt("bossPhase", 1);
+                AudioManager.instance.PhaseMusicChange(1);
+                DifficultyManager.phase = 1;
+                bossStates.isSleeping = false;
             }
-            bossStates.isSleeping = false;
+            
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
-            // Debug.Log("Enemy Hit");
-
-            // Destroy(collision.gameObject);
         }
     }
 }

@@ -11,7 +11,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     [SerializeField] private GameObject circularWarningPrefab;
     public float warningDuration = 2.5f; // Duration before the attack hits
     public float attackDuration = 1f; // Duration of the attack visual effect
-    public TextMeshProUGUI warningText;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
     private DifficultyManager difficultyManager;
@@ -20,7 +19,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
 
     private void Start()
     {
-        warningText.gameObject.SetActive(false);
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
 
@@ -39,9 +37,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
 
     private IEnumerator AttackSequence(int tileIndex)
     {
-        warningText.gameObject.SetActive(true);
-        warningText.text = "Avoid tiles with Indicator!!";
-        StartCoroutine(FlashWarningText());
 
         List<string> warned = warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.SLAM);
         // foreach (var ring in arenaInitializer.tilePositions)
@@ -56,7 +51,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         // }
         yield return new WaitForSeconds(warningDuration);
 
-        warningText.gameObject.SetActive(false);
         warningManager.ToggleWarning(warned, false, WarningManager.WarningType.SLAM);  // turn off warnings on those tiles
         // Instantiate spikes
         foreach (var ring in arenaInitializer.tilePositions)
@@ -108,18 +102,22 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         }
     }
 
-
-    private IEnumerator FlashWarningText()
+        // Satisfies IWarningGenerator interface
+    public List<string> GetWarningTiles()
     {
-        float flashDuration = warningDuration;
-        float startTime = Time.time;
-        while (Time.time - startTime < flashDuration)
-        {
-            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
-            warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
-            yield return null;
-        }
-        warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
+        Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
+        string tilename = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
+
+        // Pluck out the left-right index of the current tile
+        string leftRightIndex = tilename.Substring(3, 2);
+        Debug.Log($"slam GetWarning {leftRightIndex}");
+
+        return new List<string> {
+            $"R1_{leftRightIndex}",
+            $"R2_{leftRightIndex}",
+            $"R3_{leftRightIndex}",
+            $"R4_{leftRightIndex}",
+        };
     }
 
 

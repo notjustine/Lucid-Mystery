@@ -19,6 +19,9 @@ public class MusicEventHandler : MonoBehaviour
 
     private static int markerTime;
     
+    int positionOccurrences = 0;
+    int lastPosition = 0;
+    
     private const float inputDelay = 175f;
     private const float startDelay = 0f;
 
@@ -46,9 +49,11 @@ public class MusicEventHandler : MonoBehaviour
     private EventDescription descriptionCallback;
 
     private EventInstance eventInstance;
+    private BossStates bossStates;
 
     private void Start()
     {
+        bossStates = FindObjectOfType<BossStates>();
         player = FindObjectOfType<PlayerControl>();
         EventDescription des;
         eventInstance.getDescription(out des);
@@ -60,7 +65,7 @@ public class MusicEventHandler : MonoBehaviour
     private void AssignMusicCallbacks()
     {
         timelineInfo = new TimelineInfo();
-        beatCallback = new EVENT_CALLBACK(BeatEventCallback);
+        beatCallback = BeatEventCallback;
 
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         eventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
@@ -72,14 +77,27 @@ public class MusicEventHandler : MonoBehaviour
         timelineInfo.songLength = length;
 
         RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
-
-        // FMODUnity.RuntimeManager.CoreSystem.getSoftwareFormat(out _, out FMOD.SPEAKERMODE speakerMode, out int numRawSpeakers);
     }
 
     private void StartMusic()
     {
         eventInstance.start();
         AssignMusicCallbacks();
+        switch (DifficultyManager.phase)
+        {
+            case 0:
+                SetMainMusicPhaseParameter(0);
+                break;
+            case 1:
+                SetMainMusicPhaseParameter(1);
+                break;
+            case 2:
+                SetMainMusicPhaseParameter(2);
+                break;
+            default:
+                SetMainMusicPhaseParameter(0);
+                break;
+        }
     }
 
     private void SetTrackStartInfo()
@@ -90,8 +108,6 @@ public class MusicEventHandler : MonoBehaviour
     private void UpdateDSPClock()
     {
         masterChannelGroup.getDSPClock(out dspClock, out _);
-        
-        // currentSamples = dspClock;
     }
 
     private void Update()
@@ -117,6 +133,20 @@ public class MusicEventHandler : MonoBehaviour
 
         if (beatInterval == 0f)
             return;
+        // Debug.Log(timelineInfo.currentPosition);
+        if (timelineInfo.currentPosition == lastPosition)
+        {
+            positionOccurrences++;
+        }
+        else if (positionOccurrences > 5)
+        {
+            bossStates.isSleeping = false;
+        }
+        else
+        {
+            positionOccurrences = 0;
+            lastPosition = timelineInfo.currentPosition;
+        }
         
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  
