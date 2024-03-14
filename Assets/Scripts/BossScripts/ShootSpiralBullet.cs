@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FMOD;
 using UnityEngine;
 
-public class ShootSprayBullet : MonoBehaviour
+public class ShootSpiralBullet : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
 
