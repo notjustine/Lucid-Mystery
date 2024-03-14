@@ -81,6 +81,9 @@ public class PlayerControl : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
     }
 
+    /**
+        If 'direction' is positive, moves to the right.
+    */
     void MoveToAdjacentTile(int direction)
     {
         var currentRing = arenaInitializer.tilePositions[currentRingIndex];
@@ -89,14 +92,22 @@ public class PlayerControl : MonoBehaviour
         MoveToCurrentTile();
     }
 
+
+    /**
+        Logically moves the player to the outermost ring, and stays in the same left-to-right position.
+    */
     public void MoveToBackTile()
     {
         currentRingIndex = 3;
         currentTileIndex = Mathf.Clamp(currentTileIndex, 0, arenaInitializer.tilePositions[currentRingIndex].Count - 1);
-       
+
         MoveToCurrentTile();
     }
 
+
+    /**
+        If direction is negative, player moves towards the center of arena.
+    */
     void MoveToAdjacentRing(int direction)
     {
         currentRingIndex += direction;
@@ -105,6 +116,10 @@ public class PlayerControl : MonoBehaviour
         MoveToCurrentTile();
     }
 
+
+    /**
+        Physically move the player to location according to current logical location (currentRingIndex + currentTileIndex)
+    */
     void MoveToCurrentTile()
     {
         // Debug.Log("TileIndex is : " + currentTileIndex);
@@ -115,6 +130,7 @@ public class PlayerControl : MonoBehaviour
         inputted = true;
 
     }
+
 
     public void SwitchPlayerMap(string map)
     {
