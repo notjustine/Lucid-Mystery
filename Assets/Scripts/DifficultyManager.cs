@@ -41,9 +41,9 @@ public class DifficultyManager : MonoBehaviour
         STEAM_TIMING,
         SLAM_DAMAGE,
         SLAM_TIMING,
-        SPRAY_BULLET_DAMAGE,
+        SPIRAL_BULLET_DAMAGE,
         SNIPER_BULLET_SPEED,
-        SPRAY_BULLET_SPEED,
+        SPIRAL_BULLET_SPEED,
         COOLDOWN,
     }
 
@@ -132,9 +132,9 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
 
-        difficultyMap[(StatName.SPRAY_BULLET_DAMAGE, Difficulty.EASY)] = 3f;
-        difficultyMap[(StatName.SPRAY_BULLET_DAMAGE, Difficulty.MEDIUM)] = 5f;
-        difficultyMap[(StatName.SPRAY_BULLET_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.EASY)] = 3f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.MEDIUM)] = 5f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.HARD)] = 7f;
 
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 5f;
@@ -145,9 +145,9 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 140f;
 
-        difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.EASY)] = 30f;
-        difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
-        difficultyMap[(StatName.SPRAY_BULLET_SPEED, Difficulty.HARD)] = 75f;
+        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.EASY)] = 30f;
+        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
+        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.HARD)] = 75f;
 
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.EASY)] = 4f;
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.MEDIUM)] = 3f;
@@ -166,7 +166,7 @@ public class DifficultyManager : MonoBehaviour
     /** 
         Accesses the difficultyMap to get the current stat value for a given stat and difficulty combo.  
 
-        NOTE:  CAN be used on the fly, as with the SlamAttack, Sniper, Spray stats.
+        NOTE:  CAN be used on the fly, as with the SlamAttack, Sniper, Spiral stats.
     */
     public float GetValue(StatName stat)
     {
