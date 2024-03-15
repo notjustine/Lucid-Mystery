@@ -8,6 +8,7 @@ TagManager:
   - Enviorment
   - Weapon
   - Arena
+  - Turret
   layers:
   - Default
   - TransparentFX
