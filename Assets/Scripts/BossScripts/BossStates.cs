@@ -200,7 +200,7 @@ public class BossStates : MonoBehaviour
         if (spiralAttack != null)
         {
             // Debug.Log("Performing Spiral Attack");
-            spiralAttack.TriggerShootAndRotate();
+            spiralAttack.TriggerAttack();
         }
     }
 
