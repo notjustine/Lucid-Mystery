@@ -25,19 +25,19 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           Debug.LogWarning(DifficultyManager.phase);
-           healthBar.SetSliderMax(maxHealth / 2);
-           healthBar2.SetSliderMax(maxHealth / 2);
-        
+            Debug.LogWarning(DifficultyManager.phase);
+            healthBar.SetSliderMax(maxHealth / 2);
+            healthBar2.SetSliderMax(maxHealth / 2);
+
             if (DifficultyManager.phase == 2)
             {
                 currHealth = maxHealth / 2;
-                Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
+                // Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
                 healthBar.SetSlider(0f);
             }
         }
         playerControl = FindObjectOfType<PlayerControl>();
-        
+
     }
     public void TakeDamage(float amount)
     {
@@ -86,7 +86,7 @@ public class BossHealth : MonoBehaviour
         AudioManager.instance.PhaseMusicChange(3);
         StartCoroutine(fade.FadeToBlack());
     }
-    
+
 
     public void resetHealth()
     {

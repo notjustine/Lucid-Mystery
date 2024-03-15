@@ -88,7 +88,7 @@ public class PlayerControl : MonoBehaviour
     {
         var currentRing = arenaInitializer.tilePositions[currentRingIndex];
         currentTileIndex = (currentTileIndex + direction + currentRing.Count) % currentRing.Count;
-        Debug.Log($"Moving to adjacent tile, direction: {direction}");
+        // Debug.Log($"Moving to adjacent tile, direction: {direction}");
         MoveToCurrentTile();
     }
 
