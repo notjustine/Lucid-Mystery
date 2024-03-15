@@ -10,6 +10,7 @@ TagManager:
   - Arena
   - ComboMeter
   - Tile
+  - Turret
   layers:
   - Default
   - TransparentFX
