@@ -187,7 +187,7 @@ public class DifficultyManager : MonoBehaviour
         playerAttack = FindObjectOfType<Attack>();
         bossStates = FindAnyObjectByType<BossStates>();
 
-        playerAttack.SetPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
+        playerAttack.SetMaxPlayerDamage(difficultyMap[(StatName.PLAYER_DAMAGE, currDifficulty)]);
         steam.SetSteamDamage(difficultyMap[(StatName.STEAM_DAMAGE, currDifficulty)]);
         bossStates.SetCooldown(difficultyMap[(StatName.COOLDOWN, currDifficulty)]);
     }

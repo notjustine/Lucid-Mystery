@@ -8,35 +8,46 @@ public class BeatCheckController : MonoBehaviour
     [SerializeField] private PlayerControl player;
     [SerializeField] private SniperAttack sniper;
     private bool playerVulnerable;
+    private Attack attack;
 
     // Get access to the PlayController instance, and set it. 
     void Start()
     {
         player = FindObjectOfType<PlayerControl>();
         sniper = FindObjectOfType<SniperAttack>();
+        attack = FindObjectOfType<Attack>();
         playerVulnerable = true;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (context.phase != InputActionPhase.Started)
+            return;
+        
         if (MusicEventHandler.beatCheck)
         {
             player.OnMove(context);
+            attack.UpdateCombo(Attack.ComboChange.INCREASE);
         }
         else
         {
+            attack.UpdateCombo(Attack.ComboChange.DECREASE);
             sniper.TriggerAttack();
         }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (context.phase != InputActionPhase.Started)
+            return;
+        
         if (MusicEventHandler.beatCheck)
         {
             player.OnAttack(context);
         }
         else
         {
+            attack.UpdateCombo(Attack.ComboChange.DECREASE);
             sniper.TriggerAttack();
         }
     }
