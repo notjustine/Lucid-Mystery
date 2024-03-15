@@ -38,7 +38,11 @@ public class SpiralAttack : MonoBehaviour
 
     IEnumerator TripleShootAndRotate(ShootSpiralBullet[] turrets)
     {
+        // Offer warning blinks
+        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
+        yield return new WaitForSeconds(warningTime);  // adds some padding between shoot and rotations
         // First round of shots.
+        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
         Shoot(turrets);
         // increment the target index because we already shot at above.
         currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
@@ -52,8 +56,9 @@ public class SpiralAttack : MonoBehaviour
             turretsRig.transform.rotation = Quaternion.RotateTowards(turretsRig.transform.rotation, firstTargetRotation, turretRotationSpeed * Time.deltaTime);
             yield return null;
         }
-
-        yield return new WaitForSeconds(0.5f);  // adds some padding between shoot and rotations
+        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
+        yield return new WaitForSeconds(warningTime);  // adds some padding between shoot and rotations
+        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
         // Second round of shots.
         Shoot(turrets);
         // increment the target index
@@ -68,8 +73,9 @@ public class SpiralAttack : MonoBehaviour
             turretsRig.transform.rotation = Quaternion.RotateTowards(turretsRig.transform.rotation, secondTargetRotation, turretRotationSpeed * Time.deltaTime);
             yield return null;
         }
-
-        yield return new WaitForSeconds(0.5f);
+        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
+        yield return new WaitForSeconds(warningTime);
+        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
 
         // Third and final round of shots until attack is triggered again.
         Shoot(turrets);
