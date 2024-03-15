@@ -72,16 +72,9 @@ public class WarningManager : MonoBehaviour
     }
 
 
-    /** TO-DO: rename this if only sniper uses it */
-    public List<string> GetWarningsOfType(WarningType type)
+    public List<string> GetSniperWarnings()
     {
-        switch (type)
-        {
-            case WarningType.SNIPER:
-                return sniperWarnings;
-            default:
-                return new List<string>();
-        }
+        return sniperWarnings;
     }
 
 
