@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class WarningManager : MonoBehaviour
 {
@@ -13,15 +12,31 @@ public class WarningManager : MonoBehaviour
         SPIRAL,
     }
 
-    [SerializeField] Material original;
-    [SerializeField] Material warning;
-
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> sniperWarnings;
     private List<string> allWarnings;
 
+    // for blink effect
+    [SerializeField] Color blinkStart;
+    [SerializeField] Color blinkEnd;
+    private GameObject tempTile;
+    private MeshRenderer tempRenderer;
+    private MaterialPropertyBlock propBlock;
+    // end blink effect
+
 
     public static WarningManager Instance { get; private set; }
+
+    /**
+         FOR REFERENCE:  THIS ACTUALLY WORKS TO CHANGE COLOR OF A SHADER
+
+        testSphere = GameObject.Find("test-to-delete");
+        testRenderer = testSphere.GetComponent<MeshRenderer>();
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        testRenderer.GetPropertyBlock(propBlock);
+        propBlock.SetColor("_BaseColor", blinkEnd);  // double check that the name in the inspector is actually "Base Color"
+        testRenderer.SetPropertyBlock(propBlock);
+    */
 
 
     private void Awake()
@@ -39,6 +54,21 @@ public class WarningManager : MonoBehaviour
         sniperWarnings = new List<string>();
         allWarnings = new List<string>();
         InitLogicToPhysMapping();
+    }
+
+
+    void Update()
+    {
+        // Every name found in allWarnings should be blinking.
+        foreach (string tilename in allWarnings)
+        {
+            tempTile = GameObject.Find(tilename);
+            tempRenderer = tempTile.GetComponent<MeshRenderer>();
+            propBlock = new MaterialPropertyBlock();
+            tempRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetColor("_BaseColor", Color.Lerp(blinkStart, blinkEnd, Mathf.PingPong(Time.time, .6f)));
+            tempRenderer.SetPropertyBlock(propBlock);
+        }
     }
 
 
@@ -68,8 +98,7 @@ public class WarningManager : MonoBehaviour
             MeshRenderer renderer = tileToChange.GetComponent<MeshRenderer>();
             if (warningActive)
             {
-                renderer.material = warning;
-                TrackWarning(tiles[i], type);  // So that the material can be reset when bullet is destroyed
+                TrackWarning(tiles[i], type);  // So that Update function can make it blink
             }
             else
             {
@@ -101,7 +130,10 @@ public class WarningManager : MonoBehaviour
     {
         if (!allWarnings.Contains(tilename))
         {
-            renderer.material = original;
+            propBlock = new MaterialPropertyBlock();
+            renderer.GetPropertyBlock(propBlock);
+            propBlock.SetColor("_BaseColor", blinkStart);
+            renderer.SetPropertyBlock(propBlock);
         }
     }
 
