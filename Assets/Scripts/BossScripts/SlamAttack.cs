@@ -38,7 +38,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     private IEnumerator AttackSequence(int tileIndex)
     {
 
-        List<string> warned = warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.SLAM);
+        List<string> warned = warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SLAM);
         // foreach (var ring in arenaInitializer.tilePositions)
         // {
         //     if (tileIndex < ring.Count)
@@ -103,7 +103,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     }
 
     // Satisfies IWarningGenerator interface
-    public List<string> GetWarningTiles()
+    public List<string> GetWarningObjects()
     {
         Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
         string tilename = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
