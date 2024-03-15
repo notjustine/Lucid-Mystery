@@ -24,10 +24,9 @@ public class SpiralAttack : MonoBehaviour
 
 
     /**
-   Can be called by some AI controller to trigger the Shoot and Rotate attack.
-   Note:  intentionally not in use while we are using timer above.
-   */
-    public void TriggerShootAndRotate()
+        Begins the turret rotate-and-shoot attack.
+    */
+    public void TriggerAttack()
     {
         StartCoroutine(TripleShootAndRotate(turrets));
     }
