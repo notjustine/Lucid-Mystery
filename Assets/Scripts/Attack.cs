@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
@@ -12,16 +13,23 @@ public class Attack : MonoBehaviour
     [SerializeField] private int combo = 0;
     [SerializeField] private int maxCombo = 5;
     [SerializeField] private float comboScaler = 0.1f;
+    private Slider comboSlider;
     
     public enum ComboChange { INCREASE, DECREASE, RESET }
 
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
+        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Slider>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
             maxPlayerDamage = difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE);  // get default on startup
         comboScaler = maxPlayerDamage / maxCombo;
+    }
+
+    void Update()
+    {
+        comboSlider.value = combo;
     }
     
     

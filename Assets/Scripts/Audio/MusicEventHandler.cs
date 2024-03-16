@@ -177,7 +177,12 @@ public class MusicEventHandler : MonoBehaviour
         }
 
     }
-    
+
+    private void FixedUpdate()
+    {
+        Update();
+    }
+
     public void SetMainMusicPhaseParameter(int phase)
     {
         eventInstance.setParameterByName("current_phase", phase);

@@ -8,6 +8,7 @@ TagManager:
   - Enviorment
   - Weapon
   - Arena
+  - ComboMeter
   layers:
   - Default
   - TransparentFX
