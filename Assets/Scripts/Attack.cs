@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour
         else if (change == ComboChange.INCREASE)
             combo = Math.Min(combo + 1, maxCombo);
         else if (change == ComboChange.DECREASE)
-            combo = Math.Max(combo - 1, 0);
+            combo = Math.Max(combo - 2, 0);
         
         if (combo == 0)
             playerDamage = 1;
@@ -69,7 +69,6 @@ public class Attack : MonoBehaviour
             
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
-            UpdateCombo(ComboChange.RESET);
         }
     }
 }
