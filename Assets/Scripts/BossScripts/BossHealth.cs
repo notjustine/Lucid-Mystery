@@ -25,7 +25,6 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           Debug.LogWarning(DifficultyManager.phase);
            healthBar.SetSliderMax(maxHealth / 2);
            healthBar2.SetSliderMax(maxHealth / 2);
         

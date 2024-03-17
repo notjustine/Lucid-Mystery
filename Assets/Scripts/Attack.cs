@@ -36,7 +36,8 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        comboSlider.sprite = comboSprites[combo - 1];
+        if (comboSlider) 
+            comboSlider.sprite = comboSprites[combo - 1];
     }
     
     
