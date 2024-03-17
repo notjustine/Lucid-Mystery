@@ -2,29 +2,64 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
     private BossStates bossStates;
     private DifficultyManager difficultyManager;
     public float playerDamage;
-    
+    private float maxPlayerDamage;
+    [SerializeField] private int combo = 1;
+    [SerializeField] private int maxCombo = 5;
+    [SerializeField] private float comboScaler = 0.1f;
+    private Image comboSlider;
+    [SerializeField] private Sprite[] comboSprites;
+
+    public enum ComboChange
+    {
+        INCREASE,
+        DECREASE,
+        DECREASE2,
+        RESET
+    }
 
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
+        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
-            playerDamage = difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE);  // get default on startup
+            SetMaxPlayerDamage(difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE));
+        comboScaler = maxPlayerDamage / maxCombo;
+    }
+
+    void Update()
+    {
+        comboSlider.sprite = comboSprites[combo - 1];
     }
     
     
     // Allows DifficultyManager to push changes to the player damage.
-    public void SetPlayerDamage(float damage) 
+    public void SetMaxPlayerDamage(float damage) 
     {
-        playerDamage = damage;
+        maxPlayerDamage = damage;
+        comboScaler = maxPlayerDamage / maxCombo;
     }
     
+    public void UpdateCombo(ComboChange change)
+    {
+        combo = change switch
+        {
+            ComboChange.INCREASE => Math.Min(combo + 1, maxCombo),
+            ComboChange.DECREASE => Math.Max(combo - 1, 1),
+            ComboChange.DECREASE2 => Math.Max(combo - 2, 1),
+            ComboChange.RESET => 1,
+            _ => 1
+        };
+
+        playerDamage = (comboScaler * combo);
+    }
 
     void OnCollisionEnter(Collision collision)
     {

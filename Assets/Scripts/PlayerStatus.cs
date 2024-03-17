@@ -8,6 +8,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private bool isInviciible = false;
     private float currHealth;
+    private Attack attack;
 
     public HealthBar healthBar;
     // Start is called before the first frame update
@@ -15,6 +16,7 @@ public class PlayerStatus : MonoBehaviour
     {
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
+        attack = FindObjectOfType<Attack>();
     }
 
     public void TakeDamage(float amount)
@@ -22,14 +24,12 @@ public class PlayerStatus : MonoBehaviour
         AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInviciible)
             return;
-        if (currHealth <= 0)
-        {
-            currHealth = 0;
-            healthBar.SetSlider(0f);
-            Die();
-        }
+        
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
+        attack.UpdateCombo(Attack.ComboChange.DECREASE2);
+        if (currHealth <= 0)
+            Die();
     }
     public void Heal(float amount)
     {
