@@ -20,6 +20,7 @@ public class Attack : MonoBehaviour
     {
         INCREASE,
         DECREASE,
+        DECREASE2,
         RESET
     }
 
@@ -48,13 +49,15 @@ public class Attack : MonoBehaviour
     
     public void UpdateCombo(ComboChange change)
     {
-        if (change == ComboChange.RESET)
-            combo = 1;
-        else if (change == ComboChange.INCREASE)
-            combo = Math.Min(combo + 1, maxCombo);
-        else if (change == ComboChange.DECREASE)
-            combo = Math.Max(combo - 2, 1);
-        
+        combo = change switch
+        {
+            ComboChange.INCREASE => Math.Min(combo + 1, maxCombo),
+            ComboChange.DECREASE => Math.Max(combo - 1, 1),
+            ComboChange.DECREASE2 => Math.Max(combo - 2, 1),
+            ComboChange.RESET => 1,
+            _ => 1
+        };
+
         playerDamage = (comboScaler * combo);
     }
 

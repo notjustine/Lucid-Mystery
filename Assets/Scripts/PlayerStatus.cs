@@ -27,7 +27,7 @@ public class PlayerStatus : MonoBehaviour
         
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
-        attack.UpdateCombo(Attack.ComboChange.DECREASE);
+        attack.UpdateCombo(Attack.ComboChange.DECREASE2);
         if (currHealth <= 0)
             Die();
     }
