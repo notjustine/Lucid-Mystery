@@ -10,26 +10,32 @@ public class Attack : MonoBehaviour
     private DifficultyManager difficultyManager;
     public float playerDamage;
     private float maxPlayerDamage;
-    [SerializeField] private int combo = 0;
+    [SerializeField] private int combo = 1;
     [SerializeField] private int maxCombo = 5;
     [SerializeField] private float comboScaler = 0.1f;
-    private Slider comboSlider;
-    
-    public enum ComboChange { INCREASE, DECREASE, RESET }
+    private Image comboSlider;
+    [SerializeField] private Sprite[] comboSprites;
+
+    public enum ComboChange
+    {
+        INCREASE,
+        DECREASE,
+        RESET
+    }
 
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
-        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Slider>();
+        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
-            maxPlayerDamage = difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE);  // get default on startup
+            SetMaxPlayerDamage(difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE));
         comboScaler = maxPlayerDamage / maxCombo;
     }
 
     void Update()
     {
-        comboSlider.value = combo;
+        comboSlider.sprite = comboSprites[combo - 1];
     }
     
     
@@ -43,16 +49,13 @@ public class Attack : MonoBehaviour
     public void UpdateCombo(ComboChange change)
     {
         if (change == ComboChange.RESET)
-            combo = 0;
+            combo = 1;
         else if (change == ComboChange.INCREASE)
             combo = Math.Min(combo + 1, maxCombo);
         else if (change == ComboChange.DECREASE)
-            combo = Math.Max(combo - 2, 0);
+            combo = Math.Max(combo - 2, 1);
         
-        if (combo == 0)
-            playerDamage = 1;
-        else
-            playerDamage = (comboScaler * combo);
+        playerDamage = (comboScaler * combo);
     }
 
     void OnCollisionEnter(Collision collision)
