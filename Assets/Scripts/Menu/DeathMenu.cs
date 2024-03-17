@@ -85,6 +85,7 @@ public class DeathMenu : MonoBehaviour
     private void OnDestroy()
     {
         Time.timeScale = 1;
-        deathMusic.Stop();
+        if (deathMusic)
+            deathMusic.Stop();
     }
 }

@@ -8,7 +8,7 @@ public class FadingScreen : MonoBehaviour
 {
     private Image black;
     private PlayerControl player;
-    private float fadeSpeed = 1f;
+    private float fadeSpeed = 0.5f;
     // Start is called before the first frame update
     void Start()
     {

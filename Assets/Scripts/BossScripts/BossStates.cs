@@ -41,8 +41,6 @@ public class BossStates : MonoBehaviour
                 isSleeping = true;
                 break;
         }
-        Debug.Log(isSleeping);
-        Debug.Log(DifficultyManager.phase);
     }
     void Update()
     {
@@ -52,7 +50,10 @@ public class BossStates : MonoBehaviour
     void bossStateMachine()
     {
         if (isSleeping)
+        {
+            StopAllCoroutines();            
             return;
+        }
 
         switch (currentState)
         {
@@ -64,7 +65,7 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Attacking;
                 break;
             case BossState.Attacking:
-                Debug.Log("Attempting to Perform Attack");
+                // Debug.Log("Attempting to Perform Attack");
                 PerformAttack(nextAttack);
                 currentState = BossState.Cooldown;
                 break;
