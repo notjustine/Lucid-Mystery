@@ -30,6 +30,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private SniperAttack sniper;
+    int initPosRing;
+    int initPosTile;
+    int moveCount;
 
     private bool playerHasAttacked = false;
 
@@ -52,13 +55,16 @@ public class TutorialManager : MonoBehaviour
         comboImage.GetComponent<CanvasRenderer>().SetAlpha(0f);
         playerControl.OnAttackEvent += CheckAndSetPlayerAttack;
         playerControl.OnMoveEvent += CheckAndSetPlayerMove;
+        initPosRing = arenaInitializer.tilePositions.Count - 1;
+        initPosTile = 1;
+        moveCount = 0;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("PatentEnvironment");
+            Invoke("delayEnd", 0.3f);
         }
         switch (currentState)
         {
@@ -69,7 +75,15 @@ public class TutorialManager : MonoBehaviour
             case TutorialState.OnBeat:
                 directions.enabled = false;
                 onBeat.enabled = true;
-                if (playerControl.currentRingIndex != arenaInitializer.tilePositions.Count - 1 || playerControl.currentTileIndex != 1)
+                
+                
+                if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
+                {
+                    initPosRing = playerControl.currentRingIndex;
+                    initPosTile = playerControl.currentTileIndex;
+                    moveCount += 1;
+                }
+                if (moveCount >= 3)
                 {
                     onBeat.enabled = false;
                     currentState = TutorialState.Strengthen;
@@ -92,7 +106,6 @@ public class TutorialManager : MonoBehaviour
                     hit.enabled = false;
                     currentState = TutorialState.Attack;
                 }
-                
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
