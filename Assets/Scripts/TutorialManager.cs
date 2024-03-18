@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public enum TutorialState
@@ -20,16 +19,17 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject centralMachine;
     [SerializeField] private GameObject Phase1HP;
     [SerializeField] private GameObject Phase2HP;
-    [SerializeField] private GameObject comboImage;
-    [SerializeField] private PlayerControl playerControl;
-    [SerializeField] private GameObject Sniper;
-    [SerializeField] private ArenaInitializer arenaInitializer;
+    private Image comboImage;
+    private PlayerControl playerControl;
+    private ArenaInitializer arenaInitializer;
     [SerializeField] private Image skip;
     [SerializeField] private Image onBeat;
     [SerializeField] private Image directions;
     [SerializeField] private Image hit;
     [SerializeField] private Image attack;
-    private Attack playerAtk;
+    [SerializeField] private Image consecutive;
+    [SerializeField] private Attack playerAtk;
+    [SerializeField] private SniperAttack sniper;
 
     private bool playerHasAttacked = false;
 
@@ -40,20 +40,18 @@ public class TutorialManager : MonoBehaviour
         directions.enabled = true;
         onBeat.enabled = false;
         hit.enabled = false;
+        consecutive.enabled = false;
         attack.enabled = false;
+        sniper.enabled = false;
         centralMachine.SetActive(false);
         Phase1HP.SetActive(false);
         Phase2HP.SetActive(false);
-        comboImage.SetActive(false);
-        Sniper.SetActive(false);
+        arenaInitializer = FindObjectOfType<ArenaInitializer>();
+        playerControl = FindObjectOfType<PlayerControl>();
+        comboImage = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
+        comboImage.GetComponent<CanvasRenderer>().SetAlpha(0f);
         playerControl.OnAttackEvent += CheckAndSetPlayerAttack;
         playerControl.OnMoveEvent += CheckAndSetPlayerMove;
-        playerAtk = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Attack>();
-        if (playerAtk)
-        {
-            Debug.Log("disable weapon attack");
-            playerAtk.enabled = false;
-        }
     }
 
     void Update()
@@ -71,7 +69,6 @@ public class TutorialManager : MonoBehaviour
             case TutorialState.OnBeat:
                 directions.enabled = false;
                 onBeat.enabled = true;
-                Sniper.SetActive(true);
                 if (playerControl.currentRingIndex != arenaInitializer.tilePositions.Count - 1 || playerControl.currentTileIndex != 1)
                 {
                     onBeat.enabled = false;
@@ -79,11 +76,12 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.Strengthen:
-                Debug.Log("Moving on beat consecutively strengthens you");
-                comboImage.SetActive(true);
-                playerAtk.enabled = true;
+                sniper.enabled = true;
+                consecutive.enabled = true;
+                comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
                 if (playerAtk.getCombo() == 5)
                 {
+                    consecutive.enabled = false;
                     currentState = TutorialState.ApproachMachine;
                 }
                 break;
@@ -91,12 +89,12 @@ public class TutorialManager : MonoBehaviour
                 hit.enabled = true;
                 if (playerControl.currentRingIndex == 0)
                 {
+                    hit.enabled = false;
                     currentState = TutorialState.Attack;
                 }
                 
                 break;
             case TutorialState.Attack:
-                hit.enabled = false;
                 attack.enabled = true;
                 if (playerHasAttacked && playerControl.currentRingIndex == 0)
                 {
@@ -106,6 +104,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 else if (playerControl.currentRingIndex != 0)
                 {
+                    attack.enabled = false;
                     currentState = TutorialState.ApproachMachine;
                     playerHasAttacked = false;
                 }
