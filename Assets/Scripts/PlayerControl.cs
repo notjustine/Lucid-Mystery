@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     private Transform cameraTransform;
     private PlayerInput input;
     public event Action OnAttackEvent;
+    public event Action OnMoveEvent;
 
     private static readonly int Attack1 = Animator.StringToHash("Attack");
 
@@ -37,6 +38,7 @@ public class PlayerControl : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        OnMoveEvent?.Invoke();
         if (!MusicEventHandler.beatCheck || inputted || context.phase != InputActionPhase.Started)
             return;
 

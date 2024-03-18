@@ -16,6 +16,8 @@ public class Attack : MonoBehaviour
     private Image comboSlider;
     [SerializeField] private Sprite[] comboSprites;
 
+    public int getCombo() { return combo; }
+
     public enum ComboChange
     {
         INCREASE,
