@@ -51,22 +51,7 @@ public class CutSceneHandler : MonoBehaviour
 
     private void EndReached(VideoPlayer vp)
     {
-        StartCoroutine(TransitionToScene(vp));
-    }
-    
-    IEnumerator TransitionToScene(VideoPlayer vp)
-    {
-        yield return StartCoroutine(fade.FadeToBlack("", 1f));
-        if (isIntro)
-        {
-            // StartCoroutine(fade.FadeToBlack("s",1f));
-            a.allowSceneActivation = true;
-        }
-        else
-        {
-            deathMenu.gameObject.SetActive(true);
-            vp.Stop();
-        }
+        FadingScreenManager.Instance.CutSceneTransitionToScene(1f, isIntro, a, deathMenu, vp);
     }
     
 }

@@ -53,8 +53,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // SceneManager.LoadScene("PatentEnvironment");
-            StartCoroutine(TransitionToScene());
+            FadingScreenManager.Instance.AsyncTransitionToScene(1f, asyncSceneLoad);
         }
         
         switch (currentState)
@@ -100,23 +99,9 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                //SceneManager.LoadScene("PatentEnvironment");
-                // Invoke("delayEnd", 0.3f);
-                StartCoroutine(TransitionToScene());
+                FadingScreenManager.Instance.AsyncTransitionToScene(1f, asyncSceneLoad);
                 break;
         }
-    }
-
-    void delayEnd()
-    {
-        StartCoroutine(TransitionToScene());
-    }
-
-    IEnumerator TransitionToScene()
-    {
-        yield return StartCoroutine(fade.FadeToBlack());
-        // SceneManager.LoadScene("PatentEnvironment");
-        asyncSceneLoad.allowSceneActivation = true;
     }
     
     void CheckAndSetPlayerAttack()

@@ -43,16 +43,11 @@ public class MainMenu : MonoBehaviour
         if (difficulty.gameObject.activeSelf && DifficultyManager.Instance.hasChanged)
         {
             fadingScreen.gameObject.SetActive(true);
-            StartCoroutine(TransitionToScene());
+            FadingScreenManager.Instance.TransitionToScene(sceneName, 1f);
             DifficultyManager.Instance.hasChanged = false;
         }
     }
-    
-    IEnumerator TransitionToScene()
-    {
-        yield return StartCoroutine(fadingScreen.FadeToBlack("", 1f));
-        SceneManager.LoadScene(sceneName);
-    }
+
 
     private void Start()
     {

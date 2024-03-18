@@ -83,7 +83,7 @@ public class BossHealth : MonoBehaviour
         FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
-        StartCoroutine(fade.FadeToBlack());
+        FadingScreenManager.Instance.DeathMenuTransitionToScene();
     }
     
 
