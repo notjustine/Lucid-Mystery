@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - Arena
   - ComboMeter
+  - Tile
   layers:
   - Default
   - TransparentFX

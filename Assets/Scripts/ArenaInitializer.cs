@@ -5,7 +5,7 @@ public class ArenaInitializer : MonoBehaviour
 {
     public float[] ringRadii;
     public List<List<Vector3>> tilePositions = new List<List<Vector3>>();
-    public int tilesPerRing = 24; // Example: 24 tiles per ring, adjust as necessary
+    public int tilesPerRing = 24;
 
     void Awake()
     {
@@ -35,7 +35,7 @@ public class ArenaInitializer : MonoBehaviour
         float angleRadians = angleDegrees * Mathf.Deg2Rad;
         Vector3 position = new Vector3(
             center.x + radius * Mathf.Cos(angleRadians),
-            center.y, // Adjust Y coordinate based on your game's needs
+            center.y,
             center.z + radius * Mathf.Sin(angleRadians)
         );
         return position;
@@ -54,7 +54,6 @@ public class ArenaInitializer : MonoBehaviour
                 if (distanceSqr < closestDistanceSqr)
                 {
                     closestDistanceSqr = distanceSqr;
-                    // Construct the tile name using the ring and tile index
                     closestTileName = $"R{ringIndex + 1}_{tileIndex + 1}";
                 }
             }

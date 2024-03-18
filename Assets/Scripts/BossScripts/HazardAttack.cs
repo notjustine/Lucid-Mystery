@@ -9,11 +9,18 @@ public class HazardAttack : MonoBehaviour
     [SerializeField] private float hazardTiming;
     [SerializeField] private int numberOfHazards;
     private WarningManager warningManager;
+    private DifficultyManager difficultyManager;
+    private PlayerControl playerControl;
+    private PlayerStatus playerStatus;
+    private float launchSpeed = 5f;
     private HashSet<string> activeHazards = new HashSet<string>();
 
     private void Start()
     {
         warningManager = WarningManager.Instance;
+        difficultyManager = DifficultyManager.Instance;
+        playerControl = FindObjectOfType<PlayerControl>();
+        playerStatus = FindObjectOfType<PlayerStatus>();
     }
 
     private void Update()
@@ -29,6 +36,22 @@ public class HazardAttack : MonoBehaviour
         hazardTiming = DifficultyManager.Instance.GetValue(DifficultyManager.StatName.HAZARD_TIMING);
         numberOfHazards = (int)DifficultyManager.Instance.GetValue(DifficultyManager.StatName.HAZARD_COUNT);
         StartCoroutine(HazardSequence());
+    }
+    public void OnHazardLanded(GameObject hazard, string tileName)
+    {
+        List<string> targetedTilesNames = new List<string>();
+        targetedTilesNames.Add(tileName);
+        RegisterHazardTile(tileName);
+        warningManager.ToggleWarning(targetedTilesNames, true, WarningManager.WarningType.HAZARD);
+        StartCoroutine(CheckPlayerOnHazardousTile(tileName));
+        StartCoroutine(MakeTileNonHazardousAfterDelay(tileName, hazardTiming));
+    }
+
+    private IEnumerator MakeTileNonHazardousAfterDelay(string tileName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        UnregisterHazardTile(tileName);
+        warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
     }
 
     private IEnumerator HazardSequence()
@@ -50,20 +73,33 @@ public class HazardAttack : MonoBehaviour
                 randomIndex = Random.Range(0, allTilePositions.Count);
             } while (!selectedIndices.Add(randomIndex));
 
-            Vector3 targetPosition = allTilePositions[randomIndex] + Vector3.up * 10; 
-            string tileName = arenaInitializer.GetTileNameByPosition(targetPosition - Vector3.up * 10); 
+            Vector3 targetPosition = allTilePositions[randomIndex];
+            Vector3 spawnPosition = targetPosition + Vector3.up * 10; 
+            string tileName = arenaInitializer.GetTileNameByPosition(targetPosition);
             targetedTilesNames.Add(tileName);
 
-            Instantiate(hazardPrefab, targetPosition, Quaternion.identity);
-
-            yield return new WaitForSeconds(0.25f);
+            GameObject hazardInstance = Instantiate(hazardPrefab, spawnPosition, Quaternion.identity);
+            Rigidbody rb = hazardInstance.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.down * launchSpeed;
+            }
         }
-
-        warningManager.ToggleWarning(targetedTilesNames, true, WarningManager.WarningType.HAZARD);
-
         yield return new WaitForSeconds(hazardTiming);
+    }
 
-        warningManager.ToggleWarning(targetedTilesNames, false, WarningManager.WarningType.HAZARD);
+    private IEnumerator CheckPlayerOnHazardousTile(string tileName)
+    {
+        while (activeHazards.Contains(tileName))
+        {
+            Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
+            string currentPlayerTileName = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
+            if (activeHazards.Contains(currentPlayerTileName))
+            {
+                playerStatus.TakeDamage(DifficultyManager.Instance.GetValue(DifficultyManager.StatName.HAZARD_DAMAGE));
+            }
+            yield return new WaitForSeconds(1.5f);
+        }
     }
 
     public void RegisterHazardTile(string tileName)

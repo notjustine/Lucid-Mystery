@@ -3,7 +3,9 @@ guid: 53ae64705c8d7a64aade11ff3385a8fe
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - arenaInitializer: {instanceID: 0}
+  - hazardPrefab: {fileID: 919132149155446097, guid: cf5d4c42f92ad234ca479874105aa9b9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
