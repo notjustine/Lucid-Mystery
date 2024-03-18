@@ -25,7 +25,6 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           Debug.LogWarning(DifficultyManager.phase);
            healthBar.SetSliderMax(maxHealth / 2);
            healthBar2.SetSliderMax(maxHealth / 2);
         
@@ -84,7 +83,7 @@ public class BossHealth : MonoBehaviour
         FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
-        StartCoroutine(fade.FadeToBlack());
+        FadingScreenManager.Instance.DeathMenuTransitionToScene();
     }
     
 

@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject warningText;
     private bool isOptions = false;
     private bool warningTextActive = false;
+    private FadingScreen fade;
     
     
     public void OnPause(InputAction.CallbackContext context)
@@ -31,6 +32,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void ShowPauseMenu()
     {
+        fade.gameObject.SetActive(false);
         warningTextActive = warningText.activeSelf;
         warningText.SetActive(false);
         playerControl.SwitchPlayerMap("UI");
@@ -56,6 +58,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         AudioManager.instance.ResumeAllEvents();
+        fade.gameObject.SetActive(true);
     }
 
     public static void QuitGame()
@@ -92,5 +95,6 @@ public class PauseMenu : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         pauseMenu = gameObject.transform.GetChild(0).gameObject;
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
+        fade = FindObjectOfType<FadingScreen>();
     }
 }

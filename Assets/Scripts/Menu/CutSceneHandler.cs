@@ -11,6 +11,7 @@ public class CutSceneHandler : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private bool isIntro = true;
     private DeathMenu deathMenu;
+    private FadingScreen fade;
     private AsyncOperation a;
     // Start is called before the first frame update
     void Start()
@@ -20,13 +21,21 @@ public class CutSceneHandler : MonoBehaviour
         if (isIntro)
         {
             a = SceneManager.LoadSceneAsync("Tutorial");
+            fade = FindObjectOfType<FadingScreen>();
+            StartCoroutine(StartVideo());
             a.allowSceneActivation = false;
+            
         }
         else
         {
             deathMenu = FindObjectOfType<DeathMenu>(true);
         }
         
+    }
+    
+    IEnumerator StartVideo()
+    {
+        yield return StartCoroutine(fade.FadeFromBlack(1f));
     }
 
     void Update()
@@ -42,15 +51,7 @@ public class CutSceneHandler : MonoBehaviour
 
     private void EndReached(VideoPlayer vp)
     {
-        if (isIntro)
-        {
-            a.allowSceneActivation = true;
-        }
-        else
-        {
-            deathMenu.gameObject.SetActive(true);
-            vp.Stop();
-        }
+        FadingScreenManager.Instance.CutSceneTransitionToScene(1f, isIntro, a, deathMenu, vp);
     }
     
 }
