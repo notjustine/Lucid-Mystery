@@ -22,7 +22,6 @@ public class FadingScreen : MonoBehaviour
             black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a + (fadeSpeed * Time.deltaTime));
             yield return new WaitForSeconds(0.01f);
         }
-
         // if (SceneManager.GetActiveScene().name == "PatentEnvironment")
         // {
         //     AudioManager.instance.PauseAllEvents();

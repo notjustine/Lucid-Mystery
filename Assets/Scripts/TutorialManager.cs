@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -25,11 +26,17 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image directions;
     [SerializeField] private Image hit;
     [SerializeField] private Image attack;
+    private AsyncOperation asyncSceneLoad;
 
     private bool playerHasAttacked = false;
+    private FadingScreen fade;
 
     void Start()
     {
+        fade = FindObjectOfType<FadingScreen>();
+        StartCoroutine(fade.FadeFromBlack(1f));
+        asyncSceneLoad = SceneManager.LoadSceneAsync("PatentEnvironment");
+        asyncSceneLoad.allowSceneActivation = false;
         // Initialize tutorial
         skip.enabled = true;
         onBeat.enabled = true;
@@ -46,8 +53,10 @@ public class TutorialManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("PatentEnvironment");
+            // SceneManager.LoadScene("PatentEnvironment");
+            StartCoroutine(TransitionToScene());
         }
+        
         switch (currentState)
         {
             case TutorialState.Start:
@@ -92,18 +101,25 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialState.End:
                 //SceneManager.LoadScene("PatentEnvironment");
-                Invoke("delayEnd", 0.3f);
-
+                // Invoke("delayEnd", 0.3f);
+                StartCoroutine(TransitionToScene());
                 break;
         }
     }
 
-        void delayEnd()
+    void delayEnd()
     {
-        SceneManager.LoadScene("PatentEnvironment");
+        StartCoroutine(TransitionToScene());
     }
 
-        void CheckAndSetPlayerAttack()
+    IEnumerator TransitionToScene()
+    {
+        yield return StartCoroutine(fade.FadeToBlack());
+        // SceneManager.LoadScene("PatentEnvironment");
+        asyncSceneLoad.allowSceneActivation = true;
+    }
+    
+    void CheckAndSetPlayerAttack()
     {
         if (currentState == TutorialState.Attack && playerControl.currentRingIndex == 0)
         {

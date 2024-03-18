@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
@@ -27,7 +28,9 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
-        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
+        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
+            comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
+        // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
             SetMaxPlayerDamage(difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE));
