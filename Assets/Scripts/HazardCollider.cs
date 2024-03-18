@@ -6,17 +6,12 @@ public class HazardCollider : MonoBehaviour
     {
         if (collision.gameObject.tag == "Tile")
         {
-            Debug.Log("collided");
             HazardAttack hazardAttack = FindObjectOfType<HazardAttack>();
             if (hazardAttack != null)
             {
                 hazardAttack.OnHazardLanded(gameObject, collision.gameObject.name);
                 Destroy(gameObject);
             }
-        }
-        else
-        {
-            Debug.Log("something else");
         }
     }
 }
