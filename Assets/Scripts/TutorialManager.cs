@@ -30,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private SniperAttack sniper;
+    [SerializeField] private WarningManager warning;
     int initPosRing;
     int initPosTile;
     int moveCount;
@@ -46,6 +47,7 @@ public class TutorialManager : MonoBehaviour
         consecutive.enabled = false;
         attack.enabled = false;
         sniper.enabled = false;
+        warning.enabled = false;
         centralMachine.SetActive(false);
         Phase1HP.SetActive(false);
         Phase2HP.SetActive(false);
@@ -76,7 +78,6 @@ public class TutorialManager : MonoBehaviour
                 directions.enabled = false;
                 onBeat.enabled = true;
                 
-                
                 if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
                 {
                     initPosRing = playerControl.currentRingIndex;
@@ -91,6 +92,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialState.Strengthen:
                 sniper.enabled = true;
+                warning.enabled = true;
                 consecutive.enabled = true;
                 comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
                 if (playerAtk.getCombo() == 5)
