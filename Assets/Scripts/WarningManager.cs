@@ -10,6 +10,7 @@ public class WarningManager : MonoBehaviour
         SLAM,
         STEAM,
         SPIRAL,
+        HAZARD
     }
 
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
@@ -150,7 +151,7 @@ public class WarningManager : MonoBehaviour
                 allWarnings.Add(tileName);
                 break;
             default:
-                // Steam + Slam
+                // Steam + Slam + Hazard
                 allWarnings.Add(tileName);
                 break;
         }

@@ -44,6 +44,9 @@ public class DifficultyManager : MonoBehaviour
         SPIRAL_BULLET_DAMAGE,
         SNIPER_BULLET_SPEED,
         SPIRAL_BULLET_SPEED,
+        HAZARD_DAMAGE,
+        HAZARD_TIMING,
+        HAZARD_COUNT,
         COOLDOWN,
     }
 
@@ -140,6 +143,10 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 7f;
 
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.EASY)] = 2f;
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.MEDIUM)] = 3f;
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.HARD)] = 4f;
+
         // Speeds of things
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 40f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
@@ -157,9 +164,17 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.SLAM_TIMING, Difficulty.MEDIUM)] = 3f;
         difficultyMap[(StatName.SLAM_TIMING, Difficulty.HARD)] = 2.5f;
 
+        difficultyMap[(StatName.HAZARD_TIMING, Difficulty.EASY)] = 4f;
+        difficultyMap[(StatName.HAZARD_TIMING, Difficulty.MEDIUM)] = 6f;
+        difficultyMap[(StatName.HAZARD_TIMING, Difficulty.HARD)] = 8f;
+
         difficultyMap[(StatName.COOLDOWN, Difficulty.EASY)] = 7f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.HARD)] = 4f;
+
+        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.EASY)] = 6f;
+        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.MEDIUM)] = 8f;
+        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.HARD)] = 10f;
     }
 
 

@@ -110,7 +110,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
 
         // Pluck out the left-right index of the current tile
         string leftRightIndex = tilename.Substring(3, 2);
-        Debug.Log($"slam GetWarning {leftRightIndex}");
 
         return new List<string> {
             $"R1_{leftRightIndex}",

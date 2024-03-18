@@ -40,6 +40,27 @@ public class ArenaInitializer : MonoBehaviour
         );
         return position;
     }
+
+    public string GetTileNameByPosition(Vector3 position)
+    {
+        float closestDistanceSqr = Mathf.Infinity;
+        string closestTileName = "";
+        for (int ringIndex = 0; ringIndex < tilePositions.Count; ringIndex++)
+        {
+            for (int tileIndex = 0; tileIndex < tilePositions[ringIndex].Count; tileIndex++)
+            {
+                Vector3 tilePosition = tilePositions[ringIndex][tileIndex];
+                float distanceSqr = (position - tilePosition).sqrMagnitude;
+                if (distanceSqr < closestDistanceSqr)
+                {
+                    closestDistanceSqr = distanceSqr;
+                    // Construct the tile name using the ring and tile index
+                    closestTileName = $"R{ringIndex + 1}_{tileIndex + 1}";
+                }
+            }
+        }
+        return closestTileName;
+    }
 }
 
 
