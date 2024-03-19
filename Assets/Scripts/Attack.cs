@@ -30,8 +30,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
-        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
-            comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
+        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
@@ -41,8 +40,7 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        if (comboSlider) 
-            comboSlider.sprite = comboSprites[combo - 1];
+       comboSlider.sprite = comboSprites[combo - 1];
     }
     
     
