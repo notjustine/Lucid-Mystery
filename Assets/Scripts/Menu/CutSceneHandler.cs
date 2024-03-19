@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -50,8 +51,9 @@ public class CutSceneHandler : MonoBehaviour
     public void Play()
     {
         videoPlayer.Play();
-        GetComponent<AudioSource>().Play();
-    }
+        // GetComponent<AudioSource>().Play();
+        GetComponent<StudioEventEmitter>().Play();
+    }   
 
     private void EndReached(VideoPlayer vp)
     {
