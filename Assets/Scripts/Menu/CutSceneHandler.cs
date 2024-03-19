@@ -41,13 +41,16 @@ public class CutSceneHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
+            EndReached(videoPlayer);
+        if (Input.GetKeyDown(KeyCode.Space))
             EndReached(videoPlayer);
     }
 
     public void Play()
     {
         videoPlayer.Play();
+        GetComponent<AudioSource>().Play();
     }
 
     private void EndReached(VideoPlayer vp)
