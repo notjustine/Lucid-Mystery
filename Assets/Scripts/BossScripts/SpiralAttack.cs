@@ -10,11 +10,9 @@ public class SpiralAttack : MonoBehaviour
     GameObject turretsRig;
     GameObject targetsParent;
     const float turretRotationSpeed = 20f;
-    const float warningTime = 0.5f;
     ShootSpiralBullet[] turrets;
     int currTargetIndex;
     const int NUM_SLICES = 24;
-    private WarningManager warningManager;
 
     void Start()
     {
@@ -22,15 +20,14 @@ public class SpiralAttack : MonoBehaviour
         targetsParent = GameObject.Find("SpiralTargets");
         currTargetIndex = 0;
         turrets = FindObjectsOfType<ShootSpiralBullet>();
-        // Flash warning on turrets themselves when attacking
-        warningManager = WarningManager.Instance;
     }
 
 
     /**
-        Begins the turret rotate-and-shoot attack.
-    */
-    public void TriggerAttack()
+   Can be called by some AI controller to trigger the Shoot and Rotate attack.
+   Note:  intentionally not in use while we are using timer above.
+   */
+    public void TriggerShootAndRotate()
     {
         StartCoroutine(TripleShootAndRotate(turrets));
     }
@@ -38,12 +35,12 @@ public class SpiralAttack : MonoBehaviour
 
     IEnumerator TripleShootAndRotate(ShootSpiralBullet[] turrets)
     {
-        // Offer warning blinks
-        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
-        yield return new WaitForSeconds(warningTime);  // adds some padding between shoot and rotations
         // First round of shots.
-        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
-        Shoot(turrets);
+        foreach (ShootSpiralBullet turret in turrets)
+        {
+            turret.Shoot();  // assume shoots at first index of 0 
+        }
+        turrets[0].PlaySound();
         // increment the target index because we already shot at above.
         currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
         // Determine position of child to shoot at.
@@ -56,11 +53,14 @@ public class SpiralAttack : MonoBehaviour
             turretsRig.transform.rotation = Quaternion.RotateTowards(turretsRig.transform.rotation, firstTargetRotation, turretRotationSpeed * Time.deltaTime);
             yield return null;
         }
-        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
-        yield return new WaitForSeconds(warningTime);  // adds some padding between shoot and rotations
-        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
+
+        yield return new WaitForSeconds(0.5f);  // adds some padding between shoot and rotations
         // Second round of shots.
-        Shoot(turrets);
+        foreach (ShootSpiralBullet turret in turrets)
+        {
+            turret.Shoot();
+        }
+        turrets[0].PlaySound();
         // increment the target index
         currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
         // Determine position of child to shoot at
@@ -73,34 +73,14 @@ public class SpiralAttack : MonoBehaviour
             turretsRig.transform.rotation = Quaternion.RotateTowards(turretsRig.transform.rotation, secondTargetRotation, turretRotationSpeed * Time.deltaTime);
             yield return null;
         }
-        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
-        yield return new WaitForSeconds(warningTime);
-        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.SPIRAL);
+
+        yield return new WaitForSeconds(0.5f);
 
         // Third and final round of shots until attack is triggered again.
-        Shoot(turrets);
-    }
-
-    private void Shoot(ShootSpiralBullet[] turrets)
-    {
         foreach (ShootSpiralBullet turret in turrets)
         {
             turret.Shoot();
         }
         turrets[0].PlaySound();
-    }
-
-    public List<string> GetWarningObjects()
-    {
-        return new List<string> {
-            "turret1",
-            "turret2",
-            "turret3",
-            "turret4",
-            "turret5",
-            "turret6",
-            "turret7",
-            "turret8",
-        };
     }
 }

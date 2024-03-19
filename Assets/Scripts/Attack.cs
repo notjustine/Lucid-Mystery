@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
@@ -30,9 +29,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
-        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
-            comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
-        // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
+        comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
             SetMaxPlayerDamage(difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE));
@@ -41,8 +38,7 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        if (comboSlider) 
-            comboSlider.sprite = comboSprites[combo - 1];
+        comboSlider.sprite = comboSprites[combo - 1];
     }
     
     
@@ -72,12 +68,13 @@ public class Attack : MonoBehaviour
         if (collision.gameObject.CompareTag("Boss"))
         {
             BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
-            if (bossStates.isSleeping && DifficultyManager.phase == 0)
+            if (bossStates.isSleeping)
             {
                 AudioManager.instance.PhaseMusicChange(1);
                 DifficultyManager.phase = 1;
                 bossStates.isSleeping = false;
             }
+            
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }

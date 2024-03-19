@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -36,17 +35,11 @@ public class TutorialManager : MonoBehaviour
     int initPosRing;
     int initPosTile;
     int moveCount;
-    private AsyncOperation asyncSceneLoad;
 
     private bool playerHasAttacked = false;
-    private FadingScreen fade;
 
     void Start()
     {
-        fade = FindObjectOfType<FadingScreen>();
-        StartCoroutine(fade.FadeFromBlack(1f));
-        asyncSceneLoad = SceneManager.LoadSceneAsync("PatentEnvironment");
-        asyncSceneLoad.allowSceneActivation = false;
         // Initialize tutorial
         skip.enabled = true;
         directions.enabled = true;
@@ -75,9 +68,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            FadingScreenManager.Instance.AsyncTransitionToScene(1f, asyncSceneLoad);
+            Invoke("delayEnd", 0.3f);
         }
-        
         switch (currentState)
         {
             case TutorialState.Start:
@@ -130,11 +122,16 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                FadingScreenManager.Instance.AsyncTransitionToScene(1f, asyncSceneLoad);
+                Invoke("delayEnd", 0.3f);
                 break;
         }
     }
-    
+
+    void delayEnd()
+    {
+        SceneManager.LoadScene("PatentEnvironment");
+    }
+
     void CheckAndSetPlayerAttack()
     {
         if (currentState == TutorialState.Attack && playerControl.currentRingIndex == 0)

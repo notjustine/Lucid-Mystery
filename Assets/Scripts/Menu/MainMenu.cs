@@ -10,7 +10,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject mainMenuPanel;
     private DifficultyManager difficulty;
-    private FadingScreen fadingScreen;
 
     public void StartGame()
     {
@@ -42,12 +41,9 @@ public class MainMenu : MonoBehaviour
     {
         if (difficulty.gameObject.activeSelf && DifficultyManager.Instance.hasChanged)
         {
-            fadingScreen.gameObject.SetActive(true);
-            FadingScreenManager.Instance.TransitionToScene(sceneName, 1f);
-            DifficultyManager.Instance.hasChanged = false;
+            SceneManager.LoadScene(sceneName);
         }
     }
-
 
     private void Start()
     {
@@ -60,6 +56,5 @@ public class MainMenu : MonoBehaviour
             Application.targetFrameRate = 60;
         }
         difficulty = FindObjectOfType<DifficultyManager>(true);
-        fadingScreen = FindObjectOfType<FadingScreen>(true);
     }
 }

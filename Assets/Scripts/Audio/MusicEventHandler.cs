@@ -133,9 +133,20 @@ public class MusicEventHandler : MonoBehaviour
 
         if (beatInterval == 0f)
             return;
-        
-        if (timelineInfo.currentBar == 125 && DifficultyManager.phase == 2)
+        // Debug.Log(timelineInfo.currentPosition);
+        if (timelineInfo.currentPosition == lastPosition)
+        {
+            positionOccurrences++;
+        }
+        else if (positionOccurrences > 5)
+        {
             bossStates.isSleeping = false;
+        }
+        else
+        {
+            positionOccurrences = 0;
+            lastPosition = timelineInfo.currentPosition;
+        }
         
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  

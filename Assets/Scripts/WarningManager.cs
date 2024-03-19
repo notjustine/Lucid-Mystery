@@ -18,15 +18,12 @@ public class WarningManager : MonoBehaviour
     private List<string> allWarnings;
 
     // for blink effect
-    [SerializeField] Color tileColor;
-    [SerializeField] Color turretColor;
-    [SerializeField] Color warningColor;
-    private const float TURRET_BLINK_SPEED = 0.3f;
-    private const float TILE_BLINK_SPEED = 0.6f;
-    private GameObject tempObject;
+    [SerializeField] Color blinkStart;
+    [SerializeField] Color blinkEnd;
+    private GameObject tempTile;
     private MeshRenderer tempRenderer;
     private MaterialPropertyBlock propBlock;
-    // end blink effect stuff
+    // end blink effect
 
 
     public static WarningManager Instance { get; private set; }
@@ -64,24 +61,28 @@ public class WarningManager : MonoBehaviour
     void Update()
     {
         // Every name found in allWarnings should be blinking.
-        foreach (string name in allWarnings)
+        foreach (string tilename in allWarnings)
         {
-            tempObject = GameObject.Find(name);
-            tempRenderer = tempObject.GetComponent<MeshRenderer>();
+            tempTile = GameObject.Find(tilename);
+            tempRenderer = tempTile.GetComponent<MeshRenderer>();
             propBlock = new MaterialPropertyBlock();
             tempRenderer.GetPropertyBlock(propBlock);
-
-            Color color = tempObject.CompareTag("Turret") ? turretColor : tileColor;
-            float speed = tempObject.CompareTag("Turret") ? TURRET_BLINK_SPEED : TILE_BLINK_SPEED;
-            propBlock.SetColor("_BaseColor", Color.Lerp(color, warningColor, Mathf.PingPong(Time.time, speed)));
+            propBlock.SetColor("_BaseColor", Color.Lerp(blinkStart, blinkEnd, Mathf.PingPong(Time.time, .6f)));
             tempRenderer.SetPropertyBlock(propBlock);
         }
     }
 
 
-    public List<string> GetSniperWarnings()
+    /** TO-DO: rename this if only sniper uses it */
+    public List<string> GetWarningsOfType(WarningType type)
     {
-        return sniperWarnings;
+        switch (type)
+        {
+            case WarningType.SNIPER:
+                return sniperWarnings;
+            default:
+                return new List<string>();
+        }
     }
 
 
@@ -90,24 +91,24 @@ public class WarningManager : MonoBehaviour
 
         NOTE:  this puts the responsibility on various attacks to know which tiles they should warn about (using IWarningGenerator interface)
     */
-    public List<string> ToggleWarning(List<string> objects, bool warningActive, WarningType type)
+    public List<string> ToggleWarning(List<string> tiles, bool warningActive, WarningType type)
     {
-        for (int i = 0; i < objects.Count; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
-            GameObject objectToChange = GameObject.Find(objects[i]);  // TO-DO: add error handling/null checks maybe
-            MeshRenderer renderer = objectToChange.GetComponent<MeshRenderer>();
+            GameObject tileToChange = GameObject.Find(tiles[i]);  // TO-DO: add error handling/null checks maybe
+            MeshRenderer renderer = tileToChange.GetComponent<MeshRenderer>();
             if (warningActive)
             {
-                TrackWarning(objects[i], type);  // So that Update function can make it blink
+                TrackWarning(tiles[i], type);  // So that Update function can make it blink
             }
             else
             {
-                allWarnings.Remove(objects[i]);
-                HandleRemoveSniper(type, objects[i]);
-                HandleToggleMaterial(objects[i], renderer, objectToChange.CompareTag("Turret"));
+                allWarnings.Remove(tiles[i]);
+                HandleRemoveSniper(type, tiles[i]);
+                HandleToggleMaterial(tiles[i], renderer);
             }
         }
-        return objects;
+        return tiles;
     }
 
 
@@ -126,13 +127,13 @@ public class WarningManager : MonoBehaviour
     /**
         Keep this tile as the warning color if there is still another outstanding warning.
     */
-    private void HandleToggleMaterial(string name, MeshRenderer renderer, bool isTurret)
+    private void HandleToggleMaterial(string tilename, MeshRenderer renderer)
     {
-        if (!allWarnings.Contains(name))
+        if (!allWarnings.Contains(tilename))
         {
             propBlock = new MaterialPropertyBlock();
             renderer.GetPropertyBlock(propBlock);
-            propBlock.SetColor("_BaseColor", isTurret ? turretColor : tileColor);
+            propBlock.SetColor("_BaseColor", blinkStart);
             renderer.SetPropertyBlock(propBlock);
         }
     }
@@ -150,7 +151,7 @@ public class WarningManager : MonoBehaviour
                 allWarnings.Add(tileName);
                 break;
             default:
-                // Steam + Slam + Hazard + Spiral
+                // Steam + Slam + Hazard
                 allWarnings.Add(tileName);
                 break;
         }
