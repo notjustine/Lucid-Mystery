@@ -7,7 +7,10 @@ public class bossDamageVFX : MonoBehaviour
 {
     public BossHealth bossHealth;
     public VisualEffect[] effects;
-    private bool VFXplayed = false;
+    private bool lightDamagePlayed = false;
+    private bool heavyDamagePlayed = false;
+    public float lightDamageThreshold = 50f;
+    public float heavyDamageThreshold = 20f;
     
     void Start()
     {
@@ -20,23 +23,42 @@ public class bossDamageVFX : MonoBehaviour
 
     void Update()
     {
-        if(VFXplayed == false && bossHealth != null)
+        if(bossHealth != null)
         {
             float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
-            if (healthPercentage <= 80f)
+            if (healthPercentage <= lightDamageThreshold && healthPercentage >= heavyDamageThreshold && lightDamagePlayed == false)
             {
-                playVFX();
-                VFXplayed = true;
+                lightDamage();
+                lightDamagePlayed = true;
+            }
+
+            if (healthPercentage <= heavyDamageThreshold && heavyDamagePlayed == false)
+            {
+                heavyDamage();
+                heavyDamagePlayed = true;
             }
         }
     }
 
-    void playVFX()
+    void lightDamage()
     {
-        foreach (VisualEffect effect in effects)
+        /*foreach (VisualEffect effect in effects)
         {
             effect.Play();
+        }*/
+
+        for(int i = 0; i < 2; i++)
+        {
+            effects[i].Play();
         }
         
+    }
+
+    void heavyDamage()
+    {
+        for (int i = 2; i < effects.Length; i++)
+        {
+            effects[i].Play();
+        }
     }
 }
