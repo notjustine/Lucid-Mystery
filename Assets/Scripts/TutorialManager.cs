@@ -35,6 +35,7 @@ public class TutorialManager : MonoBehaviour
     int initPosRing;
     int initPosTile;
     int moveCount;
+    private bool innerHighlight = false;
 
     private bool playerHasAttacked = false;
 
@@ -104,7 +105,8 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.ApproachMachine:
-                StartCoroutine(HandleApporachMachine());
+                if (!innerHighlight)
+                    StartCoroutine(HandleApporachMachine());
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -149,6 +151,7 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleApporachMachine()
     {
+        innerHighlight = true;
         warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         hit.enabled = true;
         // Wait until the player reaches the specified ring index
