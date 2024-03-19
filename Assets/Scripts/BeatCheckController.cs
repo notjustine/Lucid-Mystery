@@ -24,9 +24,9 @@ public class BeatCheckController : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
         
+        player.OnMove(context);
         if (MusicEventHandler.beatCheck)
         {
-            player.OnMove(context);
             InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
             attack.UpdateCombo(Attack.ComboChange.INCREASE);
         }
@@ -44,10 +44,10 @@ public class BeatCheckController : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
         
+        player.OnAttack(context);
         if (MusicEventHandler.beatCheck)
         {
             InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT_INPUTTED);
-            player.OnAttack(context);
         }
         else
         {

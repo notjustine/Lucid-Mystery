@@ -39,7 +39,7 @@ public class PlayerControl : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         OnMoveEvent?.Invoke();
-        if (!MusicEventHandler.beatCheck || inputted || context.phase != InputActionPhase.Started)
+        if (inputted || context.phase != InputActionPhase.Started)
             return;
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.movementSound, gameObject);
@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!MusicEventHandler.beatCheck || inputted || context.phase != InputActionPhase.Started)
+        if (inputted || context.phase != InputActionPhase.Started)
             return;
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
