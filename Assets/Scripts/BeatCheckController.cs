@@ -27,11 +27,14 @@ public class BeatCheckController : MonoBehaviour
         if (MusicEventHandler.beatCheck)
         {
             player.OnMove(context);
+            InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
             attack.UpdateCombo(Attack.ComboChange.INCREASE);
         }
         else
         {
             attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            player.inputted = true;
+            InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
             sniper.TriggerAttack();
         }
     }
@@ -43,11 +46,14 @@ public class BeatCheckController : MonoBehaviour
         
         if (MusicEventHandler.beatCheck)
         {
+            InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT_INPUTTED);
             player.OnAttack(context);
         }
         else
         {
+            player.inputted = true;
             attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
         }
     }

@@ -19,8 +19,7 @@ public class MusicEventHandler : MonoBehaviour
 
     private static int markerTime;
     
-    int positionOccurrences = 0;
-    int lastPosition = 0;
+    int lastBeat = 0;
     
     private const float inputDelay = 175f;
     private const float startDelay = 0f;
@@ -50,6 +49,7 @@ public class MusicEventHandler : MonoBehaviour
 
     private EventInstance eventInstance;
     private BossStates bossStates;
+    private bool justChanged = true;
 
     private void Start()
     {
@@ -112,8 +112,6 @@ public class MusicEventHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!beatCheck) 
-            player.inputted = false;
         
         eventInstance.getPlaybackState(out musicPlayState);
 
@@ -141,26 +139,53 @@ public class MusicEventHandler : MonoBehaviour
         {  
             if (timelineInfo.beatPosition + inputDelay <= timelineInfo.currentPosition)
             {
-                InputIndicator.Instance.active = false;
+                if (!player.inputted)
+                    InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT);
                 beatCheck = false;
+                
+                if (!justChanged)
+                {
+                    justChanged = true;
+                    player.inputted = false;
+                }
+                
             }
             else
             {
+                
+                if (!player.inputted)
+                    InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT);
                 beatCheck = true;
-                InputIndicator.Instance.active = true;
+                if (justChanged)
+                {
+                    justChanged = false;
+                    player.inputted = false;
+                }
             }
 
         } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
             if (timelineInfo.beatPosition + inputDelay + startDelay <= timelineInfo.currentPosition)
             {
-                InputIndicator.Instance.active = true;
+                if (!player.inputted)
+                    InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT);
                 beatCheck = true;
+                if (justChanged)
+                {
+                    justChanged = false;
+                    player.inputted = false;
+                }
             }
             else
             {
-                InputIndicator.Instance.active = false;
+                if (!player.inputted) 
+                    InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT);
                 beatCheck = false;
+                if (!justChanged)
+                {
+                    justChanged = true;
+                    player.inputted = false;
+                }
             }
             
         }
