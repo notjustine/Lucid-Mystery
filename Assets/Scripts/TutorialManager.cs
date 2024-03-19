@@ -104,14 +104,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.ApproachMachine:
-                warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
-                hit.enabled = true;
-                if (playerControl.currentRingIndex == 0)
-                {
-                    hit.enabled = false;
-                    warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
-                    currentState = TutorialState.Attack;
-                }
+                StartCoroutine(HandleApporachMachine());
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -152,6 +145,18 @@ public class TutorialManager : MonoBehaviour
         {
             currentState = TutorialState.OnBeat;
         }
+    }
+
+    private System.Collections.IEnumerator HandleApporachMachine()
+    {
+        warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
+        hit.enabled = true;
+        // Wait until the player reaches the specified ring index
+        yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
+
+        hit.enabled = false;
+        warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
+        currentState = TutorialState.Attack;
     }
 
     void OnDestroy()
