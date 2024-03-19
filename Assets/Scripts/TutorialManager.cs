@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public enum TutorialState
 {
@@ -22,6 +23,7 @@ public class TutorialManager : MonoBehaviour
     private Image comboImage;
     private PlayerControl playerControl;
     private ArenaInitializer arenaInitializer;
+    private WarningManager warningManager;
     [SerializeField] private Image skip;
     [SerializeField] private Image onBeat;
     [SerializeField] private Image directions;
@@ -30,7 +32,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private SniperAttack sniper;
-    [SerializeField] private WarningManager warning;
     int initPosRing;
     int initPosTile;
     int moveCount;
@@ -47,7 +48,8 @@ public class TutorialManager : MonoBehaviour
         consecutive.enabled = false;
         attack.enabled = false;
         sniper.enabled = false;
-        warning.enabled = false;
+        warningManager = WarningManager.Instance;
+        warningManager.enabled = false;
         centralMachine.SetActive(false);
         Phase1HP.SetActive(false);
         Phase2HP.SetActive(false);
@@ -77,7 +79,7 @@ public class TutorialManager : MonoBehaviour
             case TutorialState.OnBeat:
                 directions.enabled = false;
                 onBeat.enabled = true;
-                
+
                 if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
                 {
                     initPosRing = playerControl.currentRingIndex;
@@ -91,8 +93,8 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.Strengthen:
+                warningManager.enabled = true;
                 sniper.enabled = true;
-                warning.enabled = true;
                 consecutive.enabled = true;
                 comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
                 if (playerAtk.getCombo() == 5)
@@ -102,10 +104,12 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.ApproachMachine:
+                warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
                 hit.enabled = true;
                 if (playerControl.currentRingIndex == 0)
                 {
                     hit.enabled = false;
+                    warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
                     currentState = TutorialState.Attack;
                 }
                 break;
@@ -130,12 +134,12 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-        void delayEnd()
+    void delayEnd()
     {
         SceneManager.LoadScene("PatentEnvironment");
     }
 
-        void CheckAndSetPlayerAttack()
+    void CheckAndSetPlayerAttack()
     {
         if (currentState == TutorialState.Attack && playerControl.currentRingIndex == 0)
         {
@@ -158,5 +162,34 @@ public class TutorialManager : MonoBehaviour
             playerControl.OnAttackEvent -= CheckAndSetPlayerAttack;
             playerControl.OnMoveEvent -= CheckAndSetPlayerMove;
         }
+    }
+    public List<string> GetWarningTiles()
+    {
+        return new List<string> {
+            "R1_01",
+            "R1_02",
+            "R1_03",
+            "R1_04",
+            "R1_05",
+            "R1_06",
+            "R1_07",
+            "R1_08",
+            "R1_09",
+            "R1_10",
+            "R1_11",
+            "R1_12",
+            "R1_13",
+            "R1_14",
+            "R1_15",
+            "R1_16",
+            "R1_17",
+            "R1_18",
+            "R1_19",
+            "R1_20",
+            "R1_21",
+            "R1_22",
+            "R1_23",
+            "R1_24",
+            };
     }
 }
