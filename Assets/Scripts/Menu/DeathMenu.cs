@@ -46,7 +46,7 @@ public class DeathMenu : MonoBehaviour
             header.sprite = bossWin[0];
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];
-            deathMusic = endCamera.GetComponent<StudioEventEmitter>();
+            deathMusic = GetComponent<StudioEventEmitter>();
             deathMusic.Play();
         }
         

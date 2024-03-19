@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -866,7 +866,7 @@ MonoBehaviour:
     Path: event:/Music/DeathMusic
   Event: 
   PlayEvent: 0
-  StopEvent: 0
+  StopEvent: 2
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 1
@@ -1252,11 +1252,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2108911835}
   - component: {fileID: 2108911834}
-  - component: {fileID: 2108911833}
   - component: {fileID: 2108911837}
   - component: {fileID: 2108911836}
   - component: {fileID: 2108911838}
-  - component: {fileID: 2108911839}
+  - component: {fileID: 2108911840}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1264,14 +1263,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2108911833
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108911832}
-  m_Enabled: 1
 --- !u!20 &2108911834
 Camera:
   m_ObjectHideFlags: 0
@@ -1346,7 +1337,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108911832}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 00021cbca23804e18914477cc20799a9, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0d56d6d864ffe924da43a5d8410a01de, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 2108911834}
@@ -1359,7 +1350,7 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -1433,7 +1424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 2108911836}
   isIntro: 0
---- !u!114 &2108911839
+--- !u!114 &2108911840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1448,17 +1439,17 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1276608660
-      Data2: 1103571875
-      Data3: -389214283
-      Data4: 1976726767
-    Path: event:/Music/DeathMusic
+      Data1: 2030216938
+      Data2: 1316407017
+      Data3: 1994912660
+      Data4: 61359572
+    Path: event:/Music/EndingCutscene
   Event: 
   PlayEvent: 0
-  StopEvent: 0
+  StopEvent: 2
   AllowFadeout: 1
   TriggerOnce: 0
-  Preload: 1
+  Preload: 0
   AllowNonRigidbodyDoppler: 0
   Params: []
   OverrideAttenuation: 0

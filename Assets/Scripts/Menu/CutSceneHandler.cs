@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -41,14 +42,18 @@ public class CutSceneHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
+            EndReached(videoPlayer);
+        if (Input.GetKeyDown(KeyCode.Space))
             EndReached(videoPlayer);
     }
 
     public void Play()
     {
         videoPlayer.Play();
-    }
+        // GetComponent<AudioSource>().Play();
+        GetComponent<StudioEventEmitter>().Play();
+    }   
 
     private void EndReached(VideoPlayer vp)
     {
