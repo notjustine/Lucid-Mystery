@@ -53,7 +53,7 @@ public class BossStates : MonoBehaviour
     {
         if (isSleeping)
         {
-            StopAllCoroutines();            
+            // StopAllCoroutines();            
             return;
         }
 
