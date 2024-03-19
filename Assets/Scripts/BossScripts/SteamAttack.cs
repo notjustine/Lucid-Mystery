@@ -12,7 +12,7 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
     public Material warningMaterial; // Red, slightly transparent material
     public Material attackMaterial;
     public MeshRenderer attackAreaRenderer; // Assign the MeshRenderer of the cylinder object
-    public TextMeshProUGUI warningText;
+    // public TextMeshProUGUI warningText;
     public float warningDuration = 2.5f; // Duration of the warning phase
     [SerializeField] float steamDamage;
     private DifficultyManager difficultyManager;
@@ -31,7 +31,7 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
         // For flashing warnings on tiles
         warningManager = WarningManager.Instance;
 
-        warningText.gameObject.SetActive(false);
+        // warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
         playerControl = FindObjectOfType<PlayerControl>();
@@ -69,9 +69,9 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
     {
         VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
         StudioEventEmitter[] emitter = steamAttackVFX.GetComponentsInChildren<StudioEventEmitter>();
-        warningText.gameObject.SetActive(true);
-        warningText.text = "Back Up!!";
-        StartCoroutine(FlashWarningText());
+        // warningText.gameObject.SetActive(true);
+        // warningText.text = "Back Up!!";
+        // StartCoroutine(FlashWarningText());
         warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.STEAM);
         // Switch to warning material
         attackAreaRenderer.material = warningMaterial;
@@ -80,7 +80,7 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
         warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.STEAM);
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
-        warningText.gameObject.SetActive(false);
+        // warningText.gameObject.SetActive(false);
         // emitter[1].Play();
         foreach (StudioEventEmitter em in emitter)
         {
@@ -97,7 +97,7 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
         }
         yield return new WaitForSeconds(0.5f);
-        StopCoroutine(FlashWarningText());
+        // StopCoroutine(FlashWarningText());
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();
@@ -129,18 +129,18 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
     }
 
 
-    private System.Collections.IEnumerator FlashWarningText()
-    {
-        float flashDuration = warningDuration; // Using the same duration as the warning for simplicity.
-        float startTime = Time.time;
-        while (Time.time - startTime < flashDuration)
-        {
-            float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
-            warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
-            yield return null;
-        }
-        warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
-    }
+    // private System.Collections.IEnumerator FlashWarningText()
+    // {
+    //     float flashDuration = warningDuration; // Using the same duration as the warning for simplicity.
+    //     float startTime = Time.time;
+    //     while (Time.time - startTime < flashDuration)
+    //     {
+    //         float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
+    //         warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
+    //         yield return null;
+    //     }
+    //     warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
+    // }
 
 
     /**

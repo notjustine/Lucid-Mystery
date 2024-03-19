@@ -70,12 +70,16 @@ public class Attack : MonoBehaviour
         if (collision.gameObject.CompareTag("Boss"))
         {
             BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
-            if (bossStates.isSleeping && DifficultyManager.phase == 0)
+            if (SceneManager.GetActiveScene().name != "Tutorial")
             {
-                AudioManager.instance.PhaseMusicChange(1);
-                DifficultyManager.phase = 1;
-                bossStates.isSleeping = false;
+                if (bossStates.isSleeping && DifficultyManager.phase == 0)
+                {
+                    AudioManager.instance.PhaseMusicChange(1);
+                    DifficultyManager.phase = 1;
+                    bossStates.isSleeping = false;
+                }
             }
+
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }

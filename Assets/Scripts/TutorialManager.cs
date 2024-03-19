@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ public class TutorialManager : MonoBehaviour
     int initPosRing;
     int initPosTile;
     int moveCount;
+    private bool innerHighlight = false;
 
     private bool playerHasAttacked = false;
 
@@ -66,7 +68,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonEast.wasPressedThisFrame)
         {
             Invoke("delayEnd", 0.3f);
         }
@@ -104,7 +106,8 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.ApproachMachine:
-                StartCoroutine(HandleApporachMachine());
+                if (!innerHighlight)
+                    StartCoroutine(HandleApporachMachine());
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -149,6 +152,7 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleApporachMachine()
     {
+        innerHighlight = true;
         warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         hit.enabled = true;
         // Wait until the player reaches the specified ring index
