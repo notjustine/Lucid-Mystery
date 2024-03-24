@@ -28,7 +28,7 @@ public class BeatCheckController : MonoBehaviour
         {
             player.OnMove(context);
             InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
-            attack.UpdateCombo(Attack.ComboChange.INCREASE);
+            
         }
         else
         {
