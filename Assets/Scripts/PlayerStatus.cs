@@ -36,7 +36,15 @@ public class PlayerStatus : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Die();
+            if (SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    currHealth = maxHealth;
+                    healthBar.SetSlider(currHealth);
+                }
+            else
+            {
+                Die();
+            }
         }
     }
 
