@@ -124,7 +124,7 @@ public class DifficultyManager : MonoBehaviour
     {
         // Damages of things
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 75f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 50f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 150f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 35f;
 
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.EASY)] = 3f;
