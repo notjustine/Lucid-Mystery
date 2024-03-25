@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
 
     // Movement Updates
     public bool inputted { get; set; }
+    public bool attackInputted { get; set; }
 
     void Start()
     {
@@ -68,13 +69,13 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (inputted || context.phase != InputActionPhase.Started)
+        if (attackInputted || context.phase != InputActionPhase.Started)
             return;
 
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
-        inputted = true;
+        attackInputted = true;
         OnAttackEvent?.Invoke();
     }
 
