@@ -147,7 +147,6 @@ public class MusicEventHandler : MonoBehaviour
                 {
                     justChanged = true;
                     player.inputted = false;
-                    player.attackInputted = false;
                 }
                 
             }
@@ -161,7 +160,6 @@ public class MusicEventHandler : MonoBehaviour
                 {
                     justChanged = false;
                     player.inputted = false;
-                    player.attackInputted = false;
                 }
             }
 
@@ -176,7 +174,6 @@ public class MusicEventHandler : MonoBehaviour
                 {
                     justChanged = false;
                     player.inputted = false;
-                    player.attackInputted = false;
                 }
             }
             else
@@ -188,7 +185,6 @@ public class MusicEventHandler : MonoBehaviour
                 {
                     justChanged = true;
                     player.inputted = false;
-                    player.attackInputted = false;
                 }
             }
             
