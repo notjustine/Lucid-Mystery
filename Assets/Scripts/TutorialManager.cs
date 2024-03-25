@@ -17,6 +17,7 @@ public enum TutorialState
 
 public class TutorialManager : MonoBehaviour
 {
+    private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
     [SerializeField] private GameObject centralMachine;
     [SerializeField] private GameObject Phase1HP;
@@ -49,6 +50,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // Initialize tutorial
+        fade = FindObjectOfType<FadingScreen>();
         skip.enabled = true;
         directions.enabled = true;
         onBeat.enabled = false;
@@ -125,15 +127,11 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                Invoke("delayEnd", 0.3f);
+                FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 0.5f);
                 break;
         }
     }
 
-    void delayEnd()
-    {
-        SceneManager.LoadScene("PatentEnvironment");
-    }
     private System.Collections.IEnumerator HandleOnBeat()
     {
         directions.enabled = false;
