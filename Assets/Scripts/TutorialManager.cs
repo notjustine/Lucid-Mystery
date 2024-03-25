@@ -33,9 +33,14 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private SniperAttack sniper;
+    [SerializeField] private Image highlightCombo;
+    [SerializeField] private Image highlightBeat;
     int initPosRing;
     int initPosTile;
     int moveCount;
+    bool isBeatCoroutineRunning;
+    bool BeatRunning;
+    bool approachRunning;
 
     private bool playerHasAttacked = false;
 
@@ -49,6 +54,8 @@ public class TutorialManager : MonoBehaviour
         consecutive.enabled = false;
         attack.enabled = false;
         sniper.enabled = false;
+        highlightCombo.enabled = false;
+        highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
         warningManager.enabled = false;
         centralMachine.SetActive(false);
@@ -63,6 +70,9 @@ public class TutorialManager : MonoBehaviour
         initPosRing = arenaInitializer.tilePositions.Count - 1;
         initPosTile = 1;
         moveCount = 0;
+        isBeatCoroutineRunning = false;
+        BeatRunning = false;
+        approachRunning = false;
     }
 
     void Update()
@@ -78,19 +88,10 @@ public class TutorialManager : MonoBehaviour
                 // leave to the events
                 break;
             case TutorialState.OnBeat:
-                directions.enabled = false;
-                onBeat.enabled = true;
-
-                if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
+                if (!BeatRunning)
                 {
-                    initPosRing = playerControl.currentRingIndex;
-                    initPosTile = playerControl.currentTileIndex;
-                    moveCount += 1;
-                }
-                if (moveCount >= 3)
-                {
-                    onBeat.enabled = false;
-                    currentState = TutorialState.Strengthen;
+                    BeatRunning = true;
+                    StartCoroutine(HandleOnBeat());
                 }
                 break;
             case TutorialState.Strengthen:
@@ -105,7 +106,9 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.ApproachMachine:
-                StartCoroutine(HandleApporachMachine());
+                if (!approachRunning)
+                    approachRunning = true;
+                    StartCoroutine(HandleApporachMachine());
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -132,6 +135,40 @@ public class TutorialManager : MonoBehaviour
     {
         SceneManager.LoadScene("PatentEnvironment");
     }
+    private System.Collections.IEnumerator HandleOnBeat()
+    {
+        directions.enabled = false;
+        onBeat.enabled = true;
+        if (!isBeatCoroutineRunning)
+        {
+            isBeatCoroutineRunning = true;
+            yield return StartCoroutine(HandleOnBeatState());
+        }
+        if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
+        {
+            initPosRing = playerControl.currentRingIndex;
+            initPosTile = playerControl.currentTileIndex;
+            Debug.Log("adding movecount");
+            moveCount += 1;
+        }
+        if (moveCount >= 3)
+        {
+            onBeat.enabled = false;
+            currentState = TutorialState.Strengthen;
+        }
+        BeatRunning = false;
+    }
+
+    private System.Collections.IEnumerator HandleOnBeatState()
+    {
+        directions.enabled = false;
+        onBeat.enabled = true;
+        highlightBeat.enabled = true;
+
+        yield return new WaitForSeconds(2f);
+        yield return new WaitUntil(() => Input.anyKey);
+        highlightBeat.enabled = false;
+    }
 
     void CheckAndSetPlayerAttack()
     {
@@ -152,11 +189,11 @@ public class TutorialManager : MonoBehaviour
     {
         warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         hit.enabled = true;
-        // Wait until the player reaches the specified ring index
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
 
         hit.enabled = false;
         warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
+        approachRunning = false;
         currentState = TutorialState.Attack;
     }
 
