@@ -32,7 +32,7 @@ public class BeatCheckController : MonoBehaviour
         }
         else
         {
-            attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            attack.UpdateCombo(Attack.ComboChange.RESET);
             player.inputted = true;
             InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
             sniper.TriggerAttack();
@@ -52,7 +52,7 @@ public class BeatCheckController : MonoBehaviour
         else
         {
             player.inputted = true;
-            attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            attack.UpdateCombo(Attack.ComboChange.RESET);
             InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
         }

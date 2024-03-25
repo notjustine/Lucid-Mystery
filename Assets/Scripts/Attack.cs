@@ -79,7 +79,7 @@ public class Attack : MonoBehaviour
                     bossStates.isSleeping = false;
                 }
             }
-
+            UpdateCombo(ComboChange.RESET);
             bossHealth.TakeDamage(playerDamage);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }
