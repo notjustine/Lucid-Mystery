@@ -41,6 +41,8 @@ public class TutorialManager : MonoBehaviour
     bool isBeatCoroutineRunning;
     bool BeatRunning;
     bool approachRunning;
+    bool isStrengthenCoroutineRunning;
+    bool StrengthenRunning;
 
     private bool playerHasAttacked = false;
 
@@ -73,6 +75,8 @@ public class TutorialManager : MonoBehaviour
         isBeatCoroutineRunning = false;
         BeatRunning = false;
         approachRunning = false;
+        isStrengthenCoroutineRunning = false;
+        StrengthenRunning = false;
     }
 
     void Update()
@@ -95,15 +99,10 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.Strengthen:
-                warningManager.enabled = true;
-                sniper.enabled = true;
-                consecutive.enabled = true;
-                comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
-                if (playerAtk.getCombo() == 5)
-                {
-                    consecutive.enabled = false;
-                    currentState = TutorialState.ApproachMachine;
-                }
+                if (!StrengthenRunning)
+                    StrengthenRunning = true;
+                    StartCoroutine(HandleStrengthen());
+                
                 break;
             case TutorialState.ApproachMachine:
                 if (!approachRunning)
@@ -168,6 +167,35 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
+    }
+
+
+    private System.Collections.IEnumerator HandleStrengthen()
+    {
+        warningManager.enabled = true;
+        sniper.enabled = true;
+        consecutive.enabled = true;
+        if (!isStrengthenCoroutineRunning)
+        {
+            isStrengthenCoroutineRunning = true;
+            yield return StartCoroutine(HandleStrengthenState());
+        }
+        comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
+        if (playerAtk.getCombo() == 5)
+        {
+            consecutive.enabled = false;
+            currentState = TutorialState.ApproachMachine;
+        }
+        StrengthenRunning = false;
+    }
+
+    private System.Collections.IEnumerator HandleStrengthenState()
+    {
+        highlightCombo.enabled = true;
+
+        yield return new WaitForSeconds(2f);
+        yield return new WaitUntil(() => Input.anyKey);
+        highlightCombo.enabled = false;
     }
 
     void CheckAndSetPlayerAttack()
