@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9126bf63749582e4490223b25e60d8e2, type: 2}
+  - {fileID: 2100000, guid: 5573ade91e6c50441a7eb33ce34acecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9126bf63749582e4490223b25e60d8e2, type: 2}
+  - {fileID: 2100000, guid: 5573ade91e6c50441a7eb33ce34acecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,8 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4e6be37fe534f96bff59001cc14969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sniperBulletSpeed: 150
-  damage: 5
 --- !u!136 &-7235425485603341910
 CapsuleCollider:
   m_ObjectHideFlags: 0
