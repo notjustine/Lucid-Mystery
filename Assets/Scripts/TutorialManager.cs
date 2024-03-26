@@ -36,6 +36,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private SniperAttack sniper;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
+   
     int initPosRing;
     int initPosTile;
     int moveCount;
@@ -83,10 +84,6 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame))
-        {
-            Invoke("delayEnd", 0.3f);
-        }
         switch (currentState)
         {
             case TutorialState.Start:
@@ -102,14 +99,17 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialState.Strengthen:
                 if (!StrengthenRunning)
+                {
                     StrengthenRunning = true;
                     StartCoroutine(HandleStrengthen());
-                
+                }
                 break;
             case TutorialState.ApproachMachine:
                 if (!approachRunning)
+                {
                     approachRunning = true;
                     StartCoroutine(HandleApporachMachine());
+                }
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -216,11 +216,10 @@ public class TutorialManager : MonoBehaviour
         warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         hit.enabled = true;
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
-
         hit.enabled = false;
         warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
-        approachRunning = false;
         currentState = TutorialState.Attack;
+        approachRunning = false;
     }
 
     void OnDestroy()
