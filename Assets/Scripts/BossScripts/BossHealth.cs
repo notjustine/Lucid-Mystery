@@ -10,10 +10,10 @@ public class BossHealth : MonoBehaviour
     public bool isInvulnerable = false;
     public bool isPhase2 = false;
 
-    public HealthBar healthBar;     // phase 1
-    public HealthBar healthBar2;    // phase 2
+    public HealthBar healthBar;
     private PlayerControl playerControl;
     private FadingScreen fade;
+    private AnimationStateController animationStateController;
 
     // Start is called before the first frame update
     public void Start()
@@ -26,17 +26,17 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           healthBar.SetSliderMax(maxHealth / 2);
-           healthBar2.SetSliderMax(maxHealth / 2);
+           healthBar.SetSliderMax(maxHealth);
         
             if (DifficultyManager.phase == 2)
             {
                 currHealth = maxHealth / 2;
-                Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
-                healthBar.SetSlider(0f);
+                healthBar.SetSlider(maxHealth / 2);
+                PhaseTwo();
             }
         }
         playerControl = FindObjectOfType<PlayerControl>();
+        animationStateController = FindObjectOfType<AnimationStateController>();
         
     }
     public void TakeDamage(float amount)
@@ -46,27 +46,15 @@ public class BossHealth : MonoBehaviour
         if (currHealth <= 0)
         {
             currHealth = 0;
-            healthBar2.SetSlider(0f);
+            healthBar.SetSlider(0f);
             Die();
         }
         else if (currHealth <= maxHealth / 2)
         {
             if (DifficultyManager.phase <= 1)
-            {
-                if (!isPhase2)
-                {
-                    isPhase2 = true;
-                }
-
                 PhaseTwo();
-                healthBar.SetSlider(0f);
-            }
-            healthBar2.SetSlider(currHealth);
         }
-        else
-        {
-            healthBar.SetSlider(currHealth - (maxHealth / 2));
-        }
+        healthBar.SetSlider(currHealth);
     }
 
     private void Update()
@@ -82,6 +70,7 @@ public class BossHealth : MonoBehaviour
     {
         DifficultyManager.phase = 2;
         AudioManager.instance.PhaseMusicChange(2);
+        animationStateController.TriggerPhase2();
     }
 
     private void Die()
