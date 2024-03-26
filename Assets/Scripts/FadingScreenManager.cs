@@ -70,7 +70,7 @@ public class FadingScreenManager : MonoBehaviour
     {
         yield return StartCoroutine(fade.FadeToBlack( speed));
         AudioManager.instance.PauseAllEvents();
-        FindObjectOfType<PlayerControl>().gameObject.SetActive(false);
+        FindObjectOfType<PlayerControl>(true).gameObject.SetActive(false);
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
 }

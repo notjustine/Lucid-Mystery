@@ -11,7 +11,7 @@ public class BossHealth : MonoBehaviour
     public bool isPhase2 = false;
 
     public HealthBar healthBar;     // phase 1
-    public HealthBar healthBar2;    // phase 2
+    // public HealthBar healthBar2;    // phase 2
     private PlayerControl playerControl;
     private FadingScreen fade;
 
@@ -26,14 +26,14 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           healthBar.SetSliderMax(maxHealth / 2);
-           healthBar2.SetSliderMax(maxHealth / 2);
+           healthBar.SetSliderMax(maxHealth);
+        //    healthBar2.SetSliderMax(maxHealth / 2);
         
             if (DifficultyManager.phase == 2)
             {
                 currHealth = maxHealth / 2;
-                Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
-                healthBar.SetSlider(0f);
+                // Debug.Log("SETTING HEALTH TO HALF: " + currHealth);
+                healthBar.SetSlider(maxHealth / 2);
             }
         }
         playerControl = FindObjectOfType<PlayerControl>();
@@ -46,7 +46,7 @@ public class BossHealth : MonoBehaviour
         if (currHealth <= 0)
         {
             currHealth = 0;
-            healthBar2.SetSlider(0f);
+            healthBar.SetSlider(0f);
             Die();
         }
         else if (currHealth <= maxHealth / 2)
@@ -59,14 +59,14 @@ public class BossHealth : MonoBehaviour
                 }
 
                 PhaseTwo();
-                healthBar.SetSlider(0f);
+                // healthBar.SetSlider(0f);
             }
-            healthBar2.SetSlider(currHealth);
+            // healthBar.SetSlider(currHealth);
         }
-        else
-        {
-            healthBar.SetSlider(currHealth - (maxHealth / 2));
-        }
+        // else
+        // {
+            healthBar.SetSlider(currHealth);
+        // }
     }
 
     private void Update()
