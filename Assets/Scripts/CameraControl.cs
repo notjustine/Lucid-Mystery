@@ -32,15 +32,17 @@ public class CameraControl : MonoBehaviour
         // Calculate a point on the line defined by the boss and player positions
         desiredPosition = playerTransform.position + cameraDirection * distanceBehindPlayer;
         desiredPosition.y += heightAbove;
-
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
-        // Set the camera's position
-        transform.position = smoothedPosition;
+       
 
-        // Make sure the camera is always looking at the boss
-        if (!isShaking)
+        if (!isShaking){
+            // Set the camera's position
+            transform.position = smoothedPosition;
+            // Make sure the camera is always looking at the boss
             transform.LookAt(bossTransform.position);
+
+        }
     }
      public void TriggerShake()
     {

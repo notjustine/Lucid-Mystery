@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
     private DifficultyManager difficultyManager;
     public float playerDamage;
     private float maxPlayerDamage;
-    [SerializeField] private int combo = 1;
+    [SerializeField] private int combo = 0;
     [SerializeField] private int maxCombo = 5;
     [SerializeField] private float comboScaler = 0.1f;
     private Image comboSlider;
@@ -41,7 +41,7 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-       comboSlider.sprite = comboSprites[combo - 1];
+       comboSlider.sprite = comboSprites[combo];
     }
     
     
@@ -57,10 +57,10 @@ public class Attack : MonoBehaviour
         combo = change switch
         {
             ComboChange.INCREASE => Math.Min(combo + 1, maxCombo),
-            ComboChange.DECREASE => Math.Max(combo - 1, 1),
-            ComboChange.DECREASE2 => Math.Max(combo - 2, 1),
-            ComboChange.RESET => 1,
-            _ => 1
+            ComboChange.DECREASE => Math.Max(combo - 1, 0),
+            ComboChange.DECREASE2 => Math.Max(combo - 2, 0),
+            ComboChange.RESET => 0,
+            _ => 0
         };
 
         playerDamage = (comboScaler * combo);

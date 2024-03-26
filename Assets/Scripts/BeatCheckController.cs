@@ -26,16 +26,16 @@ public class BeatCheckController : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
         
+        player.OnMove(context);
         if (MusicEventHandler.beatCheck)
         {
-            player.OnMove(context);
             InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
             
         }
         else
         {
             cameraControl.TriggerShake();
-            attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            attack.UpdateCombo(Attack.ComboChange.RESET);
             player.inputted = true;
             InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
             sniper.TriggerAttack();
@@ -47,15 +47,15 @@ public class BeatCheckController : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
         
+        player.OnAttack(context);
         if (MusicEventHandler.beatCheck)
         {
             InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT_INPUTTED);
-            player.OnAttack(context);
         }
         else
         {
             player.inputted = true;
-            attack.UpdateCombo(Attack.ComboChange.DECREASE);
+            attack.UpdateCombo(Attack.ComboChange.RESET);
             InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
         }
