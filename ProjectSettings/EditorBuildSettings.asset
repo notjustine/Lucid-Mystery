@@ -13,10 +13,10 @@ EditorBuildSettings:
     guid: 1f82b9aa0163f42bdbb57d0c9222fde4
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
-    guid: b3187328a9337471aa0d4f8e5486c6af
+    guid: da17ab112572645b4904f59e3b3aae45
   - enabled: 1
-    path: Assets/Scenes/PatentEnvironment.unity
-    guid: 12f948777f56e4eed91c17d09511e4ee
+    path: Assets/Scenes/ZyngaMain.unity
+    guid: b8f0420c084c3f64c97f57058d37b73c
   - enabled: 1
     path: Assets/Scenes/EndMenu.unity
     guid: d41411e95d25247ed90b2d41d5ea8969

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class FadingScreen : MonoBehaviour
 {
     private Image black;
+
+    [SerializeField] private string mainScene = "PatientEnvironment";
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,7 +17,7 @@ public class FadingScreen : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
+        if (SceneManager.GetActiveScene().name == mainScene)
         {
             StartCoroutine(FadeFromBlack());
         }

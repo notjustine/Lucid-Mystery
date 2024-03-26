@@ -130,7 +130,7 @@ public class TutorialManager : MonoBehaviour
 
     void delayEnd()
     {
-        SceneManager.LoadScene("PatentEnvironment");
+        SceneManager.LoadScene("ZyngaMain");
     }
 
     void CheckAndSetPlayerAttack()
