@@ -50,7 +50,6 @@ public class PlayerStatus : MonoBehaviour
 
     public void Heal(float amount)
     {
-        Debug.Log($"healed by: {amount}");
         currHealth += amount;
         if (currHealth > maxHealth)
         {

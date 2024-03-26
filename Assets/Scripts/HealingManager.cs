@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class HealingManager : MonoBehaviour
 {
-
-
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private BossHealth bossHealth;
     private List<string> healingTiles;
@@ -25,8 +23,6 @@ public class HealingManager : MonoBehaviour
     // end blink effect stuff
 
     private float time;
-
-
     public static HealingManager Instance { get; private set; }
 
     private void Awake()
@@ -61,7 +57,6 @@ public class HealingManager : MonoBehaviour
                 time = 0f;
             }
         }
-
 
         // Every name found in healingTiles should be blinking.
         foreach (string name in healingTiles)
@@ -130,15 +125,6 @@ public class HealingManager : MonoBehaviour
             propBlock.SetColor("_BaseColor", tileColor);
             renderer.SetPropertyBlock(propBlock);
         }
-    }
-
-
-    /**
-        Getter for the mapping so that the attack classes can fetch it for indexing into it.
-    */
-    public Dictionary<(int, int), string> GetLogicalToPhysicalTileMapping()
-    {
-        return logicalToPhysicalTileMapping;
     }
 
 
