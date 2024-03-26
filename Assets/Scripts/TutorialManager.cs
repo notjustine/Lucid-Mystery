@@ -146,6 +146,7 @@ public class TutorialManager : MonoBehaviour
     {
         directions.enabled = false;
         onBeat.enabled = true;
+        
         if (!isBeatCoroutineRunning)
         {
             isBeatCoroutineRunning = true;
@@ -168,8 +169,6 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleOnBeatState()
     {
-        directions.enabled = false;
-        onBeat.enabled = true;
         highlightBeat.enabled = true;
 
         yield return new WaitForSeconds(1f);
@@ -179,16 +178,16 @@ public class TutorialManager : MonoBehaviour
 
 
     private System.Collections.IEnumerator HandleStrengthen()
-    {
-        warningManager.enabled = true;
+    { 
         sniper.enabled = true;
+        warningManager.enabled = true;
         consecutive.enabled = true;
+        comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
         if (!isStrengthenCoroutineRunning)
         {
             isStrengthenCoroutineRunning = true;
             yield return StartCoroutine(HandleStrengthenState());
         }
-        comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
         if (playerAtk.getCombo() == 5)
         {
             consecutive.enabled = false;
@@ -199,6 +198,7 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleStrengthenState()
     {
+        Debug.Log("in strengthen 2nd coroutine");
         highlightCombo.enabled = true;
 
         yield return new WaitForSeconds(1f);
