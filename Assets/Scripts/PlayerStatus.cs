@@ -26,7 +26,7 @@ public class PlayerStatus : MonoBehaviour
     void Update()
     {
         // Find out if you're on a healing tile
-        if (healingManager.IsHealing(playerControl.currentRingIndex, playerControl.currentTileIndex))
+        if (SceneManager.GetActiveScene().name != "Tutorial" && healingManager.IsHealing(playerControl.currentRingIndex, playerControl.currentTileIndex))
         {
             Heal(HEAL_RATE * Time.deltaTime);
         }
