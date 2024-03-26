@@ -127,7 +127,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 0.5f);
+                FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 1f);
                 break;
         }
     }
@@ -162,7 +162,7 @@ public class TutorialManager : MonoBehaviour
         onBeat.enabled = true;
         highlightBeat.enabled = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
     }
@@ -191,7 +191,7 @@ public class TutorialManager : MonoBehaviour
     {
         highlightCombo.enabled = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         yield return new WaitUntil(() => Input.anyKey);
         highlightCombo.enabled = false;
     }
