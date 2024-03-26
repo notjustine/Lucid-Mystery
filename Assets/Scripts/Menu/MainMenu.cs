@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string sceneName;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject creditsPanel;
     private DifficultyManager difficulty;
     private FadingScreen fadingScreen;
 
@@ -26,11 +27,26 @@ public class MainMenu : MonoBehaviour
         optionsPanel.SetActive(true);
     }
 
+    public void ShowCredits()
+    {
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
+        mainMenuPanel.SetActive(false);
+        creditsPanel.gameObject.SetActive(true);
+    }
+
     public void GoBack()
     {
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
-        optionsPanel.SetActive(false);
+        if (optionsPanel.activeSelf)
+        {
+            optionsPanel.SetActive(false);
+        }
+        else
+        {
+            creditsPanel.SetActive(false);
+        }
         mainMenuPanel.SetActive(true);
+
     }
 
     public void QuitGame()
@@ -61,5 +77,6 @@ public class MainMenu : MonoBehaviour
         }
         difficulty = FindObjectOfType<DifficultyManager>(true);
         fadingScreen = FindObjectOfType<FadingScreen>(true);
+        // creditsPanel = GameObject.Find("Credits");
     }
 }

@@ -90,6 +90,11 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
     void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();

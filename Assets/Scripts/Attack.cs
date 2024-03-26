@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class Attack : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Attack : MonoBehaviour
     [SerializeField] private float comboScaler = 0.1f;
     private Image comboSlider;
     [SerializeField] private Sprite[] comboSprites;
-
+    public VisualEffectAsset vfxAsset;
     public int getCombo() { return combo; }
 
     public enum ComboChange
@@ -79,6 +80,20 @@ public class Attack : MonoBehaviour
                     bossStates.isSleeping = false;
                 }
             }
+            // Instantiate(vfxPrefab, collision.contacts[0].point, Quaternion.identity); 
+            GameObject vfxInstance = new GameObject("VFX Instance");
+            vfxInstance.transform.position = collision.contacts[0].point + new Vector3(0, 1f, 0);
+
+            // Add a VisualEffect component
+            VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
+            vfx.visualEffectAsset = vfxAsset;
+
+            // Play the effect
+            vfx.Play();
+
+            // Optionally destroy the effect after a duration:
+            Destroy(vfxInstance, 2f);
+            
             bossHealth.TakeDamage(playerDamage);
             UpdateCombo(ComboChange.RESET);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);

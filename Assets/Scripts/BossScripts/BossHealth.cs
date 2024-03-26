@@ -8,6 +8,7 @@ public class BossHealth : MonoBehaviour
     [SerializeField] public float maxHealth = 1000f;
     public float currHealth;
     public bool isInvulnerable = false;
+    public bool isPhase2 = false;
 
     public HealthBar healthBar;     // phase 1
     public HealthBar healthBar2;    // phase 2
@@ -52,6 +53,11 @@ public class BossHealth : MonoBehaviour
         {
             if (DifficultyManager.phase <= 1)
             {
+                if (!isPhase2)
+                {
+                    isPhase2 = true;
+                }
+
                 PhaseTwo();
                 healthBar.SetSlider(0f);
             }

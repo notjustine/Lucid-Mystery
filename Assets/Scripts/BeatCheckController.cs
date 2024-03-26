@@ -9,6 +9,7 @@ public class BeatCheckController : MonoBehaviour
     [SerializeField] private SniperAttack sniper;
     private bool playerVulnerable;
     private Attack attack;
+    private CameraControl cameraControl;
 
     // Get access to the PlayController instance, and set it. 
     void Start()
@@ -16,6 +17,7 @@ public class BeatCheckController : MonoBehaviour
         player = FindObjectOfType<PlayerControl>();
         sniper = FindObjectOfType<SniperAttack>();
         attack = FindObjectOfType<Attack>();
+        cameraControl = FindObjectOfType<CameraControl>();
         playerVulnerable = true;
     }
 
@@ -28,10 +30,11 @@ public class BeatCheckController : MonoBehaviour
         if (MusicEventHandler.beatCheck)
         {
             InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
-            attack.UpdateCombo(Attack.ComboChange.INCREASE);
+            
         }
         else
         {
+            cameraControl.TriggerShake();
             attack.UpdateCombo(Attack.ComboChange.RESET);
             player.inputted = true;
             InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
