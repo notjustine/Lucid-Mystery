@@ -42,7 +42,7 @@ public class CutSceneHandler : MonoBehaviour
 
     void Update()
     {
-        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
             EndReached(videoPlayer);
         if (Input.GetKeyDown(KeyCode.Space))
             EndReached(videoPlayer);
