@@ -95,7 +95,6 @@ public class Attack : MonoBehaviour
             Destroy(vfxInstance, 2f);
             
             bossHealth.TakeDamage(playerDamage);
-            UpdateCombo(ComboChange.RESET);
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }
     }
