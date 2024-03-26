@@ -10,18 +10,26 @@ public class PlayerStatus : MonoBehaviour
     private float currHealth;
     public HealthBar healthBar;
     private Attack attack;
+    private PlayerControl playerControl;
+    private HealingManager healingManager;
+    private const float HEAL_RATE = 5f;  // healing per second
 
     void Start()
     {
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
         attack = FindObjectOfType<Attack>();
-
+        playerControl = FindObjectOfType<PlayerControl>();
+        healingManager = HealingManager.Instance;
     }
 
     void Update()
     {
-
+        // Find out if you're on a healing tile
+        if (healingManager.IsHealing(playerControl.currentRingIndex, playerControl.currentTileIndex))
+        {
+            Heal(HEAL_RATE * Time.deltaTime);
+        }
     }
 
     public void TakeDamage(float amount)
@@ -42,6 +50,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void Heal(float amount)
     {
+        Debug.Log($"healed by: {amount}");
         currHealth += amount;
         if (currHealth > maxHealth)
         {
