@@ -47,6 +47,7 @@ public class TutorialManager : MonoBehaviour
     bool StrengthenRunning;
 
     private bool playerHasAttacked = false;
+    public static TutorialManager Instance { get; private set; }
 
     void Start()
     {
@@ -80,6 +81,15 @@ public class TutorialManager : MonoBehaviour
         approachRunning = false;
         isStrengthenCoroutineRunning = false;
         StrengthenRunning = false;
+    }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("Found more than one Tutorial Manager");
+        }
+        Instance = this;
     }
 
     void Update()
