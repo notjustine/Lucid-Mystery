@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class AnimationStateController : MonoBehaviour
 {
-    public BossHealth bossHealth;
-    public Animator animator;
+    private Animator animator;
     
     // Start is called before the first frame update
     void Start()
     {
-        bossHealth = FindObjectOfType<BossHealth>();
         animator = GetComponent<Animator>();
         // Debug.Log(animator);
     }
 
+    public void TriggerPhase2()
+    {
+        animator.SetTrigger("Phase2");
+    }
+    
     // Update is called once per frame
     void Update()
     {
-
-        if (bossHealth.isPhase2)
-        {
-            animator.SetTrigger("Phase2");
-
-        }
     }
 }
