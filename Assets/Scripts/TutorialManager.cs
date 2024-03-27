@@ -156,7 +156,6 @@ public class TutorialManager : MonoBehaviour
         {
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
-            Debug.Log("adding movecount");
             moveCount += 1;
         }
         if (moveCount >= 3)
