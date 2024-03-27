@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -76,9 +74,9 @@ public class SniperBulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Weapon")
         {
-            PlayerStatus playerStatus = collision.gameObject.GetComponent<PlayerStatus>();
+            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
                 playerStatus.TakeDamage(sniperDamage);
@@ -88,10 +86,6 @@ public class SniperBulletController : MonoBehaviour
                 // Debug.Log("PlayerStatus component not found on the collided object.");
             }
             Destroy(gameObject);
-        }
-        else
-        {
-            // Debug.Log("Something else?");
         }
     }
 

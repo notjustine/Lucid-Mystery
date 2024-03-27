@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 /** 
-Dylan:  this handles the flight direction of our sniper bullets from the boss, collision
+This handles the flight direction of our sniper bullets from the boss, collision
 detection, and deletion after time of bullets that missed.
 */
 public class SpiralBulletController : MonoBehaviour
@@ -62,7 +60,7 @@ public class SpiralBulletController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Weapon")
         {
-            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>(); ;
+            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
             if (playerStatus != null) // Check if the PlayerStatus component is found
             {
                 playerStatus.TakeDamage(spiralBulletDamage);
