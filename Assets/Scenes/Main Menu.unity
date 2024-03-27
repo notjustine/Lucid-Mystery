@@ -635,6 +635,7 @@ MonoBehaviour:
   easyButton: {fileID: 0}
   mediumButton: {fileID: 0}
   hardButton: {fileID: 0}
+  insaneButton: {fileID: 0}
 --- !u!1 &325652533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,7 +2453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8482eb93e4244b6ca580779c8bf7234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainScene: PatientEnvironment
 --- !u!114 &1493240300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3936,12 +3936,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1893.6487
+      value: 1921
       objectReference: {fileID: 0}
     - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1079.9814
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_LocalScale.x
@@ -3953,11 +3969,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.6841
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3676962044972084878, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0012
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4577730258613052637, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Type
