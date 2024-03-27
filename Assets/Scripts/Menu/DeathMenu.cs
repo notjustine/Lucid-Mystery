@@ -11,7 +11,7 @@ using UnityEngine.Video;
 public class DeathMenu : MonoBehaviour
 {
 
-    [SerializeField] private string scene = "PatentEnvironment";
+    [SerializeField] private string scene = "ZyngaMain";
     [SerializeField] private Image header;
     [SerializeField] private Sprite[] bossWin;
     [SerializeField] private Sprite[] playerWin;
@@ -49,12 +49,12 @@ public class DeathMenu : MonoBehaviour
             deathMusic = GetComponent<StudioEventEmitter>();
             deathMusic.Play();
         }
-        
+
     }
     public static void BossLoss()
     {
         bossDied = true;
-  
+
     }
 
     public static void PlayerLoss()
@@ -67,16 +67,16 @@ public class DeathMenu : MonoBehaviour
         {
             DifficultyManager.phase = 0;
         }
-        
+
         SceneManager.LoadScene(scene);
     }
-    
-    
+
+
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
     }
-    
+
     public void QuitGame()
     {
         PauseMenu.QuitGame();
