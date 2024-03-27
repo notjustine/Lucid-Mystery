@@ -106,7 +106,6 @@ public class SpiralAttack : MonoBehaviour
             "turret8",
         };
         warnings.AddRange(turretGroups[currTargetIndex % 3]);
-        Debug.Log(warnings);
         return warnings;
     }
 
@@ -124,7 +123,6 @@ public class SpiralAttack : MonoBehaviour
             $"R1_24", $"R2_24", $"R3_24", $"R4_24",
             $"R1_21", $"R2_21", $"R3_21", $"R4_21",
         };
-        Debug.Log(turretGroups[0]);
 
         turretGroups[1] = new List<string>
         {

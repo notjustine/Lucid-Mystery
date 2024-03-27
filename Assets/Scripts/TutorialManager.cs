@@ -15,7 +15,7 @@ public enum TutorialState
     End
 }
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour, IWarningGenerator
 {
     private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
@@ -36,7 +36,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Attack playerAtk;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
-   
+
     int initPosRing;
     int initPosTile;
     int moveCount;
@@ -146,7 +146,7 @@ public class TutorialManager : MonoBehaviour
     {
         directions.enabled = false;
         onBeat.enabled = true;
-        
+
         if (!isBeatCoroutineRunning)
         {
             isBeatCoroutineRunning = true;
@@ -222,11 +222,11 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleApporachMachine()
     {
-        warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
+        warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.INFO);
         hit.enabled = true;
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
         hit.enabled = false;
-        warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
+        warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.INFO);
         currentState = TutorialState.Attack;
         approachRunning = false;
     }
@@ -240,7 +240,7 @@ public class TutorialManager : MonoBehaviour
             playerControl.OnMoveEvent -= CheckAndSetPlayerMove;
         }
     }
-    public List<string> GetWarningTiles()
+    public List<string> GetWarningObjects()
     {
         return new List<string> {
             "R1_01",
