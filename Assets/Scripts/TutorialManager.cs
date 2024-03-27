@@ -198,7 +198,6 @@ public class TutorialManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleStrengthenState()
     {
-        Debug.Log("in strengthen 2nd coroutine");
         highlightCombo.enabled = true;
 
         yield return new WaitForSeconds(1f);
