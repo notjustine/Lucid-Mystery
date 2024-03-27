@@ -171,7 +171,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
     }
 
@@ -201,7 +201,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightCombo.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightCombo.enabled = false;
     }
 
