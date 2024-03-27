@@ -8,7 +8,7 @@ public class FadingScreen : MonoBehaviour
 {
     private Image black;
 
-    [SerializeField] private string mainScene = "PatientEnvironment";
+    [SerializeField] private string mainScene = "ZyngaMain";
     // Start is called before the first frame update
     void Awake()
     {
@@ -31,7 +31,7 @@ public class FadingScreen : MonoBehaviour
         }
         yield return null;
     }
-    
+
     public IEnumerator FadeFromBlack(float fadeSpeed = 0.5f)
     {
         while (black.color.a > 0f)
