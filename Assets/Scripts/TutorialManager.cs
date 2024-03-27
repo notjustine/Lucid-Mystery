@@ -17,6 +17,7 @@ public enum TutorialState
 
 public class TutorialManager : MonoBehaviour
 {
+    private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
     [SerializeField] private GameObject centralMachine;
     [SerializeField] private GameObject Phase1HP;
@@ -33,15 +34,25 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private SniperAttack sniper;
+    [SerializeField] private Image highlightCombo;
+    [SerializeField] private Image highlightBeat;
+   
     int initPosRing;
     int initPosTile;
     int moveCount;
+    bool isBeatCoroutineRunning;
+    bool BeatRunning;
+    bool approachRunning;
+    bool isStrengthenCoroutineRunning;
+    bool StrengthenRunning;
 
     private bool playerHasAttacked = false;
+    public static TutorialManager Instance { get; private set; }
 
     void Start()
     {
         // Initialize tutorial
+        fade = FindObjectOfType<FadingScreen>();
         skip.enabled = true;
         directions.enabled = true;
         onBeat.enabled = false;
@@ -49,6 +60,8 @@ public class TutorialManager : MonoBehaviour
         consecutive.enabled = false;
         attack.enabled = false;
         sniper.enabled = false;
+        highlightCombo.enabled = false;
+        highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
         warningManager.enabled = false;
         centralMachine.SetActive(false);
@@ -63,14 +76,24 @@ public class TutorialManager : MonoBehaviour
         initPosRing = arenaInitializer.tilePositions.Count - 1;
         initPosTile = 1;
         moveCount = 0;
+        isBeatCoroutineRunning = false;
+        BeatRunning = false;
+        approachRunning = false;
+        isStrengthenCoroutineRunning = false;
+        StrengthenRunning = false;
+    }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("Found more than one Tutorial Manager");
+        }
+        Instance = this;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame))
-        {
-            Invoke("delayEnd", 0.3f);
-        }
         switch (currentState)
         {
             case TutorialState.Start:
@@ -78,34 +101,25 @@ public class TutorialManager : MonoBehaviour
                 // leave to the events
                 break;
             case TutorialState.OnBeat:
-                directions.enabled = false;
-                onBeat.enabled = true;
-
-                if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
+                if (!BeatRunning)
                 {
-                    initPosRing = playerControl.currentRingIndex;
-                    initPosTile = playerControl.currentTileIndex;
-                    moveCount += 1;
-                }
-                if (moveCount >= 3)
-                {
-                    onBeat.enabled = false;
-                    currentState = TutorialState.Strengthen;
+                    BeatRunning = true;
+                    StartCoroutine(HandleOnBeat());
                 }
                 break;
             case TutorialState.Strengthen:
-                warningManager.enabled = true;
-                sniper.enabled = true;
-                consecutive.enabled = true;
-                comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
-                if (playerAtk.getCombo() == 5)
+                if (!StrengthenRunning)
                 {
-                    consecutive.enabled = false;
-                    currentState = TutorialState.ApproachMachine;
+                    StrengthenRunning = true;
+                    StartCoroutine(HandleStrengthen());
                 }
                 break;
             case TutorialState.ApproachMachine:
-                StartCoroutine(HandleApporachMachine());
+                if (!approachRunning)
+                {
+                    approachRunning = true;
+                    StartCoroutine(HandleApporachMachine());
+                }
                 break;
             case TutorialState.Attack:
                 attack.enabled = true;
@@ -123,14 +137,71 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                Invoke("delayEnd", 0.3f);
+                FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 1f);
                 break;
         }
     }
 
-    void delayEnd()
+    private System.Collections.IEnumerator HandleOnBeat()
     {
-        SceneManager.LoadScene("ZyngaMain");
+        directions.enabled = false;
+        onBeat.enabled = true;
+        
+        if (!isBeatCoroutineRunning)
+        {
+            isBeatCoroutineRunning = true;
+            yield return StartCoroutine(HandleOnBeatState());
+        }
+        if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
+        {
+            initPosRing = playerControl.currentRingIndex;
+            initPosTile = playerControl.currentTileIndex;
+            moveCount += 1;
+        }
+        if (moveCount >= 3)
+        {
+            onBeat.enabled = false;
+            currentState = TutorialState.Strengthen;
+        }
+        BeatRunning = false;
+    }
+
+    private System.Collections.IEnumerator HandleOnBeatState()
+    {
+        highlightBeat.enabled = true;
+
+        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => Input.anyKey);
+        highlightBeat.enabled = false;
+    }
+
+
+    private System.Collections.IEnumerator HandleStrengthen()
+    { 
+        sniper.enabled = true;
+        warningManager.enabled = true;
+        consecutive.enabled = true;
+        comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
+        if (!isStrengthenCoroutineRunning)
+        {
+            isStrengthenCoroutineRunning = true;
+            yield return StartCoroutine(HandleStrengthenState());
+        }
+        if (playerAtk.getCombo() == 5)
+        {
+            consecutive.enabled = false;
+            currentState = TutorialState.ApproachMachine;
+        }
+        StrengthenRunning = false;
+    }
+
+    private System.Collections.IEnumerator HandleStrengthenState()
+    {
+        highlightCombo.enabled = true;
+
+        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => Input.anyKey);
+        highlightCombo.enabled = false;
     }
 
     void CheckAndSetPlayerAttack()
@@ -152,12 +223,11 @@ public class TutorialManager : MonoBehaviour
     {
         warningManager.ToggleWarning(GetWarningTiles(), true, WarningManager.WarningType.STEAM);
         hit.enabled = true;
-        // Wait until the player reaches the specified ring index
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
-
         hit.enabled = false;
         warningManager.ToggleWarning(GetWarningTiles(), false, WarningManager.WarningType.STEAM);
         currentState = TutorialState.Attack;
+        approachRunning = false;
     }
 
     void OnDestroy()
