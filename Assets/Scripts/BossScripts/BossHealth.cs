@@ -60,10 +60,10 @@ public class BossHealth : MonoBehaviour
     private void Update()
     {
         // for testing hp bar
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            TakeDamage(100f);
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     TakeDamage(100f);
+        // }
     }
 
     private void PhaseTwo()

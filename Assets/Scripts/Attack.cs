@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
 {
     private BossStates bossStates;
     private DifficultyManager difficultyManager;
+    private BossVisuals bossVisuals;
     private AnimationStateController animationStateController;
     public float playerDamage;
     private float maxPlayerDamage;
@@ -32,6 +33,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
+        bossVisuals = FindObjectOfType<BossVisuals>();
         animationStateController = FindObjectOfType<AnimationStateController>();
         comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
@@ -43,17 +45,17 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-       comboSlider.sprite = comboSprites[combo];
+        comboSlider.sprite = comboSprites[combo];
     }
-    
-    
+
+
     // Allows DifficultyManager to push changes to the player damage.
-    public void SetMaxPlayerDamage(float damage) 
+    public void SetMaxPlayerDamage(float damage)
     {
         maxPlayerDamage = damage;
         comboScaler = maxPlayerDamage / maxCombo;
     }
-    
+
     public void UpdateCombo(ComboChange change)
     {
         combo = change switch
@@ -82,6 +84,9 @@ public class Attack : MonoBehaviour
                     DifficultyManager.phase = 1;
                     bossStates.isSleeping = false;
                 }
+
+                // Make the boss flash white-ish
+                bossVisuals.FlashDamageColor();
             }
             // Instantiate(vfxPrefab, collision.contacts[0].point, Quaternion.identity); 
             GameObject vfxInstance = new GameObject("VFX Instance");
@@ -96,7 +101,7 @@ public class Attack : MonoBehaviour
 
             // Optionally destroy the effect after a duration:
             Destroy(vfxInstance, 2f);
-            
+
             bossHealth.TakeDamage(playerDamage);
             animationStateController.TriggerFlinch();
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
