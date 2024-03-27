@@ -99,6 +99,12 @@ public class WarningManager : MonoBehaviour
     }
 
 
+    public List<string> GetWarnings()
+    {
+        return allWarnings;
+    }
+
+
     /**
         Given the names of tiles to update, changes them to warning or toggles them back to original accordingly.
 
