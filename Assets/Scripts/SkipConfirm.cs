@@ -53,7 +53,7 @@ public class SkipConfirm : MonoBehaviour
     public void ConfirmSkip()
     {
         HideConfirmation();
-        FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 2f);
+        FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 2f);
     }
 
 

@@ -137,7 +137,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialState.End:
-                FadingScreenManager.Instance.TransitionToScene("PatentEnvironment", 1f);
+                FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
                 break;
         }
     }
