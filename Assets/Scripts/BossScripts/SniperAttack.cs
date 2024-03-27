@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 
@@ -10,6 +11,7 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
 {
     [SerializeField] private BeatCheckController beatChecker;
     private ShootSniperBullet sniper;
+    private TutorialManager tutorialManager;
     private GameObject player;
     private PlayerControl playerControl;
     private Vector3 playerShootPosition;
@@ -29,6 +31,10 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
         sniper = FindObjectOfType<ShootSniperBullet>();
         beatChecker = FindObjectOfType<BeatCheckController>();
         warningManager = WarningManager.Instance;
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            tutorialManager = FindObjectOfType<TutorialManager>();
+        }
         aiming = false;
         readyToShoot = false;
     }
@@ -48,7 +54,10 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
     */
     public void TriggerAttack()
     {
-        if (beatChecker.GetVulnerable())
+        if (SceneManager.GetActiveScene().name == "Tutorial" && (tutorialManager.currentState == TutorialState.Start || tutorialManager.currentState == TutorialState.OnBeat))
+        {
+            return;
+        }else if (beatChecker.GetVulnerable())
         {
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.missBeatSniperShot, player);
             beatChecker.SetVulnerable(false);
