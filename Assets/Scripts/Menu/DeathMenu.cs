@@ -87,5 +87,6 @@ public class DeathMenu : MonoBehaviour
         Time.timeScale = 1;
         if (deathMusic)
             deathMusic.Stop();
+        DifficultyManager.phase = 0;
     }
 }
