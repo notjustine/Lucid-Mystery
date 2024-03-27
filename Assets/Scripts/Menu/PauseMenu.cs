@@ -11,8 +11,8 @@ public class PauseMenu : MonoBehaviour
     private bool isOptions = false;
     private bool warningTextActive = false;
     private FadingScreen fade;
-    
-    
+
+
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartPhase()
     {
-        SceneManager.LoadScene("PatentEnvironment");
+        SceneManager.LoadScene("ZyngaMain");
         HidePauseMenu();
     }
 
@@ -62,8 +62,8 @@ public class PauseMenu : MonoBehaviour
     }
 
     public static void QuitGame()
-    {   
-        if (PlayerPrefs.HasKey("bossPhase")) 
+    {
+        if (PlayerPrefs.HasKey("bossPhase"))
             PlayerPrefs.DeleteKey("bossPhase");
         Application.Quit();
     }
@@ -74,7 +74,7 @@ public class PauseMenu : MonoBehaviour
         isOptions = true;
         optionsMenu.SetActive(true);
     }
-    
+
     public void GoBack()
     {
         if (isOptions)

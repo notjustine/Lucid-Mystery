@@ -29,7 +29,8 @@ public class DifficultyManager : MonoBehaviour
     {
         EASY = 0,
         MEDIUM = 1,
-        HARD = 2
+        HARD = 2,
+        INSANE = 3
     }
 
     // This enum should be a comprehensive list of all stats we want to manage with our difficulty.
@@ -48,6 +49,7 @@ public class DifficultyManager : MonoBehaviour
         HAZARD_TIMING,
         HAZARD_COUNT,
         COOLDOWN,
+        HEALING_RATE
     }
 
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
@@ -64,6 +66,7 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private Button easyButton;
     [SerializeField] private Button mediumButton;
     [SerializeField] private Button hardButton;
+    [SerializeField] private Button insaneButton;
 
     public static DifficultyManager Instance { get; private set; }
 
@@ -92,17 +95,19 @@ public class DifficultyManager : MonoBehaviour
             easyButton = GameObject.Find("Easy").GetComponent<Button>();
             mediumButton = GameObject.Find("Medium").GetComponent<Button>();
             hardButton = GameObject.Find("Hard").GetComponent<Button>();
+            insaneButton = GameObject.Find("Insane").GetComponent<Button>();
 
             easyButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.EASY); });
             mediumButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.MEDIUM); });
             hardButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.HARD); });
+            insaneButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.INSANE); });
         }
 
         difficultyMap = new Dictionary<(StatName, Difficulty), float>();
         SetUpDifficultyMap();
         hasChanged = false;
 
-        if (SceneManager.GetActiveScene().name == "PatentEnvironment")
+        if (SceneManager.GetActiveScene().name == "ZyngaMain")
         {
             SetValuesForDifficulty();
         }
@@ -124,57 +129,76 @@ public class DifficultyManager : MonoBehaviour
     {
         // Damages of things
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 75f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 150f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 55f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 35f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.INSANE)] = 20f;
 
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
+        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.INSANE)] = 20f;
 
         difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.EASY)] = 2f;
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.MEDIUM)] = 3f;
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.HARD)] = 4f;
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.INSANE)] = 6f;
 
         // Speeds of things
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 40f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
-        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 140f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 110f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.INSANE)] = 140f;
 
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.EASY)] = 30f;
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.HARD)] = 75f;
+        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.INSANE)] = 90f;
 
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.EASY)] = 4f;
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.MEDIUM)] = 3f;
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.HARD)] = 2.5f;
+        difficultyMap[(StatName.STEAM_TIMING, Difficulty.INSANE)] = 2.5f;
 
         difficultyMap[(StatName.SLAM_TIMING, Difficulty.EASY)] = 4f;
         difficultyMap[(StatName.SLAM_TIMING, Difficulty.MEDIUM)] = 3f;
         difficultyMap[(StatName.SLAM_TIMING, Difficulty.HARD)] = 2.5f;
+        difficultyMap[(StatName.SLAM_TIMING, Difficulty.INSANE)] = 2.5f;
 
         difficultyMap[(StatName.HAZARD_TIMING, Difficulty.EASY)] = 4f;
         difficultyMap[(StatName.HAZARD_TIMING, Difficulty.MEDIUM)] = 6f;
         difficultyMap[(StatName.HAZARD_TIMING, Difficulty.HARD)] = 8f;
+        difficultyMap[(StatName.HAZARD_TIMING, Difficulty.INSANE)] = 8f;
 
         difficultyMap[(StatName.COOLDOWN, Difficulty.EASY)] = 7f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.HARD)] = 4f;
+        difficultyMap[(StatName.COOLDOWN, Difficulty.INSANE)] = 4f;
 
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.EASY)] = 6f;
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.MEDIUM)] = 8f;
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.HARD)] = 10f;
+        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.INSANE)] = 15f;
+
+        // Healing
+        difficultyMap[(StatName.HEALING_RATE, Difficulty.EASY)] = 5f;
+        difficultyMap[(StatName.HEALING_RATE, Difficulty.MEDIUM)] = 4f;
+        difficultyMap[(StatName.HEALING_RATE, Difficulty.HARD)] = 3f;
+        difficultyMap[(StatName.HEALING_RATE, Difficulty.INSANE)] = 2f;
     }
 
 
