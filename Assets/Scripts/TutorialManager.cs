@@ -26,6 +26,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     private PlayerControl playerControl;
     private ArenaInitializer arenaInitializer;
     private WarningManager warningManager;
+
     [SerializeField] private Image skip;
     [SerializeField] private Image onBeat;
     [SerializeField] private Image directions;
@@ -33,7 +34,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private Image attack;
     [SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
-    [SerializeField] private SniperAttack sniper;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
 
@@ -59,7 +59,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         hit.enabled = false;
         consecutive.enabled = false;
         attack.enabled = false;
-        sniper.enabled = false;
+
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
@@ -177,14 +177,15 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
 
     private System.Collections.IEnumerator HandleStrengthen()
-    {
-        sniper.enabled = true;
-        warningManager.enabled = true;
+    { 
+        
         consecutive.enabled = true;
         comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
+        warningManager.enabled = true;
         if (!isStrengthenCoroutineRunning)
         {
             isStrengthenCoroutineRunning = true;
+            
             yield return StartCoroutine(HandleStrengthenState());
         }
         if (playerAtk.getCombo() == 5)
