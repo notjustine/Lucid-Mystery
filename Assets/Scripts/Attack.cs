@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
 {
     private BossStates bossStates;
     private DifficultyManager difficultyManager;
+    private AnimationStateController animationStateController;
     public float playerDamage;
     private float maxPlayerDamage;
     [SerializeField] private int combo = 0;
@@ -31,6 +32,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         bossStates = FindObjectOfType<BossStates>();
+        animationStateController = FindObjectOfType<AnimationStateController>();
         comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
@@ -76,6 +78,7 @@ public class Attack : MonoBehaviour
                 if (bossStates.isSleeping && DifficultyManager.phase == 0)
                 {
                     AudioManager.instance.PhaseMusicChange(1);
+                    animationStateController.TriggerAwaken();
                     DifficultyManager.phase = 1;
                     bossStates.isSleeping = false;
                 }
@@ -95,6 +98,7 @@ public class Attack : MonoBehaviour
             Destroy(vfxInstance, 2f);
             
             bossHealth.TakeDamage(playerDamage);
+            animationStateController.TriggerFlinch();
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }
     }

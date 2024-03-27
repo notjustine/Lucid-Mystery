@@ -13,11 +13,26 @@ public class AnimationStateController : MonoBehaviour
         // Debug.Log(animator);
     }
 
-    public void TriggerPhase2()
+    public void TriggerAwaken()             // call in Attack.cs
+    {
+        animator.SetTrigger("Awaken");
+    }
+
+    public void TriggerPhase2()             // call in BossHealth.cs
     {
         animator.SetTrigger("Phase2");
     }
     
+    public void TriggerFlinch()             // call in Attack.cs
+    {
+        animator.SetTrigger("Flinch");
+    }
+
+    public void TriggerDeath()              // call in BossHealth.cs
+    {
+        animator.SetTrigger("Death");
+    }
+
     // Update is called once per frame
     void Update()
     {

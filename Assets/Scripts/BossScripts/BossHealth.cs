@@ -80,6 +80,7 @@ public class BossHealth : MonoBehaviour
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
         FadingScreenManager.Instance.DeathMenuTransitionToScene();
+        animationStateController.TriggerDeath();
     }
 
 
