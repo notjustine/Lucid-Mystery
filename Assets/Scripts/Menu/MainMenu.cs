@@ -77,6 +77,6 @@ public class MainMenu : MonoBehaviour
         }
         difficulty = FindObjectOfType<DifficultyManager>(true);
         fadingScreen = FindObjectOfType<FadingScreen>(true);
-        // creditsPanel = GameObject.Find("Credits");
+        Time.timeScale = 1;
     }
 }
