@@ -11,8 +11,8 @@ public class PlayerStatus : MonoBehaviour
     public HealthBar healthBar;
     private Attack attack;
     private PlayerControl playerControl;
+    private DifficultyManager difficultyManager;
     private HealingManager healingManager;
-    private const float HEAL_RATE = 5f;  // healing per second
 
     void Start()
     {
@@ -21,6 +21,7 @@ public class PlayerStatus : MonoBehaviour
         attack = FindObjectOfType<Attack>();
         playerControl = FindObjectOfType<PlayerControl>();
         healingManager = HealingManager.Instance;
+        difficultyManager = DifficultyManager.Instance;
     }
 
     void Update()
@@ -28,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
         // Find out if you're on a healing tile
         if (SceneManager.GetActiveScene().name != "Tutorial" && healingManager.IsHealing(playerControl.currentRingIndex, playerControl.currentTileIndex))
         {
-            Heal(HEAL_RATE * Time.deltaTime);
+            Heal(difficultyManager.GetValue(DifficultyManager.StatName.HEALING_RATE) * Time.deltaTime);
         }
     }
 
