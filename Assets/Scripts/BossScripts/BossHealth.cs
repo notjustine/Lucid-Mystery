@@ -26,8 +26,8 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
-           healthBar.SetSliderMax(maxHealth);
-        
+            healthBar.SetSliderMax(maxHealth);
+
             if (DifficultyManager.phase == 2)
             {
                 currHealth = maxHealth / 2;
@@ -37,7 +37,7 @@ public class BossHealth : MonoBehaviour
         }
         playerControl = FindObjectOfType<PlayerControl>();
         animationStateController = FindObjectOfType<AnimationStateController>();
-        
+
     }
     public void TakeDamage(float amount)
     {
@@ -69,6 +69,7 @@ public class BossHealth : MonoBehaviour
     private void PhaseTwo()
     {
         DifficultyManager.phase = 2;
+        isPhase2 = true;
         AudioManager.instance.PhaseMusicChange(2);
         animationStateController.TriggerPhase2();
     }
@@ -80,7 +81,7 @@ public class BossHealth : MonoBehaviour
         AudioManager.instance.PhaseMusicChange(3);
         FadingScreenManager.Instance.DeathMenuTransitionToScene();
     }
-    
+
 
     public void resetHealth()
     {
