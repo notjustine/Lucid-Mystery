@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BossStates : MonoBehaviour
 {
@@ -12,13 +13,15 @@ public class BossStates : MonoBehaviour
     [SerializeField] private BossHealth bossHealth;
     public bool isSleeping;
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
-    public enum BossAttackType { None, Slam, Steam, Spiral, Hazard}
+    public enum BossAttackType { None, Slam, Steam, Spiral}
 
     BossState currentState = BossState.Idle;
     BossAttackType nextAttack = BossAttackType.None;
     BossAttackType lastAttack = BossAttackType.None;
     private float time = 0f;
     private float coolDownTime = 5f;
+    private bool isHazardAttackRunning = false;
+
 
     void Start()
     {
@@ -28,6 +31,7 @@ public class BossStates : MonoBehaviour
         spiralAttack = FindObjectOfType<SpiralAttack>();
         hazardAttack = FindObjectOfType<HazardAttack>();
         bossHealth = FindObjectOfType<BossHealth>();
+
         switch (DifficultyManager.phase)
         {
             case 0:
@@ -43,11 +47,21 @@ public class BossStates : MonoBehaviour
                 isSleeping = true;
                 break;
         }
+
     }
+
     void Update()
     {
         bossStateMachine();
+
+        // Check if boss health is less than 35% and hazard attack coroutine is not already running
+        if (bossHealth.currHealth / bossHealth.maxHealth <= 0.35f && !isHazardAttackRunning)
+        {
+            StartCoroutine(TriggerHazardAttack());
+            isHazardAttackRunning = true; 
+        }
     }
+
 
     void bossStateMachine()
     {
@@ -67,7 +81,6 @@ public class BossStates : MonoBehaviour
                 currentState = BossState.Attacking;
                 break;
             case BossState.Attacking:
-                // Debug.Log("Attempting to Perform Attack");
                 PerformAttack(nextAttack);
                 currentState = BossState.Cooldown;
                 break;
@@ -158,19 +171,16 @@ public class BossStates : MonoBehaviour
         {
             if (lastAttack == BossAttackType.Steam)
             {
-                int attackChoice = Random.Range(0, 3);
+                int attackChoice = Random.Range(0, 2);
                 if (attackChoice == 0)
                 {
                     nextAttack = BossAttackType.Slam;
                 }
-                else if (attackChoice == 1)
+                else
                 {
                     nextAttack = BossAttackType.Spiral;
                 }
-                else
-                {
-                    nextAttack = BossAttackType.Hazard;
-                }
+
             }
             else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
             {
@@ -178,18 +188,14 @@ public class BossStates : MonoBehaviour
             }
             else
             {
-                int attackChoice = Random.Range(0, 3);
+                int attackChoice = Random.Range(0, 2);
                 if (attackChoice == 0)
                 {
                     nextAttack = BossAttackType.Slam;
                 }
-                else if (attackChoice == 1)
+                else
                 {
                     nextAttack = BossAttackType.Spiral;
-                }
-                else 
-                {
-                    nextAttack = BossAttackType.Hazard;
                 }
             }
         }
@@ -213,9 +219,6 @@ public class BossStates : MonoBehaviour
                 break;
             case BossAttackType.Spiral:
                 PerformSpiralAttack();
-                break;
-            case BossAttackType.Hazard:
-                PerformHazardAttack();
                 break;
         }
 
@@ -252,13 +255,18 @@ public class BossStates : MonoBehaviour
         }
     }
 
-    void PerformHazardAttack()
+    private IEnumerator TriggerHazardAttack()
     {
-        if (hazardAttack != null)
+        while (!isSleeping && bossHealth.currHealth / bossHealth.maxHealth <= 0.35f)
         {
-            hazardAttack.TriggerAttack();
+            if (hazardAttack != null)
+            {
+                hazardAttack.TriggerAttack();
+            }
+            yield return new WaitForSeconds(10f);
         }
     }
+
 
     public void SetCooldown(float time)
     {

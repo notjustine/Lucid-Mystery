@@ -1,7 +1,15 @@
 using UnityEngine;
+using System.Collections;
 
 public class HazardCollider : MonoBehaviour
 {
+    public float timeUntilDestruction = 10f;
+
+    private void Start()
+    {
+        StartCoroutine(DestroyIfNotCollided());
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Tile")
@@ -10,9 +18,14 @@ public class HazardCollider : MonoBehaviour
             if (hazardAttack != null)
             {
                 hazardAttack.OnHazardLanded(gameObject, collision.gameObject.name);
-                Destroy(gameObject);
             }
+            Destroy(gameObject);
         }
     }
-}
 
+    private IEnumerator DestroyIfNotCollided()
+    {
+        yield return new WaitForSeconds(timeUntilDestruction);
+        Destroy(gameObject);
+    }
+}

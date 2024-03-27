@@ -6,14 +6,15 @@ public class HazardAttack : MonoBehaviour
 {
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private GameObject hazardPrefab;
+    [SerializeField] private GameObject rotatableHead_GEO;
     [SerializeField] private float hazardTiming;
     [SerializeField] private int numberOfHazards;
     private WarningManager warningManager;
     private DifficultyManager difficultyManager;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
-    private float launchSpeed = 5f;
     private HashSet<string> activeHazards = new HashSet<string>();
+    private float timeToLand = 3f;
 
     private void Start()
     {
@@ -53,39 +54,52 @@ public class HazardAttack : MonoBehaviour
         UnregisterHazardTile(tileName);
         warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
     }
-
     private IEnumerator HazardSequence()
     {
         HashSet<int> selectedIndices = new HashSet<int>();
         List<Vector3> allTilePositions = new List<Vector3>();
         List<string> targetedTilesNames = new List<string>();
 
+
         foreach (var ring in arenaInitializer.tilePositions)
         {
             allTilePositions.AddRange(ring);
         }
 
+        float timeToLand = 2f;
+
         for (int i = 0; i < numberOfHazards && selectedIndices.Count < allTilePositions.Count; i++)
         {
-            int randomIndex;
-            do
+            int randomIndex = Random.Range(0, allTilePositions.Count);
+            while (!selectedIndices.Add(randomIndex))
             {
                 randomIndex = Random.Range(0, allTilePositions.Count);
-            } while (!selectedIndices.Add(randomIndex));
+            }
 
             Vector3 targetPosition = allTilePositions[randomIndex];
-            Vector3 spawnPosition = targetPosition + Vector3.up * 10; 
             string tileName = arenaInitializer.GetTileNameByPosition(targetPosition);
             targetedTilesNames.Add(tileName);
 
-            GameObject hazardInstance = Instantiate(hazardPrefab, spawnPosition, Quaternion.identity);
-            Rigidbody rb = hazardInstance.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.velocity = Vector3.down * launchSpeed;
-            }
+            GameObject hazardInstance = Instantiate(hazardPrefab, rotatableHead_GEO.transform.position, Quaternion.identity);
+            Rigidbody rb = hazardInstance.AddComponent<Rigidbody>();
+            Vector3 launchVelocity = CalculateLaunchVelocity(rotatableHead_GEO.transform.position, targetPosition, timeToLand);
+            rb.velocity = launchVelocity;
+            rb.useGravity = true;
+
         }
-        yield return new WaitForSeconds(hazardTiming);
+
+        yield return new WaitForSeconds(timeToLand + hazardTiming);
+    }
+    Vector3 CalculateLaunchVelocity(Vector3 start, Vector3 end, float timeToTarget)
+    {
+        Vector3 toTarget = end - start;
+        Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
+        float distanceXZ = toTargetXZ.magnitude;
+        float velocityXZ = distanceXZ / timeToTarget;
+        float velocityY = (toTarget.y / timeToTarget) + 0.5f * Physics.gravity.magnitude * timeToTarget;
+        Vector3 velocity = toTargetXZ.normalized * velocityXZ;
+        velocity.y = velocityY;
+        return velocity;
     }
 
     private IEnumerator CheckPlayerOnHazardousTile(string tileName)
@@ -96,7 +110,7 @@ public class HazardAttack : MonoBehaviour
             string currentPlayerTileName = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
             if (activeHazards.Contains(currentPlayerTileName))
             {
-                playerStatus.TakeDamage(DifficultyManager.Instance.GetValue(DifficultyManager.StatName.HAZARD_DAMAGE));
+                playerStatus.TakeDamage(difficultyManager.GetValue(DifficultyManager.StatName.HAZARD_DAMAGE));
             }
             yield return new WaitForSeconds(1.5f);
         }

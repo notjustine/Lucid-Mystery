@@ -28,6 +28,10 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         warningManager = WarningManager.Instance;
     }
 
+    private void Update()
+    {
+
+    }
 
     public void TriggerAttack(int tileIndex)
     {
@@ -37,34 +41,41 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
 
     private IEnumerator AttackSequence(int tileIndex)
     {
-
+        // Trigger warnings for the affected tiles
         List<string> warned = warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SLAM);
-        // foreach (var ring in arenaInitializer.tilePositions)
-        // {
-        //     if (tileIndex < ring.Count)
-        //     {
-        //         Vector3 targetPosition = ring[tileIndex];
-        //         targetPosition.y = 0.5f;
-        //         var indicator = Instantiate(circularWarningPrefab, targetPosition, Quaternion.identity);
-        //         StartCoroutine(HandleIndicatorFlash(indicator));
-        //     }
-        // }
         yield return new WaitForSeconds(warningDuration);
 
-        warningManager.ToggleWarning(warned, false, WarningManager.WarningType.SLAM);  // turn off warnings on those tiles
-        // Instantiate spikes
+        // Turn off warnings on those tiles
+        warningManager.ToggleWarning(warned, false, WarningManager.WarningType.SLAM);
+
+        int tilesPerRing = arenaInitializer.tilesPerRing;
+        int leftTileIndex = (tileIndex - 1 + tilesPerRing) % tilesPerRing;
+        int rightTileIndex = (tileIndex + 1) % tilesPerRing;
+
+        List<int> targetIndices = new List<int> { leftTileIndex, tileIndex, rightTileIndex };
+
         foreach (var ring in arenaInitializer.tilePositions)
         {
-            if (tileIndex < ring.Count)
+            foreach (var index in targetIndices)
             {
-                Vector3 targetPosition = ring[tileIndex];
-                targetPosition.y = 0f;
-                var indicator = Instantiate(attackIndicatorPrefab, targetPosition, Quaternion.identity);
-                StartCoroutine(HandleIndicatorLifecycle(indicator));
+                if (index < ring.Count)
+                {
+                    Vector3 targetPosition = ring[index];
+                    targetPosition.y = 0f;
+                    var indicator = Instantiate(attackIndicatorPrefab, targetPosition, Quaternion.identity);
+                    StartCoroutine(HandleIndicatorLifecycle(indicator));
+                }
             }
         }
-        CheckForPlayerDamage(tileIndex);
+
+        foreach (var index in targetIndices)
+        {
+            CheckForPlayerDamage(index);
+        }
     }
+
+
+
 
     // LEAVING COMMENTED-OUT UNTIL I USE THE FLASHING EFFECT ON WARNINGMANAGER
     // private IEnumerator HandleIndicatorFlash(GameObject indicator)
@@ -101,21 +112,27 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
             playerStatus.TakeDamage(difficultyManager.GetValue(DifficultyManager.StatName.SLAM_DAMAGE));
         }
     }
-
-    // Satisfies IWarningGenerator interface
     public List<string> GetWarningObjects()
     {
         Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
         string tilename = mapping[(playerControl.currentRingIndex, playerControl.currentTileIndex)];
+        List<string> warningTiles = new List<string>();
+        int tilesPerRing = arenaInitializer.tilesPerRing;
+        int leftIndex = (playerControl.currentTileIndex - 1 + tilesPerRing) % tilesPerRing;
+        int rightIndex = (playerControl.currentTileIndex + 1) % tilesPerRing;
 
-        // Pluck out the left-right index of the current tile
-        string leftRightIndex = tilename.Substring(3, 2);
+        for (int ring = 0; ring <= 4; ring++)
+        {
+            if (mapping.ContainsKey((ring, playerControl.currentTileIndex)))
+                warningTiles.Add(mapping[(ring, playerControl.currentTileIndex)]);
 
-        return new List<string> {
-            $"R1_{leftRightIndex}",
-            $"R2_{leftRightIndex}",
-            $"R3_{leftRightIndex}",
-            $"R4_{leftRightIndex}",
-        };
+            if (mapping.ContainsKey((ring, leftIndex)))
+                warningTiles.Add(mapping[(ring, leftIndex)]);
+
+            if (mapping.ContainsKey((ring, rightIndex)))
+                warningTiles.Add(mapping[(ring, rightIndex)]);
+        }
+
+        return warningTiles;
     }
 }
