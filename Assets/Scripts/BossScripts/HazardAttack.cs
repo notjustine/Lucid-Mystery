@@ -14,6 +14,7 @@ public class HazardAttack : MonoBehaviour
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
     private HashSet<string> activeHazards = new HashSet<string>();
+    private float timeToLand = 3f;
 
     private void Start()
     {
@@ -53,31 +54,19 @@ public class HazardAttack : MonoBehaviour
         UnregisterHazardTile(tileName);
         warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
     }
-
-    Vector3 CalculateLaunchVelocity(Vector3 start, Vector3 end, float timeToTarget)
-    {
-        Vector3 toTarget = end - start;
-        Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
-        float distanceXZ = toTargetXZ.magnitude;
-        float velocityXZ = distanceXZ / timeToTarget;
-        float velocityY = (toTarget.y / timeToTarget) + 0.5f * Physics.gravity.magnitude * timeToTarget;
-        Vector3 velocity = toTargetXZ.normalized * velocityXZ;
-        velocity.y = velocityY;
-        return velocity;
-    }
-
     private IEnumerator HazardSequence()
     {
         HashSet<int> selectedIndices = new HashSet<int>();
         List<Vector3> allTilePositions = new List<Vector3>();
         List<string> targetedTilesNames = new List<string>();
 
+
         foreach (var ring in arenaInitializer.tilePositions)
         {
             allTilePositions.AddRange(ring);
         }
 
-        float timeToLand = 3f;
+        float timeToLand = 2f;
 
         for (int i = 0; i < numberOfHazards && selectedIndices.Count < allTilePositions.Count; i++)
         {
@@ -96,15 +85,21 @@ public class HazardAttack : MonoBehaviour
             Vector3 launchVelocity = CalculateLaunchVelocity(rotatableHead_GEO.transform.position, targetPosition, timeToLand);
             rb.velocity = launchVelocity;
             rb.useGravity = true;
+
         }
 
         yield return new WaitForSeconds(timeToLand + hazardTiming);
-
-        foreach (var tileName in targetedTilesNames)
-        {
-            UnregisterHazardTile(tileName);
-            warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
-        }
+    }
+    Vector3 CalculateLaunchVelocity(Vector3 start, Vector3 end, float timeToTarget)
+    {
+        Vector3 toTarget = end - start;
+        Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
+        float distanceXZ = toTargetXZ.magnitude;
+        float velocityXZ = distanceXZ / timeToTarget;
+        float velocityY = (toTarget.y / timeToTarget) + 0.5f * Physics.gravity.magnitude * timeToTarget;
+        Vector3 velocity = toTargetXZ.normalized * velocityXZ;
+        velocity.y = velocityY;
+        return velocity;
     }
 
     private IEnumerator CheckPlayerOnHazardousTile(string tileName)
