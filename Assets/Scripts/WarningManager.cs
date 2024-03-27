@@ -10,17 +10,20 @@ public class WarningManager : MonoBehaviour
         SLAM,
         STEAM,
         SPIRAL,
-        HAZARD
+        HAZARD,
+        INFO
     }
 
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> sniperWarnings;
     private List<string> allWarnings;
+    private List<string> infoTiles;
 
     // for blink effect
     [SerializeField] Color tileColor;
     [SerializeField] Color turretColor;
     [SerializeField] Color warningColor;
+    [SerializeField] Color infoColor;
     private const float TURRET_BLINK_SPEED = 0.3f;
     private const float TILE_BLINK_SPEED = 0.6f;
     private GameObject tempObject;
@@ -57,6 +60,7 @@ public class WarningManager : MonoBehaviour
     {
         sniperWarnings = new List<string>();
         allWarnings = new List<string>();
+        infoTiles = new List<string>();
         InitLogicToPhysMapping();
     }
 
@@ -74,6 +78,16 @@ public class WarningManager : MonoBehaviour
             Color color = tempObject.CompareTag("Turret") ? turretColor : tileColor;
             float speed = tempObject.CompareTag("Turret") ? TURRET_BLINK_SPEED : TILE_BLINK_SPEED;
             propBlock.SetColor("_BaseColor", Color.Lerp(color, warningColor, Mathf.PingPong(Time.time, speed)));
+            tempRenderer.SetPropertyBlock(propBlock);
+        }
+
+        foreach (string name in infoTiles)
+        {
+            tempObject = GameObject.Find(name);
+            tempRenderer = tempObject.GetComponent<MeshRenderer>();
+            propBlock = new MaterialPropertyBlock();
+            tempRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetColor("_BaseColor", Color.Lerp(tileColor, infoColor, Mathf.PingPong(Time.time, TILE_BLINK_SPEED)));
             tempRenderer.SetPropertyBlock(propBlock);
         }
     }
@@ -102,9 +116,18 @@ public class WarningManager : MonoBehaviour
             }
             else
             {
-                allWarnings.Remove(objects[i]);
-                HandleRemoveSniper(type, objects[i]);
-                HandleToggleMaterial(objects[i], renderer, objectToChange.CompareTag("Turret"));
+                if (type != WarningType.INFO)
+                {
+                    allWarnings.Remove(objects[i]);
+                    HandleRemoveSniper(type, objects[i]);
+                    HandleToggleMaterial(objects[i], renderer, objectToChange.CompareTag("Turret"));
+                }
+                else
+                {
+                    // Tutorial
+                    infoTiles.Remove(objects[i]);
+                    HandleToggleMaterial(objects[i], renderer, false);
+                }
             }
         }
         return objects;
@@ -148,6 +171,9 @@ public class WarningManager : MonoBehaviour
             case WarningType.SNIPER:
                 sniperWarnings.Add(tileName);
                 allWarnings.Add(tileName);
+                break;
+            case WarningType.INFO:
+                infoTiles.Add(tileName);
                 break;
             default:
                 // Steam + Slam + Hazard + Spiral
