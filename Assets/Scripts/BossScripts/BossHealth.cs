@@ -8,10 +8,9 @@ public class BossHealth : MonoBehaviour
     [SerializeField] public float maxHealth = 1000f;
     public float currHealth;
     public bool isInvulnerable = false;
-    public bool isPhase2 = false;
-
     public HealthBar healthBar;
     private PlayerControl playerControl;
+    private PlayerStatus playerStatus;
     private FadingScreen fade;
     private AnimationStateController animationStateController;
 
@@ -19,6 +18,7 @@ public class BossHealth : MonoBehaviour
     public void Start()
     {
         fade = FindObjectOfType<FadingScreen>();
+        playerStatus = FindObjectOfType<PlayerStatus>();
         currHealth = maxHealth;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
@@ -41,12 +41,15 @@ public class BossHealth : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
+        if (isInvulnerable)
+            return; 
         currHealth -= amount;
 
         if (currHealth <= 0)
         {
             currHealth = 0;
             healthBar.SetSlider(0f);
+            playerStatus.isInvincible = true;
             Die();
         }
         else if (currHealth <= maxHealth / 2)
@@ -60,16 +63,15 @@ public class BossHealth : MonoBehaviour
     private void Update()
     {
         // for testing hp bar
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     TakeDamage(100f);
-        // }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TakeDamage(100f);
+        }
     }
 
     private void PhaseTwo()
     {
         DifficultyManager.phase = 2;
-        isPhase2 = true;
         AudioManager.instance.PhaseMusicChange(2);
         animationStateController.TriggerPhase2();
     }

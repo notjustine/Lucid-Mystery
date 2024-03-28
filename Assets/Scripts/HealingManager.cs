@@ -51,7 +51,7 @@ public class HealingManager : MonoBehaviour
     void Update()
     {
         // Determine if healing should be active at all
-        if (bossHealth.isPhase2)
+        if (DifficultyManager.phase == 2)
         {
             time += Time.deltaTime;
             if (time > 8f)
