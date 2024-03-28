@@ -77,6 +77,8 @@ public class DifficultyManager : MonoBehaviour
             Debug.Log("Found more than one Difficulty Manager");
         }
         Instance = this;
+        difficultyMap = new Dictionary<(StatName, Difficulty), float>();
+        SetUpDifficultyMap();
     }
 
     void Start()
@@ -103,11 +105,11 @@ public class DifficultyManager : MonoBehaviour
             insaneButton.onClick.AddListener(delegate { SetDifficulty(Difficulty.INSANE); });
         }
 
-        difficultyMap = new Dictionary<(StatName, Difficulty), float>();
-        SetUpDifficultyMap();
+        // difficultyMap = new Dictionary<(StatName, Difficulty), float>();
+        // SetUpDifficultyMap();
         hasChanged = false;
 
-        if (SceneManager.GetActiveScene().name == "ZyngaMain")
+        if (SceneManager.GetActiveScene().name == "ZyngaMain" || SceneManager.GetActiveScene().name == "Tutorial")
         {
             SetValuesForDifficulty();
         }
