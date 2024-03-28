@@ -42,7 +42,7 @@ public class CutSceneHandler : MonoBehaviour
 
     void Update()
     {
-        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
             EndReached(videoPlayer);
         if (Input.GetKeyDown(KeyCode.Space))
             EndReached(videoPlayer);
@@ -57,6 +57,11 @@ public class CutSceneHandler : MonoBehaviour
 
     private void EndReached(VideoPlayer vp)
     {
+        var audio = GetComponent<StudioEventEmitter>();
+        if (audio)
+        {
+            audio.Stop();
+        }
         FadingScreenManager.Instance.CutSceneTransitionToScene(1f, isIntro, a, deathMenu, vp);
     }
     
