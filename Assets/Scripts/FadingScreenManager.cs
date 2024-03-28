@@ -13,7 +13,7 @@ public class FadingScreenManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("Found more than one Sound Reference");
+            Debug.Log("Found more than one Fading Screen Manager Reference");
         }
         Instance = this;
         fade = FindObjectOfType<FadingScreen>(true);
