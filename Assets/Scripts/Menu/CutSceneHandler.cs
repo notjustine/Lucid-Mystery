@@ -59,7 +59,7 @@ public class CutSceneHandler : MonoBehaviour
     {
         if (!skipPanel.activeSelf)
             return;
-        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
             EndReached(videoPlayer);
         if (Input.GetKeyDown(KeyCode.Space))
             EndReached(videoPlayer);
@@ -82,10 +82,6 @@ public class CutSceneHandler : MonoBehaviour
     {
         if (cutsceneMusic)
             cutsceneMusic.Stop();
-        // if (!isIntro)
-        // {
-        //     deathMenu.DisableVideoCamAndSkip();
-        // }
         FadingScreenManager.Instance.CutSceneTransitionToScene(1.5f, isIntro, a, deathMenu, vp);
     }
     

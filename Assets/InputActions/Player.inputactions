@@ -321,7 +321,7 @@
                 {
                     "name": "",
                     "id": "fb422540-9f4e-42b8-a71a-0e8bcc45b204",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -385,6 +385,15 @@
                     "type": "PassThrough",
                     "id": "1b5a2458-a158-43b7-8d9f-b9c7c53745a5",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "cc822f52-4aca-4e4e-ad88-e7f97ffd7ef6",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -784,6 +793,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a47c3dd5-f6d7-44d6-87b3-d5aa826e00fb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
