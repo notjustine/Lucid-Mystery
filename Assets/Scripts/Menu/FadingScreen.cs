@@ -11,6 +11,7 @@ public class FadingScreen : MonoBehaviour
 
     [SerializeField] private string mainScene = "ZyngaMain";
     private bool isFadingFromBlack = false;
+    public bool inProgress {private set; get;} = false;
     private float speed = 0.5f;
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +40,7 @@ public class FadingScreen : MonoBehaviour
     public IEnumerator FadeToBlack(float fadeSpeed = 0.5f)
     {
         isFadingFromBlack = false;
+        inProgress = true;
         speed = fadeSpeed;
         while (black.color.a < 1f)
         {
@@ -47,6 +49,7 @@ public class FadingScreen : MonoBehaviour
         }
 
         isFadingFromBlack = true;
+        inProgress = false;
         yield return null;
     }
 
@@ -54,6 +57,7 @@ public class FadingScreen : MonoBehaviour
     {
         speed = fadeSpeed;
         isFadingFromBlack = true;
+        inProgress = true;
         while (black.color.a > 0f)
         {
             black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - (fadeSpeed * Time.deltaTime));
@@ -61,6 +65,7 @@ public class FadingScreen : MonoBehaviour
         }
 
         isFadingFromBlack = false;
+        inProgress = false;
         yield return null;
     }
 }

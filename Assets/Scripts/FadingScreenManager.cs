@@ -37,6 +37,7 @@ public class FadingScreenManager : MonoBehaviour
     
     public void DeathMenuTransitionToScene(float speed = 0.5F)
     {
+        StopAllCoroutines();
         StartCoroutine(ToDeathScene(speed));
     }
     
@@ -50,8 +51,16 @@ public class FadingScreenManager : MonoBehaviour
         }
         else
         {
-            deathMenu.gameObject.SetActive(true);
+            deathMenu.DisableVideoCamAndSkip();
             vp.Stop();
+
+            deathMenu.gameObject.SetActive(true);
+            yield return StartCoroutine(fade.FadeFromBlack(speed));
+            while (fade.inProgress)
+            {
+            }
+            Time.timeScale = 0;
+            fade.gameObject.SetActive(false);
         }
     }
 
@@ -64,7 +73,6 @@ public class FadingScreenManager : MonoBehaviour
     IEnumerator AsyncToScene(float speed, AsyncOperation a)
     {
         yield return StartCoroutine(fade.FadeToBlack( speed));
-            
         // Iterate all the Studio Banks and start them loading in the background
         // including the audio sample data
         foreach(var bank in banks)
@@ -104,4 +112,11 @@ public class FadingScreenManager : MonoBehaviour
         FindObjectOfType<PlayerControl>(true).gameObject.SetActive(false);
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
+    
+    public void UpdateFadeRef(FadingScreen newFade)
+    {
+        fade = newFade;
+    }
+    
+    
 }
