@@ -78,6 +78,7 @@ public class BossHealth : MonoBehaviour
 
     private void Die()
     {
+        isInvulnerable = true;
         FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
