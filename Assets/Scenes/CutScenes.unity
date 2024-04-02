@@ -469,6 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1975956357}
   isIntro: 1
+  skipPanel: {fileID: 1200947163}
 --- !u!114 &1975956359
 MonoBehaviour:
   m_ObjectHideFlags: 0
