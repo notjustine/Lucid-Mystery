@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
@@ -9,16 +7,15 @@ public class BossHealth : MonoBehaviour
     public float currHealth;
     public bool isInvulnerable = false;
     public HealthBar healthBar;
-    private PlayerControl playerControl;
     private PlayerStatus playerStatus;
-    private FadingScreen fade;
     private AnimationStateController animationStateController;
+    private BossStates bossStates;
 
     // Start is called before the first frame update
     public void Start()
     {
-        fade = FindObjectOfType<FadingScreen>();
         playerStatus = FindObjectOfType<PlayerStatus>();
+        bossStates = FindObjectOfType<BossStates>();
         currHealth = maxHealth;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
@@ -35,14 +32,19 @@ public class BossHealth : MonoBehaviour
                 PhaseTwo();
             }
         }
-        playerControl = FindObjectOfType<PlayerControl>();
         animationStateController = FindObjectOfType<AnimationStateController>();
-
     }
     public void TakeDamage(float amount)
     {
         if (isInvulnerable)
-            return; 
+            return;
+        if (amount > 0 && currHealth == maxHealth)
+        {
+            AudioManager.instance.PhaseMusicChange(1);
+            animationStateController.TriggerAwaken();
+            DifficultyManager.phase = 1;
+            bossStates.isSleeping = false;
+        }
         currHealth -= amount;
 
         if (currHealth <= 0)
@@ -65,8 +67,8 @@ public class BossHealth : MonoBehaviour
         // for testing hp bar
         // if (Input.GetKeyDown(KeyCode.Q))
         // {
-        // TakeDamage(100f);
-        //     Die();
+            // TakeDamage(100f);
+            // Die();
         // }
     }
 
