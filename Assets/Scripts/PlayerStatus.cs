@@ -35,9 +35,9 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInvincible)
             return;
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
 
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
@@ -69,8 +69,11 @@ public class PlayerStatus : MonoBehaviour
 
     private void Die()
     {
+        isInvincible = true;
         DeathMenu.PlayerLoss();
-        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
+        FadingScreenManager.Instance.DeathMenuTransitionToScene(1f);
+        FindObjectOfType<BossStates>().isSleeping = true;
+        // SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
 }
 
