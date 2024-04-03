@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject creditsPanel;
     private DifficultyManager difficulty;
     private FadingScreen fadingScreen;
+    private AsyncOperation sceneLoading;
 
     public void StartGame()
     {
@@ -59,7 +60,7 @@ public class MainMenu : MonoBehaviour
         if (difficulty.gameObject.activeSelf && DifficultyManager.Instance.hasChanged)
         {
             fadingScreen.gameObject.SetActive(true);
-            FadingScreenManager.Instance.TransitionToScene(sceneName, 1f);
+            FadingScreenManager.Instance.AsyncTransitionToScene(1f, sceneLoading);
             DifficultyManager.Instance.hasChanged = false;
         }
     }
@@ -67,6 +68,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         if (PlayerPrefs.HasKey("fps"))
         {
             Application.targetFrameRate = PlayerPrefs.GetInt("fps");
@@ -77,6 +79,7 @@ public class MainMenu : MonoBehaviour
         }
         difficulty = FindObjectOfType<DifficultyManager>(true);
         fadingScreen = FindObjectOfType<FadingScreen>(true);
-        Time.timeScale = 1;
+        sceneLoading = SceneManager.LoadSceneAsync(sceneName);
+        sceneLoading.allowSceneActivation = false;
     }
 }

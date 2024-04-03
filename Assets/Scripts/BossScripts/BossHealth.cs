@@ -63,10 +63,11 @@ public class BossHealth : MonoBehaviour
     private void Update()
     {
         // for testing hp bar
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            TakeDamage(100f);
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        // TakeDamage(100f);
+        //     Die();
+        // }
     }
 
     private void PhaseTwo()
@@ -78,6 +79,7 @@ public class BossHealth : MonoBehaviour
 
     private void Die()
     {
+        isInvulnerable = true;
         FindObjectOfType<BossStates>().isSleeping = true;
         DeathMenu.BossLoss();
         AudioManager.instance.PhaseMusicChange(3);
