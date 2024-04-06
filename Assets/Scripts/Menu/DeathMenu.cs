@@ -23,7 +23,7 @@ public class DeathMenu : MonoBehaviour
     private StudioEventEmitter deathMusic;
     private GameObject skipPanel;
 
-    private static bool bossDied = false;
+    public static bool bossDied = false;
 
     void Awake()
     {
@@ -51,8 +51,6 @@ public class DeathMenu : MonoBehaviour
         else
         {
             endCamera.gameObject.SetActive(false);
-            Time.timeScale = 0;
-            
             header.sprite = bossWin[0];
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];

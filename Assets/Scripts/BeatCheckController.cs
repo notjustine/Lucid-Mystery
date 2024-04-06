@@ -30,12 +30,10 @@ public class BeatCheckController : MonoBehaviour
         if (MusicEventHandler.beatCheck)
         {
             InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
-            
         }
         else
         {
             cameraControl.TriggerShake();
-            attack.UpdateCombo(Attack.ComboChange.RESET);
             player.inputted = true;
             InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
             sniper.TriggerAttack();
@@ -55,7 +53,6 @@ public class BeatCheckController : MonoBehaviour
         else
         {
             player.inputted = true;
-            attack.UpdateCombo(Attack.ComboChange.RESET);
             InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
         }
@@ -64,13 +61,11 @@ public class BeatCheckController : MonoBehaviour
 
     public void SetVulnerable(bool status)
     {
-        // Debug.Log($"set vulnerable to: {status}");
         playerVulnerable = status;
     }
 
     public bool GetVulnerable()
     {
-        // Debug.Log($"get vulnerable: {playerVulnerable}");
         return playerVulnerable;
     }
 }

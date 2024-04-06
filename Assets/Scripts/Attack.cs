@@ -8,14 +8,15 @@ using UnityEngine.VFX;
 
 public class Attack : MonoBehaviour
 {
-    private BossStates bossStates;
+    
     private DifficultyManager difficultyManager;
     private BossVisuals bossVisuals;
     private AnimationStateController animationStateController;
     public float playerDamage;
     private float maxPlayerDamage;
-    [SerializeField] private int combo = 0;
-    [SerializeField] private int maxCombo = 5;
+    private readonly int minCombo = 1;
+    [SerializeField] private int combo;
+    private readonly int maxCombo = 5;
     [SerializeField] private float comboScaler = 0.1f;
     private Image comboSlider;
     [SerializeField] private Sprite[] comboSprites;
@@ -32,11 +33,10 @@ public class Attack : MonoBehaviour
 
     void Start()
     {
-        bossStates = FindObjectOfType<BossStates>();
+        combo = minCombo;
         bossVisuals = FindObjectOfType<BossVisuals>();
         animationStateController = FindObjectOfType<AnimationStateController>();
         comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
-        // comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
             SetMaxPlayerDamage(difficultyManager.GetValue(DifficultyManager.StatName.PLAYER_DAMAGE));
@@ -61,10 +61,10 @@ public class Attack : MonoBehaviour
         combo = change switch
         {
             ComboChange.INCREASE => Math.Min(combo + 1, maxCombo),
-            ComboChange.DECREASE => Math.Max(combo - 1, 0),
-            ComboChange.DECREASE2 => Math.Max(combo - 2, 0),
-            ComboChange.RESET => 0,
-            _ => 0
+            ComboChange.DECREASE => Math.Max(combo - 1, minCombo),
+            ComboChange.DECREASE2 => Math.Max(combo - 2, minCombo),
+            ComboChange.RESET => minCombo,
+            _ => minCombo,
         };
 
         playerDamage = (comboScaler * combo);
@@ -75,20 +75,19 @@ public class Attack : MonoBehaviour
         if (collision.gameObject.CompareTag("Boss"))
         {
             BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
-            if (SceneManager.GetActiveScene().name != "Tutorial")
-            {
-                if (bossStates.isSleeping && DifficultyManager.phase == 0)
-                {
-                    AudioManager.instance.PhaseMusicChange(1);
-                    animationStateController.TriggerAwaken();
-                    DifficultyManager.phase = 1;
-                    bossStates.isSleeping = false;
-                }
 
-                // Make the boss flash white-ish
-                bossVisuals.FlashDamageColor();
+            if (!MusicEventHandler.beatCheck)
+            {
+                UpdateCombo(ComboChange.RESET);
+                return;
             }
-            // Instantiate(vfxPrefab, collision.contacts[0].point, Quaternion.identity); 
+            
+            // Maybe changes this if we revamp tutorial? 
+            bossHealth.TakeDamage(SceneManager.GetActiveScene().name == "Tutorial" ? 0 : playerDamage);
+            UpdateCombo(ComboChange.INCREASE);
+            // Make the boss flash white-ish
+            bossVisuals.FlashDamageColor();
+            
             GameObject vfxInstance = new GameObject("VFX Instance");
             vfxInstance.transform.position = collision.contacts[0].point + new Vector3(0, 1f, 0);
 
@@ -101,8 +100,7 @@ public class Attack : MonoBehaviour
 
             // Optionally destroy the effect after a duration:
             Destroy(vfxInstance, 2f);
-
-            bossHealth.TakeDamage(playerDamage);
+            
             animationStateController.TriggerFlinch();
             AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }
