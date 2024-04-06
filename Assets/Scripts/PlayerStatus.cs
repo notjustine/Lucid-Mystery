@@ -13,6 +13,7 @@ public class PlayerStatus : MonoBehaviour
     private PlayerControl playerControl;
     private DifficultyManager difficultyManager;
     private HealingManager healingManager;
+    private AnimationStateController animationStateController;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerStatus : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         healingManager = HealingManager.Instance;
         difficultyManager = DifficultyManager.Instance;
+        animationStateController = FindObjectOfType<AnimationStateController>();
     }
 
     void Update()
@@ -42,6 +44,7 @@ public class PlayerStatus : MonoBehaviour
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
         attack.UpdateCombo(Attack.ComboChange.DECREASE2);
+        animationStateController.TriggerStumble();
 
         if (currHealth <= 0)
         {
