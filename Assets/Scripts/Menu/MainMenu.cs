@@ -42,6 +42,10 @@ public class MainMenu : MonoBehaviour
         {
             optionsPanel.SetActive(false);
         }
+        else if (difficulty.gameObject.activeSelf)
+        {
+            difficulty.gameObject.SetActive(false);
+        }
         else
         {
             creditsPanel.SetActive(false);
