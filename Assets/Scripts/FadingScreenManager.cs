@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -37,6 +38,8 @@ public class FadingScreenManager : MonoBehaviour
     
     public void DeathMenuTransitionToScene(float speed = 0.5F)
     {
+        var playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.currentActionMap = playerInput.actions.FindActionMap("UI");
         StopAllCoroutines();
         StartCoroutine(ToDeathScene(speed));
     }
@@ -109,7 +112,6 @@ public class FadingScreenManager : MonoBehaviour
     {
         yield return StartCoroutine(fade.FadeToBlack( speed));
         AudioManager.instance.PauseAllEvents();
-        FindObjectOfType<PlayerControl>(true).gameObject.SetActive(false);
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
     

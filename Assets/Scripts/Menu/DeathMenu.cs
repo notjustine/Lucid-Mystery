@@ -36,7 +36,6 @@ public class DeathMenu : MonoBehaviour
         AudioManager.instance.PauseAllEvents();
         cutSceneHandler = FindObjectOfType<CutSceneHandler>();
         bossHUD = GameObject.Find("Canvas");
-        FindObjectOfType<PlayerControl>(true).gameObject.SetActive(false);
         mainCamera = Camera.main.transform;
         endCamera = GameObject.Find("Camera").transform;
         endCamera.position = mainCamera.position;
