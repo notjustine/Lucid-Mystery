@@ -14,6 +14,7 @@ public class BossHealth : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        healthBar = GameObject.Find("Central Machine").GetComponentInChildren<HealthBar>();
         playerStatus = FindObjectOfType<PlayerStatus>();
         bossStates = FindObjectOfType<BossStates>();
         currHealth = maxHealth;

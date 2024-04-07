@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     private AsyncOperation sceneLoading;
     private EventSystem eventSystem;
     private GameObject lastSelected;
+    private GameObject back;
 
     public void StartGame()
     {
@@ -24,10 +25,12 @@ public class MainMenu : MonoBehaviour
         mainMenuPanel.SetActive(false);
         difficulty.gameObject.SetActive(true);
         eventSystem.SetSelectedGameObject(GameObject.Find("Easy"));
+        back.SetActive(true);
     }
 
     public void ShowOptions()
     {
+        back.SetActive(true);
         lastSelected = eventSystem.currentSelectedGameObject;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
@@ -37,6 +40,7 @@ public class MainMenu : MonoBehaviour
 
     public void ShowCredits()
     {
+        back.SetActive(true);
         lastSelected = eventSystem.currentSelectedGameObject;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
@@ -65,6 +69,7 @@ public class MainMenu : MonoBehaviour
         }
         mainMenuPanel.SetActive(true);
         eventSystem.SetSelectedGameObject(lastSelected);
+        back.SetActive(false);
     }
 
     public void QuitGame()
@@ -100,5 +105,7 @@ public class MainMenu : MonoBehaviour
         sceneLoading = SceneManager.LoadSceneAsync(sceneName);
         sceneLoading.allowSceneActivation = false;
         eventSystem.SetSelectedGameObject(GameObject.Find("Continue Button"));
+        back = GameObject.Find("Back Button");
+        back.SetActive(false);
     }
 }

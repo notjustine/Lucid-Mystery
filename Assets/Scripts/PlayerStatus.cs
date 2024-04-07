@@ -17,6 +17,7 @@ public class PlayerStatus : MonoBehaviour
 
     void Start()
     {
+        healthBar = GameObject.Find("Worker").GetComponentInChildren<HealthBar>();
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
         attack = FindObjectOfType<Attack>();
