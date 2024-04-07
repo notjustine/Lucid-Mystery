@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -13,41 +14,57 @@ public class MainMenu : MonoBehaviour
     private DifficultyManager difficulty;
     private FadingScreen fadingScreen;
     private AsyncOperation sceneLoading;
+    private EventSystem eventSystem;
+    private GameObject lastSelected;
 
     public void StartGame()
     {
+        lastSelected = eventSystem.currentSelectedGameObject;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
         difficulty.gameObject.SetActive(true);
+        eventSystem.SetSelectedGameObject(GameObject.Find("Easy"));
     }
 
     public void ShowOptions()
     {
+        lastSelected = eventSystem.currentSelectedGameObject;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
         optionsPanel.SetActive(true);
+        eventSystem.SetSelectedGameObject(GameObject.Find("Slider"));
     }
 
     public void ShowCredits()
     {
+        lastSelected = eventSystem.currentSelectedGameObject;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
         mainMenuPanel.SetActive(false);
         creditsPanel.gameObject.SetActive(true);
-    }
+        eventSystem.SetSelectedGameObject(GameObject.Find("Back"));
+    } 
 
     public void GoBack()
     {
+        if (mainMenuPanel.activeSelf) 
+            return;
+        
         AudioManager.instance.PlayOneShot(SoundRef.Instance.menuSelect, new Vector3());
+        
         if (optionsPanel.activeSelf)
         {
             optionsPanel.SetActive(false);
+        }
+        else if (difficulty.gameObject.activeSelf)
+        {
+            difficulty.gameObject.SetActive(false);
         }
         else
         {
             creditsPanel.SetActive(false);
         }
         mainMenuPanel.SetActive(true);
-
+        eventSystem.SetSelectedGameObject(lastSelected);
     }
 
     public void QuitGame()
@@ -79,7 +96,9 @@ public class MainMenu : MonoBehaviour
         }
         difficulty = FindObjectOfType<DifficultyManager>(true);
         fadingScreen = FindObjectOfType<FadingScreen>(true);
+        eventSystem = GameObject.Find("Canvas").GetComponent<EventSystem>();
         sceneLoading = SceneManager.LoadSceneAsync(sceneName);
         sceneLoading.allowSceneActivation = false;
+        eventSystem.SetSelectedGameObject(GameObject.Find("Continue Button"));
     }
 }

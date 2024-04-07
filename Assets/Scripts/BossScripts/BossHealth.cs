@@ -32,7 +32,7 @@ public class BossHealth : MonoBehaviour
                 PhaseTwo();
             }
         }
-        animationStateController = FindObjectOfType<AnimationStateController>();
+        animationStateController = FindObjectsOfType<AnimationStateController>()[1];
     }
     public void TakeDamage(float amount)
     {
@@ -60,6 +60,8 @@ public class BossHealth : MonoBehaviour
                 PhaseTwo();
         }
         healthBar.SetSlider(currHealth);
+        animationStateController.TriggerFlinch();
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, playerStatus.gameObject);
     }
 
     private void Update()

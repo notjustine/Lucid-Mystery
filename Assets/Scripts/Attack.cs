@@ -100,9 +100,6 @@ public class Attack : MonoBehaviour
 
             // Optionally destroy the effect after a duration:
             Destroy(vfxInstance, 2f);
-            
-            animationStateController.TriggerFlinch();
-            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject);
         }
     }
 }
