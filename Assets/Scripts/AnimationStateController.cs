@@ -11,6 +11,7 @@ public class AnimationStateController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         // Debug.Log(animator);
+        
     }
 
     public void TriggerAwaken()             // call in Attack.cs
