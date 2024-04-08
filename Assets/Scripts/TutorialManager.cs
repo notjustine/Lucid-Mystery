@@ -8,10 +8,11 @@ using System.Collections.Generic;
 public enum TutorialState
 {
     Start,
-    OnBeat,
-    Strengthen,
+    OnBeat, // also explain sniper here
+    Heal, // also explain different indicators here
     ApproachMachine,
     Attack,
+    Strengthen,
     End
 }
 
