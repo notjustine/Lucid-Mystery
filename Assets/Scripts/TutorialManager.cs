@@ -157,6 +157,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
             moveCount += 1;
+            Debug.Log("adding moveCount");
         }
         if (moveCount >= 3)
         {
