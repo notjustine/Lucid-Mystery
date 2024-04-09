@@ -24,7 +24,7 @@ public class FadingScreen : MonoBehaviour
         if (black.color.a > 0 && black.color.a < 255)
         {
             if (isFadingFromBlack)
-                StartCoroutine(FadeFromBlackEnding(speed));
+                StartCoroutine(FadeFromBlack(speed));
             else
                 StartCoroutine(FadeToBlack(speed));
         }
