@@ -34,7 +34,7 @@ public class CutSceneHandler : MonoBehaviour
         FadingScreenManager.Instance.UpdateFadeRef(fade);
         if (isIntro)
         {
-            a = SceneManager.LoadSceneAsync("Tutorial");
+            a = SceneManager.LoadSceneAsync("ZyngaMain");
             StartCoroutine(StartVideo());
             a.allowSceneActivation = false;
             skipPanel = GameObject.Find("Skip");

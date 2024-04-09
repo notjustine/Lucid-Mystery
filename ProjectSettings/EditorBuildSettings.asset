@@ -20,8 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndMenu.unity
     guid: d41411e95d25247ed90b2d41d5ea8969
-  - enabled: 1
-    path: Assets/Scenes/HP HUD.unity
-    guid: 88f404df64b30c7479477e3cbfa8b71b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 814d6f6e49212d3469f5e0b1c284ca00, type: 2}

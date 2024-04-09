@@ -83,7 +83,7 @@ public class Attack : MonoBehaviour
             }
             
             // Maybe changes this if we revamp tutorial? 
-            bossHealth.TakeDamage(SceneManager.GetActiveScene().name == "Tutorial" ? 0 : playerDamage);
+            bossHealth.TakeDamage(TutorialManager.tutorialActive ? 0 : playerDamage);
             UpdateCombo(ComboChange.INCREASE);
             // Make the boss flash white-ish
             bossVisuals.FlashDamageColor();

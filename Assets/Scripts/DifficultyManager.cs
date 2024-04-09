@@ -118,6 +118,7 @@ public class DifficultyManager : MonoBehaviour
 
     public void SetDifficulty(Difficulty difficulty)
     {
+        TutorialManager.tutorialActive = true;
         currDifficulty = difficulty;
         PlayerPrefs.SetInt("difficulty", (int)difficulty);
         hasChanged = true;

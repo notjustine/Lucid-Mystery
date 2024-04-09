@@ -39,8 +39,9 @@ public class BossHealth : MonoBehaviour
     {
         if (isInvulnerable)
             return;
-        if (amount > 0 && currHealth == maxHealth)
+        if (!TutorialManager.tutorialActive)
         {
+            Debug.Log("Awakening boss");
             AudioManager.instance.PhaseMusicChange(1);
             animationStateController.TriggerAwaken();
             DifficultyManager.phase = 1;
