@@ -18,11 +18,12 @@ public enum TutorialState
 
 public class TutorialManager : MonoBehaviour, IWarningGenerator
 {
+    public static bool tutorialActive = true;
     private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
     [SerializeField] private GameObject centralMachine;
-    [SerializeField] private GameObject Phase1HP;
-    [SerializeField] private GameObject Phase2HP;
+    // [SerializeField] private GameObject Phase1HP;
+    // [SerializeField] private GameObject Phase2HP;
     private Image comboImage;
     private PlayerControl playerControl;
     private ArenaInitializer arenaInitializer;
@@ -47,12 +48,19 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     bool isStrengthenCoroutineRunning;
     bool StrengthenRunning;
 
+    private AsyncOperation a;
+
     private bool playerHasAttacked = false;
     public static TutorialManager Instance { get; private set; }
 
     void Start()
     {
         // Initialize tutorial
+        centralMachine = GameObject.Find("Central Machine");
+        playerAtk = FindObjectOfType<Attack>();
+        a = SceneManager.LoadSceneAsync("ZyngaMain");
+        a.allowSceneActivation = false;
+        
         fade = FindObjectOfType<FadingScreen>();
         skip.enabled = true;
         directions.enabled = true;
@@ -66,8 +74,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         warningManager = WarningManager.Instance;
         warningManager.enabled = false;
         centralMachine.SetActive(false);
-        Phase1HP.SetActive(false);
-        Phase2HP.SetActive(false);
+        // Phase1HP.SetActive(false);
+        // Phase2HP.SetActive(false);
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         playerControl = FindObjectOfType<PlayerControl>();
         comboImage = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
@@ -138,7 +146,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 }
                 break;
             case TutorialState.End:
-                FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
+                FadingScreenManager.Instance.AsyncTransitionToScene( 5f, a);
+                tutorialActive = false;
                 break;
         }
     }

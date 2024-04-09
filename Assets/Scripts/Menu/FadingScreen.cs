@@ -21,7 +21,7 @@ public class FadingScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        if (black.color.a > 0 && black.color.a < 255)
+        if (inProgress)
         {
             if (isFadingFromBlack)
                 StartCoroutine(FadeFromBlack(speed));

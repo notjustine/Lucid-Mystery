@@ -38,7 +38,8 @@ public class FadingScreenManager : MonoBehaviour
     
     public void DeathMenuTransitionToScene(float speed = 0.5F)
     {
-        SceneManager.UnloadSceneAsync("HP HUD");
+        // SceneManager.UnloadSceneAsync("HP HUD");
+        GameObject.Find("Main HUD").SetActive(false);
         var playerInput = FindObjectOfType<PlayerInput>();
         playerInput.currentActionMap = playerInput.actions.FindActionMap("UI");
         StopAllCoroutines();

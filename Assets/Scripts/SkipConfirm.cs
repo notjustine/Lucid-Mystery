@@ -7,7 +7,7 @@ public class SkipConfirm : MonoBehaviour
     private PlayerControl playerControl;
     [SerializeField] private GameObject confirmationPanel;
     private FadingScreen fade;
-
+    private PlayerInput playerInput;
     void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
@@ -17,6 +17,8 @@ public class SkipConfirm : MonoBehaviour
         {
             Debug.Log("can't find fade");
         }
+        playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindAction("Skip").started += OnSkip;
     }
 
     public void OnSkip(InputAction.CallbackContext context)
@@ -53,6 +55,9 @@ public class SkipConfirm : MonoBehaviour
     {
         HideConfirmation();
         FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 2f);
+        TutorialManager.tutorialActive = false;
+        playerInput.actions.FindAction("Skip").started -= OnSkip;
+        playerInput.actions.FindAction("Skip").Disable();
     }
 
 
