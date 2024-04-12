@@ -102,18 +102,18 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 // leave to the events
                 break;
             case TutorialState.OnBeat:
+                //need a "sniper would fire if any action is not on beat"
                 if (!BeatRunning)
                 {
                     BeatRunning = true;
                     StartCoroutine(HandleOnBeat());
                 }
                 break;
-            case TutorialState.Strengthen:
-                if (!StrengthenRunning)
-                {
-                    StrengthenRunning = true;
-                    StartCoroutine(HandleStrengthen());
-                }
+
+            case TutorialState.Heal:
+                Debug.Log("in Heal");
+                // need a "pick up healing packages to get healed"
+                currentState = TutorialState.ApproachMachine;
                 break;
             case TutorialState.ApproachMachine:
                 if (!approachRunning)
@@ -128,7 +128,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 {
                     attack.enabled = false;
                     playerHasAttacked = false;
-                    currentState = TutorialState.End;
+                    currentState = TutorialState.Strengthen; // hit the boss
                 }
                 else if (playerControl.currentRingIndex != 0)
                 {
@@ -137,7 +137,16 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                     playerHasAttacked = false;
                 }
                 break;
+            case TutorialState.Strengthen:
+                // need a "attacking on beat consecutively boosts your damage"
+                if (!StrengthenRunning)
+                {
+                    StrengthenRunning = true;
+                    StartCoroutine(HandleStrengthen());
+                }
+                break;
             case TutorialState.End:
+                // need a "now, you are ready to face the boss"
                 FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
                 break;
         }
@@ -173,7 +182,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        //yield return new WaitUntil(() => Input.anyKey);
+        yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
     }
 
@@ -193,7 +202,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         if (playerAtk.getCombo() == 5)
         {
             consecutive.enabled = false;
-            currentState = TutorialState.ApproachMachine;
+            currentState = TutorialState.End;
         }
         StrengthenRunning = false;
     }
@@ -203,7 +212,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightCombo.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        //yield return new WaitUntil(() => Input.anyKey);
+        yield return new WaitUntil(() => Input.anyKey); //need another "press anykey to continue"
         highlightCombo.enabled = false;
     }
 
