@@ -133,7 +133,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 else if (playerControl.currentRingIndex != 0)
                 {
                     attack.enabled = false;
-                    currentState = TutorialState.ApproachMachine;
+                    currentState = TutorialState.ApproachMachine; // went back before hitting boss
                     playerHasAttacked = false;
                 }
                 break;
@@ -172,7 +172,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         if (moveCount >= 3)
         {
             onBeat.enabled = false;
-            currentState = TutorialState.Strengthen;
+            currentState = TutorialState.Heal;
         }
         BeatRunning = false;
     }
