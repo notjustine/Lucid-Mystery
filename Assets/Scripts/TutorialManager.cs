@@ -28,12 +28,13 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     private ArenaInitializer arenaInitializer;
     private WarningManager warningManager;
 
-    [SerializeField] private Image skip;
-    [SerializeField] private Image onBeat;
-    [SerializeField] private Image directions;
-    [SerializeField] private Image hit;
-    [SerializeField] private Image attack;
-    [SerializeField] private Image consecutive;
+    [SerializeField] private Image instructions;
+    //[SerializeField] private Image skip;
+    //[SerializeField] private Image onBeat;
+    //[SerializeField] private Image directions;
+    //[SerializeField] private Image hit;
+    //[SerializeField] private Image attack;
+    //[SerializeField] private Image consecutive;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
