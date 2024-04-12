@@ -10,7 +10,6 @@ using UnityEngine.Video;
 
 public class DeathMenu : MonoBehaviour
 {
-
     [SerializeField] private string scene = "ZyngaMain";
     [SerializeField] private Image header;
     [SerializeField] private Sprite[] bossWin;
@@ -22,11 +21,18 @@ public class DeathMenu : MonoBehaviour
     private Transform endCamera;
     private Transform mainCamera;
     private StudioEventEmitter deathMusic;
+    private GameObject skipPanel;
 
-    private static bool bossDied = false;
+    public static bool bossDied = false;
+
+    void Awake()
+    {
+        skipPanel = GameObject.Find("Skip");
+        skipPanel.SetActive(false);
+    }
+    
     void Start()
     {
-        Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
         cutSceneHandler = FindObjectOfType<CutSceneHandler>();
         bossHUD = GameObject.Find("Canvas");
@@ -36,13 +42,14 @@ public class DeathMenu : MonoBehaviour
         bossHUD.SetActive(false);
         if (bossDied)
         {
-            cutSceneHandler.Play();
+            cutSceneHandler.Play(skipPanel);
             gameObject.SetActive(false);
             header.sprite = playerWin[0];
             restartButton.sprite = playerWin[1];
         }
         else
         {
+            endCamera.gameObject.SetActive(false);
             header.sprite = bossWin[0];
             restartButton.sprite = bossWin[1];
             background.sprite = bossWin[2];
@@ -80,6 +87,12 @@ public class DeathMenu : MonoBehaviour
     public void QuitGame()
     {
         PauseMenu.QuitGame();
+    }
+
+    public void DisableVideoCamAndSkip()
+    {
+        endCamera.gameObject.SetActive(false);
+        skipPanel.gameObject.SetActive(false);
     }
 
     private void OnDestroy()

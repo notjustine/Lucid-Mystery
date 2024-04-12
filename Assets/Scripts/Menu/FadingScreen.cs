@@ -11,6 +11,7 @@ public class FadingScreen : MonoBehaviour
 
     [SerializeField] private string mainScene = "ZyngaMain";
     private bool isFadingFromBlack = false;
+    public bool inProgress {private set; get;} = false;
     private float speed = 0.5f;
     // Start is called before the first frame update
     void Awake()
@@ -33,35 +34,52 @@ public class FadingScreen : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == mainScene)
         {
-            StartCoroutine(FadeFromBlack());
+            if (SceneManager.GetSceneByName("EndMenu").isLoaded && !DeathMenu.bossDied)
+            {
+                StartCoroutine(FadeFromBlackEnding());
+            }
+            else
+            {
+                StartCoroutine(FadeFromBlack());
+            }
         }
     }
     public IEnumerator FadeToBlack(float fadeSpeed = 0.5f)
     {
         isFadingFromBlack = false;
+        inProgress = true;
         speed = fadeSpeed;
         while (black.color.a < 1f)
         {
-            black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a + (fadeSpeed * Time.deltaTime));
-            yield return new WaitForSeconds(0.01f);
+            yield return black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a + (fadeSpeed * Time.deltaTime));
+            // yield return new WaitForSeconds(0.01f);
         }
 
         isFadingFromBlack = true;
-        yield return null;
+        inProgress = false;
+        // yield return null;
     }
 
     public IEnumerator FadeFromBlack(float fadeSpeed = 0.5f)
     {
         speed = fadeSpeed;
         isFadingFromBlack = true;
+        inProgress = true;
         while (black.color.a > 0f)
         {
-            black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - (fadeSpeed * Time.deltaTime));
-            yield return new WaitForSeconds(0.01f);
+            yield return black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - (fadeSpeed * Time.deltaTime));
+            // yield return new WaitForSeconds(0.01f);
         }
 
         isFadingFromBlack = false;
-        yield return null;
+        inProgress = false;
+        // yield return null;
+    }
+
+    private IEnumerator FadeFromBlackEnding(float fadeSpeed = 0.5f)
+    {
+        yield return StartCoroutine(FadeFromBlack(fadeSpeed));
+        Time.timeScale = 0;
     }
 }
 

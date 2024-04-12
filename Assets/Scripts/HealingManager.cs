@@ -20,9 +20,12 @@ public class HealingManager : MonoBehaviour
     private GameObject tempObject;
     private MeshRenderer tempRenderer;
     private MaterialPropertyBlock propBlock;
+    private Animator animator;
     // end blink effect stuff
 
     private float time;
+    private WarningManager warningManager;
+    private List<string> warningTiles;
     public static HealingManager Instance { get; private set; }
 
     private void Awake()
@@ -39,6 +42,8 @@ public class HealingManager : MonoBehaviour
     {
         time = 7f;
         bossHealth = FindObjectOfType<BossHealth>();
+        animator = GetComponent<Animator>();
+        warningManager = WarningManager.Instance;
         InitTileOptions();
         healingTiles = new List<string>();
         InitLogicToPhysMapping();
@@ -48,7 +53,7 @@ public class HealingManager : MonoBehaviour
     void Update()
     {
         // Determine if healing should be active at all
-        if (bossHealth.isPhase2)
+        if (DifficultyManager.phase == 2)
         {
             time += Time.deltaTime;
             if (time > 8f)
@@ -57,16 +62,20 @@ public class HealingManager : MonoBehaviour
                 time = 0f;
             }
         }
+        warningTiles = warningManager.GetWarnings();
 
-        // Every name found in healingTiles should be blinking.
+        // Every name found in healingTiles should be blinking (unless it's also under warning).
         foreach (string name in healingTiles)
         {
-            tempObject = GameObject.Find(name);
-            tempRenderer = tempObject.GetComponent<MeshRenderer>();
-            propBlock = new MaterialPropertyBlock();
-            tempRenderer.GetPropertyBlock(propBlock);
-            propBlock.SetColor("_BaseColor", Color.Lerp(healingStart, healingEnd, Mathf.PingPong(Time.time, TILE_BLINK_SPEED)));
-            tempRenderer.SetPropertyBlock(propBlock);
+            if (!warningTiles.Contains(name))
+            {
+                tempObject = GameObject.Find(name);
+                tempRenderer = tempObject.GetComponent<MeshRenderer>();
+                propBlock = new MaterialPropertyBlock();
+                tempRenderer.GetPropertyBlock(propBlock);
+                propBlock.SetColor("_BaseColor", Color.Lerp(healingStart, healingEnd, Mathf.PingPong(Time.time, TILE_BLINK_SPEED)));
+                tempRenderer.SetPropertyBlock(propBlock);
+            }
         }
     }
 
@@ -91,6 +100,7 @@ public class HealingManager : MonoBehaviour
     {
         if (startHealing)
         {
+            animator.SetBool("isActive", true);
             List<string> tiles = ChooseHealingTiles();
             for (int i = 0; i < 2; i++)
             {
@@ -99,6 +109,7 @@ public class HealingManager : MonoBehaviour
         }
         else
         {
+            animator.SetBool("isActive", false);
             for (int i = 0; i < 2; i++)
             {
                 // Pop front of the healingTiles list in both cases

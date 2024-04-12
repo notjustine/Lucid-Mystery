@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private bool isInvincible = false;
+    [SerializeField] public bool isInvincible = false;
     private float currHealth;
     public HealthBar healthBar;
     private Attack attack;
     private PlayerControl playerControl;
     private DifficultyManager difficultyManager;
     private HealingManager healingManager;
+    private AnimationStateController animationStateController;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerStatus : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         healingManager = HealingManager.Instance;
         difficultyManager = DifficultyManager.Instance;
+        animationStateController = FindObjectOfType<AnimationStateController>();
     }
 
     void Update()
@@ -35,13 +37,14 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
         if (isInvincible)
             return;
+        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
 
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
         attack.UpdateCombo(Attack.ComboChange.DECREASE2);
+        animationStateController.TriggerStumble();
 
         if (currHealth <= 0)
         {
@@ -69,8 +72,11 @@ public class PlayerStatus : MonoBehaviour
 
     private void Die()
     {
+        isInvincible = true;
         DeathMenu.PlayerLoss();
-        SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
+        FadingScreenManager.Instance.DeathMenuTransitionToScene(1f);
+        FindObjectOfType<BossStates>().isSleeping = true;
+        // SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
 }
 

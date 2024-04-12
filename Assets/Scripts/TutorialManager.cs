@@ -8,10 +8,11 @@ using System.Collections.Generic;
 public enum TutorialState
 {
     Start,
-    OnBeat,
-    Strengthen,
+    OnBeat, // also explain sniper here
+    Heal, // also explain different indicators here
     ApproachMachine,
     Attack,
+    Strengthen,
     End
 }
 
@@ -157,6 +158,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
             moveCount += 1;
+            Debug.Log("adding moveCount");
         }
         if (moveCount >= 3)
         {
@@ -171,7 +173,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
     }
 
@@ -201,7 +203,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightCombo.enabled = true;
 
         yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightCombo.enabled = false;
     }
 

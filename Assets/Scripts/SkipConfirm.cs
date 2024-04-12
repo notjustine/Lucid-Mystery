@@ -21,7 +21,6 @@ public class SkipConfirm : MonoBehaviour
 
     public void OnSkip(InputAction.CallbackContext context)
     {
-        Debug.Log("pressed space");
         if (context.phase.Equals(InputActionPhase.Started))
         {
             ShowConfirmation();

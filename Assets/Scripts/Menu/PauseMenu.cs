@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +13,7 @@ public class PauseMenu : MonoBehaviour
     private bool isOptions = false;
     private bool warningTextActive = false;
     private FadingScreen fade;
-
-
+    
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase.Equals(InputActionPhase.Started))
@@ -35,7 +36,7 @@ public class PauseMenu : MonoBehaviour
         fade.gameObject.SetActive(false);
         warningTextActive = warningText.activeSelf;
         warningText.SetActive(false);
-        playerControl.SwitchPlayerMap("UI");
+        playerControl.SwitchPlayerMap("Pause UI");
         pauseMenu.SetActive(true);
         optionsMenu.SetActive(false);
         Time.timeScale = 0;

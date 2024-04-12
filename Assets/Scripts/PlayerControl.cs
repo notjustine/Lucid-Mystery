@@ -11,11 +11,11 @@ public class PlayerControl : MonoBehaviour
     private Animator animator;
     private Transform cameraTransform;
     private PlayerInput input;
-    private Attack attack;
     public event Action OnAttackEvent;
     public event Action OnMoveEvent;
 
     private static readonly int Attack1 = Animator.StringToHash("Attack");
+    private AnimationStateController animationStateController;
 
     // Movement Updates
     public bool inputted { get; set; }
@@ -25,10 +25,11 @@ public class PlayerControl : MonoBehaviour
         animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
         beatChecker = FindObjectOfType<BeatCheckController>();
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
-        attack = FindObjectOfType<Attack>();
         cameraTransform = Camera.main.transform;
         input = GetComponent<PlayerInput>();
         StartHelper();
+
+        animationStateController = FindObjectOfType<AnimationStateController>();
     }
 
     public void StartHelper()
@@ -55,17 +56,14 @@ public class PlayerControl : MonoBehaviour
                 MoveToAdjacentTile(1); // Right
             else if (move.x < 0)
                 MoveToAdjacentTile(-1); // Left
-            attack.UpdateCombo(Attack.ComboChange.INCREASE);
         }
         else
         {
-            var lastRingIndex = currentRingIndex;
             if (move.y > 0 && currentRingIndex > 0)
                 MoveToAdjacentRing(-1); // In (towards the center)
             else if (move.y < 0 && currentRingIndex < arenaInitializer.tilePositions.Count - 1)
                 MoveToAdjacentRing(1); // Out (away from the center)
-            if (lastRingIndex != currentRingIndex)
-                attack.UpdateCombo(Attack.ComboChange.INCREASE);
+
         }
 
         inputted = true;
@@ -76,12 +74,13 @@ public class PlayerControl : MonoBehaviour
     {
         if (inputted || context.phase != InputActionPhase.Started)
             return;
-
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
         animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
         inputted = true;
         OnAttackEvent?.Invoke();
+
+        animationStateController.TriggerAttack1();
     }
 
     void Update()
