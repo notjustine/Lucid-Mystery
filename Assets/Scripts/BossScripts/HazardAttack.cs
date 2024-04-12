@@ -26,10 +26,10 @@ public class HazardAttack : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.M))
-        // {
-        //    TriggerAttack();
-        //}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            TriggerAttack();
+        }
     }
 
     public void TriggerAttack()
