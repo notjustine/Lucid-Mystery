@@ -35,6 +35,20 @@ public class TutorialInstruction : MonoBehaviour
         type = newType;
     }
 
+    public void SetDisplayImageAlpha(float alpha)
+    {
+        if (displayImage != null)
+        {
+            Color color = displayImage.color;
+            color.a = alpha;
+            displayImage.color = color;
+        }
+        else
+        {
+            Debug.LogError("displayImage is not set.");
+        }
+    }
+
     void Update()
     {
         if (!displayImage) displayImage = GetComponent<Image>();

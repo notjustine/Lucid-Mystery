@@ -131,7 +131,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 }
                 break;
             case TutorialState.End:
-                // need a "now, you are ready to face the boss"
+                instructions.SetDisplayImageAlpha(0f);           
                 FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
                 break;
         }
@@ -152,7 +152,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
             moveCount += 1;
-            Debug.Log("adding moveCount");
+            //Debug.Log("adding moveCount");
         }
         if (moveCount >= 3)
         {
@@ -187,7 +187,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             
             yield return StartCoroutine(HandleStrengthenState());
         }
-        if (playerAtk.getCombo() == 5)
+        if (playerAtk.getCombo() >= 5)
         {
             currentState = TutorialState.End;
         }
@@ -220,7 +220,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
     private System.Collections.IEnumerator HandleApporachMachine()
     {
-        Debug.Log("In handle approach machine");
+        //Debug.Log("In handle approach machine");
         instructions.SetInstructionType(TutorialInstruction.SpriteType.ApproachMachine);
         warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.INFO);
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
