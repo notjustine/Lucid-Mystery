@@ -20,6 +20,7 @@ public class HealingManager : MonoBehaviour
     private GameObject tempObject;
     private MeshRenderer tempRenderer;
     private MaterialPropertyBlock propBlock;
+    private Animator animator;
     // end blink effect stuff
 
     private float time;
@@ -41,6 +42,7 @@ public class HealingManager : MonoBehaviour
     {
         time = 7f;
         bossHealth = FindObjectOfType<BossHealth>();
+        animator = GetComponent<Animator>();
         warningManager = WarningManager.Instance;
         InitTileOptions();
         healingTiles = new List<string>();
@@ -98,6 +100,7 @@ public class HealingManager : MonoBehaviour
     {
         if (startHealing)
         {
+            animator.SetBool("isActive", true);
             List<string> tiles = ChooseHealingTiles();
             for (int i = 0; i < 2; i++)
             {
@@ -106,6 +109,7 @@ public class HealingManager : MonoBehaviour
         }
         else
         {
+            animator.SetBool("isActive", false);
             for (int i = 0; i < 2; i++)
             {
                 // Pop front of the healingTiles list in both cases

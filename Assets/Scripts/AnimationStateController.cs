@@ -14,6 +14,7 @@ public class AnimationStateController : MonoBehaviour
         
     }
 
+    // BOSS ANIMATIONS
     public void TriggerAwaken()             // call in Attack.cs
     {
         animator.SetTrigger("Awaken");
@@ -34,9 +35,15 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Death");
     }
 
+    // PLAYER ANIMATIONS
     public void TriggerStumble()            // call in PlayerStatus.cs
     {
         animator.SetTrigger("Stumble");
+    }
+
+    public void TriggerAttack1()            // call in PlayerControl.cs
+    {
+        animator.SetTrigger("Attack1");
     }
 
     // Update is called once per frame

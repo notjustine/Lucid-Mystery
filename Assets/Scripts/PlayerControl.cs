@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     public event Action OnMoveEvent;
 
     private static readonly int Attack1 = Animator.StringToHash("Attack");
+    private AnimationStateController animationStateController;
 
     // Movement Updates
     public bool inputted { get; set; }
@@ -27,6 +28,8 @@ public class PlayerControl : MonoBehaviour
         cameraTransform = Camera.main.transform;
         input = GetComponent<PlayerInput>();
         StartHelper();
+
+        animationStateController = FindObjectOfType<AnimationStateController>();
     }
 
     public void StartHelper()
@@ -76,6 +79,8 @@ public class PlayerControl : MonoBehaviour
         beatChecker.SetVulnerable(true);
         inputted = true;
         OnAttackEvent?.Invoke();
+
+        animationStateController.TriggerAttack1();
     }
 
     void Update()
