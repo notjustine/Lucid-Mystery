@@ -54,7 +54,7 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
     */
     public void TriggerAttack()
     {
-        if (SceneManager.GetActiveScene().name == "Tutorial" && (tutorialManager.currentState == TutorialState.Start || tutorialManager.currentState == TutorialState.OnBeat))
+        if (SceneManager.GetActiveScene().name == "Tutorial" && (tutorialManager.currentState == TutorialState.Start))
         {
             return;
         }else if (beatChecker.GetVulnerable())

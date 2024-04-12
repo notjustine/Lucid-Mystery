@@ -67,6 +67,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         approachRunning = false;
         isStrengthenCoroutineRunning = false;
         StrengthenRunning = false;
+        healRunning = false;
     }
 
     private void Awake()
@@ -95,7 +96,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 break;
 
             case TutorialState.Heal:
-                Debug.Log("in Heal");
                 if (!healRunning)
                 {
                     healRunning = true;
@@ -140,14 +140,15 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     private System.Collections.IEnumerator HandleOnBeat()
     {
         instructions.SetInstructionType(TutorialInstruction.SpriteType.OnBeat);
+        warningManager.enabled = true;
         if (!isBeatCoroutineRunning)
         {
             isBeatCoroutineRunning = true;
             yield return StartCoroutine(HandleOnBeatState());
         }
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
         if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
         {
-            instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
             moveCount += 1;
@@ -180,7 +181,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     {
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Strengthen);
         comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
-        warningManager.enabled = true;
         if (!isStrengthenCoroutineRunning)
         {
             isStrengthenCoroutineRunning = true;
