@@ -7,14 +7,15 @@ public class HazardAttack : MonoBehaviour
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private GameObject hazardPrefab;
     [SerializeField] private GameObject rotatableHead_GEO;
+    [SerializeField] private GameObject Nails;
     [SerializeField] private float hazardTiming;
+    [SerializeField] private float timeToLand = 3f;
     [SerializeField] private int numberOfHazards;
     private WarningManager warningManager;
     private DifficultyManager difficultyManager;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
     private HashSet<string> activeHazards = new HashSet<string>();
-    private float timeToLand = 3f;
 
     private void Start()
     {
@@ -26,10 +27,10 @@ public class HazardAttack : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.M))
-        // {
-        //    TriggerAttack();
-        //}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            TriggerAttack();
+        }
     }
 
     public void TriggerAttack()
@@ -38,20 +39,23 @@ public class HazardAttack : MonoBehaviour
         numberOfHazards = (int)DifficultyManager.Instance.GetValue(DifficultyManager.StatName.HAZARD_COUNT);
         StartCoroutine(HazardSequence());
     }
-    public void OnHazardLanded(GameObject hazard, string tileName)
+    public void OnHazardLanded(GameObject hazard, GameObject collide, string tileName)
     {
+        Vector3 nailSpawnPos = new Vector3(collide.transform.position.x, -0.75f, collide.transform.position.z);
         List<string> targetedTilesNames = new List<string>();
         targetedTilesNames.Add(tileName);
         RegisterHazardTile(tileName);
+        StartCoroutine(MakeTileNonHazardousAfterDelay(tileName, hazardTiming, nailSpawnPos));
         warningManager.ToggleWarning(targetedTilesNames, true, WarningManager.WarningType.HAZARD);
         StartCoroutine(CheckPlayerOnHazardousTile(tileName));
-        StartCoroutine(MakeTileNonHazardousAfterDelay(tileName, hazardTiming));
     }
 
-    private IEnumerator MakeTileNonHazardousAfterDelay(string tileName, float delay)
+    private IEnumerator MakeTileNonHazardousAfterDelay(string tileName, float delay, Vector3 nailSpawnPos)
     {
+        GameObject nails = Instantiate(Nails, nailSpawnPos, Quaternion.identity);
         yield return new WaitForSeconds(delay);
         UnregisterHazardTile(tileName);
+        Destroy(nails);
         warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
     }
     private IEnumerator HazardSequence()
@@ -65,8 +69,6 @@ public class HazardAttack : MonoBehaviour
         {
             allTilePositions.AddRange(ring);
         }
-
-        float timeToLand = 2f;
 
         for (int i = 0; i < numberOfHazards && selectedIndices.Count < allTilePositions.Count; i++)
         {
