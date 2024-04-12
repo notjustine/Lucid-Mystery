@@ -20,21 +20,11 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 {
     private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
-    [SerializeField] private GameObject centralMachine;
-    [SerializeField] private GameObject Phase1HP;
-    [SerializeField] private GameObject Phase2HP;
     private Image comboImage;
     private PlayerControl playerControl;
     private ArenaInitializer arenaInitializer;
     private WarningManager warningManager;
-
-    [SerializeField] private Image instructions;
-    //[SerializeField] private Image skip;
-    //[SerializeField] private Image onBeat;
-    //[SerializeField] private Image directions;
-    //[SerializeField] private Image hit;
-    //[SerializeField] private Image attack;
-    //[SerializeField] private Image consecutive;
+    private TutorialInstruction instructions;
     [SerializeField] private Attack playerAtk;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
@@ -47,6 +37,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     bool approachRunning;
     bool isStrengthenCoroutineRunning;
     bool StrengthenRunning;
+    bool healRunning;
 
     private bool playerHasAttacked = false;
     public static TutorialManager Instance { get; private set; }
@@ -54,21 +45,14 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     void Start()
     {
         // Initialize tutorial
-        fade = FindObjectOfType<FadingScreen>();
-        skip.enabled = true;
-        directions.enabled = true;
-        onBeat.enabled = false;
-        hit.enabled = false;
-        consecutive.enabled = false;
-        attack.enabled = false;
+        instructions = FindObjectOfType<TutorialInstruction>();
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Start);
 
+        fade = FindObjectOfType<FadingScreen>();
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
         warningManager.enabled = false;
-        centralMachine.SetActive(false);
-        Phase1HP.SetActive(false);
-        Phase2HP.SetActive(false);
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         playerControl = FindObjectOfType<PlayerControl>();
         comboImage = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
@@ -99,7 +83,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         switch (currentState)
         {
             case TutorialState.Start:
-                directions.enabled = true;
                 // leave to the events
                 break;
             case TutorialState.OnBeat:
@@ -113,8 +96,11 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
             case TutorialState.Heal:
                 Debug.Log("in Heal");
-                // need a "pick up healing packages to get healed"
-                currentState = TutorialState.ApproachMachine;
+                if (!healRunning)
+                {
+                    healRunning = true;
+                    StartCoroutine(HandleHeal());
+                }
                 break;
             case TutorialState.ApproachMachine:
                 if (!approachRunning)
@@ -124,16 +110,14 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 }
                 break;
             case TutorialState.Attack:
-                attack.enabled = true;
+                instructions.SetInstructionType(TutorialInstruction.SpriteType.Attack);
                 if (playerHasAttacked && playerControl.currentRingIndex == 0)
                 {
-                    attack.enabled = false;
                     playerHasAttacked = false;
                     currentState = TutorialState.Strengthen; // hit the boss
                 }
                 else if (playerControl.currentRingIndex != 0)
                 {
-                    attack.enabled = false;
                     currentState = TutorialState.ApproachMachine; // went back before hitting boss
                     playerHasAttacked = false;
                 }
@@ -155,9 +139,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
     private System.Collections.IEnumerator HandleOnBeat()
     {
-        directions.enabled = false;
-        onBeat.enabled = true;
-
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.OnBeat);
         if (!isBeatCoroutineRunning)
         {
             isBeatCoroutineRunning = true;
@@ -165,6 +147,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         }
         if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
         {
+            instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
             initPosRing = playerControl.currentRingIndex;
             initPosTile = playerControl.currentTileIndex;
             moveCount += 1;
@@ -172,7 +155,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         }
         if (moveCount >= 3)
         {
-            onBeat.enabled = false;
             currentState = TutorialState.Heal;
         }
         BeatRunning = false;
@@ -182,16 +164,21 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     {
         highlightBeat.enabled = true;
 
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey);
+        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
     }
 
+    private System.Collections.IEnumerator HandleHeal()
+    {
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Heal);
+        yield return new WaitForSeconds(2f);
+        currentState = TutorialState.ApproachMachine;
+    }
 
     private System.Collections.IEnumerator HandleStrengthen()
-    { 
-        
-        consecutive.enabled = true;
+    {
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Strengthen);
         comboImage.GetComponent<CanvasRenderer>().SetAlpha(100f);
         warningManager.enabled = true;
         if (!isStrengthenCoroutineRunning)
@@ -202,7 +189,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         }
         if (playerAtk.getCombo() == 5)
         {
-            consecutive.enabled = false;
             currentState = TutorialState.End;
         }
         StrengthenRunning = false;
@@ -212,8 +198,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     {
         highlightCombo.enabled = true;
 
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => Input.anyKey); //need another "press anykey to continue"
+        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitUntil(() => Input.anyKey);
         highlightCombo.enabled = false;
     }
 
@@ -234,10 +220,10 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
     private System.Collections.IEnumerator HandleApporachMachine()
     {
+        Debug.Log("In handle approach machine");
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.ApproachMachine);
         warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.INFO);
-        hit.enabled = true;
         yield return new WaitUntil(() => playerControl.currentRingIndex == 0);
-        hit.enabled = false;
         warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.INFO);
         currentState = TutorialState.Attack;
         approachRunning = false;
