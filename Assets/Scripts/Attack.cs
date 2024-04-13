@@ -99,7 +99,7 @@ public class Attack : MonoBehaviour
             // Add a VisualEffect component
             VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
             vfx.visualEffectAsset = vfxAsset;
-            vfx.transform.localScale = new Vector3(7f, 7f, 7f);
+            vfx.transform.localScale = new Vector3(6f, 6f, 6f);
             // Play the effect
             vfx.Play();
 

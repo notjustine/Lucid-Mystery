@@ -6,7 +6,7 @@ public class DmgNumber : MonoBehaviour
 {
     // Start is called before the first frame update
     private Image image;
-    private float fadeSpeed = 4f;
+    private float fadeSpeed = 2f;
     private GameObject parent;
     [SerializeField] private Sprite[] dmgSprite;
     void Awake()
@@ -40,6 +40,7 @@ public class DmgNumber : MonoBehaviour
         image.sprite = dmgSprite[combo-1];
         
         image.SetNativeSize();
+        transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         StartCoroutine(MoveUpAndFade());
     }
 }
