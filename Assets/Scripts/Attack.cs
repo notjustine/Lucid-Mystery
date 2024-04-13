@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +19,7 @@ public class Attack : MonoBehaviour
     private Image comboSlider;
     [SerializeField] private Sprite[] comboSprites;
     public VisualEffectAsset vfxAsset;
+    [SerializeField] private GameObject dmgNumberPrefab;
     public int getCombo() { return combo; }
 
     public enum ComboChange
@@ -82,6 +81,9 @@ public class Attack : MonoBehaviour
                 return;
             }
             
+            var dmgNumber = Instantiate(dmgNumberPrefab, collision.contacts[0].point, Quaternion.identity) as GameObject;
+            dmgNumber.GetComponentInChildren<DmgNumber>().StartMovement(combo, collision.contacts[0].point);
+                
             // Maybe changes this if we revamp tutorial? 
             bossHealth.TakeDamage(SceneManager.GetActiveScene().name == "Tutorial" ? 0 : playerDamage);
             UpdateCombo(ComboChange.INCREASE);
