@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class HealingManager : MonoBehaviour
@@ -16,11 +15,11 @@ public class HealingManager : MonoBehaviour
     [SerializeField] Color tileColor;
     [SerializeField] Color healingStart;
     [SerializeField] Color healingEnd;
+    [SerializeField] GameObject healKit;
     private const float TILE_BLINK_SPEED = 0.6f;
     private GameObject tempObject;
     private MeshRenderer tempRenderer;
     private MaterialPropertyBlock propBlock;
-    private Animator animator;
     // end blink effect stuff
 
     private float time;
@@ -42,7 +41,6 @@ public class HealingManager : MonoBehaviour
     {
         time = 7f;
         bossHealth = FindObjectOfType<BossHealth>();
-        animator = GetComponent<Animator>();
         warningManager = WarningManager.Instance;
         InitTileOptions();
         healingTiles = new List<string>();
@@ -53,7 +51,7 @@ public class HealingManager : MonoBehaviour
     void Update()
     {
         // Determine if healing should be active at all
-        if (DifficultyManager.phase == 2)
+        if (true) // (DifficultyManager.phase == 2)
         {
             time += Time.deltaTime;
             if (time > 8f)
@@ -80,62 +78,74 @@ public class HealingManager : MonoBehaviour
     }
 
 
-    /** 
-        Player can use this to determine if they are current on a healing tile.
-    */
-    public bool IsHealing(int ringIndex, int tileIndex)
-    {
-        if (logicalToPhysicalTileMapping.ContainsKey((ringIndex, tileIndex)))
-        {
-            return healingTiles.Contains(logicalToPhysicalTileMapping[(ringIndex, tileIndex)]);
-        }
-        return false;
-    }
-
-
     /**
-        Changes tiles to healing or toggles them back to original accordingly.
+        Toggles two healing tiles on or toggles all remaining ones back to original accordingly.
     */
     void ToggleHealing(bool startHealing)
     {
         if (startHealing)
         {
-            animator.SetBool("isActive", true);
             List<string> tiles = ChooseHealingTiles();
             for (int i = 0; i < 2; i++)
             {
                 healingTiles.Add(tiles[i]); // So that Update function can make it blink
+                // instantiate a firstAidKit on each of these too.
+                SpawnHealKit(tiles[i]);
             }
         }
         else
         {
-            animator.SetBool("isActive", false);
-            for (int i = 0; i < 2; i++)
+            int remaining = healingTiles.Count;
+            while (remaining > 0)
             {
-                // Pop front of the healingTiles list in both cases
-                GameObject tileToChange = GameObject.Find(healingTiles[0]);  // TO-DO: add error handling/null checks maybe
-                MeshRenderer renderer = tileToChange.GetComponent<MeshRenderer>();
-
                 string toRemove = healingTiles[0];
                 healingTiles.Remove(toRemove);
-                HandleToggleMaterial(toRemove, renderer);
+                remaining = healingTiles.Count;
+                HandleToggleMaterial(toRemove);
             }
         }
+    }
+
+
+    void SpawnHealKit(string tilename)
+    {
+        GameObject tile = GameObject.Find(tilename);
+        Transform tileTransform = tile.GetComponent<Transform>();
+        Vector3 kitPosition = new Vector3(tileTransform.position.x, 1.25f, tileTransform.position.z);
+        GameObject healingKit = Instantiate(healKit, kitPosition, Quaternion.identity);
+        HealKitController healKitController = healingKit.GetComponent<HealKitController>();
+        Animator animator = healingKit.GetComponentInChildren<Animator>();
+        animator.SetBool("isActive", true);
+        healKitController.tilename = tilename;
     }
 
 
     /**
         Keep this tile as the healing color if there is still another outstanding warning.
     */
-    private void HandleToggleMaterial(string name, MeshRenderer renderer)
+    public void HandleToggleMaterial(string name)
     {
-        if (!healingTiles.Contains(name))
+        GameObject tileToChange = GameObject.Find(name);
+        MeshRenderer renderer = null;
+
+        if (tileToChange != null)
+        {
+            renderer = tileToChange.GetComponent<MeshRenderer>();
+        }
+
+        if (!healingTiles.Contains(name) && renderer != null)
         {
             propBlock = new MaterialPropertyBlock();
             renderer.GetPropertyBlock(propBlock);
             propBlock.SetColor("_BaseColor", tileColor);
             renderer.SetPropertyBlock(propBlock);
         }
+    }
+
+
+    public void RemoveFromHealingTiles(string toRemove)
+    {
+        healingTiles.Remove(toRemove);
     }
 
 
@@ -154,13 +164,12 @@ public class HealingManager : MonoBehaviour
 
 
     /**
-    This ensures that the shot won't be fired until the turret has rotated to face where the player
-    was when they missed a beat.  
-    We don't track continuously because the sniper shouldn't know where you are if you can stay on beat.
+        This ensures that the shot won't be fired until the turret has rotated to face where the player
+        was when they missed a beat.  
+        We don't track continuously because the sniper shouldn't know where you are if you can stay on beat.
     */
     IEnumerator Heal()
     {
-        // Switch healing on
         ToggleHealing(true);
         yield return new WaitForSeconds(6f);
         ToggleHealing(false);
@@ -185,7 +194,7 @@ public class HealingManager : MonoBehaviour
         Initializes a mapping between logical locations used by PlayerControl to physical mapping in our actual scene.
         This will drastically improve performance of determining which tiles to highlight with a warning in various situations, 
         as opposed to on-the-fly calculation by iterating through tiles and calculating which tile the player is overlapping with.
-    */
+*/
     private void InitLogicToPhysMapping()
     {
         logicalToPhysicalTileMapping = new Dictionary<(int, int), string>
