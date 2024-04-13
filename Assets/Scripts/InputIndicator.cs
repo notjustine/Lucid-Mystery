@@ -7,8 +7,6 @@ public class InputIndicator : MonoBehaviour
 
     public enum SpriteType
     {
-        ON_BEAT,
-        OFF_BEAT,
         ON_BEAT_INPUTTED,
         OFF_BEAT_INPUTTED
     }
@@ -16,9 +14,11 @@ public class InputIndicator : MonoBehaviour
     public static InputIndicator Instance { get; private set; }
     private GameObject onBeatImage;
     private GameObject offBeatImage;
-    // [SerializeField] private Sprite[] sprites;
+    private Image image;
+    [SerializeField] private Sprite[] sprites;
     // public SpriteType type = SpriteType.ON_BEAT;
     private bool inProgress = false;
+    private Coroutine beatCoroutine;
     private void Awake()
     {
         if (Instance != null)
@@ -28,6 +28,7 @@ public class InputIndicator : MonoBehaviour
     
         Instance = this;
         var images = gameObject.GetComponentsInChildren<Image>(true);
+        image = images[0];
         onBeatImage = images[1].gameObject;
         offBeatImage = images[2].gameObject;
 
@@ -42,7 +43,21 @@ public class InputIndicator : MonoBehaviour
     {
         StartCoroutine(BeatInput(type));
     }
+
+    public void StartBeatCoroutine()
+    {
+        beatCoroutine = StartCoroutine(AnimateBeat());
+    }
     
+    private IEnumerator AnimateBeat()
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            image.sprite = sprites[i];
+            yield return new WaitForSeconds(0.041f);
+        }
+        image.sprite = sprites[0];
+    }
     private IEnumerator BeatInput(SpriteType type)
     {
         inProgress = true;
@@ -60,5 +75,10 @@ public class InputIndicator : MonoBehaviour
         onBeatImage.SetActive(false);
         offBeatImage.SetActive(false);
         inProgress = false;
+    }
+
+    void OnDestroy()
+    {
+        StopCoroutine(beatCoroutine);
     }
 }
