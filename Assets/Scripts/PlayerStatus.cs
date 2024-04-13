@@ -15,6 +15,7 @@ public class PlayerStatus : MonoBehaviour
     private HealingManager healingManager;
     private AnimationStateController animationStateController;
 
+
     void Start()
     {
         currHealth = maxHealth;
@@ -26,14 +27,6 @@ public class PlayerStatus : MonoBehaviour
         animationStateController = FindObjectOfType<AnimationStateController>();
     }
 
-    void Update()
-    {
-        // Find out if you're on a healing tile
-        if (SceneManager.GetActiveScene().name != "Tutorial" && healingManager.IsHealing(playerControl.currentRingIndex, playerControl.currentTileIndex))
-        {
-            Heal(difficultyManager.GetValue(DifficultyManager.StatName.HEALING_RATE) * Time.deltaTime);
-        }
-    }
 
     public void TakeDamage(float amount)
     {
@@ -49,16 +42,17 @@ public class PlayerStatus : MonoBehaviour
         if (currHealth <= 0)
         {
             if (SceneManager.GetActiveScene().name == "Tutorial")
-                {
-                    currHealth = maxHealth;
-                    healthBar.SetSlider(currHealth);
-                }
+            {
+                currHealth = maxHealth;
+                healthBar.SetSlider(currHealth);
+            }
             else
             {
                 Die();
             }
         }
     }
+
 
     public void Heal(float amount)
     {
@@ -69,6 +63,7 @@ public class PlayerStatus : MonoBehaviour
         }
         healthBar.SetSlider(currHealth);
     }
+
 
     private void Die()
     {
