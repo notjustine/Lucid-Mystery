@@ -78,6 +78,7 @@ public class Attack : MonoBehaviour
             if (!MusicEventHandler.beatCheck)
             {
                 UpdateCombo(ComboChange.RESET);
+                AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject, "current_multiplier", 0);
                 return;
             }
             
@@ -86,6 +87,8 @@ public class Attack : MonoBehaviour
                 
             // Maybe changes this if we revamp tutorial? 
             bossHealth.TakeDamage(SceneManager.GetActiveScene().name == "Tutorial" ? 0 : playerDamage);
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject, "current_multiplier", combo);
+            
             UpdateCombo(ComboChange.INCREASE);
             // Make the boss flash white-ish
             bossVisuals.FlashDamageColor();
@@ -96,7 +99,7 @@ public class Attack : MonoBehaviour
             // Add a VisualEffect component
             VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
             vfx.visualEffectAsset = vfxAsset;
-
+            vfx.transform.localScale = new Vector3(7f, 7f, 7f);
             // Play the effect
             vfx.Play();
 

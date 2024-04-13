@@ -52,6 +52,7 @@ public class BeatCheckController : MonoBehaviour
         }
         else
         {
+            cameraControl.TriggerShake();
             player.inputted = true;
             InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
