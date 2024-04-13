@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +19,7 @@ public class Attack : MonoBehaviour
     private Image comboSlider;
     [SerializeField] private Sprite[] comboSprites;
     public VisualEffectAsset vfxAsset;
+    [SerializeField] private GameObject dmgNumberPrefab;
     public int getCombo() { return combo; }
 
     public enum ComboChange
@@ -79,11 +78,17 @@ public class Attack : MonoBehaviour
             if (!MusicEventHandler.beatCheck)
             {
                 UpdateCombo(ComboChange.RESET);
+                AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject, "current_multiplier", 0);
                 return;
             }
             
+            var dmgNumber = Instantiate(dmgNumberPrefab, collision.contacts[0].point, Quaternion.identity) as GameObject;
+            dmgNumber.GetComponentInChildren<DmgNumber>().StartMovement(combo, collision.contacts[0].point);
+                
             // Maybe changes this if we revamp tutorial? 
             bossHealth.TakeDamage(SceneManager.GetActiveScene().name == "Tutorial" ? 0 : playerDamage);
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, gameObject, "current_multiplier", combo);
+            
             UpdateCombo(ComboChange.INCREASE);
             // Make the boss flash white-ish
             bossVisuals.FlashDamageColor();
@@ -94,7 +99,7 @@ public class Attack : MonoBehaviour
             // Add a VisualEffect component
             VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
             vfx.visualEffectAsset = vfxAsset;
-
+            vfx.transform.localScale = new Vector3(6f, 6f, 6f);
             // Play the effect
             vfx.Play();
 

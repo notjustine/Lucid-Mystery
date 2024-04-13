@@ -132,15 +132,10 @@ public class MusicEventHandler : MonoBehaviour
         if (beatInterval == 0f)
             return;
         
-        // if (timelineInfo.currentBar == 125 && DifficultyManager.phase == 2)
-        //     bossStates.isSleeping = false;
-        
         if (timelineInfo.currentBeat == 1 | timelineInfo.currentBeat == 3)
         {  
             if (timelineInfo.beatPosition + inputDelay <= timelineInfo.currentPosition)
             {
-                if (!player.inputted)
-                    InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT);
                 beatCheck = false;
                 
                 if (!justChanged)
@@ -152,9 +147,6 @@ public class MusicEventHandler : MonoBehaviour
             }
             else
             {
-                
-                if (!player.inputted)
-                    InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT);
                 beatCheck = true;
                 if (justChanged)
                 {
@@ -166,9 +158,7 @@ public class MusicEventHandler : MonoBehaviour
         } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
             if (timelineInfo.beatPosition + inputDelay + startDelay <= timelineInfo.currentPosition)
-            {
-                if (!player.inputted)
-                    InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT);
+            { ;
                 beatCheck = true;
                 if (justChanged)
                 {
@@ -178,8 +168,6 @@ public class MusicEventHandler : MonoBehaviour
             }
             else
             {
-                if (!player.inputted) 
-                    InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT);
                 beatCheck = false;
                 if (!justChanged)
                 {
