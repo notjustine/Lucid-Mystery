@@ -17,7 +17,7 @@ public class HazardCollider : MonoBehaviour
             HazardAttack hazardAttack = FindObjectOfType<HazardAttack>();
             if (hazardAttack != null)
             {
-                hazardAttack.OnHazardLanded(gameObject, collision.gameObject.name);
+                hazardAttack.OnHazardLanded(gameObject, collision.gameObject, collision.gameObject.name);
             }
             Destroy(gameObject);
         }
