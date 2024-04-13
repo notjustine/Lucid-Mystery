@@ -46,17 +46,16 @@ public class HazardAttack : MonoBehaviour
         targetedTilesNames.Add(tileName);
         RegisterHazardTile(tileName);
         StartCoroutine(MakeTileNonHazardousAfterDelay(tileName, hazardTiming, nailSpawnPos));
-        warningManager.ToggleWarning(targetedTilesNames, true, WarningManager.WarningType.HAZARD);
         StartCoroutine(CheckPlayerOnHazardousTile(tileName));
     }
 
     private IEnumerator MakeTileNonHazardousAfterDelay(string tileName, float delay, Vector3 nailSpawnPos)
     {
         GameObject nails = Instantiate(Nails, nailSpawnPos, Quaternion.identity);
+        warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
         yield return new WaitForSeconds(delay);
         UnregisterHazardTile(tileName);
         Destroy(nails);
-        warningManager.ToggleWarning(new List<string> { tileName }, false, WarningManager.WarningType.HAZARD);
     }
     private IEnumerator HazardSequence()
     {
