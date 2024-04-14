@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -16,9 +17,11 @@ public class InputIndicator : MonoBehaviour
     private GameObject offBeatImage;
     private Image image;
     [SerializeField] private Sprite[] sprites;
-    // public SpriteType type = SpriteType.ON_BEAT;
     private bool inProgress = false;
-    private Coroutine beatCoroutine;
+    public bool startIndicator = false;
+    private float time = 0.0f;
+    private const float BeatTime = 0.041f;
+    private int index = 0;
     private void Awake()
     {
         if (Instance != null)
@@ -36,7 +39,29 @@ public class InputIndicator : MonoBehaviour
 
     void Update()
     {
-        
+        UpdateHelper();
+    }
+
+    private void UpdateHelper()
+    {
+        if (startIndicator)
+        {
+            if (time >= BeatTime)
+            {
+                index++;
+                time = 0.0f;
+                image.sprite = sprites[index];
+            }
+            if (index >= sprites.Length - 1)
+            {
+                index = 0;
+                startIndicator = false;
+            }
+        } else
+        {
+            image.sprite = sprites[0];
+        }
+        time += Time.deltaTime;
     }
 
     public void SetBeatInput(SpriteType type)
@@ -44,20 +69,6 @@ public class InputIndicator : MonoBehaviour
         StartCoroutine(BeatInput(type));
     }
 
-    public void StartBeatCoroutine()
-    {
-        beatCoroutine = StartCoroutine(AnimateBeat());
-    }
-    
-    private IEnumerator AnimateBeat()
-    {
-        for (int i = 0; i < sprites.Length; i++)
-        {
-            image.sprite = sprites[i];
-            yield return new WaitForSeconds(0.041f);
-        }
-        image.sprite = sprites[0];
-    }
     private IEnumerator BeatInput(SpriteType type)
     {
         inProgress = true;
@@ -75,10 +86,5 @@ public class InputIndicator : MonoBehaviour
         onBeatImage.SetActive(false);
         offBeatImage.SetActive(false);
         inProgress = false;
-    }
-
-    void OnDestroy()
-    {
-        StopCoroutine(beatCoroutine);
     }
 }
