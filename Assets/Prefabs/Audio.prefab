@@ -464,6 +464,13 @@ MonoBehaviour:
       Data3: 183612039
       Data4: 1168306589
     Path: event:/SFX/player_damageTaken
+  <heal>k__BackingField:
+    Guid:
+      Data1: 252899253
+      Data2: 1203997460
+      Data3: -113396042
+      Data4: 2055436710
+    Path: event:/SFX/player_healing
   <missBeatSniperShot>k__BackingField:
     Guid:
       Data1: 616452673

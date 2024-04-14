@@ -13,6 +13,7 @@ public class SoundRef : MonoBehaviour
     [field: SerializeField] public EventReference attackSwing { get; private set; }
     [field: SerializeField] public EventReference movementSound { get; private set; }
     [field: SerializeField] public EventReference dmgTaken { get; private set; }
+    [field: SerializeField] public EventReference heal { get; private set; }
     
     [field: Header("Boss SFX")]
     [field: SerializeField] public EventReference missBeatSniperShot { get; private set; }

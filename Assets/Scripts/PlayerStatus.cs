@@ -56,6 +56,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void Heal(float amount)
     {
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.heal, gameObject);
         currHealth += amount;
         if (currHealth > maxHealth)
         {
