@@ -20,7 +20,7 @@ public class InputIndicator : MonoBehaviour
     private bool inProgress = false;
     public bool startIndicator = false;
     private float time = 0.0f;
-    private const float BeatTime = 0.041f;
+    public float frameTime = 0.041f;
     private int index = 0;
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class InputIndicator : MonoBehaviour
     {
         if (startIndicator)
         {
-            if (time >= BeatTime)
+            if (time >= frameTime)
             {
                 index++;
                 time = 0.0f;
