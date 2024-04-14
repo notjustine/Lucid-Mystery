@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4987544567470466986}
   - {fileID: 126533757067247380}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -67,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07b6c6f2c212451c936559fa7aa27aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilename: 
 --- !u!1 &1918784470339659382
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +102,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5499888661396620383}
-  - {fileID: 4987544567470466986}
   m_Father: {fileID: 92461643557767710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &543143923427943956
@@ -314,10 +315,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.3333323, y: 3.3333333, z: 3.3333323}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 126533757067247380}
+  m_Father: {fileID: 92461643557767710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &2357012146858435482
 VisualEffect:
