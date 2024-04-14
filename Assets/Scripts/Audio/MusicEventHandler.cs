@@ -110,9 +110,9 @@ public class MusicEventHandler : MonoBehaviour
 
         if (beatJustHappened)
         {
-            expectedNextBeatTime = timelineInfo.time + (float)beatInterval;
-            var timeDiff = expectedNextBeatTime - Time.time;
-            InputIndicator.Instance.frameTime = timeDiff / 16;
+            expectedNextBeatTime = timelineInfo.time + (float)beatInterval * 2;
+            var timeDiff = (expectedNextBeatTime - Time.time) / 16;
+            InputIndicator.Instance.frameTime = timeDiff;
             Debug.LogWarning(timeDiff);
             beatJustHappened = false;
         }
