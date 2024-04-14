@@ -15,14 +15,7 @@ public class InputIndicator : MonoBehaviour
     public static InputIndicator Instance { get; private set; }
     private GameObject onBeatImage;
     private GameObject offBeatImage;
-    private Image image;
-    [SerializeField] private Sprite[] sprites;
-    private bool inProgress = false;
-    public bool startIndicator = false;
-    private float time = 0.0f;
-    public float frameTime = 0.041f;
-    private int index = 0;
-    public Animator animator;
+    private Animator animator;
     private void Awake()
     {
         if (Instance != null)
@@ -32,7 +25,6 @@ public class InputIndicator : MonoBehaviour
     
         Instance = this;
         var images = gameObject.GetComponentsInChildren<Image>(true);
-        image = images[0];
         onBeatImage = images[1].gameObject;
         offBeatImage = images[2].gameObject;
         animator =  GetComponentInChildren<Animator>();
@@ -40,33 +32,13 @@ public class InputIndicator : MonoBehaviour
 
     void Update()
     {
-        // UpdateHelper();
     }
     
-
-    private void UpdateHelper()
+    public void PlayAnimation(string animationName, int layer, float normalizedTime)
     {
-        if (startIndicator)
-        {
-            Debug.Log(frameTime);
-            if (time >= frameTime)
-            {
-                index++;
-                time = 0.0f;
-                image.sprite = sprites[index];
-            }
-            if (index >= sprites.Length - 1)
-            {
-                index = 0;
-                startIndicator = false;
-            }
-        } else
-        {
-            image.sprite = sprites[0];
-        }
-        time += Time.deltaTime;
+        animator.Play(animationName, layer, normalizedTime);
     }
-
+    
     public void SetBeatInput(SpriteType type)
     {
         StartCoroutine(BeatInput(type));
@@ -74,7 +46,6 @@ public class InputIndicator : MonoBehaviour
 
     private IEnumerator BeatInput(SpriteType type)
     {
-        inProgress = true;
         if (type == SpriteType.ON_BEAT_INPUTTED)
         {
             onBeatImage.SetActive(true);
@@ -88,6 +59,5 @@ public class InputIndicator : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         onBeatImage.SetActive(false);
         offBeatImage.SetActive(false);
-        inProgress = false;
     }
 }

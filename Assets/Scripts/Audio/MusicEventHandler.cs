@@ -12,7 +12,6 @@ public class MusicEventHandler : MonoBehaviour
     private PlayerControl player;
 
     public static bool beatCheck { get; set; } = false;
-    private ChannelGroup masterChannelGroup;
     
     private static double beatInterval = 0f; // This is the time between each beat;
     private static bool beatJustHappened = false;
@@ -25,7 +24,6 @@ public class MusicEventHandler : MonoBehaviour
     private const float startDelay = 0f;
 
     private PLAYBACK_STATE musicPlayState;
-    private PLAYBACK_STATE lastMusicPlayState;
 
     [StructLayout(LayoutKind.Sequential)]
     public class TimelineInfo
@@ -37,8 +35,6 @@ public class MusicEventHandler : MonoBehaviour
         public int currentPosition = 0;
         public float time = 0;
     }
-
-    private static float expectedNextBeatTime = 0f;
 
     public TimelineInfo timelineInfo = null;
 
@@ -68,7 +64,6 @@ public class MusicEventHandler : MonoBehaviour
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         eventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
         eventInstance.setCallback(beatCallback, EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
-        RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
     }
 
     private void StartMusic()
@@ -98,18 +93,10 @@ public class MusicEventHandler : MonoBehaviour
         
         eventInstance.getPlaybackState(out musicPlayState);
 
-        // if (lastMusicPlayState != PLAYBACK_STATE.PLAYING && musicPlayState == PLAYBACK_STATE.PLAYING)
-        //     SetTrackStartInfo();
-
-        lastMusicPlayState = musicPlayState;
-
         if (musicPlayState != PLAYBACK_STATE.PLAYING)
             return;
 
         eventInstance.getTimelinePosition(out timelineInfo.currentPosition);
-        // var timeDiff = (expectedNextBeatTime - timelineInfo.currentPosition) / 16;
-        // InputIndicator.Instance.frameTime = timeDiff;
-        // Debug.LogWarning(timeDiff);
         
         CheckTempoMarkers();
 
@@ -164,12 +151,10 @@ public class MusicEventHandler : MonoBehaviour
 
     }
 
-    // private void FixedUpdate()
-    // {
-    //     Update();
-    //     eventInstance.getTimelinePosition(out int currentTimelinePos);
-    //
-    // }
+    private void FixedUpdate()
+    {
+        Update();
+    }
 
     public void SetMainMusicPhaseParameter(int phase)
     {
@@ -213,16 +198,12 @@ public class MusicEventHandler : MonoBehaviour
             timelineInfo.beatPosition = parameter.position;
             timelineInfo.currentTempo = parameter.tempo;
             
-            Debug.Log("Beat: " + timelineInfo.beatPosition + " Curr Position " + timelineInfo.currentPosition + "ms");
-            
-            expectedNextBeatTime = timelineInfo.beatPosition + (float)beatInterval * 1000;
             if (InputIndicator.Instance && (parameter.beat == 1 | parameter.beat == 3))
             {
-                InputIndicator.Instance.startIndicator = true;
                 var timeSinceBeat = (timelineInfo.currentPosition - parameter.position) / 1000;
-                float temp = 17 + (float)(timeSinceBeat * beatInterval);
+                float temp = 15 + (float)(timeSinceBeat * beatInterval);
                 temp %= 1.0f;
-                InputIndicator.Instance.animator.Play("New Animation", -1, temp);
+                InputIndicator.Instance.PlayAnimation("New Animation", -1, temp);
             }   
         }
         return RESULT.OK;
