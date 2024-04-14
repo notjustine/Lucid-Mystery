@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7581719616677409279}
   - component: {fileID: 5587556454072479300}
   - component: {fileID: 8350551422198824140}
+  - component: {fileID: 1346179591493924025}
   m_Layer: 5
   m_Name: Beats
   m_TagString: Untagged
@@ -104,6 +105,35 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1346179591493924025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167269776489537524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21aec12c5182c674ebbeaee621ab7033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: e0848ad8a5b1d4f43ae892dc7585a5ee, type: 3}
+  - {fileID: 21300000, guid: f68f340d001a2c44fab489576be667f0, type: 3}
+  - {fileID: 21300000, guid: 789c200c24da00443928ae687b1f62e1, type: 3}
+  - {fileID: 21300000, guid: 42bd3562b8e498c4a8f5a0bbb9375a88, type: 3}
+  - {fileID: 21300000, guid: c2eb10f030d3cf84bbda0208ef55a5c4, type: 3}
+  - {fileID: 21300000, guid: fabea8cfcf7fd304b98b376c342d1ab2, type: 3}
+  - {fileID: 21300000, guid: 131bf750df546f944b46fb6894474ac4, type: 3}
+  - {fileID: 21300000, guid: 4b81761e09a281b448d6bc7908d7319e, type: 3}
+  - {fileID: 21300000, guid: 2407796b28177eb4887bb6b0bd5bfd2c, type: 3}
+  - {fileID: 21300000, guid: 395f71c1cc3e1344db2b0b3495f44914, type: 3}
+  - {fileID: 21300000, guid: 4f159137bae667d45882cebc86209f63, type: 3}
+  - {fileID: 21300000, guid: d8b73ccbaf9848244ad09fc9df497e49, type: 3}
+  - {fileID: 21300000, guid: 817f5b96e2e41e745b114609df73a355, type: 3}
+  - {fileID: 21300000, guid: b938fe11f1fa81749b69cd9a8762af22, type: 3}
+  - {fileID: 21300000, guid: 7f0aa69f8ec9176448053b7d6f3aa8ef, type: 3}
+  - {fileID: 21300000, guid: 50034fa9a7eb06747b7ad6a9b5ad6088, type: 3}
 --- !u!1 &1741300788516176553
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +220,6 @@ GameObject:
   - component: {fileID: 6561248811627599862}
   - component: {fileID: 8820591380015271184}
   - component: {fileID: 4675338151525836618}
-  - component: {fileID: 3212559341203735420}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -255,27 +284,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &3212559341203735420
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258759148567008353}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1108545ae792cac46be6f31e4097ba42, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8697792022373121924
 GameObject:
   m_ObjectHideFlags: 0

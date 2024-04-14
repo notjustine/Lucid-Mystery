@@ -228,7 +228,9 @@ public class MusicEventHandler : MonoBehaviour
             timelineInfo.currentBeat = parameter.beat;
             timelineInfo.beatPosition = parameter.position;
             timelineInfo.currentTempo = parameter.tempo;
-
+            if (InputIndicator.Instance && (parameter.beat == 1 | parameter.beat == 3))
+                // InputIndicator.Instance.StartBeatCoroutine();
+                InputIndicator.Instance.startIndicator = true;
         }
         return RESULT.OK;
     }
