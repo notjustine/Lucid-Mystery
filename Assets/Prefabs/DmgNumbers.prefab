@@ -196,6 +196,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2bf19416fddec4677822bd700ed7d56d, type: 3}
   - {fileID: 21300000, guid: db2f99c87065e47cab917820f3013858, type: 3}
   - {fileID: 21300000, guid: 69c6164c9ec4a48a78af3e822c68cfd8, type: 3}
+  - {fileID: 21300000, guid: 69c6164c9ec4a48a78af3e822c68cfd8, type: 3}
 --- !u!1001 &1711103961402917684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +284,10 @@ PrefabInstance:
     - target: {fileID: 1851600130701445989, guid: f0eea26baeb944bc09e13c53beefe572, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6318021697230870433, guid: f0eea26baeb944bc09e13c53beefe572, type: 3}
+      propertyPath: dmgSprite.Array.size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8134427804922054702, guid: f0eea26baeb944bc09e13c53beefe572, type: 3}
       propertyPath: m_Name
