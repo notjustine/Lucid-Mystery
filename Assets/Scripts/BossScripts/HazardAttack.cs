@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class HazardAttack : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HazardAttack : MonoBehaviour
     [SerializeField] private float hazardTiming;
     [SerializeField] private float timeToLand = 3f;
     [SerializeField] private int numberOfHazards;
+    [SerializeField] private VisualEffect dustEffect;
     private WarningManager warningManager;
     private DifficultyManager difficultyManager;
     private List<string> activeHazards = new List<string>();
@@ -24,10 +26,10 @@ public class HazardAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            TriggerAttack();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    TriggerAttack();
+        //}
     }
 
     public void CleanupHazard(string tileName)
@@ -47,6 +49,7 @@ public class HazardAttack : MonoBehaviour
     }
     public void OnHazardLanded(GameObject hazard, GameObject collide, string tileName)
     {
+        PlayDustEffect();
         Vector3 nailSpawnPos = new Vector3(collide.transform.position.x, 0f, collide.transform.position.z);
         GameObject nails = Instantiate(Nails, nailSpawnPos, Quaternion.identity);
         nailsMap[tileName] = nails;
@@ -102,5 +105,12 @@ public class HazardAttack : MonoBehaviour
         Vector3 velocity = toTargetXZ.normalized * velocityXZ;
         velocity.y = velocityY;
         return velocity;
+    }
+    private void PlayDustEffect()
+    {
+        if (dustEffect != null)
+        {
+            dustEffect.Play();
+        }
     }
 }
