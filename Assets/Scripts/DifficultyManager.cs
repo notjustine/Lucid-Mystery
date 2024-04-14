@@ -49,7 +49,7 @@ public class DifficultyManager : MonoBehaviour
         HAZARD_TIMING,
         HAZARD_COUNT,
         COOLDOWN,
-        HEALING_RATE
+        HEALING_AMOUNT
     }
 
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
@@ -197,10 +197,10 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.INSANE)] = 15f;
 
         // Healing
-        difficultyMap[(StatName.HEALING_RATE, Difficulty.EASY)] = 5f;
-        difficultyMap[(StatName.HEALING_RATE, Difficulty.MEDIUM)] = 4f;
-        difficultyMap[(StatName.HEALING_RATE, Difficulty.HARD)] = 3f;
-        difficultyMap[(StatName.HEALING_RATE, Difficulty.INSANE)] = 2f;
+        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.EASY)] = 20f;
+        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.MEDIUM)] = 18f;
+        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.HARD)] = 15f;
+        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.INSANE)] = 10f;
     }
 
 

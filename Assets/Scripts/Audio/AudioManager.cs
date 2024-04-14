@@ -47,10 +47,28 @@ public class AudioManager : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
+    
+    public void PlayOneShot(EventReference sound, Vector3 worldPos, string parameterName, float parameterValue)
+    {
+        EventInstance eventInstance = RuntimeManager.CreateInstance(sound);
+        eventInstance.setParameterByName(parameterName, parameterValue);
+        eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(worldPos));
+        eventInstance.start();
+        eventInstance.release();
+    }
 
     public void PlayOneShotAttached(EventReference sound, GameObject gameObject)
     {
         RuntimeManager.PlayOneShotAttached(sound, gameObject);
+    }
+    
+    public void PlayOneShotAttached(EventReference sound, GameObject gameObject, string parameterName, float parameterValue)
+    {
+        EventInstance eventInstance = RuntimeManager.CreateInstance(sound);
+        eventInstance.setParameterByName(parameterName, parameterValue);
+        RuntimeManager.AttachInstanceToGameObject(eventInstance, gameObject.transform, gameObject.GetComponent<Rigidbody>());
+        eventInstance.start();
+        eventInstance.release();
     }
 
     public EventInstance CreateEventInstance(EventReference eventReference)
