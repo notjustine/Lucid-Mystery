@@ -12,10 +12,9 @@ public class MusicEventHandler : MonoBehaviour
     private PlayerControl player;
 
     public static bool beatCheck { get; set; } = false;
-    private ChannelGroup masterChannelGroup;
-
-    private ulong dspClock;
+    
     private static double beatInterval = 0f; // This is the time between each beat;
+    private static bool beatJustHappened = false;
 
     private static int markerTime;
     
@@ -25,19 +24,16 @@ public class MusicEventHandler : MonoBehaviour
     private const float startDelay = 0f;
 
     private PLAYBACK_STATE musicPlayState;
-    private PLAYBACK_STATE lastMusicPlayState;
 
     [StructLayout(LayoutKind.Sequential)]
     public class TimelineInfo
     {
         public int currentBeat = 0;
-        public int currentBar = 0;
         public int beatPosition = 0;
         public float currentTempo = 0;
         public float lastTempo = 0;
         public int currentPosition = 0;
-        public double songLength = 0;
-        public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
+        public float time = 0;
     }
 
     public TimelineInfo timelineInfo = null;
@@ -48,12 +44,10 @@ public class MusicEventHandler : MonoBehaviour
     private EventDescription descriptionCallback;
 
     private EventInstance eventInstance;
-    private BossStates bossStates;
     private bool justChanged = true;
 
     private void Start()
     {
-        bossStates = FindObjectOfType<BossStates>();
         player = FindObjectOfType<PlayerControl>();
         EventDescription des;
         eventInstance.getDescription(out des);
@@ -70,13 +64,6 @@ public class MusicEventHandler : MonoBehaviour
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         eventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
         eventInstance.setCallback(beatCallback, EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
-
-        eventInstance.getDescription(out descriptionCallback);
-        descriptionCallback.getLength(out int length);
-
-        timelineInfo.songLength = length;
-
-        RuntimeManager.CoreSystem.getMasterChannelGroup(out masterChannelGroup);
     }
 
     private void StartMusic()
@@ -99,34 +86,18 @@ public class MusicEventHandler : MonoBehaviour
                 break;
         }
     }
-
-    private void SetTrackStartInfo()
-    {
-        UpdateDSPClock();
-    }
-
-    private void UpdateDSPClock()
-    {
-        masterChannelGroup.getDSPClock(out dspClock, out _);
-    }
+    
 
     private void Update()
     {
         
         eventInstance.getPlaybackState(out musicPlayState);
 
-        if (lastMusicPlayState != PLAYBACK_STATE.PLAYING && musicPlayState == PLAYBACK_STATE.PLAYING)
-            SetTrackStartInfo();
-
-        lastMusicPlayState = musicPlayState;
-
         if (musicPlayState != PLAYBACK_STATE.PLAYING)
             return;
 
         eventInstance.getTimelinePosition(out timelineInfo.currentPosition);
-
-        UpdateDSPClock();
-
+        
         CheckTempoMarkers();
 
         if (beatInterval == 0f)
@@ -158,7 +129,7 @@ public class MusicEventHandler : MonoBehaviour
         } else if (timelineInfo.currentBeat == 2 | timelineInfo.currentBeat == 4)
         {
             if (timelineInfo.beatPosition + inputDelay + startDelay <= timelineInfo.currentPosition)
-            { ;
+            {
                 beatCheck = true;
                 if (justChanged)
                 {
@@ -200,7 +171,6 @@ public class MusicEventHandler : MonoBehaviour
     private void SetTrackTempo()
     {
         eventInstance.getTimelinePosition(out int currentTimelinePos);
-        float offset = (currentTimelinePos - timelineInfo.beatPosition) / 1000f;
         timelineInfo.lastTempo = timelineInfo.currentTempo;
         beatInterval = 60f / timelineInfo.currentTempo;
     }
@@ -221,16 +191,20 @@ public class MusicEventHandler : MonoBehaviour
             // Get the object to store beat and marker details
             GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
             TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
-            
+
             // There's more info about the callback in the "parameter" variable.
             var parameter = (TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
-            timelineInfo.currentBar = parameter.bar;
             timelineInfo.currentBeat = parameter.beat;
             timelineInfo.beatPosition = parameter.position;
             timelineInfo.currentTempo = parameter.tempo;
+            
             if (InputIndicator.Instance && (parameter.beat == 1 | parameter.beat == 3))
-                // InputIndicator.Instance.StartBeatCoroutine();
-                InputIndicator.Instance.startIndicator = true;
+            {
+                var timeSinceBeat = (timelineInfo.currentPosition - parameter.position) / 1000;
+                float temp = 15 + (float)(timeSinceBeat * beatInterval);
+                temp %= 1.0f;
+                InputIndicator.Instance.PlayAnimation("New Animation", -1, temp);
+            }   
         }
         return RESULT.OK;
     }
