@@ -928,7 +928,7 @@ MonoBehaviour:
   header: {fileID: 310219732}
   bossWin:
   - {fileID: 21300000, guid: 3acc69327c33fc14d87960cc769bc8ab, type: 3}
-  - {fileID: 21300000, guid: 780ec5713ccda6b48b9c69b7d8fe9c08, type: 3}
+  - {fileID: 21300000, guid: 575b69cb3904944ce84264934d533f71, type: 3}
   - {fileID: 21300000, guid: 9b9b33a8e0d8ec549981f67a294a00e2, type: 3}
   playerWin:
   - {fileID: 21300000, guid: e5e9b91afb1883a4798e90d1801961dd, type: 3}
