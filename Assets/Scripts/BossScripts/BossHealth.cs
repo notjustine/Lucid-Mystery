@@ -60,7 +60,8 @@ public class BossHealth : MonoBehaviour
                 PhaseTwo();
         }
         healthBar.SetSlider(currHealth);
-        animationStateController.TriggerFlinch();   
+        animationStateController.TriggerFlinch();
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSound, playerStatus.gameObject);
     }
 
     private void Update()

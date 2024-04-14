@@ -29,13 +29,13 @@ public class BeatCheckController : MonoBehaviour
         player.OnMove(context);
         if (MusicEventHandler.beatCheck)
         {
-            InputIndicator.Instance.SetBeatInput(InputIndicator.SpriteType.ON_BEAT_INPUTTED);
+            InputIndicator.Instance.type = InputIndicator.SpriteType.ON_BEAT_INPUTTED;
         }
         else
         {
             cameraControl.TriggerShake();
             player.inputted = true;
-            InputIndicator.Instance.SetBeatInput(InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
+            InputIndicator.Instance.type = InputIndicator.SpriteType.OFF_BEAT_INPUTTED;
             sniper.TriggerAttack();
         }
     }
@@ -48,13 +48,12 @@ public class BeatCheckController : MonoBehaviour
         player.OnAttack(context);
         if (MusicEventHandler.beatCheck)
         {
-            InputIndicator.Instance.SetBeatInput(InputIndicator.SpriteType.ON_BEAT_INPUTTED);
+            InputIndicator.Instance.type = (InputIndicator.SpriteType.ON_BEAT_INPUTTED);
         }
         else
         {
-            cameraControl.TriggerShake();
             player.inputted = true;
-            InputIndicator.Instance.SetBeatInput(InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
+            InputIndicator.Instance.type = (InputIndicator.SpriteType.OFF_BEAT_INPUTTED);
             sniper.TriggerAttack();
         }
     }

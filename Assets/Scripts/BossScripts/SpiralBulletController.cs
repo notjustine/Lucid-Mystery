@@ -13,7 +13,6 @@ public class SpiralBulletController : MonoBehaviour
     GameObject boss;
     private CapsuleCollider bulletCollider;
     private CapsuleCollider bossCollider;
-    private BoxCollider kitCollider;
     private DifficultyManager difficultyManager;
     private float spiralBulletDamage;
     private float spiralBulletSpeed;
@@ -46,17 +45,6 @@ public class SpiralBulletController : MonoBehaviour
         if (bulletLifetime > maxLifetime)
         {
             Destroy(gameObject);
-        }
-
-
-        // Grab all the healing kits in the scene and ignore collisions amount this and those.
-        HealKitController[] healKits = FindObjectsOfType<HealKitController>();
-        foreach (HealKitController healKit in healKits)
-        {
-            // grab the collider off it.
-            bulletCollider = GetComponent<CapsuleCollider>();
-            kitCollider = healKit.GetComponent<BoxCollider>();
-            Physics.IgnoreCollision(bulletCollider, kitCollider);
         }
     }
 

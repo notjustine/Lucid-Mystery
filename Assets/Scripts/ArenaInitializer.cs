@@ -54,14 +54,7 @@ public class ArenaInitializer : MonoBehaviour
                 if (distanceSqr < closestDistanceSqr)
                 {
                     closestDistanceSqr = distanceSqr;
-                    if (tileIndex <= 8)
-                    {
-                        closestTileName = $"R{ringIndex + 1}_0{tileIndex + 1}";
-                    }
-                    else
-                    {
-                        closestTileName = $"R{ringIndex + 1}_{tileIndex + 1}";
-                    }
+                    closestTileName = $"R{ringIndex + 1}_{tileIndex + 1}";
                 }
             }
         }

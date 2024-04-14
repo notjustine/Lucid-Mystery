@@ -11,7 +11,6 @@ TagManager:
   - ComboMeter
   - Tile
   - Turret
-  - DamageNumbers
   layers:
   - Default
   - TransparentFX

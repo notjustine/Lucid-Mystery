@@ -134,6 +134,7 @@ public class PlayerControl : MonoBehaviour
         newPosition.y = 1.6f;
         transform.position = newPosition;
         inputted = true;
+
     }
 
 

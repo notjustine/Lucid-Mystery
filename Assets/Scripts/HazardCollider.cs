@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.VFX;
 
 public class HazardCollider : MonoBehaviour
 {
-    public GameObject dustEffectPrefab;
     public float timeUntilDestruction = 10f;
 
     private void Start()
@@ -16,11 +14,6 @@ public class HazardCollider : MonoBehaviour
     {
         if (collision.gameObject.tag == "Tile")
         {
-            if (dustEffectPrefab != null)
-            {
-                StartCoroutine(PlayDustEffect());
-            }
-
             HazardAttack hazardAttack = FindObjectOfType<HazardAttack>();
             if (hazardAttack != null)
             {
@@ -34,19 +27,5 @@ public class HazardCollider : MonoBehaviour
     {
         yield return new WaitForSeconds(timeUntilDestruction);
         Destroy(gameObject);
-    }
-
-    private IEnumerator PlayDustEffect()
-    {
-        GameObject dustEffect = Instantiate(dustEffectPrefab, transform.position, Quaternion.identity);
-        VisualEffect vfxComponent = dustEffect.GetComponent<VisualEffect>();
-        if (vfxComponent != null)
-        {
-            vfxComponent.Play();
-            yield return new WaitForSeconds(1f);
-            vfxComponent.Stop();
-            yield return new WaitForSeconds(5f);
-            Destroy(dustEffect);
-        }
     }
 }
