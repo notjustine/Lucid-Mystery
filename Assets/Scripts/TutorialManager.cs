@@ -187,7 +187,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             
             yield return StartCoroutine(HandleStrengthenState());
         }
-        if (playerAtk.getCombo() >= 5)
+        if (playerAtk.getCombo() >= 4)
         {
             currentState = TutorialState.End;
         }
