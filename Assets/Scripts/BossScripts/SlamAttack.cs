@@ -8,7 +8,6 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private Material warningMaterial;
     [SerializeField] private GameObject attackIndicatorPrefab;
-    [SerializeField] private GameObject circularWarningPrefab;
     public float warningDuration = 2.5f; // Duration before the attack hits
     public float attackDuration = 1f; // Duration of the attack visual effect
     private PlayerControl playerControl;
