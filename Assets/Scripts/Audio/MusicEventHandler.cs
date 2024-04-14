@@ -38,7 +38,7 @@ public class MusicEventHandler : MonoBehaviour
         public float time = 0;
     }
 
-    private float expectedNextBeatTime = 0f;
+    private static float expectedNextBeatTime = 0f;
 
     public TimelineInfo timelineInfo = null;
 
@@ -107,15 +107,9 @@ public class MusicEventHandler : MonoBehaviour
             return;
 
         eventInstance.getTimelinePosition(out timelineInfo.currentPosition);
-
-        if (beatJustHappened)
-        {
-            expectedNextBeatTime = timelineInfo.time + (float)beatInterval * 2;
-            var timeDiff = (expectedNextBeatTime - Time.time) / 16;
-            InputIndicator.Instance.frameTime = timeDiff;
-            Debug.LogWarning(timeDiff);
-            beatJustHappened = false;
-        }
+        // var timeDiff = (expectedNextBeatTime - timelineInfo.currentPosition) / 16;
+        // InputIndicator.Instance.frameTime = timeDiff;
+        // Debug.LogWarning(timeDiff);
         
         CheckTempoMarkers();
 
@@ -170,10 +164,12 @@ public class MusicEventHandler : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        Update();
-    }
+    // private void FixedUpdate()
+    // {
+    //     Update();
+    //     eventInstance.getTimelinePosition(out int currentTimelinePos);
+    //
+    // }
 
     public void SetMainMusicPhaseParameter(int phase)
     {
@@ -216,13 +212,19 @@ public class MusicEventHandler : MonoBehaviour
             timelineInfo.currentBeat = parameter.beat;
             timelineInfo.beatPosition = parameter.position;
             timelineInfo.currentTempo = parameter.tempo;
-            timelineInfo.time = Time.time;
+            
+            Debug.Log("Beat: " + timelineInfo.beatPosition + " Curr Position " + timelineInfo.currentPosition + "ms");
+            
+            expectedNextBeatTime = timelineInfo.beatPosition + (float)beatInterval * 1000;
             if (InputIndicator.Instance && (parameter.beat == 1 | parameter.beat == 3))
-                // InputIndicator.Instance.StartBeatCoroutine();
+            {
                 InputIndicator.Instance.startIndicator = true;
+                var timeSinceBeat = (timelineInfo.currentPosition - parameter.position) / 1000;
+                float temp = 17 + (float)(timeSinceBeat * beatInterval);
+                temp %= 1.0f;
+                InputIndicator.Instance.animator.Play("New Animation", -1, temp);
+            }   
         }
-
-        beatJustHappened = true;
         return RESULT.OK;
     }
 }

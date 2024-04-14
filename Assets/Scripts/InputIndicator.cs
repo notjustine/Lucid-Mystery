@@ -22,6 +22,7 @@ public class InputIndicator : MonoBehaviour
     private float time = 0.0f;
     public float frameTime = 0.041f;
     private int index = 0;
+    public Animator animator;
     private void Awake()
     {
         if (Instance != null)
@@ -34,18 +35,20 @@ public class InputIndicator : MonoBehaviour
         image = images[0];
         onBeatImage = images[1].gameObject;
         offBeatImage = images[2].gameObject;
-
+        animator =  GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
-        UpdateHelper();
+        // UpdateHelper();
     }
+    
 
     private void UpdateHelper()
     {
         if (startIndicator)
         {
+            Debug.Log(frameTime);
             if (time >= frameTime)
             {
                 index++;
