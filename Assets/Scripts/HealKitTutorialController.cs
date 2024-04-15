@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
+using System;
 
 public class HealKitTutorialController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class HealKitTutorialController : MonoBehaviour
     DifficultyManager difficultyManager;
     public string tilename;
     Animator animator;
-
+    public event Action OnHealEvent;
 
 
     void Start()
@@ -25,10 +26,9 @@ public class HealKitTutorialController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("FakeExit"))
         {
             Destroy(gameObject);
+            OnHealEvent?.Invoke();
         }
     }
-
-
 
     /**
         If the player bumps into a heal kit, trigger healing and animate the healkit.
