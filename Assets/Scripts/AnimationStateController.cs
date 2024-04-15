@@ -15,8 +15,9 @@ public class AnimationStateController : MonoBehaviour
     }
 
     // BOSS ANIMATIONS
-    public void TriggerAwaken()             // call in Attack.cs
+    public void TriggerAwaken()             // call in BossHealth.cs
     {
+        animator.ResetTrigger("Flinch");
         animator.SetTrigger("Awaken");
     }
 
@@ -25,7 +26,7 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Phase2");
     }
     
-    public void TriggerFlinch()             // call in Attack.cs
+    public void TriggerFlinch()             // call in BossHealth.cs
     {
         animator.SetTrigger("Flinch");
     }
