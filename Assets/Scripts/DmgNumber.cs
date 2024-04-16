@@ -37,7 +37,7 @@ public class DmgNumber : MonoBehaviour
         float xOffset = Screen.width * 0.4f; // 40% of screen width
         float yOffset = Screen.height * 0.4f; // 40% of screen height
         transform.position = position + new Vector3(xOffset, yOffset, 0);
-        image.sprite = dmgSprite[combo-1];
+        image.sprite = dmgSprite[combo];
         
         image.SetNativeSize();
         transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);

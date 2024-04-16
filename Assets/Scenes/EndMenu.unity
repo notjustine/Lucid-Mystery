@@ -527,7 +527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b9012e11e66f3b446ad46f02a11cf1bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a033ebbdfeb54353bc395af0b43e37d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -726,7 +726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1076773440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -928,7 +928,7 @@ MonoBehaviour:
   header: {fileID: 310219732}
   bossWin:
   - {fileID: 21300000, guid: 3acc69327c33fc14d87960cc769bc8ab, type: 3}
-  - {fileID: 21300000, guid: 780ec5713ccda6b48b9c69b7d8fe9c08, type: 3}
+  - {fileID: 21300000, guid: 575b69cb3904944ce84264934d533f71, type: 3}
   - {fileID: 21300000, guid: 9b9b33a8e0d8ec549981f67a294a00e2, type: 3}
   playerWin:
   - {fileID: 21300000, guid: e5e9b91afb1883a4798e90d1801961dd, type: 3}
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 74e5af01b96f38545b9492398bbf3e78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0add3263788794f55ba6497c0571e253, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1378,7 +1378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f16d09d18c020904686527ef7bf66979, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b7a04b93f6d249f88c18bec835c87c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
