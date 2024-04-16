@@ -14,12 +14,14 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     private PlayerStatus playerStatus;
     private DifficultyManager difficultyManager;
     private WarningManager warningManager;
+    private AnimationStateController animationStateController;
 
 
     private void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
+        animationStateController = FindObjectsOfType<AnimationStateController>()[1];
 
         // Set default stat values based on initial difficulty
         difficultyManager = DifficultyManager.Instance;
@@ -35,6 +37,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     public void TriggerAttack(int tileIndex)
     {
         StartCoroutine(AttackSequence(tileIndex));
+        animationStateController.TriggerSlam();
     }
 
 

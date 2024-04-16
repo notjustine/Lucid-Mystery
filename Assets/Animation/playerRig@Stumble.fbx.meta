@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19b1e584dd44b754c8bf098a90adcd22
+guid: fe51903dfb1d747dca166fffc2c2f0ac
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -59,7 +59,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Stumble
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 2

@@ -26,6 +26,11 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Phase2");
     }
     
+    public void TriggerSlam()               // call in SlamAttack.cs
+    {
+        animator.SetTrigger("Slam");
+    }
+
     public void TriggerFlinch()             // call in BossHealth.cs
     {
         animator.SetTrigger("Flinch");

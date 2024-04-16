@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a9923bb5742c6f4eb160732870efe7f
+guid: 6ac5c1bc8fa6043b6b21216189792174
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -18,34 +18,29 @@ ModelImporter:
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'Character1_LeftUpLeg'
-      : position error = 1.786442 mm\n\t'Character1_LeftFoot' : position error =
-      46.778725 mm\n\t'Character1_RightUpLeg' : position error = 1.786442 mm\n\t'Character1_RightFoot'
-      : position error = 46.778725 mm\n\t'Character1_Spine' : position error = 10.740735
-      mm\n\t'Character1_Spine1' : position error = 7.671957 mm\n\t'Character1_LeftForeArm'
-      : position error = 27.963779 mm\n\t'Character1_LeftHandThumb2' : position error
-      = 9.844940 mm\n\t'Character1_LeftHandThumb3' : position error = 11.657635 mm\n\t'Character1_LeftHandIndex2'
-      : position error = 5.335923 mm\n"
+      copied configuration does not match position in animation file:\n\t'Character1_LeftLeg'
+      : position error = 1.727293 mm\n\t'Character1_LeftFoot' : position error =
+      46.779461 mm\n\t'Character1_RightUpLeg' : position error = 1.784038 mm\n\t'Character1_RightFoot'
+      : position error = 46.779461 mm\n\t'Character1_Spine' : position error = 10.738659
+      mm\n\t'Character1_Spine1' : position error = 7.672721 mm\n\t'Character1_LeftForeArm'
+      : position error = 27.958828 mm\n\t'Character1_LeftHandThumb2' : position error
+      = 9.847063 mm\n\t'Character1_LeftHandThumb3' : position error = 11.654485 mm\n\t'Character1_LeftHandIndex2'
+      : position error = 5.335295 mm\n\t'Character1_LeftHandPinky1' : position error
+      = 9.192421 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Character1_LeftUpLeg' has translation animation
+      to improve retargeting quality.\n\t'Character1_LeftLeg' has translation animation
       that will be discarded.\n\t'Character1_LeftFoot' has translation animation
       that will be discarded.\n\t'Character1_RightUpLeg' has translation animation
       that will be discarded.\n\t'Character1_RightFoot' has translation animation
       that will be discarded.\n\t'Character1_Spine' has translation animation that
       will be discarded.\n\t'Character1_Spine1' has translation animation that will
-      be discarded.\n\t'Character1_LeftShoulder' has translation animation that will
       be discarded.\n\t'Character1_LeftForeArm' has translation animation that will
       be discarded.\n\t'Character1_LeftHandThumb2' has translation animation that
       will be discarded.\n\t'Character1_LeftHandThumb3' has translation animation
       that will be discarded.\n\t'Character1_LeftHandIndex2' has translation animation
       that will be discarded.\n\t'Character1_LeftHandPinky1' has translation animation
-      that will be discarded.\n\t'Character1_RightShoulder' has translation animation
-      that will be discarded.\n\t'Character1_RightHandThumb3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandIndex3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandMiddle3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandRing3' has translation animation
       that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -60,22 +55,22 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Attack2
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 3
-      lastFrame: 120
+      firstFrame: 2
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
