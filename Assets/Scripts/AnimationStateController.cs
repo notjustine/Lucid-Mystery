@@ -47,9 +47,10 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Stumble");
     }
 
-    public void TriggerAttack1()            // call in PlayerControl.cs
+    public void TriggerAttack()            // call in PlayerControl.cs
     {
-        animator.SetTrigger("Attack1");
+        int randomNumber = Random.Range(1, 3);
+        animator.SetTrigger("Attack" + randomNumber);
     }
 
     // Update is called once per frame

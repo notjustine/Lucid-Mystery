@@ -15,6 +15,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     private DifficultyManager difficultyManager;
     private WarningManager warningManager;
     private AnimationStateController animationStateController;
+    private CameraControl cameraControl;
 
 
     private void Start()
@@ -22,6 +23,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
         animationStateController = FindObjectsOfType<AnimationStateController>()[1];
+        cameraControl = FindObjectOfType<CameraControl>();
 
         // Set default stat values based on initial difficulty
         difficultyManager = DifficultyManager.Instance;
@@ -38,6 +40,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     {
         StartCoroutine(AttackSequence(tileIndex));
         animationStateController.TriggerSlam();
+        cameraControl.Invoke("TriggerShake", 2.5f);
     }
 
 
