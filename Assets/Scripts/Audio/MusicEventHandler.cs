@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 public class MusicEventHandler : MonoBehaviour
@@ -52,7 +53,10 @@ public class MusicEventHandler : MonoBehaviour
         EventDescription des;
         eventInstance.getDescription(out des);
         des.loadSampleData();
-        eventInstance = AudioManager.instance.CreateEventInstance(SoundRef.Instance.backgroundTrack);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Tutorial"))
+            eventInstance = AudioManager.instance.CreateEventInstance(SoundRef.Instance.tutorialTrack);
+        else
+            eventInstance = AudioManager.instance.CreateEventInstance(SoundRef.Instance.backgroundTrack);
         StartMusic();
     }
 
