@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1904412971201538844}
   - component: {fileID: 2652449270119389352}
   - component: {fileID: 93101302015356290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: screw_wrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,6 +164,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cf5d4c42f92ad234ca479874105aa9b9, type: 3}
       propertyPath: m_Name
       value: screw
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cf5d4c42f92ad234ca479874105aa9b9, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

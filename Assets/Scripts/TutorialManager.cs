@@ -28,6 +28,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private Attack playerAtk;
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
+    [SerializeField] private GameObject healthKit;
 
     int initPosRing;
     int initPosTile;
@@ -99,7 +100,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 if (!healRunning)
                 {
                     healRunning = true;
-                    StartCoroutine(HandleHeal());
+                    instructions.SetInstructionType(TutorialInstruction.SpriteType.Heal);
+                    SpawnKit("R3_22");
                 }
                 break;
             case TutorialState.ApproachMachine:
@@ -170,10 +172,30 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = false;
     }
 
-    private System.Collections.IEnumerator HandleHeal()
+    //private System.Collections.IEnumerator HandleHeal()
+    //{
+        
+    //}
+
+    public void SpawnKit(string tilename)
     {
-        instructions.SetInstructionType(TutorialInstruction.SpriteType.Heal);
-        yield return new WaitForSeconds(2f);
+        GameObject tile = GameObject.Find(tilename);
+        Transform tileTransform = tile.GetComponent<Transform>();
+        Vector3 kitPosition = new Vector3(tileTransform.position.x, 1.25f, tileTransform.position.z);
+        GameObject kitInstance = Instantiate(healthKit, kitPosition, Quaternion.identity);
+        HealKitTutorialController kitController = kitInstance.GetComponent<HealKitTutorialController>();
+        Animator animator = kitController.GetComponentInChildren<Animator>();
+        animator.SetBool("isActive", true);
+        kitController.OnHealEvent += HandleKitDestroyed;
+    }
+
+    private void HandleKitDestroyed()
+    {
+        HealKitTutorialController[] kits = FindObjectsOfType<HealKitTutorialController>();
+        foreach (var kit in kits)
+        {
+            kit.OnHealEvent -= HandleKitDestroyed;
+        }
         currentState = TutorialState.ApproachMachine;
     }
 
@@ -187,7 +209,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
             yield return StartCoroutine(HandleStrengthenState());
         }
-        if (playerAtk.getCombo() >= 4)
+        if (playerAtk.getCombo() >= 5)
         {
             currentState = TutorialState.End;
         }
@@ -267,4 +289,5 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             "R1_24",
             };
     }
+
 }

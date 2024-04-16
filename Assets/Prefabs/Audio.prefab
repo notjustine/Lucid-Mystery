@@ -513,6 +513,13 @@ MonoBehaviour:
       Data3: 166739640
       Data4: 1641108020
     Path: event:/Music/NewMusic
+  <tutorialTrack>k__BackingField:
+    Guid:
+      Data1: -425150350
+      Data2: 1314612741
+      Data3: 162053567
+      Data4: 2059792879
+    Path: event:/Music/TutorialMusic
   <canShakes>k__BackingField:
     Guid:
       Data1: 1946735692
