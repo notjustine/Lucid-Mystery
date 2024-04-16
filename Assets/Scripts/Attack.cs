@@ -9,7 +9,6 @@ public class Attack : MonoBehaviour
     
     private DifficultyManager difficultyManager;
     private BossVisuals bossVisuals;
-    private AnimationStateController animationStateController;
     public float playerDamage;
     private float maxPlayerDamage;
     private readonly int minCombo = 1;
@@ -34,7 +33,6 @@ public class Attack : MonoBehaviour
     {
         combo = minCombo;
         bossVisuals = FindObjectOfType<BossVisuals>();
-        animationStateController = FindObjectOfType<AnimationStateController>();
         comboSlider = GameObject.FindGameObjectWithTag("ComboMeter").GetComponent<Image>();
         difficultyManager = DifficultyManager.Instance;
         if (difficultyManager)
