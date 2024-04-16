@@ -17,6 +17,7 @@ public class BossHealth : MonoBehaviour
         playerStatus = FindObjectOfType<PlayerStatus>();
         bossStates = FindObjectOfType<BossStates>();
         currHealth = maxHealth;
+        animationStateController = FindObjectsOfType<AnimationStateController>()[1];
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             DifficultyManager.phase = 0;
@@ -32,7 +33,7 @@ public class BossHealth : MonoBehaviour
                 PhaseTwo();
             }
         }
-        animationStateController = FindObjectsOfType<AnimationStateController>()[1];
+        
     }
     public void TakeDamage(float amount)
     {
