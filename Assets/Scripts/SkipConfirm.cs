@@ -21,6 +21,7 @@ public class SkipConfirm : MonoBehaviour
 
     public void OnSkip(InputAction.CallbackContext context)
     {
+        Debug.Log("on skip");
         if (context.phase.Equals(InputActionPhase.Started))
         {
             ShowConfirmation();

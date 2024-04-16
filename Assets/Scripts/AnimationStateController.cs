@@ -15,8 +15,9 @@ public class AnimationStateController : MonoBehaviour
     }
 
     // BOSS ANIMATIONS
-    public void TriggerAwaken()             // call in Attack.cs
+    public void TriggerAwaken()             // call in BossHealth.cs
     {
+        animator.ResetTrigger("Flinch");
         animator.SetTrigger("Awaken");
     }
 
@@ -25,7 +26,12 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Phase2");
     }
     
-    public void TriggerFlinch()             // call in Attack.cs
+    public void TriggerSlam()               // call in SlamAttack.cs
+    {
+        animator.SetTrigger("Slam");
+    }
+
+    public void TriggerFlinch()             // call in BossHealth.cs
     {
         animator.SetTrigger("Flinch");
     }
@@ -41,9 +47,10 @@ public class AnimationStateController : MonoBehaviour
         animator.SetTrigger("Stumble");
     }
 
-    public void TriggerAttack1()            // call in PlayerControl.cs
+    public void TriggerAttack()            // call in PlayerControl.cs
     {
-        animator.SetTrigger("Attack1");
+        int randomNumber = Random.Range(1, 3);
+        animator.SetTrigger("Attack" + randomNumber);
     }
 
     // Update is called once per frame
