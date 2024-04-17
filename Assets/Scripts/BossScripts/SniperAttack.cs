@@ -54,7 +54,7 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
     */
     public void TriggerAttack()
     {
-        if (SceneManager.GetActiveScene().name == "Tutorial" && (tutorialManager.currentState == TutorialState.Start || tutorialManager.currentState == TutorialState.OnBeat))
+        /*if (SceneManager.GetActiveScene().name == "Tutorial" && (tutorialManager.currentState == TutorialState.Start) && tutorialManager.sniperEnabled == false) //determines which tutorial states should the sniper attack be disabled
         {
             return;
         }else if (beatChecker.GetVulnerable())
@@ -66,6 +66,26 @@ public class SniperAttack : MonoBehaviour, IWarningGenerator
             // Show a warning based on current location of player
             warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SNIPER);
 
+            StartCoroutine(ShootAfterRotation());
+        }*/
+        if (SceneManager.GetActiveScene().name == "Tutorial" && tutorialManager.currentState == TutorialState.Start && !tutorialManager.sniperEnabled)
+        {
+            // Sniper attack is disabled during the Start state until sniperEnabled becomes true
+            return;
+        }
+        else if (beatChecker.GetVulnerable())
+        {
+            if (SceneManager.GetActiveScene().name == "Tutorial" && tutorialManager.currentState == TutorialState.OnBeat && !tutorialManager.sniperEnabled)
+            {
+                // Sniper attack is disabled during the OnBeat state until sniperEnabled becomes true
+                return;
+            }
+
+            AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.missBeatSniperShot, player);
+            beatChecker.SetVulnerable(false);
+            aiming = true;
+            playerShootPosition = player.transform.position;
+            warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SNIPER);
             StartCoroutine(ShootAfterRotation());
         }
     }

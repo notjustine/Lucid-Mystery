@@ -26,10 +26,7 @@ public class HazardAttack : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    TriggerAttack();
-        //}
+
     }
 
     public void CleanupHazard(string tileName)
@@ -54,8 +51,6 @@ public class HazardAttack : MonoBehaviour
         GameObject nails = Instantiate(Nails, nailSpawnPos, Quaternion.identity);
         nailsMap[tileName] = nails;
         StartCoroutine(MakeTileNonHazardousAfterDelay(tileName, hazardTiming));
-        List<string> targetedTilesNames = new List<string> { tileName };
-        warningManager.ToggleWarning(targetedTilesNames, false, WarningManager.WarningType.HAZARD);
     }
 
     private IEnumerator MakeTileNonHazardousAfterDelay(string tileName, float delay)

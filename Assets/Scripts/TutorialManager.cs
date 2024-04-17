@@ -49,6 +49,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     bool isAvoidCoroutineRunning;
 
     private bool playerHasAttacked = false;
+    public bool sniperEnabled = false;
     public static TutorialManager Instance { get; private set; }
 
     void Start()
@@ -190,7 +191,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             moveCount += 1;
             //Debug.Log("adding moveCount");
         }
-        if (moveCount >= 3)
+        if (moveCount >= 15)    // how many moves the player can input before it switches to the heal instruction
         {
             currentState = TutorialState.Heal;
         }
@@ -201,9 +202,10 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     {
         highlightBeat.enabled = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f); // Controls how long the on beat message lasts for
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
-        yield return new WaitForSeconds(0.5f);
+        sniperEnabled = true;
+        yield return new WaitForSeconds(1f); // Controls how long the circle highlight on the beat indicator lasts for
         //yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
         
