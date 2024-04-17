@@ -13,7 +13,7 @@ public class PostProcessing : MonoBehaviour
     public Vector2 center = new Vector2(0.50f, 0.50f);
     public float lowHealthIntensity = 1f; // Intensity value when health is low (5% or lower)
     public float transitionSpeed = 1.0f;
-    public float lerpThreshold = 0.75f; // Health percentage at which intensity interpolation starts
+    public float lerpThreshold = 0.4f; // Health percentage at which intensity interpolation starts
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class PostProcessing : MonoBehaviour
         float healthPercentage = (float)playerStatus.currHealth / playerStatus.maxHealth;
 
         // Calculate intensity based on health percentage and threshold
-        float targetIntensity = Mathf.Lerp(0.3f, 0.0f, Mathf.Clamp01((healthPercentage - lerpThreshold) / (1 - lerpThreshold)));
+        float targetIntensity = Mathf.Lerp(0.3f, 0.0f, Mathf.Clamp01((healthPercentage - lerpThreshold) / lerpThreshold));
 
         // Smoothly transition intensity
         vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, targetIntensity, transitionSpeed * Time.deltaTime);
