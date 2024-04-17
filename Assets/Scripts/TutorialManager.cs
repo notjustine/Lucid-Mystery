@@ -13,7 +13,7 @@ public enum TutorialState
     ApproachMachine,
     Attack,
     Strengthen,
-    Avoid,
+    Avoid, // explain red tiles
     End
 }
 
@@ -30,8 +30,10 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private Image highlightCombo;
     [SerializeField] private Image highlightBeat;
     [SerializeField] private GameObject healthKit;
+    [SerializeField] private BossStates boss;
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> movingTiles;
+    
 
     int initPosRing;
     int initPosTile;
@@ -43,6 +45,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     bool isStrengthenCoroutineRunning;
     bool StrengthenRunning;
     bool healRunning;
+    bool avoidRunning;
+    bool isAvoidCoroutineRunning;
 
     private bool playerHasAttacked = false;
     public static TutorialManager Instance { get; private set; }
@@ -73,6 +77,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         isStrengthenCoroutineRunning = false;
         StrengthenRunning = false;
         healRunning = false;
+        avoidRunning = false;
+        isAvoidCoroutineRunning = false;
         InitLogicToPhysMapping();
         
     }
@@ -144,12 +150,29 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                     StartCoroutine(HandleStrengthen());
                 }
                 break;
+            case TutorialState.Avoid:
+                if (!avoidRunning)
+                {
+                    StartCoroutine(HandleAvoid());
+                    avoidRunning = true;
+                }
+                break;
             case TutorialState.End:
                 instructions.SetDisplayImageAlpha(0f);
                 FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
                 break;
         }
     }
+
+    private System.Collections.IEnumerator HandleAvoid()
+    {
+        boss.PerformSteamAttack();
+        yield return new WaitForSeconds(2.5f);
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Avoid);
+        yield return new WaitForSeconds(2.5f);
+        currentState = TutorialState.End;
+    }
+
 
     private System.Collections.IEnumerator HandleOnBeat()
     {
@@ -225,7 +248,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         }
         if (playerAtk.getCombo() >= 5)
         {
-            currentState = TutorialState.End;
+            currentState = TutorialState.Avoid;
         }
         StrengthenRunning = false;
     }

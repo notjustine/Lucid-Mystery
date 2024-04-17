@@ -227,7 +227,7 @@ public class BossStates : MonoBehaviour
 
     }
 
-    void PerformSteamAttack()
+    public void PerformSteamAttack()
     {
         if (steamAttack != null)
         {
