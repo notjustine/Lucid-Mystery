@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 public class PostProcessing : MonoBehaviour
 {
     public Volume volume;
-    public Vignette vignette;
+    private Vignette vignette;
     public PlayerStatus playerStatus;
     public Color color = new Color(0.00f, 0.00f, 0.00f);
     public Vector2 center = new Vector2(0.50f, 0.50f);
