@@ -87,7 +87,7 @@ public class BossStates : MonoBehaviour
         while (bossHealth.currHealth / bossHealth.maxHealth <= GetHazardTriggerThreshold())
         {
             hazardAttack.TriggerAttack();
-            yield return new WaitForSeconds(difficultyManager.GetValue(DifficultyManager.StatName.HAZARD_TIMING));
+            yield return new WaitForSeconds(difficultyManager.GetValue(DifficultyManager.StatName.HAZARD_TIMING)+0.5f);
         }
         isHazardAttackRunning = false;
     }
