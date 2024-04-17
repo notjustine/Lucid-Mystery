@@ -26,13 +26,13 @@ public class AnimationStateController : MonoBehaviour
     {                                       // clip length: 10.625
         animator.SetTrigger("Phase2");
         Invoke("ClearFlinch", 10.4f);
-        Invoke("ClearSlam", 10.4f);
     }
     
     public void TriggerSlam()               // call in SlamAttack.cs
     {                                       // clip length: 3.458
         animator.SetTrigger("Slam");
         Invoke("ClearFlinch", 3.2f);
+        Invoke("ClearTransition", 3.2f);
     }
 
     public void TriggerFlinch()             // call in BossHealth.cs
@@ -74,5 +74,10 @@ public class AnimationStateController : MonoBehaviour
     private void ClearSlam()
     {
         animator.ResetTrigger("Slam");
+    }
+
+    private void ClearTransition()
+    {
+        animator.ResetTrigger("Phase2");
     }
 }
