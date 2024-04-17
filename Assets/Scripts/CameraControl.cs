@@ -6,8 +6,8 @@ public class CameraControl : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform bossTransform; 
-    public float distanceBehindPlayer = 10f;
-    public float heightAbove = 5f;
+    public float[] distanceBehindPlayer = {20f, 20f, 20f, 20f};
+    public float[] heightAbove = {11f, 11f, 11f, 11f};
     public float smoothSpeed = 5f; 
 
     private Vector3 cameraDirection;
@@ -17,10 +17,12 @@ public class CameraControl : MonoBehaviour
     private const float shakeDuration = 0.15f;
     private const float shakeMagnitude = 0.5f;
     private bool isShaking = false;
+    private PlayerControl playerControl;
 
     void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerControl = FindObjectOfType<PlayerControl>();
+        playerTransform = playerControl.gameObject.transform;
         bossTransform = GameObject.FindGameObjectWithTag("Boss").transform;
     }
 
@@ -30,8 +32,8 @@ public class CameraControl : MonoBehaviour
         cameraDirection = (playerTransform.position - bossTransform.position).normalized;
 
         // Calculate a point on the line defined by the boss and player positions
-        desiredPosition = playerTransform.position + cameraDirection * distanceBehindPlayer;
-        desiredPosition.y += heightAbove;
+        desiredPosition = playerTransform.position + cameraDirection * distanceBehindPlayer[playerControl.currentRingIndex];
+        desiredPosition.y += heightAbove[playerControl.currentRingIndex];
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
        

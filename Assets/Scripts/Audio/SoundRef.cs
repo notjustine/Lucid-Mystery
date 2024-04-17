@@ -26,6 +26,8 @@ public class SoundRef : MonoBehaviour
     
     [field: Header("Background Music")]
     [field: SerializeField] public EventReference backgroundTrack { get; private set; }
+    [field: SerializeField] public EventReference tutorialTrack { get; private set; }
+
     
     
     [field: Header("Ambient Sounds")]

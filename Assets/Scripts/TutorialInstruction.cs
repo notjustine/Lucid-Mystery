@@ -11,7 +11,8 @@ public class TutorialInstruction : MonoBehaviour
         Heal,
         ApproachMachine,
         Attack,
-        Strengthen
+        Strengthen,
+        Avoid
     }
 
     public static TutorialInstruction Instance { get; private set; }
@@ -61,6 +62,7 @@ public class TutorialInstruction : MonoBehaviour
             SpriteType.ApproachMachine => sprites[4],
             SpriteType.Attack => sprites[5],
             SpriteType.Strengthen => sprites[6],
+            SpriteType.Avoid => sprites[7],
             _ => displayImage.sprite
         };
 

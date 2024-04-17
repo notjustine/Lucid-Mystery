@@ -80,7 +80,7 @@ public class PlayerControl : MonoBehaviour
         inputted = true;
         OnAttackEvent?.Invoke();
 
-        animationStateController.TriggerAttack1();
+        animationStateController.TriggerAttack();
     }
 
     void Update()

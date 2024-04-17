@@ -23,12 +23,10 @@ ModelImporter:
       46.779461 mm\n\t'Character1_RightUpLeg' : position error = 1.784038 mm\n\t'Character1_RightFoot'
       : position error = 47.103828 mm\n\t'Character1_Spine' : position error = 10.738659
       mm\n\t'Character1_Spine1' : position error = 7.672721 mm\n\t'Character1_LeftShoulder'
-      : position error = 4.364356 mm\n\t'Character1_LeftArm' : position error = 37.674656
-      mm\n\t'Character1_LeftForeArm' : position error = 27.958828 mm\n\t'Character1_LeftHandThumb2'
-      : position error = 8.230701 mm\n\t'Character1_LeftHandThumb3' : position error
-      = 9.670916 mm\n\t'Character1_LeftHandIndex2' : position error = 4.421854 mm\n\t'Character1_RightShoulder'
-      : position error = 1.221482 mm\n\t'Character1_RightHand' : position error =
-      13.359441 mm\n"
+      : position error = 6.557025 mm\n\t'Character1_LeftArm' : position error = 37.674656
+      mm\n\t'Character1_LeftForeArm' : position error = 27.958828 mm\n\t'Character1_RightShoulder'
+      : position error = 5.872507 mm\n\t'Character1_RightForeArm' : position error
+      = 1.940611 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -45,19 +43,11 @@ ModelImporter:
       be discarded.\n\t'Character1_LeftHandThumb2' has translation animation that
       will be discarded.\n\t'Character1_LeftHandThumb3' has translation animation
       that will be discarded.\n\t'Character1_LeftHandIndex2' has translation animation
-      that will be discarded.\n\t'Character1_LeftHandIndex3' has translation animation
       that will be discarded.\n\t'Character1_RightShoulder' has translation animation
       that will be discarded.\n\t'Character1_RightForeArm' has translation animation
       that will be discarded.\n\t'Character1_RightHand' has translation animation
-      that will be discarded.\n\t'Character1_RightHandThumb2' has translation animation
-      that will be discarded.\n\t'Character1_RightHandThumb3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandIndex2' has translation animation
       that will be discarded.\n\t'Character1_RightHandIndex3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandMiddle2' has translation animation
-      that will be discarded.\n\t'Character1_RightHandMiddle3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandRing2' has translation animation
-      that will be discarded.\n\t'Character1_RightHandRing3' has translation animation
-      that will be discarded.\n\t'Character1_RightHandPinky2' has translation animation
+      that will be discarded.\n\t'Character1_RightHandPinky3' has translation animation
       that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -75,8 +65,8 @@ ModelImporter:
       name: Attack1
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 4
-      lastFrame: 60
+      firstFrame: 2
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -99,7 +89,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.9
+      additiveReferencePoseFrame: 0.96
     isReadable: 0
   meshes:
     lODScreenPercentages: []

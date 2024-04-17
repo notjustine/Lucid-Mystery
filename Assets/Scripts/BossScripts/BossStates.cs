@@ -230,7 +230,7 @@ public class BossStates : MonoBehaviour
         nextAttack = BossAttackType.None;
     }
 
-    void PerformSteamAttack()
+    public void PerformSteamAttack()
     {
         if (steamAttack != null)
         {

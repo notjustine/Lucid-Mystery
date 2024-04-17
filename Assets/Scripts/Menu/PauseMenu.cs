@@ -9,10 +9,12 @@ public class PauseMenu : MonoBehaviour
     private PlayerControl playerControl;
     private GameObject pauseMenu;
     private GameObject optionsMenu;
-    public GameObject warningText;
+    // public GameObject warningText;
     private bool isOptions = false;
-    private bool warningTextActive = false;
+    // private bool warningTextActive = false;
     private FadingScreen fade;
+    private EventSystem eventSystem;
+    private GameObject lastSelected;
     
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -34,11 +36,10 @@ public class PauseMenu : MonoBehaviour
     public void ShowPauseMenu()
     {
         fade.gameObject.SetActive(false);
-        warningTextActive = warningText.activeSelf;
-        warningText.SetActive(false);
         playerControl.SwitchPlayerMap("Pause UI");
         pauseMenu.SetActive(true);
         optionsMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(GameObject.Find("Continue Button"));
         Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
     }
@@ -51,8 +52,8 @@ public class PauseMenu : MonoBehaviour
 
     public void HidePauseMenu()
     {
-        if (warningTextActive)
-            warningText.SetActive(true);
+        // if (warningTextActive)
+        //     warningText.SetActive(true);
         optionsMenu.SetActive(false);
         isOptions = false;
         playerControl.SwitchPlayerMap("Player");
@@ -71,9 +72,11 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowOptions()
     {
+        lastSelected = eventSystem.currentSelectedGameObject;
         pauseMenu.SetActive(false);
         isOptions = true;
         optionsMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(GameObject.Find("Slider"));
     }
 
     public void GoBack()
@@ -84,6 +87,7 @@ public class PauseMenu : MonoBehaviour
             isOptions = false;
             optionsMenu.SetActive(false);
             pauseMenu.SetActive(true);
+            eventSystem.SetSelectedGameObject(lastSelected);
         }
         else
         {
@@ -101,6 +105,7 @@ public class PauseMenu : MonoBehaviour
         playerControl = FindObjectOfType<PlayerControl>();
         pauseMenu = gameObject.transform.GetChild(0).gameObject;
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
+        eventSystem = GetComponentInParent<EventSystem>();
         fade = FindObjectOfType<FadingScreen>();
     }
 }
