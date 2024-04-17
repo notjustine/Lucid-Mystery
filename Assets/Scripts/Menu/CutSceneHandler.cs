@@ -34,6 +34,7 @@ public class CutSceneHandler : MonoBehaviour
         FadingScreenManager.Instance.UpdateFadeRef(fade);
         if (isIntro)
         {
+            videoPlayer.started += source => cutsceneMusic.Play(); 
             a = SceneManager.LoadSceneAsync("Tutorial");
             StartCoroutine(StartVideo());
             a.allowSceneActivation = false;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,6 +40,7 @@ public class DeathMenu : MonoBehaviour
         mainCamera = Camera.main.transform;
         endCamera = GameObject.Find("Camera").transform;
         GameObject.Find("Beats").gameObject.SetActive(false);
+        GameObject.Find("Pause").GetComponentInChildren<EventSystem>().enabled = false;
         endCamera.position = mainCamera.position;
         bossHUD.SetActive(false);
         if (bossDied)
