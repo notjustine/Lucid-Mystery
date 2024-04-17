@@ -37,7 +37,10 @@ public class AnimationStateController : MonoBehaviour
 
     public void TriggerFlinch()             // call in BossHealth.cs
     {
-        animator.SetTrigger("Flinch");
+        animator.SetTrigger("Hit");
+        
+        int randomNumber = Random.Range(1, 3);
+        animator.SetTrigger("Flinch" + randomNumber);
     }
 
     public void TriggerDeath()              // call in BossHealth.cs
@@ -64,7 +67,8 @@ public class AnimationStateController : MonoBehaviour
 
     private void ClearFlinch()
     {
-        animator.ResetTrigger("Flinch");
+        animator.ResetTrigger("Flinch1");
+        animator.ResetTrigger("Flinch2");
     }
 
     private void ClearSlam()
