@@ -90,7 +90,7 @@ public class HazardAttack : MonoBehaviour
 
             targetedTilesNames.Add(tileName);
         }
-        yield return new WaitForSeconds(timeToLand);
+        yield return new WaitForSeconds(timeToLand+0.5f);
         warningManager.ToggleWarning(targetedTilesNames, false, WarningManager.WarningType.HAZARD);
     }
 

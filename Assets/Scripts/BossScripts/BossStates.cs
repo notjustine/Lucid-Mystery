@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class BossStates : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class BossStates : MonoBehaviour
     [SerializeField] private BossHealth bossHealth;
     public bool isSleeping;
     public enum BossState { Idle, PreparingAttack, Attacking, Cooldown }
-    public enum BossAttackType { None, Slam, Steam, Spiral}
+    public enum BossAttackType { None, Slam, Steam, Spiral, Hazard }
 
     BossState currentState = BossState.Idle;
     BossAttackType nextAttack = BossAttackType.None;
@@ -21,6 +21,8 @@ public class BossStates : MonoBehaviour
     private float time = 0f;
     private float coolDownTime = 5f;
     private bool isHazardAttackRunning = false;
+
+    private DifficultyManager difficultyManager;
 
 
     void Start()
@@ -31,6 +33,7 @@ public class BossStates : MonoBehaviour
         spiralAttack = FindObjectOfType<SpiralAttack>();
         hazardAttack = FindObjectOfType<HazardAttack>();
         bossHealth = FindObjectOfType<BossHealth>();
+        difficultyManager = DifficultyManager.Instance;
 
         switch (DifficultyManager.phase)
         {
@@ -47,29 +50,52 @@ public class BossStates : MonoBehaviour
                 isSleeping = true;
                 break;
         }
-
     }
 
     void Update()
     {
+        DifficultyManager.Difficulty difficultyLevel = difficultyManager.CurrDifficulty;
         bossStateMachine();
 
-        // Check if boss health is less than 35% and hazard attack coroutine is not already running
-        if (bossHealth.currHealth / bossHealth.maxHealth <= 0.35f && !isHazardAttackRunning)
+        if (!isSleeping && !isHazardAttackRunning && bossHealth.currHealth / bossHealth.maxHealth <= GetHazardTriggerThreshold() && difficultyLevel != DifficultyManager.Difficulty.EASY)
         {
             StartCoroutine(TriggerHazardAttack());
-            isHazardAttackRunning = true; 
+            isHazardAttackRunning = true;
         }
     }
 
+    float GetHazardTriggerThreshold()
+    {
+        DifficultyManager.Difficulty difficultyLevel = difficultyManager.CurrDifficulty;
+        switch (difficultyLevel)
+        {
+            case DifficultyManager.Difficulty.EASY:
+                return float.MaxValue; // Never triggers in easy mode
+            case DifficultyManager.Difficulty.MEDIUM:
+                return 0.25f;
+            case DifficultyManager.Difficulty.HARD:
+                return 0.50f;
+            case DifficultyManager.Difficulty.INSANE:
+                return 0.75f;
+            default:
+                return 1.0f;
+        }
+    }
+
+    private IEnumerator TriggerHazardAttack()
+    {
+        while (bossHealth.currHealth / bossHealth.maxHealth <= GetHazardTriggerThreshold())
+        {
+            hazardAttack.TriggerAttack();
+            yield return new WaitForSeconds(difficultyManager.GetValue(DifficultyManager.StatName.HAZARD_TIMING));
+        }
+        isHazardAttackRunning = false;
+    }
 
     void bossStateMachine()
     {
         if (isSleeping)
-        {
-            // StopAllCoroutines();            
             return;
-        }
 
         switch (currentState)
         {
@@ -77,7 +103,6 @@ public class BossStates : MonoBehaviour
                 DecideNextAttack();
                 break;
             case BossState.PreparingAttack:
-                // call animation here
                 currentState = BossState.Attacking;
                 break;
             case BossState.Attacking:
@@ -87,119 +112,98 @@ public class BossStates : MonoBehaviour
             case BossState.Cooldown:
                 Cooldown();
                 break;
-
         }
     }
 
-    bool IsPlayerInSpecificRing(out int ringIndex)
-    {
-        ringIndex = -1;
-        float playerDistanceFromCenter = Vector3.Distance(playerTransform.position, arenaInitializer.transform.position);
-        for (int i = 0; i < arenaInitializer.ringRadii.Length; i++)
-        {
-            float startingRadius = i == 0 ? 0 : arenaInitializer.ringRadii[i];
-            float endingRadius = i == arenaInitializer.ringRadii.Length - 1 ? float.PositiveInfinity : arenaInitializer.ringRadii[i + 1];
-
-            if (startingRadius <= playerDistanceFromCenter && playerDistanceFromCenter <= endingRadius)
-            {
-                ringIndex = i;
-                break;
-            }
-        }
-        return ringIndex != -1;
-    }
-
-
-    /**
-        Sets the boss state such that the boss will not attack until the state changes again.
-    */
-    void Cooldown()
-    {
-        if (time < coolDownTime)
-        {
-            time += Time.deltaTime;
-            return;
-        }
-
-        time = 0f;
-        currentState = BossState.Idle;
-    }
-
-
-    /**
-        Uses player location and boss health to determine which attack should be executed next by the boss.
-    */
     void DecideNextAttack()
     {
         int ringIndex;
         float healthPercentage = (bossHealth.currHealth / bossHealth.maxHealth) * 100f;
+        DifficultyManager.Difficulty difficultyLevel = difficultyManager.CurrDifficulty;
 
-        if (healthPercentage < 100f && healthPercentage > 80)
+        nextAttack = BossAttackType.None;
+        switch (difficultyLevel)
         {
-            nextAttack = BossAttackType.Spiral;
-        }
-
-        if (healthPercentage <= 80f && healthPercentage > 65)
-        {
-            if (IsPlayerInSpecificRing(out ringIndex) && lastAttack != BossAttackType.Steam)
-            {
-                nextAttack = BossAttackType.Steam;
-            }
-            else
-            {
-                nextAttack = BossAttackType.Spiral;
-            }
-        }
-
-        if (healthPercentage <= 65f && healthPercentage > 35f)
-        {
-            if (lastAttack == BossAttackType.Steam)
-            {
-                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
-            }
-            else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
-            {
-                nextAttack = BossAttackType.Steam;
-            }
-            else
-            {
-                nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
-            }
-        }
-
-        if (healthPercentage <= 35f)
-        {
-            if (lastAttack == BossAttackType.Steam)
-            {
-                int attackChoice = Random.Range(0, 2);
-                if (attackChoice == 0)
+            case DifficultyManager.Difficulty.EASY:
+                if (healthPercentage < 100f && healthPercentage > 50f) {
+                    nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                }
+                if (healthPercentage <= 50f)
                 {
-                    nextAttack = BossAttackType.Slam;
+                    if (lastAttack == BossAttackType.Steam)
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                    else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+                    {
+                        nextAttack = BossAttackType.Steam;
+                    }
+                    else
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                }
+                break;
+
+            case DifficultyManager.Difficulty.MEDIUM:
+                if (healthPercentage < 100f && healthPercentage > 50f)
+                {
+                    nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                }
+                if (healthPercentage <= 75f)
+                {
+                    if (lastAttack == BossAttackType.Steam)
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                    else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+                    {
+                        nextAttack = BossAttackType.Steam;
+                    }
+                    else
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                }
+                break;
+
+            case DifficultyManager.Difficulty.HARD:
+                if (healthPercentage < 100f && healthPercentage > 50f)
+                {
+                    nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                }
+                if (healthPercentage <= 75f)
+                {
+                    if (lastAttack == BossAttackType.Steam)
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                    else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+                    {
+                        nextAttack = BossAttackType.Steam;
+                    }
+                    else
+                    {
+                        nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                    }
+                }
+                break;
+
+            case DifficultyManager.Difficulty.INSANE:
+                if (lastAttack == BossAttackType.Steam)
+                {
+                    nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
+                }
+                else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
+                {
+                    nextAttack = BossAttackType.Steam;
                 }
                 else
                 {
-                    nextAttack = BossAttackType.Spiral;
+                    nextAttack = Random.Range(0, 2) == 0 ? BossAttackType.Slam : BossAttackType.Spiral;
                 }
-
-            }
-            else if (IsPlayerInSpecificRing(out ringIndex) && ringIndex == 0)
-            {
-                nextAttack = BossAttackType.Steam;
-            }
-            else
-            {
-                int attackChoice = Random.Range(0, 2);
-                if (attackChoice == 0)
-                {
-                    nextAttack = BossAttackType.Slam;
-                }
-                else
-                {
-                    nextAttack = BossAttackType.Spiral;
-                }
-            }
+                break;
         }
-
 
         if (nextAttack != BossAttackType.None)
         {
@@ -224,18 +228,15 @@ public class BossStates : MonoBehaviour
 
         lastAttack = attackType;
         nextAttack = BossAttackType.None;
-
     }
 
     void PerformSteamAttack()
     {
         if (steamAttack != null)
         {
-            // Debug.Log("Performing Steam Attack");
             steamAttack.TriggerAttack();
         }
     }
-
 
     void PerformSlamAttack()
     {
@@ -245,28 +246,42 @@ public class BossStates : MonoBehaviour
         }
     }
 
-
     void PerformSpiralAttack()
     {
         if (spiralAttack != null)
         {
-            // Debug.Log("Performing Spiral Attack");
             spiralAttack.TriggerAttack();
         }
     }
 
-    private IEnumerator TriggerHazardAttack()
+    bool IsPlayerInSpecificRing(out int ringIndex)
     {
-        while (!isSleeping && bossHealth.currHealth / bossHealth.maxHealth <= 0.35f)
+        ringIndex = -1;
+        float playerDistanceFromCenter = Vector3.Distance(playerTransform.position, arenaInitializer.transform.position);
+        for (int i = 0; i < arenaInitializer.ringRadii.Length; i++)
         {
-            if (hazardAttack != null)
+            float startingRadius = i == 0 ? 0 : arenaInitializer.ringRadii[i];
+            float endingRadius = i == arenaInitializer.ringRadii.Length - 1 ? float.PositiveInfinity : arenaInitializer.ringRadii[i + 1];
+
+            if (startingRadius <= playerDistanceFromCenter && playerDistanceFromCenter <= endingRadius)
             {
-                hazardAttack.TriggerAttack();
+                ringIndex = i;
+                break;
             }
-            yield return new WaitForSeconds(10f);
         }
+        return ringIndex != -1;
     }
 
+    void Cooldown()
+    {
+        if (time < coolDownTime)
+        {
+            time += Time.deltaTime;
+            return;
+        }
+        time = 0f;
+        currentState = BossState.Idle;
+    }
 
     public void SetCooldown(float time)
     {

@@ -49,7 +49,7 @@ public class DifficultyManager : MonoBehaviour
         HAZARD_TIMING,
         HAZARD_COUNT,
         COOLDOWN,
-        HEALING_AMOUNT
+        HEALING_AMOUNT,
     }
 
     // Communication list: Below is a list of classes that the DifficultyManager will push out updates to, if the player changes the difficulty
@@ -58,7 +58,17 @@ public class DifficultyManager : MonoBehaviour
     BossStates bossStates;
     // End of list 
 
-    [SerializeField] Difficulty currDifficulty;
+    [SerializeField]
+    private Difficulty currDifficulty;
+
+    // Public property to access the difficulty
+    public Difficulty CurrDifficulty
+    {
+        get { return currDifficulty; }
+    }
+
+
+
     // difficultyMap maps a tuple representing a combination of StatName and Difficulty (ie: (StatName.PLAYER_DAMAGE, Difficulty.HARD) to a float for that particular difficulty setting.
     private Dictionary<(StatName, Difficulty), float> difficultyMap;
     public bool hasChanged;
@@ -122,8 +132,6 @@ public class DifficultyManager : MonoBehaviour
         PlayerPrefs.SetInt("difficulty", (int)difficulty);
         hasChanged = true;
     }
-
-
     /** 
         Initializes the map.  This is where we can play around with the actual difficulty values.
     */
