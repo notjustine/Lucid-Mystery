@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -242,7 +242,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80338325}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 0b219fdd8927f417893ba2af27d6c177, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: be41b85d35e569c46b9618a6f35468c4, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 937763401}
@@ -1289,7 +1289,7 @@ PrefabInstance:
     - target: {fileID: 491138496831762632, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5afbc9c92299c0c4292ad8deae8ceedf, type: 3}
+      objectReference: {fileID: 21300000, guid: 3d6f5f938983f4d839bbf8667802ee15, type: 3}
     - target: {fileID: 491138496831762632, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -1457,7 +1457,7 @@ PrefabInstance:
     - target: {fileID: 3340053784138991689, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5afbc9c92299c0c4292ad8deae8ceedf, type: 3}
+      objectReference: {fileID: 21300000, guid: 3d6f5f938983f4d839bbf8667802ee15, type: 3}
     - target: {fileID: 3340053784138991689, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -1757,7 +1757,7 @@ PrefabInstance:
     - target: {fileID: 6185272790202653385, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5afbc9c92299c0c4292ad8deae8ceedf, type: 3}
+      objectReference: {fileID: 21300000, guid: 3d6f5f938983f4d839bbf8667802ee15, type: 3}
     - target: {fileID: 6185272790202653385, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Color.a
       value: 1
