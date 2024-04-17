@@ -8,7 +8,7 @@ public class FrameSetter : MonoBehaviour
     [SerializeField] private int[] frameRate = {30, 60, 120, 144, -1};
     [SerializeField] private TMPro.TMP_Dropdown dropdown;    
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (PlayerPrefs.HasKey("fps"))
         {
