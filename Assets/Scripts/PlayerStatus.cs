@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
+    public float maxHealth = 100f;
     [SerializeField] public bool isInvincible = false;
-    private float currHealth;
+    public float currHealth;
     public HealthBar healthBar;
     private Attack attack;
     private PlayerControl playerControl;
