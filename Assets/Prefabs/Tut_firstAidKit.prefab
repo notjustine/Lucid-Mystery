@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 92461643557767710}
   - component: {fileID: 2250114411160696385}
   - component: {fileID: 3391358957740296816}
+  - component: {fileID: 7320637300414029538}
   m_Layer: 0
   m_Name: Tut_firstAidKit
   m_TagString: Untagged
@@ -69,6 +70,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilename: 
+--- !u!114 &7320637300414029538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809904726955473396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1359399402
+      Data2: 1188447365
+      Data3: -1289496702
+      Data4: -1782284914
+    Path: event:/SFX/healing_ambience
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1918784470339659382
 GameObject:
   m_ObjectHideFlags: 0
