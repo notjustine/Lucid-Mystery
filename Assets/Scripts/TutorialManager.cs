@@ -153,13 +153,13 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
     private System.Collections.IEnumerator HandleOnBeat()
     {
-        instructions.SetInstructionType(TutorialInstruction.SpriteType.OnBeat);
+        
         if (!isBeatCoroutineRunning)
         {
+            instructions.SetInstructionType(TutorialInstruction.SpriteType.OnBeat);
             isBeatCoroutineRunning = true;
             yield return StartCoroutine(HandleOnBeatState());
         }
-        instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
         if (playerControl.currentRingIndex != initPosRing || playerControl.currentTileIndex != initPosTile)
         {
             initPosRing = playerControl.currentRingIndex;
@@ -178,9 +178,12 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     {
         highlightBeat.enabled = true;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
+        instructions.SetInstructionType(TutorialInstruction.SpriteType.Sniper);
+        yield return new WaitForSeconds(0.5f);
         //yield return new WaitUntil(() => Input.anyKey);
         highlightBeat.enabled = false;
+        
     }
 
     //private System.Collections.IEnumerator HandleHeal()
