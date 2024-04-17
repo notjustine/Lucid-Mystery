@@ -492,6 +492,13 @@ MonoBehaviour:
       Data3: -865545839
       Data4: -2065541897
     Path: event:/SFX/boss_turretattack
+  <slamAttack>k__BackingField:
+    Guid:
+      Data1: -1130194996
+      Data2: 1142405278
+      Data3: -1664520568
+      Data4: 1346848212
+    Path: event:/SFX/boss_slamattack
   <menuSelect>k__BackingField:
     Guid:
       Data1: -504134674

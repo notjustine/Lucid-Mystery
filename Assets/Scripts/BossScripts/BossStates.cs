@@ -52,8 +52,11 @@ public class BossStates : MonoBehaviour
 
     void Update()
     {
-        bossStateMachine();
-
+        // THIS IS TEMP UNTIL WE FINISH WITH THE SLAM ATTACK AUDIO
+        // bossStateMachine();
+        if (Input.GetKeyDown(KeyCode.K))
+            PerformSlamAttack();
+        
         // Check if boss health is less than 35% and hazard attack coroutine is not already running
         if (bossHealth.currHealth / bossHealth.maxHealth <= 0.35f && !isHazardAttackRunning)
         {

@@ -19,6 +19,7 @@ public class SoundRef : MonoBehaviour
     [field: SerializeField] public EventReference missBeatSniperShot { get; private set; }
     [field: SerializeField] public EventReference steamAttack { get; private set; }
     [field: SerializeField] public EventReference turrentShot { get; private set; }
+    [field: SerializeField] public EventReference slamAttack { get; private set; }
     
     [field: Header("Menu SFX")]
     [field: SerializeField] public EventReference menuSelect { get; private set; }
