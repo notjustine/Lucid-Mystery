@@ -726,7 +726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1076773440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9b9b33a8e0d8ec549981f67a294a00e2, type: 3}
   playerWin:
   - {fileID: 21300000, guid: e5e9b91afb1883a4798e90d1801961dd, type: 3}
-  - {fileID: 21300000, guid: b9012e11e66f3b446ad46f02a11cf1bc, type: 3}
+  - {fileID: 21300000, guid: 6a033ebbdfeb54353bc395af0b43e37d, type: 3}
   restartButton: {fileID: 630590587}
   background: {fileID: 379017360}
 --- !u!114 &1522033429
