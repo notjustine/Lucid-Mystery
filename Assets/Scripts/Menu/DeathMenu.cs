@@ -34,6 +34,7 @@ public class DeathMenu : MonoBehaviour
     
     void Start()
     {
+        Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
         cutSceneHandler = FindObjectOfType<CutSceneHandler>();
         bossHUD = GameObject.Find("Canvas");
@@ -73,11 +74,7 @@ public class DeathMenu : MonoBehaviour
     }
     public void TryAgain()
     {
-        if (bossDied)
-        {
-            DifficultyManager.phase = 0;
-        }
-
+        DifficultyManager.phase = 0;
         SceneManager.LoadScene(scene);
     }
 

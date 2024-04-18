@@ -169,10 +169,10 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.INSANE)] = 6f;
 
         // Speeds of things
-        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 40f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.EASY)] = 50f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.MEDIUM)] = 70f;
         difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.HARD)] = 110f;
-        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.INSANE)] = 140f;
+        difficultyMap[(StatName.SNIPER_BULLET_SPEED, Difficulty.INSANE)] = 110f;
 
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.EASY)] = 30f;
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;

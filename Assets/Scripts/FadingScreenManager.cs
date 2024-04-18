@@ -59,10 +59,6 @@ public class FadingScreenManager : MonoBehaviour
 
             deathMenu.gameObject.SetActive(true);
             yield return StartCoroutine(fade.FadeFromBlack(speed));
-            while (fade.inProgress)
-            {
-            }
-            Time.timeScale = 0;
             fade.gameObject.SetActive(false);
         }
     }
@@ -112,6 +108,7 @@ public class FadingScreenManager : MonoBehaviour
     {
         yield return StartCoroutine(fade.FadeToBlack( speed));
         AudioManager.instance.PauseAllEvents();
+        Time.timeScale = 0;
         SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
     

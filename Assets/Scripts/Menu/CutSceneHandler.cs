@@ -75,7 +75,7 @@ public class CutSceneHandler : MonoBehaviour
 
     IEnumerator BufferTime()
     {
-        yield return new WaitForSeconds(SkipWaitBuffer);
+        yield return new WaitForSecondsRealtime(SkipWaitBuffer);
         skipPanel.SetActive(true);
     }
 

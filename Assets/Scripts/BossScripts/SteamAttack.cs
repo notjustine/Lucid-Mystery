@@ -1,3 +1,4 @@
+using System;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -21,7 +22,8 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
     private PlayerStatus playerStatus;
     public GameObject steamAttackVFX;
     private PlayerControl playerControl;
-
+    private StudioEventEmitter[] emitters;
+    private VisualEffect[] effects;
 
     private void Start()
     {
@@ -33,7 +35,8 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
         // warningText.gameObject.SetActive(false);
         attackAreaRenderer.material = idleMaterial;
-        VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+        effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+        emitters = steamAttackVFX.GetComponentsInChildren<StudioEventEmitter>();
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
         foreach (VisualEffect effect in effects)
@@ -44,10 +47,14 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.U))
-        // {
-        //    TriggerAttack();
-        // }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (StudioEventEmitter em in emitters)
+        {
+            em.Stop();
+        }
     }
 
 
@@ -67,11 +74,9 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
     public System.Collections.IEnumerator AttackSequence()
     {
-        VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
-        StudioEventEmitter[] emitter = steamAttackVFX.GetComponentsInChildren<StudioEventEmitter>();
-        // warningText.gameObject.SetActive(true);
-        // warningText.text = "Back Up!!";
-        // StartCoroutine(FlashWarningText());
+        // VisualEffect[] effects = steamAttackVFX.GetComponentsInChildren<VisualEffect>();
+      
+
         warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.STEAM);
         // Switch to warning material
         attackAreaRenderer.material = warningMaterial;
@@ -80,9 +85,8 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
         warningManager.ToggleWarning(GetWarningObjects(), false, WarningManager.WarningType.STEAM);
         attackAreaRenderer.material = attackMaterial;
         yield return new WaitForSeconds(0.1f);
-        // warningText.gameObject.SetActive(false);
-        // emitter[1].Play();
-        foreach (StudioEventEmitter em in emitter)
+
+        foreach (StudioEventEmitter em in emitters)
         {
             em.Play();
         }
@@ -97,13 +101,13 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
         }
         yield return new WaitForSeconds(0.5f);
-        // StopCoroutine(FlashWarningText());
+
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();
         }
 
-        foreach (StudioEventEmitter em in emitter)
+        foreach (StudioEventEmitter em in emitters)
         {
             em.SetParameter("steamattack_end", 1);
         }
@@ -127,20 +131,6 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
             playerInAttackArea = false;
         }
     }
-
-
-    // private System.Collections.IEnumerator FlashWarningText()
-    // {
-    //     float flashDuration = warningDuration; // Using the same duration as the warning for simplicity.
-    //     float startTime = Time.time;
-    //     while (Time.time - startTime < flashDuration)
-    //     {
-    //         float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2));
-    //         warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
-    //         yield return null;
-    //     }
-    //     warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, 1);
-    // }
 
 
     /**
