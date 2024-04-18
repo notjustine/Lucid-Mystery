@@ -2,12 +2,14 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class SlamAttack : MonoBehaviour, IWarningGenerator
 {
     [SerializeField] private ArenaInitializer arenaInitializer;
     [SerializeField] private Material warningMaterial;
     [SerializeField] private GameObject attackIndicatorPrefab;
+    [SerializeField] private VisualEffect[] visualEffects;
     public float warningDuration = 2.5f; // Duration before the attack hits
     public float attackDuration = 1f; // Duration of the attack visual effect
     private PlayerControl playerControl;
@@ -41,6 +43,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         StartCoroutine(AttackSequence(tileIndex));
         animationStateController.TriggerSlam();
         cameraControl.Invoke("TriggerShake", 2.5f);
+        Invoke("PlayDust", 2.3f);
         AudioManager.instance.PlayOneShot(SoundRef.Instance.slamAttack, playerControl.gameObject.transform.position);
     }
 
@@ -79,7 +82,14 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
             CheckForPlayerDamage(index);
         }
     }
-
+    
+    private void PlayDust()
+    {
+        foreach (VisualEffect dust in visualEffects)
+        {
+            dust.Play();
+        }
+    }
 
 
 

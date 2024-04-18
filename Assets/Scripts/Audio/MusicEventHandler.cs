@@ -15,7 +15,6 @@ public class MusicEventHandler : MonoBehaviour
     public static bool beatCheck { get; set; } = false;
     
     private static double beatInterval = 0f; // This is the time between each beat;
-    private static bool beatJustHappened = false;
 
     private static int markerTime;
     

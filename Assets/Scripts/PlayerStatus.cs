@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
@@ -34,6 +35,8 @@ public class PlayerStatus : MonoBehaviour
             return;
         AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
 
+        if (PlayerPrefs.GetInt("Rumble", 0) == 1 && Gamepad.current != null)
+            StartCoroutine(ControllerRumble(0.2f));
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
         attack.UpdateCombo(Attack.ComboChange.DECREASE2);
@@ -73,6 +76,13 @@ public class PlayerStatus : MonoBehaviour
         FadingScreenManager.Instance.DeathMenuTransitionToScene(1f);
         FindObjectOfType<BossStates>().isSleeping = true;
         // SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
+    }
+    
+    public static IEnumerator ControllerRumble(float duration)
+    {
+        Gamepad.current.SetMotorSpeeds(0.4f, 0.5f);
+        yield return new WaitForSecondsRealtime(duration);
+        Gamepad.current.SetMotorSpeeds(0f, 0f);
     }
 }
 

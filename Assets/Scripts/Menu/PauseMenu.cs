@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     private FadingScreen fade;
     private EventSystem eventSystem;
     private GameObject lastSelected;
+    private Toggle rumble;
     
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -95,6 +97,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void EnableRumble(bool value)
+    {
+        AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.menuSelect, Camera.main.gameObject);
+        if (value)
+        {
+            PlayerPrefs.SetInt("Rumble", 1);
+            StartCoroutine(PlayerStatus.ControllerRumble(0.3f));
+            return;
+        }
+        PlayerPrefs.SetInt("Rumble", 0);
+    }
+
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
@@ -107,5 +121,7 @@ public class PauseMenu : MonoBehaviour
         optionsMenu = gameObject.transform.GetChild(1).gameObject;
         eventSystem = GetComponentInParent<EventSystem>();
         fade = FindObjectOfType<FadingScreen>();
+        rumble = FindObjectOfType<Toggle>(true);
+        rumble.isOn = PlayerPrefs.GetInt("Rumble", 1) == 1;
     }
 }
