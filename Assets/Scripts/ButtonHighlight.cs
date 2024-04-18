@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,12 @@ using UnityEngine.UI;
 public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private GameObject overlaySprite;
-    
+
+    public void OnDisable()
+    {
+        overlaySprite.SetActive(false);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (overlaySprite != null)

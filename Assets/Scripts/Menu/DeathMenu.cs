@@ -34,6 +34,7 @@ public class DeathMenu : MonoBehaviour
     
     void Start()
     {
+        Time.timeScale = 0;
         AudioManager.instance.PauseAllEvents();
         cutSceneHandler = FindObjectOfType<CutSceneHandler>();
         bossHUD = GameObject.Find("Canvas");

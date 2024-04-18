@@ -34,14 +34,7 @@ public class FadingScreen : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == mainScene)
         {
-            if (SceneManager.GetSceneByName("EndMenu").isLoaded && !DeathMenu.bossDied)
-            {
-                StartCoroutine(FadeFromBlackEnding());
-            }
-            else
-            {
-                StartCoroutine(FadeFromBlack());
-            }
+            StartCoroutine(FadeFromBlack());
         }
     }
     public IEnumerator FadeToBlack(float fadeSpeed = 0.5f)
@@ -51,13 +44,12 @@ public class FadingScreen : MonoBehaviour
         speed = fadeSpeed;
         while (black.color.a < 1f)
         {
-            yield return black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a + (fadeSpeed * Time.deltaTime));
-            // yield return new WaitForSeconds(0.01f);
+            black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a + (fadeSpeed * Time.unscaledDeltaTime));
+            yield return new WaitForSecondsRealtime(0.01f);
         }
 
         isFadingFromBlack = true;
         inProgress = false;
-        // yield return null;
     }
 
     public IEnumerator FadeFromBlack(float fadeSpeed = 0.5f)
@@ -67,19 +59,12 @@ public class FadingScreen : MonoBehaviour
         inProgress = true;
         while (black.color.a > 0f)
         {
-            yield return black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - (fadeSpeed * Time.deltaTime));
-            // yield return new WaitForSeconds(0.01f);
+            black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - (fadeSpeed * Time.unscaledDeltaTime));
+            yield return new WaitForSecondsRealtime(0.01f);
         }
 
         isFadingFromBlack = false;
         inProgress = false;
-        // yield return null;
-    }
-
-    private IEnumerator FadeFromBlackEnding(float fadeSpeed = 0.5f)
-    {
-        yield return StartCoroutine(FadeFromBlack(fadeSpeed));
-        Time.timeScale = 0;
     }
 }
 
