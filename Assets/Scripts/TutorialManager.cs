@@ -14,6 +14,7 @@ public enum TutorialState
     Attack,
     Strengthen,
     Avoid, // explain red tiles
+    Practice,
     End
 }
 
@@ -46,7 +47,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     bool StrengthenRunning;
     bool healRunning;
     bool avoidRunning;
-    bool isAvoidCoroutineRunning;
 
     private bool playerHasAttacked = false;
     public bool sniperEnabled = false;
@@ -79,7 +79,6 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         StrengthenRunning = false;
         healRunning = false;
         avoidRunning = false;
-        isAvoidCoroutineRunning = false;
         InitLogicToPhysMapping();
         
     }
@@ -157,6 +156,9 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                     StartCoroutine(HandleAvoid());
                     avoidRunning = true;
                 }
+                break;
+            case TutorialState.Practice:
+
                 break;
             case TutorialState.End:
                 instructions.SetDisplayImageAlpha(0f);
