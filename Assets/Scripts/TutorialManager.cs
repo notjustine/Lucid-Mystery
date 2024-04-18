@@ -20,7 +20,6 @@ public enum TutorialState
 
 public class TutorialManager : MonoBehaviour, IWarningGenerator
 {
-    private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
     private Image comboImage;
     private PlayerControl playerControl;
@@ -34,6 +33,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private BossStates boss;
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> movingTiles;
+    private AsyncOperation asyncLoad;
     
 
     int initPosRing;
@@ -57,8 +57,9 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         // Initialize tutorial
         instructions = FindObjectOfType<TutorialInstruction>();
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Start);
-
-        fade = FindObjectOfType<FadingScreen>();
+        asyncLoad = SceneManager.LoadSceneAsync("ZyngaMain");
+        asyncLoad.allowSceneActivation = false;
+        
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
@@ -162,7 +163,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 break;
             case TutorialState.End:
                 instructions.SetDisplayImageAlpha(0f);
-                FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
+                FadingScreenManager.Instance.AsyncTransitionToScene( 1f, asyncLoad);
                 break;
         }
     }
