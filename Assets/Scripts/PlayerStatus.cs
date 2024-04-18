@@ -11,6 +11,7 @@ public class PlayerStatus : MonoBehaviour
     public float currHealth;
     public HealthBar healthBar;
     private Attack attack;
+    private PlayerVisuals playerVisuals;
     private PlayerControl playerControl;
     private DifficultyManager difficultyManager;
     private HealingManager healingManager;
@@ -22,6 +23,7 @@ public class PlayerStatus : MonoBehaviour
         currHealth = maxHealth;
         healthBar.SetSliderMax(maxHealth);
         attack = FindObjectOfType<Attack>();
+        playerVisuals = FindObjectOfType<PlayerVisuals>();
         playerControl = FindObjectOfType<PlayerControl>();
         healingManager = HealingManager.Instance;
         difficultyManager = DifficultyManager.Instance;
@@ -39,6 +41,7 @@ public class PlayerStatus : MonoBehaviour
             StartCoroutine(ControllerRumble(0.2f));
         currHealth -= amount;
         healthBar.SetSlider(currHealth);
+        playerVisuals.FlashDamageColor();
         attack.UpdateCombo(Attack.ComboChange.DECREASE2);
         animationStateController.TriggerStumble();
 
@@ -77,7 +80,7 @@ public class PlayerStatus : MonoBehaviour
         FindObjectOfType<BossStates>().isSleeping = true;
         // SceneManager.LoadScene("EndMenu", LoadSceneMode.Additive);
     }
-    
+
     public static IEnumerator ControllerRumble(float duration)
     {
         Gamepad.current.SetMotorSpeeds(0.4f, 0.5f);
