@@ -34,7 +34,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> movingTiles;
     private AsyncOperation asyncLoad;
-    
+    private GameObject practicePrompt;
 
     int initPosRing;
     int initPosTile;
@@ -59,6 +59,9 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Start);
         asyncLoad = SceneManager.LoadSceneAsync("ZyngaMain");
         asyncLoad.allowSceneActivation = false;
+        
+        practicePrompt = GameObject.Find("Prompt");
+        practicePrompt.SetActive(false);
         
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
@@ -159,7 +162,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 }
                 break;
             case TutorialState.Practice:
-
+                instructions.SetDisplayImageAlpha(0f);
                 break;
             case TutorialState.End:
                 instructions.SetDisplayImageAlpha(0f);
@@ -174,7 +177,8 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         yield return new WaitForSeconds(2.5f);
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Avoid);
         yield return new WaitForSeconds(2.5f);
-        currentState = TutorialState.End;
+        practicePrompt.SetActive(true);
+        currentState = TutorialState.Practice;
     }
 
 
@@ -304,6 +308,18 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             playerControl.OnMoveEvent -= CheckAndSetPlayerMove;
         }
     }
+    
+    public void ActivatePractice()
+    {
+        currentState = TutorialState.Practice;
+        practicePrompt.SetActive(false);
+    }
+    
+    public void LeaveTutorial()
+    {
+        currentState = TutorialState.End;
+    }
+    
 
     public List<string> GetMoveTiles() // for directions state
     {
