@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerVisuals : MonoBehaviour
 {
+    private PlayerStatus playerStatus;
     private List<string> playerGeos;
     private List<string> flashing;
     [SerializeField] Color flashColor;
@@ -12,22 +13,26 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] Color pantsColor;
     [SerializeField] Color blouseColor;
 
-    private const float BLINK_SPEED = 20f;
-    private const float BLINK_DELAY = 0.08f;
+    private const float BLINK_SPEED = 8f;
+    private const float BLINK_DELAY = 0.1667f;
     private GameObject tempObject;
     private Renderer tempRenderer;
     private MaterialPropertyBlock propBlock;
+    private float sinceHit;
 
 
     void Start()
     {
+        playerStatus = FindObjectOfType<PlayerStatus>();
         flashing = new List<string>();
         InitPlayerGeos();
+        sinceHit = 0f;
     }
 
 
     void Update()
     {
+        sinceHit += Time.deltaTime;
         Color initialColor = vestColor;
         foreach (string name in flashing)
         {
@@ -39,7 +44,7 @@ public class PlayerVisuals : MonoBehaviour
                 initialColor = vestColor;
                 propBlock = new MaterialPropertyBlock();
                 tempRenderer.GetPropertyBlock(propBlock);
-                propBlock.SetColor("_BaseColor", Color.Lerp(flashColor, initialColor, Mathf.PingPong(Time.time * BLINK_SPEED, 1)));
+                propBlock.SetColor("_BaseColor", Color.Lerp(initialColor, flashColor, Mathf.PingPong(sinceHit * BLINK_SPEED, 1)));
                 tempRenderer.SetPropertyBlock(propBlock);
             }
             else if (name == "wrenchTextured")
@@ -47,7 +52,7 @@ public class PlayerVisuals : MonoBehaviour
                 initialColor = toolColor;
                 propBlock = new MaterialPropertyBlock();
                 tempRenderer.GetPropertyBlock(propBlock, 1);
-                propBlock.SetColor("_BaseColor", Color.Lerp(flashColor, initialColor, Mathf.PingPong(Time.time * BLINK_SPEED, 1)));
+                propBlock.SetColor("_BaseColor", Color.Lerp(initialColor, flashColor, Mathf.PingPong(sinceHit * BLINK_SPEED, 1)));
                 tempRenderer.SetPropertyBlock(propBlock, 1);
             }
             else if (name == "blouse_GEO")
@@ -55,7 +60,7 @@ public class PlayerVisuals : MonoBehaviour
                 initialColor = blouseColor;
                 propBlock = new MaterialPropertyBlock();
                 tempRenderer.GetPropertyBlock(propBlock);
-                propBlock.SetColor("_BaseColor", Color.Lerp(flashColor, initialColor, Mathf.PingPong(Time.time * BLINK_SPEED, 1)));
+                propBlock.SetColor("_BaseColor", Color.Lerp(initialColor, flashColor, Mathf.PingPong(sinceHit * BLINK_SPEED, 1)));
                 tempRenderer.SetPropertyBlock(propBlock);
             }
             else if (name == "pants_GEO")
@@ -63,7 +68,7 @@ public class PlayerVisuals : MonoBehaviour
                 initialColor = pantsColor;
                 propBlock = new MaterialPropertyBlock();
                 tempRenderer.GetPropertyBlock(propBlock, 0);
-                propBlock.SetColor("_BaseColor", Color.Lerp(flashColor, initialColor, Mathf.PingPong(Time.time * BLINK_SPEED, 1)));
+                propBlock.SetColor("_BaseColor", Color.Lerp(initialColor, flashColor, Mathf.PingPong(sinceHit * BLINK_SPEED, 1)));
                 tempRenderer.SetPropertyBlock(propBlock, 0);
             }
         }
@@ -73,6 +78,8 @@ public class PlayerVisuals : MonoBehaviour
     public void FlashDamageColor()
     {
         flashing.AddRange(playerGeos);
+        playerStatus.isInvincible = true;
+        sinceHit = 0;
         StartCoroutine(DisableFlashAfterDelay());
     }
 
@@ -93,7 +100,7 @@ public class PlayerVisuals : MonoBehaviour
     {
         yield return new WaitForSeconds(BLINK_DELAY);
         flashing.Clear();
-
+        playerStatus.isInvincible = false;
         // set back to original color
         Color initialColor = vestColor;
         foreach (string name in playerGeos)
