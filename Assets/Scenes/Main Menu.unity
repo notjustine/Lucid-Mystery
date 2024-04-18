@@ -1282,6 +1282,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -110
       objectReference: {fileID: 0}
+    - target: {fileID: 186720010363962156, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 491138496831762632, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Type
       value: 0
@@ -1433,6 +1437,10 @@ PrefabInstance:
     - target: {fileID: 2580433461496219345, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688643680393205636, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2759568103106413322, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1674,6 +1682,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 297.9
       objectReference: {fileID: 0}
+    - target: {fileID: 5050193682456605970, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 246
+      objectReference: {fileID: 0}
     - target: {fileID: 5089845874437812384, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1716,7 +1728,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5809727394382812622, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 96
+      value: 73
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809727394382812622, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848455368272911271, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_text
+      value: 'Hedy Fu: Concept Sketches, Character Models, Rigs, Cutscenes, Player
+        Animations
+
+
+        Justine Magbitang: Shaders, Post-Processing, Boss Animations
+
+
+        Yannan
+        Ma (Team Lead): Technical Artist, Environment Modeling, VFX,  Post-Processing,
+        Playtesting
+
+
+        Jessica Patel: UI Designs, Prop Modeling'
       objectReference: {fileID: 0}
     - target: {fileID: 5890788561534314443, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1832,6 +1864,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6984109034950451651, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995485832420634857, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7054218601633752314, guid: 3ea3912be6add9346a5a4340190a7f29, type: 3}
