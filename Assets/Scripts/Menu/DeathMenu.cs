@@ -74,11 +74,7 @@ public class DeathMenu : MonoBehaviour
     }
     public void TryAgain()
     {
-        if (bossDied)
-        {
-            DifficultyManager.phase = 0;
-        }
-
+        DifficultyManager.phase = 0;
         SceneManager.LoadScene(scene);
     }
 

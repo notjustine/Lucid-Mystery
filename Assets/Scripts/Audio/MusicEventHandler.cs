@@ -73,21 +73,7 @@ public class MusicEventHandler : MonoBehaviour
     {
         eventInstance.start();
         AssignMusicCallbacks();
-        switch (DifficultyManager.phase)
-        {
-            case 0:
-                SetMainMusicPhaseParameter(0);
-                break;
-            case 1:
-                SetMainMusicPhaseParameter(1);
-                break;
-            case 2:
-                SetMainMusicPhaseParameter(2);
-                break;
-            default:
-                SetMainMusicPhaseParameter(0);
-                break;
-        }
+        SetMainMusicPhaseParameter(0);
     }
     
 
