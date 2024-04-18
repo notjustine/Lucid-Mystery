@@ -155,9 +155,11 @@ public class HealingManager : MonoBehaviour
         System.Random random = new System.Random();
         int first = random.Next(48);
         int second = random.Next(48);
-        while (first == second)
+        bool areSame = first == second;
+        while (areSame)
         {
             second = random.Next(48);
+            areSame = first == second;
         }
         return new List<string> { tileOptions[first], tileOptions[second] };
     }
