@@ -11,6 +11,11 @@ public class BossHealth : MonoBehaviour
     private AnimationStateController animationStateController;
     private BossStates bossStates;
 
+    public GameObject furnace;
+    public Material furnaceOn;
+    public Material furnaceOff;
+
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -45,6 +50,7 @@ public class BossHealth : MonoBehaviour
             animationStateController.TriggerAwaken();
             DifficultyManager.phase = 1;
             bossStates.isSleeping = false;
+            furnace.GetComponent<MeshRenderer>().material = furnaceOn;
         }
         currHealth -= amount;
 
@@ -89,6 +95,7 @@ public class BossHealth : MonoBehaviour
         AudioManager.instance.PhaseMusicChange(3);
         FadingScreenManager.Instance.DeathMenuTransitionToScene();
         animationStateController.TriggerDeath();
+        furnace.GetComponent<MeshRenderer>().material = furnaceOff;
     }
 
 
