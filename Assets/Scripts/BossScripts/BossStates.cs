@@ -34,22 +34,7 @@ public class BossStates : MonoBehaviour
         hazardAttack = FindObjectOfType<HazardAttack>();
         bossHealth = FindObjectOfType<BossHealth>();
         difficultyManager = DifficultyManager.Instance;
-
-        switch (DifficultyManager.phase)
-        {
-            case 0:
-                isSleeping = true;
-                break;
-            case 1:
-                isSleeping = false;
-                break;
-            case 2:
-                isSleeping = false;
-                break;
-            default:
-                isSleeping = true;
-                break;
-        }
+        isSleeping = true;
     }
 
     void Update()

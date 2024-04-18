@@ -49,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     public void RestartPhase()
     {
         SceneManager.LoadScene("ZyngaMain");
+        DifficultyManager.phase = 0;
         HidePauseMenu();
     }
 

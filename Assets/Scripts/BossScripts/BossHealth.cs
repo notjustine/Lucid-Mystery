@@ -30,13 +30,6 @@ public class BossHealth : MonoBehaviour
         else
         {
             healthBar.SetSliderMax(maxHealth);
-
-            if (DifficultyManager.phase == 2)
-            {
-                currHealth = maxHealth / 2;
-                healthBar.SetSlider(maxHealth / 2);
-                PhaseTwo();
-            }
         }
         
     }
