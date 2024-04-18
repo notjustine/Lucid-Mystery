@@ -19,7 +19,6 @@ public class AnimationStateController : MonoBehaviour
     {                                       // clip length: 1.292
         animator.SetTrigger("Awaken");
         Invoke("ClearFlinch", 1.0f);
-        Invoke("ClearSlam", 1.0f);
     }
 
     public void TriggerPhase2()             // call in BossHealth.cs
@@ -69,11 +68,6 @@ public class AnimationStateController : MonoBehaviour
     {
         animator.ResetTrigger("Flinch1");
         animator.ResetTrigger("Flinch2");
-    }
-
-    private void ClearSlam()
-    {
-        animator.ResetTrigger("Slam");
     }
 
     private void ClearTransition()
