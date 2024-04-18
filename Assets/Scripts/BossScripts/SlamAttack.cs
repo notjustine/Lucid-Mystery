@@ -43,7 +43,7 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
         StartCoroutine(AttackSequence(tileIndex));
         animationStateController.TriggerSlam();
         cameraControl.Invoke("TriggerShake", 2.5f);
-        Invoke("PlayDust", 2.3f);
+        Invoke("PlayDust", 2.5f);
         AudioManager.instance.PlayOneShot(SoundRef.Instance.slamAttack, playerControl.gameObject.transform.position);
     }
 
