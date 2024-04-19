@@ -35,6 +35,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     private List<string> movingTiles;
     private AsyncOperation asyncLoad;
     private GameObject practicePrompt;
+    private GameObject backUp;
 
     int initPosRing;
     int initPosTile;
@@ -62,6 +63,9 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         
         practicePrompt = GameObject.Find("Prompt");
         practicePrompt.SetActive(false);
+
+        backUp = GameObject.Find("BackUpWarning");
+        backUp.SetActive(false);
         
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
@@ -173,10 +177,15 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
 
     private System.Collections.IEnumerator HandleAvoid()
     {
+        instructions.SetDisplayImageAlpha(0f);
+        backUp.SetActive(true);
         boss.PerformSteamAttack();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.4f);
+        backUp.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Avoid);
-        yield return new WaitForSeconds(2.5f);
+        instructions.SetDisplayImageAlpha(1f);
+        yield return new WaitForSeconds(4f);
         practicePrompt.SetActive(true);
         currentState = TutorialState.Practice;
     }
