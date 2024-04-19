@@ -15,13 +15,19 @@ public class HazardAttack : MonoBehaviour
     [SerializeField] private VisualEffect dustEffect;
     private WarningManager warningManager;
     private DifficultyManager difficultyManager;
+    private HealingManager healingManager;
     private List<string> activeHazards = new List<string>();
-    private Dictionary<string, GameObject> nailsMap = new Dictionary<string, GameObject>();
+
+    // The two data structures below allow the healing manager to track whether a healing tile will overlap with a hazard.
+    public Dictionary<string, GameObject> nailsMap = new Dictionary<string, GameObject>();
+    public List<string> targetedTilesNames;
 
     private void Start()
     {
         warningManager = WarningManager.Instance;
         difficultyManager = DifficultyManager.Instance;
+        healingManager = HealingManager.Instance;
+        targetedTilesNames = new List<string>();
     }
 
     private void Update()
@@ -44,6 +50,7 @@ public class HazardAttack : MonoBehaviour
         numberOfHazards = (int)difficultyManager.GetValue(DifficultyManager.StatName.HAZARD_COUNT);
         StartCoroutine(HazardSequence());
     }
+
     public void OnHazardLanded(GameObject hazard, GameObject collide, string tileName)
     {
         PlayDustEffect();
@@ -58,22 +65,34 @@ public class HazardAttack : MonoBehaviour
         yield return new WaitForSeconds(delay);
         CleanupHazard(tileName);
     }
+
     private IEnumerator HazardSequence()
     {
-        HashSet<(int, int)> selectedTiles = new HashSet<(int, int)>(); 
-        List<string> targetedTilesNames = new List<string>(); 
+        HashSet<(int, int)> selectedTiles = new HashSet<(int, int)>();
+        Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
 
         while (selectedTiles.Count < numberOfHazards)
         {
             int ringIndex = Random.Range(0, arenaInitializer.tilePositions.Count);
             int tileIndex = Random.Range(0, arenaInitializer.tilePositions[ringIndex].Count);
 
+            Vector3 targetPosition = arenaInitializer.tilePositions[ringIndex][tileIndex];
+            string tileName = mapping[(ringIndex, tileIndex)];
+            bool isHealingTile = healingManager.healingTiles.Contains(tileName);
+
+            while (isHealingTile)
+            {
+                // reselect because this tile is among healing tiles.
+                // Debug.Log("reselect hazard");
+                ringIndex = Random.Range(0, arenaInitializer.tilePositions.Count);
+                tileIndex = Random.Range(0, arenaInitializer.tilePositions[ringIndex].Count);
+                targetPosition = arenaInitializer.tilePositions[ringIndex][tileIndex];
+                tileName = mapping[(ringIndex, tileIndex)];
+                isHealingTile = healingManager.healingTiles.Contains(tileName);
+            }
+
             if (!selectedTiles.Add((ringIndex, tileIndex)))
                 continue;
-
-            Vector3 targetPosition = arenaInitializer.tilePositions[ringIndex][tileIndex];
-            Dictionary<(int, int), string> mapping = warningManager.GetLogicalToPhysicalTileMapping();
-            string tileName = mapping[(ringIndex, tileIndex)];
 
             GameObject hazardInstance = Instantiate(hazardPrefab, rotatableHead_GEO.transform.position, Quaternion.identity);
             Rigidbody rb = hazardInstance.AddComponent<Rigidbody>();
@@ -87,6 +106,7 @@ public class HazardAttack : MonoBehaviour
         }
         yield return new WaitForSeconds(timeToLand);
         warningManager.ToggleWarning(targetedTilesNames, false, WarningManager.WarningType.HAZARD);
+        targetedTilesNames.Clear();
     }
 
 

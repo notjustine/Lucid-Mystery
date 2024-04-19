@@ -7,8 +7,8 @@ using UnityEngine;
 public class HealingManager : MonoBehaviour
 {
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
-    private BossHealth bossHealth;
-    private List<string> healingTiles;
+    private HazardAttack hazardAttack;
+    public List<string> healingTiles;
     private List<string> tileOptions;
 
     // for blink effect
@@ -40,7 +40,7 @@ public class HealingManager : MonoBehaviour
     void Start()
     {
         time = 7f;
-        bossHealth = FindObjectOfType<BossHealth>();
+        hazardAttack = FindObjectOfType<HazardAttack>();
         warningManager = WarningManager.Instance;
         InitTileOptions();
         healingTiles = new List<string>();
@@ -154,12 +154,27 @@ public class HealingManager : MonoBehaviour
         // Get two random numbers that are different between 0-47
         System.Random random = new System.Random();
         int first = random.Next(48);
+
+        while (hazardAttack.nailsMap.TryGetValue(tileOptions[first], out GameObject nailObject) || hazardAttack.targetedTilesNames.Contains(tileOptions[first]))
+        {
+            // Debug.Log("Reselecting heal 1");
+            first = random.Next(48);
+        }
         int second = random.Next(48);
         bool areSame = first == second;
         while (areSame)
         {
             second = random.Next(48);
+            while (hazardAttack.nailsMap.TryGetValue(tileOptions[second], out GameObject nailObject1) || hazardAttack.targetedTilesNames.Contains(tileOptions[second]))
+            {
+                // Debug.Log("Reselect heal 2");
+                second = random.Next(48);
+            }
             areSame = first == second;
+            // if (areSame)
+            // {
+            //     Debug.Log("heals were same");
+            // }
         }
         return new List<string> { tileOptions[first], tileOptions[second] };
     }
