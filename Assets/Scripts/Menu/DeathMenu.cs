@@ -42,6 +42,7 @@ public class DeathMenu : MonoBehaviour
         endCamera = GameObject.Find("Camera").transform;
         GameObject.Find("Beats").gameObject.SetActive(false);
         GameObject.Find("Pause").GetComponentInChildren<EventSystem>().enabled = false;
+        GameObject.Find("HUD").SetActive(false);
         endCamera.position = mainCamera.position;
         bossHUD.SetActive(false);
         if (bossDied)

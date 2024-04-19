@@ -20,7 +20,6 @@ public enum TutorialState
 
 public class TutorialManager : MonoBehaviour, IWarningGenerator
 {
-    private FadingScreen fade;
     public TutorialState currentState = TutorialState.Start;
     private Image comboImage;
     private PlayerControl playerControl;
@@ -34,7 +33,9 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private BossStates boss;
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> movingTiles;
-    
+    public AsyncOperation asyncLoad { get; private set; }
+    private GameObject practicePrompt;
+    private GameObject backUp;
 
     int initPosRing;
     int initPosTile;
@@ -57,8 +58,15 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         // Initialize tutorial
         instructions = FindObjectOfType<TutorialInstruction>();
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Start);
+        asyncLoad = SceneManager.LoadSceneAsync("ZyngaMain");
+        asyncLoad.allowSceneActivation = false;
+        
+        practicePrompt = GameObject.Find("Prompt");
+        practicePrompt.SetActive(false);
 
-        fade = FindObjectOfType<FadingScreen>();
+        backUp = GameObject.Find("BackUpWarning");
+        backUp.SetActive(false);
+        
         highlightCombo.enabled = false;
         highlightBeat.enabled = false;
         warningManager = WarningManager.Instance;
@@ -158,22 +166,29 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 }
                 break;
             case TutorialState.Practice:
-
+                instructions.SetDisplayImageAlpha(0f);
                 break;
             case TutorialState.End:
                 instructions.SetDisplayImageAlpha(0f);
-                FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 1f);
+                FadingScreenManager.Instance.AsyncTransitionToScene( 1f, asyncLoad);
                 break;
         }
     }
-
+    
     private System.Collections.IEnumerator HandleAvoid()
     {
+        instructions.SetDisplayImageAlpha(0f);
+        backUp.SetActive(true);
         boss.PerformSteamAttack();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.4f);
+        backUp.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         instructions.SetInstructionType(TutorialInstruction.SpriteType.Avoid);
-        yield return new WaitForSeconds(2.5f);
-        currentState = TutorialState.End;
+        instructions.SetDisplayImageAlpha(1f);
+        yield return new WaitForSeconds(4f);
+        practicePrompt.SetActive(true);
+        currentState = TutorialState.Practice;
+        playerControl.SwitchPlayerMap("UI");
     }
 
 
@@ -212,11 +227,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = false;
         
     }
-
-    //private System.Collections.IEnumerator HandleHeal()
-    //{
-        
-    //}
+    
 
     public void SpawnKit(string tilename)
     {
@@ -303,6 +314,19 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             playerControl.OnMoveEvent -= CheckAndSetPlayerMove;
         }
     }
+    
+    public void ActivatePractice()
+    {
+        playerControl.SwitchPlayerMap("Player");
+        currentState = TutorialState.Practice;
+        practicePrompt.SetActive(false);
+    }
+    
+    public void LeaveTutorial()
+    {
+        currentState = TutorialState.End;
+    }
+    
 
     public List<string> GetMoveTiles() // for directions state
     {

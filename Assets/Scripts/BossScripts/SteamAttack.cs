@@ -51,6 +51,8 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
     private void OnDestroy()
     {
+        if (emitters == null)
+            return;
         foreach (StudioEventEmitter em in emitters)
         {
             em.Stop();
