@@ -139,33 +139,33 @@ public class DifficultyManager : MonoBehaviour
     {
         // Damages of things
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 75f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 55f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 35f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 50f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 25f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.INSANE)] = 20f;
 
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.EASY)] = 3f;
-        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 5f;
-        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 7f;
+        difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.HARD)] = 9f;
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.EASY)] = 3f;
-        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 10f;
-        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 15f;
+        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.MEDIUM)] = 15f;
+        difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.HARD)] = 18f;
         difficultyMap[(StatName.STEAM_DAMAGE, Difficulty.INSANE)] = 20f;
 
         difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.EASY)] = 3f;
-        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.MEDIUM)] = 5f;
-        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.MEDIUM)] = 7f;
+        difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.HARD)] = 9f;
         difficultyMap[(StatName.SPIRAL_BULLET_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.EASY)] = 3f;
-        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 5f;
-        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 7f;
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.MEDIUM)] = 7f;
+        difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.HARD)] = 9f;
         difficultyMap[(StatName.SLAM_DAMAGE, Difficulty.INSANE)] = 10f;
 
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.EASY)] = 2f;
-        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.MEDIUM)] = 3f;
-        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.HARD)] = 4f;
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.MEDIUM)] = 4f;
+        difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.HARD)] = 6f;
         difficultyMap[(StatName.HAZARD_DAMAGE, Difficulty.INSANE)] = 6f;
 
         // Speeds of things
@@ -176,7 +176,7 @@ public class DifficultyManager : MonoBehaviour
 
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.EASY)] = 30f;
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.MEDIUM)] = 50f;
-        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.HARD)] = 75f;
+        difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.HARD)] = 80f;
         difficultyMap[(StatName.SPIRAL_BULLET_SPEED, Difficulty.INSANE)] = 90f;
 
         difficultyMap[(StatName.STEAM_TIMING, Difficulty.EASY)] = 4f;
@@ -197,7 +197,7 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.COOLDOWN, Difficulty.EASY)] = 7f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.MEDIUM)] = 5f;
         difficultyMap[(StatName.COOLDOWN, Difficulty.HARD)] = 4f;
-        difficultyMap[(StatName.COOLDOWN, Difficulty.INSANE)] = 4f;
+        difficultyMap[(StatName.COOLDOWN, Difficulty.INSANE)] = 3f;
 
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.EASY)] = 6f;
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.MEDIUM)] = 8f;
