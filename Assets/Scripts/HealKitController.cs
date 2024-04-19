@@ -14,6 +14,7 @@ public class HealKitController : MonoBehaviour
     Animator animator;
     private float kitDuration;
     private float kitLifeLength;
+    bool consumed;
 
 
     void Start()
@@ -23,6 +24,7 @@ public class HealKitController : MonoBehaviour
         difficultyManager = DifficultyManager.Instance;
         kitDuration = 6f;
         kitLifeLength = 0f;
+        consumed = false;
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -32,6 +34,7 @@ public class HealKitController : MonoBehaviour
         kitLifeLength += Time.deltaTime;
         if (kitLifeLength > kitDuration)
         {
+            consumed = true;
             if (animator.GetBool("isActive"))
             {
                 animator.SetBool("isActive", false);
@@ -57,9 +60,9 @@ public class HealKitController : MonoBehaviour
             VisualEffect[] effects = GetComponentsInChildren<VisualEffect>();
             player = GameObject.FindGameObjectWithTag("Player");
             playerStatus = player.GetComponent<PlayerStatus>();
-            if (playerStatus != null)
+            if (playerStatus != null && !consumed)
             {
-                playerStatus.Heal(difficultyManager.GetValue(DifficultyManager.StatName.HEALING_AMOUNT));
+                consumed = true;
                 foreach (VisualEffect effect in effects)
                 {
                     if (effect.name == "Heal_Burst")
@@ -68,6 +71,7 @@ public class HealKitController : MonoBehaviour
                     }
                 }
                 StartCoroutine(HealAnimation());
+                playerStatus.Heal(difficultyManager.GetValue(DifficultyManager.StatName.HEALING_AMOUNT));
                 if (animator.GetBool("isActive"))
                 {
                     animator.SetBool("isActive", false);
