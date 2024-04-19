@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +9,11 @@ public class SkipConfirm : MonoBehaviour
     private PlayerControl playerControl;
     [SerializeField] private GameObject confirmationPanel;
     private FadingScreen fade;
+    private EventSystem eventSystem;
 
-    void Start()
+    void Awake()
     {
+        eventSystem = GetComponent<EventSystem>();
         playerControl = FindObjectOfType<PlayerControl>();
         confirmationPanel.SetActive(false);
         fade = FindObjectOfType<FadingScreen>();
@@ -30,6 +34,7 @@ public class SkipConfirm : MonoBehaviour
 
     public void ShowConfirmation()
     {
+        eventSystem.SetSelectedGameObject(GameObject.Find("No"));
         fade.gameObject.SetActive(false);
         confirmationPanel.SetActive(true);
         Time.timeScale = 0f;
@@ -53,7 +58,8 @@ public class SkipConfirm : MonoBehaviour
     public void ConfirmSkip()
     {
         HideConfirmation();
-        FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 2f);
+        // FadingScreenManager.Instance.TransitionToScene("ZyngaMain", 2f);
+        FadingScreenManager.Instance.AsyncTransitionToScene( 1f, TutorialManager.Instance.asyncLoad);
     }
 
 

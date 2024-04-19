@@ -43,7 +43,7 @@ public class ButtonHighlight : MonoBehaviour, ISelectHandler, IDeselectHandler, 
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         overlaySprite = transform.Find("Overlay").gameObject;
     }

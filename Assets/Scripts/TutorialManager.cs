@@ -33,7 +33,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     [SerializeField] private BossStates boss;
     private Dictionary<(int, int), string> logicalToPhysicalTileMapping;
     private List<string> movingTiles;
-    private AsyncOperation asyncLoad;
+    public AsyncOperation asyncLoad { get; private set; }
     private GameObject practicePrompt;
     private GameObject backUp;
 
@@ -174,7 +174,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
                 break;
         }
     }
-
+    
     private System.Collections.IEnumerator HandleAvoid()
     {
         instructions.SetDisplayImageAlpha(0f);
@@ -188,6 +188,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         yield return new WaitForSeconds(4f);
         practicePrompt.SetActive(true);
         currentState = TutorialState.Practice;
+        playerControl.SwitchPlayerMap("UI");
     }
 
 
@@ -226,11 +227,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
         highlightBeat.enabled = false;
         
     }
-
-    //private System.Collections.IEnumerator HandleHeal()
-    //{
-        
-    //}
+    
 
     public void SpawnKit(string tilename)
     {
@@ -320,6 +317,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
     
     public void ActivatePractice()
     {
+        playerControl.SwitchPlayerMap("Player");
         currentState = TutorialState.Practice;
         practicePrompt.SetActive(false);
     }
