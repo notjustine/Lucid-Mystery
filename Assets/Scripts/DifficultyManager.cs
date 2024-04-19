@@ -140,8 +140,8 @@ public class DifficultyManager : MonoBehaviour
         // Damages of things
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.EASY)] = 75f;
         difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.MEDIUM)] = 50f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 25f;
-        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.INSANE)] = 20f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.HARD)] = 30f;
+        difficultyMap[(StatName.PLAYER_DAMAGE, Difficulty.INSANE)] = 30f;
 
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.EASY)] = 3f;
         difficultyMap[(StatName.SNIPER_DAMAGE, Difficulty.MEDIUM)] = 7f;
@@ -202,13 +202,13 @@ public class DifficultyManager : MonoBehaviour
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.EASY)] = 6f;
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.MEDIUM)] = 8f;
         difficultyMap[(StatName.HAZARD_COUNT, Difficulty.HARD)] = 10f;
-        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.INSANE)] = 15f;
+        difficultyMap[(StatName.HAZARD_COUNT, Difficulty.INSANE)] = 12f;
 
         // Healing
         difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.EASY)] = 20f;
         difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.MEDIUM)] = 18f;
         difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.HARD)] = 15f;
-        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.INSANE)] = 10f;
+        difficultyMap[(StatName.HEALING_AMOUNT, Difficulty.INSANE)] = 15f;
     }
 
 
