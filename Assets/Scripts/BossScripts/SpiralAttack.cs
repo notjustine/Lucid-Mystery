@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using Random = System.Random;
 
 public class SpiralAttack : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SpiralAttack : MonoBehaviour
     const int NUM_SLICES = 24;
     private WarningManager warningManager;
     private Dictionary<int, List<string>> turretGroups;
+    private Random random;
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class SpiralAttack : MonoBehaviour
         warningManager = WarningManager.Instance;
         turretGroups = new Dictionary<int, List<string>>();
         InitTurretGroups();
+        random = new Random();
     }
 
 
@@ -40,6 +43,9 @@ public class SpiralAttack : MonoBehaviour
 
     IEnumerator TripleShootAndRotate(ShootSpiralBullet[] turrets)
     {
+        var rng = random.Next(0, 6);
+        var direction = rng == 0? -1 : 1;
+        
         // Offer warning blinks
         List<string> warned = warningManager.ToggleWarning(GetWarningObjects(), true, WarningManager.WarningType.SPIRAL);
         yield return new WaitForSeconds(warningTime);  // adds some padding between shoot and rotations
@@ -47,7 +53,9 @@ public class SpiralAttack : MonoBehaviour
         warningManager.ToggleWarning(warned, false, WarningManager.WarningType.SPIRAL);
         Shoot(turrets);
         // increment the target index because we already shot at above.
-        currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
+        currTargetIndex = (currTargetIndex + direction) % NUM_SLICES;
+        if (currTargetIndex < 0)
+            currTargetIndex += NUM_SLICES;
         // Determine position of child to shoot at.
         Vector3 directionToTarget1 = targetsParent.transform.GetChild(currTargetIndex).position - turretsRig.transform.position;
         Quaternion firstTargetRotation = Quaternion.LookRotation(directionToTarget1, Vector3.up);
@@ -64,7 +72,9 @@ public class SpiralAttack : MonoBehaviour
         // Second round of shots.
         Shoot(turrets);
         // increment the target index
-        currTargetIndex = (currTargetIndex + 1) % NUM_SLICES;
+        currTargetIndex = (currTargetIndex + direction) % NUM_SLICES;
+        if (currTargetIndex < 0)
+            currTargetIndex += NUM_SLICES;
         // Determine position of child to shoot at
         Vector3 directionToTarget2 = targetsParent.transform.GetChild(currTargetIndex).position - turretsRig.transform.position;
         Quaternion secondTargetRotation = Quaternion.LookRotation(directionToTarget2, Vector3.up);
