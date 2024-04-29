@@ -11,7 +11,9 @@ public class bossDamageVFX : MonoBehaviour
     private bool heavyDamagePlayed = false;
     public float lightDamageThreshold = 50f;
     public float heavyDamageThreshold = 20f;
-    
+    private bool isPlaying = false;
+
+
     void Start()
     {
         foreach(VisualEffect effect in effects)
@@ -37,6 +39,25 @@ public class bossDamageVFX : MonoBehaviour
                 heavyDamage();
                 heavyDamagePlayed = true;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if(isPlaying == false)
+            {
+                lightDamage();
+                heavyDamage();
+                isPlaying = true;
+            }
+            else
+            {
+                foreach (VisualEffect effect in effects)
+                {
+                    effect.Stop();
+                }
+                isPlaying = false;
+            }
+            
         }
     }
 

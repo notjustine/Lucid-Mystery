@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private ArenaInitializer arenaInitializer;
     public int currentRingIndex = 0;
     public int currentTileIndex = 0;
-    private Animator animator;
+    //private Animator animator;
     private Transform cameraTransform;
     private PlayerInput input;
     public event Action OnAttackEvent;
@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
-        animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
+        //animator = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Animator>();
         beatChecker = FindObjectOfType<BeatCheckController>();
         arenaInitializer = FindObjectOfType<ArenaInitializer>();
         cameraTransform = Camera.main.transform;
@@ -75,7 +75,7 @@ public class PlayerControl : MonoBehaviour
         if (inputted || context.phase != InputActionPhase.Started)
             return;
         AudioManager.instance.PlayOneShotAttached(SoundRef.Instance.attackSwing, gameObject);
-        animator.SetTrigger(Attack1);
+        //animator.SetTrigger(Attack1);
         beatChecker.SetVulnerable(true);
         inputted = true;
         OnAttackEvent?.Invoke();
@@ -85,7 +85,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+        //transform.rotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
     }
 
     /**

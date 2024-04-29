@@ -77,7 +77,7 @@ public class PlayerVisuals : MonoBehaviour
 
     public void FlashDamageColor()
     {
-        flashing.AddRange(playerGeos);
+        //flashing.AddRange(playerGeos);
         playerStatus.isInvincible = true;
         sinceHit = 0;
         StartCoroutine(DisableFlashAfterDelay());

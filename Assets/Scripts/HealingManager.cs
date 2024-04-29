@@ -75,9 +75,18 @@ public class HealingManager : MonoBehaviour
                 tempRenderer.SetPropertyBlock(propBlock);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleHealing(true);
+            Invoke("ToggleHealingOff", 1);
+        }
     }
-
-
+    
+    void ToggleHealingOff()
+    {
+        ToggleHealing(false);
+    }
     /**
         Toggles two healing tiles on or toggles all remaining ones back to original accordingly.
     */

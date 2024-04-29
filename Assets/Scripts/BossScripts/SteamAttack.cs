@@ -47,6 +47,10 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L)){
+            TriggerAttack();
+        }
+            
     }
 
     private void OnDestroy()

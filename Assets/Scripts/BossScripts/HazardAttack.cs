@@ -32,7 +32,10 @@ public class HazardAttack : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TriggerAttack();
+        }
     }
 
     public void CleanupHazard(string tileName)
@@ -53,7 +56,7 @@ public class HazardAttack : MonoBehaviour
 
     public void OnHazardLanded(GameObject hazard, GameObject collide, string tileName)
     {
-        PlayDustEffect();
+        //PlayDustEffect();
         Vector3 nailSpawnPos = new Vector3(collide.transform.position.x, 0f, collide.transform.position.z);
         GameObject nails = Instantiate(Nails, nailSpawnPos, Quaternion.identity);
         nailsMap[tileName] = nails;

@@ -35,7 +35,7 @@ public class PlayerStatus : MonoBehaviour
     {
         if (isInvincible)
             return;
-        AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
+        //AudioManager.instance.PlayOneShot(SoundRef.Instance.dmgTaken, gameObject.transform.position);
 
         if (PlayerPrefs.GetInt("Rumble", 0) == 1 && Gamepad.current != null)
             StartCoroutine(ControllerRumble(0.2f));

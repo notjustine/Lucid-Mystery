@@ -31,7 +31,10 @@ public class BossHealth : MonoBehaviour
         {
             healthBar.SetSliderMax(maxHealth);
         }
-        
+
+        animationStateController.TriggerAwaken();
+        bossStates.isSleeping = false;
+
     }
     public void TakeDamage(float amount)
     {
@@ -40,9 +43,9 @@ public class BossHealth : MonoBehaviour
         if (amount > 0 && currHealth == maxHealth)
         {
             AudioManager.instance.PhaseMusicChange(1);
-            animationStateController.TriggerAwaken();
+            
             DifficultyManager.phase = 1;
-            bossStates.isSleeping = false;
+            
             furnace.GetComponent<MeshRenderer>().material = furnaceOn;
         }
         currHealth -= amount;

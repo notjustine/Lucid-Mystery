@@ -17,7 +17,7 @@ public class AnimationStateController : MonoBehaviour
     // BOSS ANIMATIONS
     public void TriggerAwaken()             // call in BossHealth.cs
     {                                       // clip length: 1.292
-        animator.SetTrigger("Awaken");
+        //animator.SetTrigger("Awaken");
         Invoke("ClearFlinch", 1.0f);
     }
 

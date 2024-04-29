@@ -28,8 +28,14 @@ public class HealKitTutorialController : MonoBehaviour
             Destroy(gameObject);
             OnHealEvent?.Invoke();
         }
+
+        Invoke("inactivate", 8);
     }
 
+    private void inactivate()
+    {
+        animator.SetBool("isActive", false);
+    }
     /**
         If the player bumps into a heal kit, trigger healing and animate the healkit.
     */

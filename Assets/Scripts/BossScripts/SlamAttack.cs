@@ -16,16 +16,16 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
     private PlayerStatus playerStatus;
     private DifficultyManager difficultyManager;
     private WarningManager warningManager;
-    private AnimationStateController animationStateController;
-    private CameraControl cameraControl;
+    [SerializeField] private AnimationStateController animationStateController;
+    //private CameraControl cameraControl;
 
 
     private void Start()
     {
         playerControl = FindObjectOfType<PlayerControl>();
         playerStatus = FindObjectOfType<PlayerStatus>();
-        animationStateController = FindObjectsOfType<AnimationStateController>()[1];
-        cameraControl = FindObjectOfType<CameraControl>();
+        //animationStateController = FindObjectsOfType<AnimationStateController>()[1];
+        //cameraControl = FindObjectOfType<CameraControl>();
 
         // Set default stat values based on initial difficulty
         difficultyManager = DifficultyManager.Instance;
@@ -35,14 +35,22 @@ public class SlamAttack : MonoBehaviour, IWarningGenerator
 
     private void Update()
     {
+        // Check for input to trigger the Slam Attack
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            // Get the current tile index from the player control
+            int currentTileIndex = playerControl.currentTileIndex;
 
+            // Trigger the Slam Attack
+            TriggerAttack(currentTileIndex);
+        }
     }
 
     public void TriggerAttack(int tileIndex)
     {
         StartCoroutine(AttackSequence(tileIndex));
         animationStateController.TriggerSlam();
-        cameraControl.Invoke("TriggerShake", 2.5f);
+        //cameraControl.Invoke("TriggerShake", 2.5f);
         Invoke("PlayDust", 2.5f);
         AudioManager.instance.PlayOneShot(SoundRef.Instance.slamAttack, playerControl.gameObject.transform.position);
     }
