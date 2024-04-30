@@ -208,7 +208,7 @@ public class TutorialManager : MonoBehaviour, IWarningGenerator
             moveCount += 1;
             //Debug.Log("adding moveCount");
         }
-        if (moveCount >= 15)    // how many moves the player can input before it switches to the heal instruction
+        if (moveCount >= 8)    // how many moves the player can input before it switches to the heal instruction
         {
             currentState = TutorialState.Heal;
         }
