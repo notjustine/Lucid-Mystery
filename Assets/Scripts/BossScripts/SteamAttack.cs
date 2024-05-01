@@ -102,12 +102,19 @@ public class SteamAttack : MonoBehaviour, IWarningGenerator
             playerStatus.TakeDamage(steamDamage);
 
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
 
         foreach (VisualEffect effect in effects)
         {
             effect.Stop();
         }
+        //yield return new WaitForSeconds(0.5f);
+
+        /*foreach (VisualEffect effect in effects)
+        {
+            effect.Stop();
+        }*/
+        yield return new WaitForSeconds(0.2f);
 
         foreach (StudioEventEmitter em in emitters)
         {
